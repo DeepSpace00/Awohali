@@ -20,4 +20,4 @@ Documentation, firmware, hardware, and software are individually licensed. Terms
 
 **Firmware/Software -** [The MIT License](firmware/LICENSE)
 
-**Hardware -** [CERN-OHL-P-2.0](hardware/LICENSE)
+**Hardware -** [CERN-OHL-P v2 or later](hardware/LICENSE)
