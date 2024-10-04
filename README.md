@@ -17,5 +17,7 @@ Preview with [KiCanvas](https://kicanvas.org/?github=https%3A%2F%2Fgithub.com%2F
 Documentation, firmware, hardware, and software are individually licensed. Terms and conditions apply within their respective folders.
 
 **Documentation -** [Apache License 2.0](docs/LICENSE)
+
 **Firmware/Software -** [The MIT License](firmware/LICENSE)
+
 **Hardware -** [CERN-OHL-P-2.0](hardware/LICENSE)
