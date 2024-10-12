@@ -2,6 +2,8 @@
 
 Firmware Setup
 
+- Initialize venv: python3 -m venv .venv. then source .venv/bin/activate. then pip install -e scripts/.
+
 - Open the venv
 
 - cd firmware 
