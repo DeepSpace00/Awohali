@@ -6,6 +6,8 @@ An open-source hardware GNSS receiver station for measuring tropospheric precipi
 
 A master's thesis project within Embry-Riddle Aeronautical University's Physical Science Department.
 
+⚠️ WARNING This project is currently under development ⚠️
+
 ## Docs
 
 https://deepspace00.github.io/Awohali/
