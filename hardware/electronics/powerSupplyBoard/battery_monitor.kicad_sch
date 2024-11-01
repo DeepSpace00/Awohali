@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "LiFePO4 Monitor & Balancer")
-		(date "2024-10-13")
+		(date "2024-11-01")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
@@ -187,7 +187,586 @@
 				)
 			)
 		)
-		(symbol "DS-PMIC:BQ76905"
+		(symbol "NMOS_SGD_PWR_1"
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 0 6.35 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "VAL"
+				(at 0 5.08 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 1.905 2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 -2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "N-Channel MOSFET"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "VDSS" "VDSS"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify right)
+				)
+			)
+			(property "VGSTH" "VGSTH"
+				(at 0 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify right)
+				)
+			)
+			(property "ID" "ID"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "RDSON" "RDSON"
+				(at 0 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NMOS_SGD_PWR_1_0_1"
+				(polyline
+					(pts
+						(xy -3.175 -1.27) (xy -1.905 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.635 -1.27) (xy 0.635 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.905 -1.27) (xy 3.175 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -2.54 0) (xy -3.175 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -1.27) (xy 2.54 0) (xy 3.175 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NMOS_SGD_PWR_1_1_0"
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 3.175)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905) hide
+					(name "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "NMOS_SGD_PWR_1_1_1"
+				(circle
+					(center -2.54 0)
+					(radius 0.1796)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.175 -1.905) (xy 3.175 -1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.381 1.651) (xy -0.381 0.889)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 0) (xy -2.54 1.27) (xy -0.381 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.381 1.27) (xy 2.54 1.27) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.381 1.27) (xy 0.381 0.889) (xy 0.381 1.651) (xy -0.381 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy 0.381 -0.508) (xy -0.381 -0.508) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 0)
+					(radius 0.1796)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:BAT+"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "BAT+"
+				(at 0 3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "BAT+_0_1"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "BAT+_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:BQ76905"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -659,7 +1238,7 @@
 				)
 			)
 		)
-		(symbol "DS-Passives:C"
+		(symbol "lib_sch:C"
 			(pin_numbers hide)
 			(pin_names hide)
 			(exclude_from_sim no)
@@ -834,7 +1413,7 @@
 				)
 			)
 		)
-		(symbol "DS-Passives:C_horizontal"
+		(symbol "lib_sch:C_horizontal"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1006,7 +1585,193 @@
 				)
 			)
 		)
-		(symbol "DS-Passives:D_Schottky_horizontal"
+		(symbol "lib_sch:D_Schottky"
+			(pin_numbers hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 1.27 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "VAL"
+				(at 1.27 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Reverse Voltage" "RVOLT"
+				(at 1.27 0 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Forward Voltage" "FVOLT"
+				(at 1.27 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Current" "CURR"
+				(at 1.27 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(symbol "D_Schottky_1_0"
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 2.54 270)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "D_Schottky_1_1"
+				(polyline
+					(pts
+						(xy -0.635 -0.635) (xy 0.635 -0.635) (xy 0 0.635) (xy -0.635 -0.635)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.635) (xy -0.635 0.635) (xy -0.635 0.889) (xy -0.635 1.016) (xy -0.381 1.016)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.635) (xy 0.635 0.635) (xy 0.635 0.381) (xy 0.635 0.254) (xy 0.381 0.254)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:D_Schottky_horizontal"
 			(pin_numbers hide)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1191,553 +1956,7 @@
 				)
 			)
 		)
-		(symbol "DS-Passives:NT"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "NT?"
-				(at 1.27 0.635 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "Net-Tie"
-				(at 1.27 -0.635 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "NT_0_1"
-				(polyline
-					(pts
-						(xy -0.635 1.27) (xy -0.635 -1.27) (xy 0.635 -1.27) (xy 0.635 1.27) (xy -0.635 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "NT_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Passives:R"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R?"
-				(at 1.27 2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "VAL"
-				(at 1.27 1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "TOL"
-				(at 1.27 0 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Power Rating" "PWR"
-				(at 1.27 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Package" "PKG"
-				(at 1.27 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(symbol "R_0_1"
-				(polyline
-					(pts
-						(xy -0.635 1.27) (xy -0.635 -1.27) (xy 0.635 -1.27) (xy 0.635 1.27) (xy -0.635 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Passives:R_horizontal"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R?"
-				(at 0 1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-				)
-			)
-			(property "Value" "VAL"
-				(at 0 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify right)
-				)
-			)
-			(property "Footprint" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "TOL"
-				(at 0 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify right)
-				)
-			)
-			(property "Power Rating" "PWR"
-				(at 0 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify left)
-				)
-			)
-			(property "Package" "PKG"
-				(at 0 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify left)
-				)
-			)
-			(symbol "R_horizontal_0_1"
-				(polyline
-					(pts
-						(xy -1.27 -0.635) (xy 1.27 -0.635) (xy 1.27 0.635) (xy -1.27 0.635) (xy -1.27 -0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_horizontal_1_1"
-				(pin passive line
-					(at -2.54 0 0)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 0 180)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Power:BAT+"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "BAT+"
-				(at 0 3.556 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "BAT+_0_1"
-				(polyline
-					(pts
-						(xy -1.27 2.54) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "BAT+_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Power:GND"
+		(symbol "lib_sch:GND"
 			(power)
 			(pin_numbers hide)
 			(pin_names
@@ -1894,30 +2113,28 @@
 				)
 			)
 		)
-		(symbol "DS-Transistors:NMOS_SGD_PWR"
+		(symbol "lib_sch:NMOS_SGD_PWR"
 			(pin_names hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "Q"
-				(at 0 6.35 0)
-				(do_not_autoplace)
+			(property "Reference" "Q3"
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.016 1.016)
 					)
 				)
 			)
-			(property "Value" "VAL"
-				(at 0 5.08 0)
-				(do_not_autoplace)
+			(property "Value" "CSD18532Q5B"
+				(at 0 3.81 0)
 				(effects
 					(font
 						(size 1.016 1.016)
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "DS-Package-SO:SON8P127_500X600X100L56X41N"
 				(at 1.905 2.54 90)
 				(effects
 					(font
@@ -1928,7 +2145,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" ""
+			(property "Datasheet" "datasheets/Texas-Instruments-CSD18532Q5B.pdf"
 				(at 0 -2.54 90)
 				(effects
 					(font
@@ -1938,7 +2155,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "N-Channel MOSFET"
+			(property "Description" "MOSFET N-CH 60V 100A 8VSON"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1947,7 +2164,7 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer" "~"
+			(property "Manufacturer" "Texas Instruments"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1956,7 +2173,7 @@
 					(hide yes)
 				)
 			)
-			(property "MPN" "~"
+			(property "MPN" "CSD18532Q5B"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1965,7 +2182,7 @@
 					(hide yes)
 				)
 			)
-			(property "DKPN" "~"
+			(property "DKPN" "296-35628-1-ND"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1974,9 +2191,8 @@
 					(hide yes)
 				)
 			)
-			(property "VDSS" "VDSS"
-				(at 0 3.81 0)
-				(do_not_autoplace)
+			(property "VDSS" "60V"
+				(at 0 5.08 0)
 				(effects
 					(font
 						(size 1.016 1.016)
@@ -1984,9 +2200,8 @@
 					(justify right)
 				)
 			)
-			(property "VGSTH" "VGSTH"
-				(at 0 2.54 0)
-				(do_not_autoplace)
+			(property "VGSTH" "2V2"
+				(at 0 6.35 0)
 				(effects
 					(font
 						(size 1.016 1.016)
@@ -1994,9 +2209,8 @@
 					(justify right)
 				)
 			)
-			(property "ID" "ID"
-				(at 0 3.81 0)
-				(do_not_autoplace)
+			(property "ID" "100A"
+				(at 0 5.08 0)
 				(effects
 					(font
 						(size 1.016 1.016)
@@ -2004,9 +2218,8 @@
 					(justify left)
 				)
 			)
-			(property "RDSON" "RDSON"
-				(at 0 2.54 0)
-				(do_not_autoplace)
+			(property "RDSON" "3.2mR"
+				(at 0 6.35 0)
 				(effects
 					(font
 						(size 1.016 1.016)
@@ -2209,14 +2422,14 @@
 				(pin passive line
 					(at -5.08 0 0)
 					(length 1.905) hide
-					(name "8"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2234,7 +2447,7 @@
 							)
 						)
 					)
-					(number "7"
+					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2352,12 +2565,469 @@
 				)
 			)
 		)
-		(symbol "D_Schottky_1"
-			(pin_numbers hide)
+		(symbol "lib_sch:NMOS_SGD_PWR_1"
+			(pin_names hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "D"
+			(property "Reference" "Q"
+				(at 0 6.35 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "VAL"
+				(at 0 5.08 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 1.905 2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 -2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "N-Channel MOSFET"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "VDSS" "VDSS"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify right)
+				)
+			)
+			(property "VGSTH" "VGSTH"
+				(at 0 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify right)
+				)
+			)
+			(property "ID" "ID"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "RDSON" "RDSON"
+				(at 0 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NMOS_SGD_PWR_1_0_1"
+				(polyline
+					(pts
+						(xy -3.175 -1.27) (xy -1.905 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.635 -1.27) (xy 0.635 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.905 -1.27) (xy 3.175 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -2.54 0) (xy -3.175 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -1.27) (xy 2.54 0) (xy 3.175 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NMOS_SGD_PWR_1_1_0"
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 3.175)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 1.905) hide
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "NMOS_SGD_PWR_1_1_1"
+				(circle
+					(center -2.54 0)
+					(radius 0.1796)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.175 -1.905) (xy 3.175 -1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.381 1.651) (xy -0.381 0.889)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 0) (xy -2.54 1.27) (xy -0.381 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.381 1.27) (xy 2.54 1.27) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.381 1.27) (xy 0.381 0.889) (xy 0.381 1.651) (xy -0.381 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy 0.381 -0.508) (xy -0.381 -0.508) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 0)
+					(radius 0.1796)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:R"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R?"
 				(at 1.27 2.54 0)
 				(do_not_autoplace)
 				(effects
@@ -2378,7 +3048,7 @@
 				)
 			)
 			(property "Footprint" ""
-				(at 0 0 90)
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2387,7 +3057,7 @@
 				)
 			)
 			(property "Datasheet" ""
-				(at 0 0 90)
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2396,7 +3066,7 @@
 				)
 			)
 			(property "Description" ""
-				(at 0 0 90)
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2405,7 +3075,7 @@
 				)
 			)
 			(property "Manufacturer" ""
-				(at 0 0 90)
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2414,7 +3084,7 @@
 				)
 			)
 			(property "MPN" ""
-				(at 0 0 90)
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2423,7 +3093,7 @@
 				)
 			)
 			(property "DKPN" ""
-				(at 0 0 90)
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2431,7 +3101,7 @@
 					(hide yes)
 				)
 			)
-			(property "Reverse Voltage" "RVOLT"
+			(property "Tolerance" "TOL"
 				(at 1.27 0 0)
 				(do_not_autoplace)
 				(effects
@@ -2441,7 +3111,7 @@
 					(justify left)
 				)
 			)
-			(property "Forward Voltage" "FVOLT"
+			(property "Power Rating" "PWR"
 				(at 1.27 -1.27 0)
 				(do_not_autoplace)
 				(effects
@@ -2451,7 +3121,7 @@
 					(justify left)
 				)
 			)
-			(property "Current" "CURR"
+			(property "Package" "PKG"
 				(at 1.27 -2.54 0)
 				(do_not_autoplace)
 				(effects
@@ -2461,79 +3131,215 @@
 					(justify left)
 				)
 			)
-			(symbol "D_Schottky_1_1_0"
+			(symbol "R_0_1"
+				(polyline
+					(pts
+						(xy -0.635 1.27) (xy -0.635 -1.27) (xy 0.635 -1.27) (xy 0.635 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
 				(pin passive line
-					(at 0 -2.54 90)
-					(length 1.905)
+					(at 0 2.54 270)
+					(length 1.27)
 					(name ""
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 0 0)
 							)
 						)
 					)
 					(number "1"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 0 0)
 							)
 						)
 					)
 				)
 				(pin passive line
-					(at 0 2.54 270)
-					(length 1.905)
+					(at 0 -2.54 90)
+					(length 1.27)
 					(name ""
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 0 0)
 							)
 						)
 					)
 					(number "2"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 0 0)
 							)
 						)
 					)
 				)
 			)
-			(symbol "D_Schottky_1_1_1"
+		)
+		(symbol "lib_sch:R_horizontal"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R?"
+				(at 0 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "VAL"
+				(at 0 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify right)
+				)
+			)
+			(property "Footprint" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerance" "TOL"
+				(at 0 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify right)
+				)
+			)
+			(property "Power Rating" "PWR"
+				(at 0 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify left)
+				)
+			)
+			(property "Package" "PKG"
+				(at 0 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify left)
+				)
+			)
+			(symbol "R_horizontal_0_1"
 				(polyline
 					(pts
-						(xy -0.635 -0.635) (xy 0.635 -0.635) (xy 0 0.635) (xy -0.635 -0.635)
+						(xy -1.27 -0.635) (xy 1.27 -0.635) (xy 1.27 0.635) (xy -1.27 0.635) (xy -1.27 -0.635)
 					)
 					(stroke
-						(width 0.1524)
+						(width 0)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0 0.635) (xy -0.635 0.635) (xy -0.635 0.889) (xy -0.635 1.016) (xy -0.381 1.016)
+			)
+			(symbol "R_horizontal_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
 					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0 0.635) (xy 0.635 0.635) (xy 0.635 0.381) (xy 0.635 0.254) (xy 0.381 0.254)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
 					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
+					(number "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
 					)
 				)
 			)
@@ -2654,12 +3460,6 @@
 		(uuid "8b2c86b1-ad8c-49dd-9153-bed102bb7ed3")
 	)
 	(junction
-		(at 34.29 64.77)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8f064ebf-e25f-49c4-9a05-11f02722713b")
-	)
-	(junction
 		(at 139.7 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2678,7 +3478,7 @@
 		(uuid "9cf5a5c8-dad0-44a9-a9dc-d01b9165844f")
 	)
 	(junction
-		(at 86.36 96.52)
+		(at 81.28 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a4e31b73-efc3-4713-93ea-30b53dc0eba8")
@@ -2745,7 +3545,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 96.52) (xy 86.36 99.06)
+			(xy 81.28 96.52) (xy 81.28 99.06)
 		)
 		(stroke
 			(width 0)
@@ -2782,16 +3582,6 @@
 			(type default)
 		)
 		(uuid "0baa76c8-c96f-4908-8694-2db89cbfade4")
-	)
-	(wire
-		(pts
-			(xy 34.29 64.77) (xy 35.56 64.77)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0edf5558-bf87-4099-a1ca-a3ce2f63b1ad")
 	)
 	(wire
 		(pts
@@ -2832,16 +3622,6 @@
 			(type default)
 		)
 		(uuid "12f61a62-2e5d-46ef-a2cb-70bfe396341b")
-	)
-	(wire
-		(pts
-			(xy 34.29 73.66) (xy 34.29 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1390f90b-dea6-4369-93cb-105483ab147b")
 	)
 	(wire
 		(pts
@@ -3075,7 +3855,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 96.52) (xy 86.36 96.52)
+			(xy 83.82 96.52) (xy 81.28 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3255,16 +4035,6 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 64.77) (xy 34.29 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8e54819c-9df0-4b56-922f-95c747a22c76")
-	)
-	(wire
-		(pts
 			(xy 130.81 118.11) (xy 130.81 119.38)
 		)
 		(stroke
@@ -3275,7 +4045,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 88.9) (xy 86.36 96.52)
+			(xy 81.28 88.9) (xy 81.28 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3345,7 +4115,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 88.9) (xy 86.36 88.9)
+			(xy 83.82 88.9) (xy 81.28 88.9)
 		)
 		(stroke
 			(width 0)
@@ -3535,7 +4305,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 64.77) (xy 34.29 64.77)
+			(xy 29.21 64.77) (xy 35.56 64.77)
 		)
 		(stroke
 			(width 0)
@@ -3625,7 +4395,17 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 96.52) (xy 96.52 96.52)
+			(xy 88.9 88.9) (xy 96.52 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cf00e799-f276-40b2-a813-6656d2bec758")
+	)
+	(wire
+		(pts
+			(xy 88.9 96.52) (xy 96.52 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3712,16 +4492,6 @@
 			(type default)
 		)
 		(uuid "e337d713-0b44-442d-a176-fd5477ad1076")
-	)
-	(wire
-		(pts
-			(xy 96.52 88.9) (xy 93.98 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e359a21f-7598-4180-916f-dcdbc5d6fc19")
 	)
 	(wire
 		(pts
@@ -3923,6 +4693,17 @@
 		)
 		(uuid "70e064db-d203-4b58-934c-e46ac87d7757")
 	)
+	(label "REGSRC"
+		(at 88.9 96.52 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7c739e3f-fc90-4c81-a1b4-b74f3cb22180")
+	)
 	(label "TS"
 		(at 132.08 114.3 180)
 		(fields_autoplaced yes)
@@ -4011,6 +4792,17 @@
 		)
 		(uuid "ec2f7487-38b1-43af-b284-ed63175c3ddd")
 	)
+	(label "REGOUT"
+		(at 88.9 88.9 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f9291e4e-3889-4ae3-af82-8163bfcc833c")
+	)
 	(hierarchical_label "1P"
 		(shape input)
 		(at 29.21 58.42 180)
@@ -4096,7 +4888,7 @@
 		(uuid "f2f49be9-0a3a-4fd5-b4b5-953172bbf367")
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 190.5 113.03 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4104,7 +4896,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "06313ce2-37ed-44b6-86a8-4cccfd794fef")
-		(property "Reference" "R17"
+		(property "Reference" "R22"
 			(at 191.77 110.49 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4217,14 +5009,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R17")
+					(reference "R22")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C_horizontal")
+		(lib_id "lib_sch:C_horizontal")
 		(at 190.5 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4233,7 +5025,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "078306bb-5128-4f11-8f2e-feac68d95187")
-		(property "Reference" "C27"
+		(property "Reference" "C38"
 			(at 190.5 135.255 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4345,14 +5137,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C27")
+					(reference "C38")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C")
 		(at 134.62 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4361,7 +5153,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "09e393b7-3ad8-4ee7-8fd8-f873f26270c9")
-		(property "Reference" "C22"
+		(property "Reference" "C33"
 			(at 136.525 90.17 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4474,14 +5266,14 @@
 		(instances
 			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C22")
+					(reference "C33")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 149.86 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4490,7 +5282,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0fb7539b-cded-4dd1-9c23-ba4a3d0de74a")
-		(property "Reference" "R12"
+		(property "Reference" "R17"
 			(at 149.86 116.84 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4602,14 +5394,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R12")
+					(reference "R17")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:GND")
 		(at 50.8 74.93 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4676,7 +5468,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C")
 		(at 142.24 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4685,7 +5477,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1f3baec2-f519-4d31-ae34-326cf5643257")
-		(property "Reference" "C23"
+		(property "Reference" "C34"
 			(at 144.145 90.17 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4798,81 +5590,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C23")
+					(reference "C34")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
-		(at 34.29 74.93 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "253144f6-82f0-4176-9f11-a6e7e7879fce")
-		(property "Reference" "#PWR019"
-			(at 34.29 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 34.29 78.74 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 34.29 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 34.29 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 34.29 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ae5d382d-bf42-4088-b319-20a038e66c89")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "#PWR019")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 156.21 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4880,7 +5605,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "25385678-d211-4c6b-b894-ed45885450b4")
-		(property "Reference" "R14"
+		(property "Reference" "R19"
 			(at 157.48 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4993,15 +5718,15 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R14")
+					(reference "R19")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
-		(at 86.36 99.06 0)
+		(lib_id "lib_sch:GND")
+		(at 81.28 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5010,7 +5735,7 @@
 		(fields_autoplaced yes)
 		(uuid "30567d17-c3e4-43b8-a098-d75650efab21")
 		(property "Reference" "#PWR020"
-			(at 86.36 99.06 0)
+			(at 81.28 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5019,7 +5744,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 86.36 102.87 0)
+			(at 81.28 102.87 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5028,7 +5753,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 86.36 99.06 0)
+			(at 81.28 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5037,7 +5762,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 86.36 99.06 0)
+			(at 81.28 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5046,7 +5771,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 86.36 99.06 0)
+			(at 81.28 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5067,7 +5792,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:BAT+")
+		(lib_id "lib_sch:BAT+")
 		(at 29.21 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5134,7 +5859,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:BAT+")
+		(lib_id "lib_sch:BAT+")
 		(at 166.37 78.74 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5201,7 +5926,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C")
 		(at 130.81 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5210,7 +5935,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4dc47638-1b70-4311-94c3-e72cad807c8b")
-		(property "Reference" "C24"
+		(property "Reference" "C35"
 			(at 132.715 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5323,14 +6048,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C24")
+					(reference "C35")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 151.13 88.9 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5339,7 +6064,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "62e836d6-5a5c-4a90-a281-4bca51e0e91b")
-		(property "Reference" "R11"
+		(property "Reference" "R16"
 			(at 151.13 87.63 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5451,14 +6176,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R11")
+					(reference "R16")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C_horizontal")
+		(lib_id "lib_sch:C_horizontal")
 		(at 177.8 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5467,7 +6192,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "657b1c53-1185-4bf7-a767-bd4f2dd4e972")
-		(property "Reference" "C26"
+		(property "Reference" "C37"
 			(at 177.8 135.255 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5579,14 +6304,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C26")
+					(reference "C37")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 88.9 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5594,7 +6319,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "658abefc-66f3-4fc3-9410-46531cd87fbc")
-		(property "Reference" "R9"
+		(property "Reference" "R24"
 			(at 90.17 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5707,14 +6432,143 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R9")
+					(reference "R24")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:D_Schottky")
+		(at 207.01 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "68da29ed-3f42-4d6a-a3c2-508d04be4301")
+		(property "Reference" "D4"
+			(at 208.28 119.38 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "B0520LWQ"
+			(at 208.28 120.65 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "DS-Package-SO:SOD123"
+			(at 207.01 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Diodes-Incorporated-B0520LW.pdf"
+			(at 207.01 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "DIODE SCHOTTKY 20V 500MA SOD123"
+			(at 207.01 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Diodes Incorporated"
+			(at 207.01 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "B0520LWQ-7-F"
+			(at 207.01 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "B0520LWQ-7-FDICT-ND"
+			(at 207.01 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Reverse Voltage" "20V"
+			(at 208.28 121.92 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Forward Voltage" "385mV"
+			(at 208.28 123.19 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Current" "500mA"
+			(at 208.28 124.46 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "2c9c118c-757d-43e8-afbc-f175ae27efe5")
+		)
+		(pin "2"
+			(uuid "50025cd8-f5e5-4dd6-be27-71bb0177d328")
+		)
+		(instances
+			(project ""
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
 		(at 46.99 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5723,7 +6577,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "751de08e-cc19-4944-8436-59dec536bbd7")
-		(property "Reference" "C28"
+		(property "Reference" "C39"
 			(at 48.895 52.07 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5836,144 +6690,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C28")
+					(reference "C39")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_name "D_Schottky_1")
-		(lib_id "DSE-Passives:D_Schottky")
-		(at 207.01 121.92 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "76831f9b-cf9a-4b33-ae75-98bcb9140055")
-		(property "Reference" "D4"
-			(at 208.28 119.38 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "B0520LWQ"
-			(at 208.28 120.65 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "DS-Package-SO:SOD123"
-			(at 207.01 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Diodes-Incorporated-B0520LW.pdf"
-			(at 207.01 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "DIODE SCHOTTKY 20V 500MA SOD123"
-			(at 207.01 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Diodes Incorporated"
-			(at 207.01 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "B0520LWQ-7-F"
-			(at 207.01 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "B0520LWQ-7-FDICT-ND"
-			(at 207.01 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Reverse Voltage" "20V"
-			(at 208.28 121.92 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Forward Voltage" "385mV"
-			(at 208.28 123.19 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Current" "500mA"
-			(at 208.28 124.46 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "1"
-			(uuid "f174cc11-d98f-40e5-9aaf-9be7e1986869")
-		)
-		(pin "2"
-			(uuid "44f49872-e617-4908-afc1-bddd2622e686")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "D4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 38.1 64.77 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5982,7 +6706,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7e5d0346-e735-45e7-92ca-243299662d59")
-		(property "Reference" "R21"
+		(property "Reference" "R27"
 			(at 38.1 63.5 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6001,7 +6725,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Resistors-SMD:CRCW1206"
 			(at 35.56 64.77 90)
 			(effects
 				(font
@@ -6094,14 +6818,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R21")
+					(reference "R27")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 149.86 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6110,7 +6834,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8bc76d90-0eb6-4e4a-b730-29976dbbe6c8")
-		(property "Reference" "R13"
+		(property "Reference" "R18"
 			(at 149.86 124.46 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6222,14 +6946,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R13")
+					(reference "R18")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 38.1 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6238,7 +6962,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8c299f13-b21e-4e34-8540-ea439f61824c")
-		(property "Reference" "R20"
+		(property "Reference" "R26"
 			(at 38.1 57.15 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6257,7 +6981,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Resistors-SMD:CRCW1206"
 			(at 35.56 58.42 90)
 			(effects
 				(font
@@ -6350,14 +7074,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R20")
+					(reference "R26")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:D_Schottky_horizontal")
+		(lib_id "lib_sch:D_Schottky_horizontal")
 		(at 161.29 88.9 0)
 		(mirror y)
 		(unit 1)
@@ -6485,8 +7209,8 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C_horizontal")
-		(at 91.44 96.52 0)
+		(lib_id "lib_sch:C_horizontal")
+		(at 86.36 96.52 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6494,8 +7218,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "902c3937-85f0-493e-b478-940af0775a79")
-		(property "Reference" "C21"
-			(at 91.44 94.615 0)
+		(property "Reference" "C32"
+			(at 86.36 94.615 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6504,7 +7228,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 91.44 98.425 0)
+			(at 86.36 98.425 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6514,7 +7238,7 @@
 			)
 		)
 		(property "Footprint" "DS-Capacitors-SMD:MLCC0805"
-			(at 91.44 102.235 0)
+			(at 86.36 102.235 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6523,7 +7247,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
-			(at 91.44 102.235 0)
+			(at 86.36 102.235 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6532,7 +7256,7 @@
 			)
 		)
 		(property "Description" "CAP CER 1UF 10V X7R 0805"
-			(at 91.44 96.52 0)
+			(at 86.36 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6541,7 +7265,7 @@
 			)
 		)
 		(property "Manufacturer" "KYOCERA AVX"
-			(at 91.44 102.235 0)
+			(at 86.36 102.235 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6550,7 +7274,7 @@
 			)
 		)
 		(property "MPN" "0805ZC105KAT2A"
-			(at 91.44 102.235 0)
+			(at 86.36 102.235 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6559,7 +7283,7 @@
 			)
 		)
 		(property "DKPN" "478-KGM21AR71A105KUCT-ND"
-			(at 91.44 96.52 0)
+			(at 86.36 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6568,7 +7292,7 @@
 			)
 		)
 		(property "Tolerace" "10%"
-			(at 91.44 98.425 0)
+			(at 86.36 98.425 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6578,7 +7302,7 @@
 			)
 		)
 		(property "Voltage Rating" "10V"
-			(at 91.44 99.695 0)
+			(at 86.36 99.695 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6588,7 +7312,7 @@
 			)
 		)
 		(property "Package" "0805"
-			(at 91.44 99.695 0)
+			(at 86.36 99.695 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6606,14 +7330,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C21")
+					(reference "C32")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-PMIC:BQ76905")
+		(lib_id "lib_sch:BQ76905")
 		(at 111.76 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6622,7 +7346,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "91980a11-58de-4462-b485-5644254a8b90")
-		(property "Reference" "U2"
+		(property "Reference" "U5"
 			(at 99.06 85.09 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6762,14 +7486,14 @@
 		(instances
 			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "U2")
+					(reference "U5")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 170.18 121.92 0)
 		(mirror y)
 		(unit 1)
@@ -6778,7 +7502,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "96f75824-17ae-45af-8008-922c0d1c0d48")
-		(property "Reference" "R15"
+		(property "Reference" "R20"
 			(at 168.91 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6891,14 +7615,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R15")
+					(reference "R20")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:GND")
 		(at 129.54 134.62 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6965,7 +7689,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:GND")
 		(at 142.24 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7032,7 +7756,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 151.13 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7041,7 +7765,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b8c34397-105d-495f-b67d-b257048cf09e")
-		(property "Reference" "R10"
+		(property "Reference" "R15"
 			(at 151.13 80.01 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7153,14 +7877,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R10")
+					(reference "R15")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:D_Schottky_horizontal")
+		(lib_id "lib_sch:D_Schottky_horizontal")
 		(at 161.29 81.28 0)
 		(mirror y)
 		(unit 1)
@@ -7288,7 +8012,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 198.12 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7296,7 +8020,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c4e427b6-f8e0-4d21-8aa7-d61ad6e0a0c1")
-		(property "Reference" "R18"
+		(property "Reference" "R23"
 			(at 199.39 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7409,7 +8133,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R18")
+					(reference "R23")
 					(unit 1)
 				)
 			)
@@ -7417,7 +8141,7 @@
 	)
 	(symbol
 		(lib_name "C_2")
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C_2")
 		(at 139.7 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7426,7 +8150,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc0fea42-8645-4588-84c9-9497cf2a1190")
-		(property "Reference" "C25"
+		(property "Reference" "C36"
 			(at 141.605 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7539,14 +8263,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C25")
+					(reference "C36")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C")
 		(at 54.61 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7555,7 +8279,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cf685aac-cdad-4b39-bc79-5c009cf6ad02")
-		(property "Reference" "C30"
+		(property "Reference" "C41"
 			(at 56.515 67.31 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7668,14 +8392,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C30")
+					(reference "C41")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Transistors:NMOS_SGD_PWR")
+		(lib_id "lib_sch:NMOS_SGD_PWR")
 		(at 190.5 125.73 0)
 		(mirror x)
 		(unit 1)
@@ -7686,7 +8410,6 @@
 		(uuid "d2ef9578-5bdd-4108-8aa2-4e142175f225")
 		(property "Reference" "Q3"
 			(at 190.5 128.27 0)
-			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
@@ -7695,7 +8418,6 @@
 		)
 		(property "Value" "CSD18532Q5B"
 			(at 190.5 129.54 0)
-			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
@@ -7761,7 +8483,6 @@
 		)
 		(property "VDSS" "60V"
 			(at 190.5 130.81 0)
-			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
@@ -7771,7 +8492,6 @@
 		)
 		(property "VGSTH" "2V2"
 			(at 190.5 132.08 0)
-			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
@@ -7781,7 +8501,6 @@
 		)
 		(property "ID" "100A"
 			(at 190.5 130.81 0)
-			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
@@ -7791,7 +8510,6 @@
 		)
 		(property "RDSON" "3.2mR"
 			(at 190.5 132.08 0)
-			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
@@ -7820,7 +8538,7 @@
 		(pin "4"
 			(uuid "3117dce8-a4ca-49ec-a6b1-a47c3212937f")
 		)
-		(pin "6"
+		(pin "8"
 			(uuid "c071886b-edc0-40e4-9e70-dc057cff7499")
 		)
 		(instances
@@ -7833,7 +8551,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 177.8 113.03 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7841,7 +8559,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d6522fd5-b1f6-4c31-8c8c-7053f77ebfc0")
-		(property "Reference" "R16"
+		(property "Reference" "R21"
 			(at 179.07 110.49 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7954,14 +8672,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R16")
+					(reference "R21")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 38.1 50.8 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7970,7 +8688,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d6599bfa-c83a-4f3a-873e-0b01d71d8dd2")
-		(property "Reference" "R19"
+		(property "Reference" "R25"
 			(at 38.1 49.53 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7989,7 +8707,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Resistors-SMD:CRCW1206"
 			(at 35.56 50.8 90)
 			(effects
 				(font
@@ -8082,15 +8800,15 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "R19")
+					(reference "R25")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C_horizontal")
-		(at 91.44 88.9 0)
+		(lib_id "lib_sch:C_horizontal")
+		(at 86.36 88.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8098,8 +8816,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "da98e459-1647-41c0-a698-e5aae147f84a")
-		(property "Reference" "C20"
-			(at 91.44 86.995 0)
+		(property "Reference" "C31"
+			(at 86.36 86.995 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8108,7 +8826,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 91.44 90.805 0)
+			(at 86.36 90.805 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8118,7 +8836,7 @@
 			)
 		)
 		(property "Footprint" "DS-Capacitors-SMD:MLCC0805"
-			(at 91.44 94.615 0)
+			(at 86.36 94.615 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8127,7 +8845,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
-			(at 91.44 94.615 0)
+			(at 86.36 94.615 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8136,7 +8854,7 @@
 			)
 		)
 		(property "Description" "CAP CER 1UF 10V X7R 0805"
-			(at 91.44 88.9 0)
+			(at 86.36 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8145,7 +8863,7 @@
 			)
 		)
 		(property "Manufacturer" "KYOCERA AVX"
-			(at 91.44 94.615 0)
+			(at 86.36 94.615 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8154,7 +8872,7 @@
 			)
 		)
 		(property "MPN" "0805ZC105KAT2A"
-			(at 91.44 94.615 0)
+			(at 86.36 94.615 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8163,7 +8881,7 @@
 			)
 		)
 		(property "DKPN" "478-KGM21AR71A105KUCT-ND"
-			(at 91.44 88.9 0)
+			(at 86.36 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8172,7 +8890,7 @@
 			)
 		)
 		(property "Tolerace" "10%"
-			(at 91.44 90.805 0)
+			(at 86.36 90.805 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8182,7 +8900,7 @@
 			)
 		)
 		(property "Voltage Rating" "10V"
-			(at 91.44 92.075 0)
+			(at 86.36 92.075 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8192,7 +8910,7 @@
 			)
 		)
 		(property "Package" "0805"
-			(at 91.44 92.075 0)
+			(at 86.36 92.075 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8210,86 +8928,14 @@
 		(instances
 			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C20")
+					(reference "C31")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:NT")
-		(at 34.29 71.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e5a1bb1b-e72e-4f7f-a9d5-da2b27c44419")
-		(property "Reference" "NT1"
-			(at 35.56 70.485 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Net-Tie"
-			(at 35.56 71.755 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 34.29 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 34.29 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 34.29 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "b6739c27-af61-4207-93b6-6ac7725cd824")
-		)
-		(pin "1"
-			(uuid "efde1a21-cb13-4db7-b578-42f80ba0822a")
-		)
-		(instances
-			(project ""
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "NT1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C")
 		(at 46.99 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8298,7 +8944,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f482b453-5c7e-4ac1-a947-2c7c6dbde9f2")
-		(property "Reference" "C29"
+		(property "Reference" "C40"
 			(at 48.895 67.31 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8411,14 +9057,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/ec26ef98-8e8c-46d6-a822-e7ed17aae681"
-					(reference "C29")
+					(reference "C40")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Transistors:NMOS_SGD_PWR")
+		(lib_id "lib_sch:NMOS_SGD_PWR_1")
 		(at 177.8 125.73 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8465,7 +9111,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "MOSFET N-CH 60V 100A 8VSON"
+		(property "Description" "N-Channel MOSFET"
 			(at 177.8 125.73 0)
 			(effects
 				(font
@@ -8541,7 +9187,7 @@
 				(justify right)
 			)
 		)
-		(pin "6"
+		(pin "8"
 			(uuid "b6a4aae3-abf5-4e84-8841-c999518d6b29")
 		)
 		(pin "5"

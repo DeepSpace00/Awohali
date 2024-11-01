@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "LiFePO4 State of Charge")
-		(date "2024-10-13")
+		(date "2024-11-01")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
@@ -187,22 +187,25 @@
 				)
 			)
 		)
-		(symbol "DS-Connectors:Conn_01x02_Pin"
-			(pin_names hide)
+		(symbol "lib_sch:AGND"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "J?"
-				(at 0 5.715 0)
-				(do_not_autoplace)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(hide yes)
 				)
 			)
-			(property "Value" "VAL"
-				(at 0 3.81 0)
+			(property "Value" "AGND"
+				(at 0 -3.81 0)
 				(do_not_autoplace)
 				(effects
 					(font
@@ -211,7 +214,7 @@
 				)
 			)
 			(property "Footprint" ""
-				(at 1.27 -1.27 0)
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -220,7 +223,7 @@
 				)
 			)
 			(property "Datasheet" ""
-				(at 1.27 -1.27 0)
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -229,7 +232,7 @@
 				)
 			)
 			(property "Description" ""
-				(at 1.27 -1.27 0)
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -237,8 +240,8 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer" ""
-				(at 1.27 -1.27 0)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -246,29 +249,25 @@
 					(hide yes)
 				)
 			)
-			(property "MPN" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
+			(symbol "AGND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
 					)
-					(hide yes)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
 				)
 			)
-			(property "DKPN" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x02_Pin_1_0"
-				(pin passive line
-					(at 3.81 1.27 180)
-					(length 2.54)
-					(name ""
+			(symbol "AGND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -283,10 +282,246 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 3.81 -1.27 180)
+			)
+		)
+		(symbol "lib_sch:BAT+"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "BAT+"
+				(at 0 3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "BAT+_0_1"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "BAT+_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:BQ34Z100-R2"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U?"
+				(at 0 21.59 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "BQ34Z100-R2"
+				(at 0 19.05 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "BQ34Z100-R2_0_0"
+				(pin output line
+					(at -10.16 15.24 0)
 					(length 2.54)
-					(name ""
+					(name "P2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -5.08 180)
+					(length 2.54)
+					(name "SRN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -10.16 10.16 0)
+					(length 2.54)
+					(name "VEN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -301,33 +536,226 @@
 						)
 					)
 				)
-			)
-			(symbol "Conn_01x02_Pin_1_1"
-				(rectangle
-					(start 0 -1.016)
-					(end 1.27 -1.524)
-					(stroke
-						(width 0)
-						(type default)
+				(pin output line
+					(at -10.16 5.08 0)
+					(length 2.54)
+					(name "P1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
 					)
-					(fill
-						(type outline)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
 					)
 				)
+				(pin input line
+					(at -10.16 0 0)
+					(length 2.54)
+					(name "BAT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 -5.08 0)
+					(length 2.54)
+					(name "CE"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -10.16 -10.16 0)
+					(length 2.54)
+					(name "REGIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at -10.16 -15.24 0)
+					(length 2.54)
+					(name "REG25"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -20.32 90)
+					(length 2.54)
+					(name "VSS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -15.24 180)
+					(length 2.54)
+					(name "SRP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "BQ34Z100-R2_1_0"
+				(pin input line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "TS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "P6" output line)
+				)
+				(pin bidirectional line
+					(at 10.16 5.08 180)
+					(length 2.54)
+					(name "HDQ"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "P5" output line)
+				)
+				(pin input clock
+					(at 10.16 10.16 180)
+					(length 2.54)
+					(name "SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "P4" output line)
+				)
+				(pin bidirectional line
+					(at 10.16 15.24 180)
+					(length 2.54)
+					(name "SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "P3" output line)
+				)
+			)
+			(symbol "BQ34Z100-R2_1_1"
 				(rectangle
-					(start 0 1.524)
-					(end 1.27 1.016)
+					(start -7.62 17.78)
+					(end 7.62 -17.78)
 					(stroke
 						(width 0)
 						(type default)
 					)
 					(fill
-						(type outline)
+						(type background)
 					)
 				)
 			)
 		)
-		(symbol "DS-Passives:C_horizontal"
+		(symbol "lib_sch:C_horizontal"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -499,7 +927,147 @@
 				)
 			)
 		)
-		(symbol "DS-Passives:D_Zener"
+		(symbol "lib_sch:Conn_01x02_Pin"
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J?"
+				(at 0 5.715 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "VAL"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 1.27 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 1.27 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 1.27 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 1.27 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 1.27 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 1.27 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Pin_1_0"
+				(pin passive line
+					(at 3.81 1.27 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 -1.27 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "Conn_01x02_Pin_1_1"
+				(rectangle
+					(start 0 -1.016)
+					(end 1.27 -1.524)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0 1.524)
+					(end 1.27 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:D_Zener"
 			(pin_numbers hide)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -687,546 +1255,7 @@
 				)
 			)
 		)
-		(symbol "DS-Passives:R"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R?"
-				(at 1.27 2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "VAL"
-				(at 1.27 1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" ""
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "TOL"
-				(at 1.27 0 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Power Rating" "PWR"
-				(at 1.27 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Package" "PKG"
-				(at 1.27 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(symbol "R_0_1"
-				(polyline
-					(pts
-						(xy -0.635 1.27) (xy -0.635 -1.27) (xy 0.635 -1.27) (xy 0.635 1.27) (xy -0.635 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Passives:R_horizontal"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R?"
-				(at 0 1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-				)
-			)
-			(property "Value" "VAL"
-				(at 0 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify right)
-				)
-			)
-			(property "Footprint" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" ""
-				(at -2.54 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "TOL"
-				(at 0 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify right)
-				)
-			)
-			(property "Power Rating" "PWR"
-				(at 0 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify left)
-				)
-			)
-			(property "Package" "PKG"
-				(at 0 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-					(justify left)
-				)
-			)
-			(symbol "R_horizontal_0_1"
-				(polyline
-					(pts
-						(xy -1.27 -0.635) (xy 1.27 -0.635) (xy 1.27 0.635) (xy -1.27 0.635) (xy -1.27 -0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_horizontal_1_1"
-				(pin passive line
-					(at -2.54 0 0)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 0 180)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Power:AGND"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "AGND"
-				(at 0 -3.81 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "AGND_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "AGND_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Power:BAT+"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "BAT+"
-				(at 0 3.556 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "BAT+_0_1"
-				(polyline
-					(pts
-						(xy -1.27 2.54) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "BAT+_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "DS-Power:GND"
+		(symbol "lib_sch:GND"
 			(power)
 			(pin_numbers hide)
 			(pin_names
@@ -1383,7 +1412,7 @@
 				)
 			)
 		)
-		(symbol "DS-Transistors:NMOS_GSD"
+		(symbol "lib_sch:NMOS_GSD"
 			(pin_names hide)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1751,7 +1780,7 @@
 				)
 			)
 		)
-		(symbol "DS-Transistors:PMOS_GSD"
+		(symbol "lib_sch:PMOS_GSD"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2106,357 +2135,7 @@
 				)
 			)
 		)
-		(symbol "DSE-PMIC:BQ34Z100-R2"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 21.59 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "BQ34Z100-R2"
-				(at 0 19.05 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Battery Fuel Gauge IC Multi-Chemistry 14-TSSOP"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" "Texas Instruments"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" "BQ34Z100PWR-R2"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" "296-BQ34Z100PWR-R2CT-ND"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "BQ34Z100-R2_0_0"
-				(pin output line
-					(at -10.16 15.24 0)
-					(length 2.54)
-					(name "P2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 10.16 -5.08 180)
-					(length 2.54)
-					(name "SRN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at -10.16 10.16 0)
-					(length 2.54)
-					(name "VEN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at -10.16 5.08 0)
-					(length 2.54)
-					(name "P1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -10.16 0 0)
-					(length 2.54)
-					(name "BAT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -10.16 -5.08 0)
-					(length 2.54)
-					(name "CE"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 -10.16 0)
-					(length 2.54)
-					(name "REGIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at -10.16 -15.24 0)
-					(length 2.54)
-					(name "REG25"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -20.32 90)
-					(length 2.54)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 10.16 -15.24 180)
-					(length 2.54)
-					(name "SRP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "BQ34Z100-R2_1_0"
-				(pin input line
-					(at 10.16 0 180)
-					(length 2.54)
-					(name "TS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "P6" output line)
-				)
-				(pin bidirectional line
-					(at 10.16 5.08 180)
-					(length 2.54)
-					(name "HDQ"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "P5" output line)
-				)
-				(pin input clock
-					(at 10.16 10.16 180)
-					(length 2.54)
-					(name "SCL"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "P4" output line)
-				)
-				(pin bidirectional line
-					(at 10.16 15.24 180)
-					(length 2.54)
-					(name "SDA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "P3" output line)
-				)
-			)
-			(symbol "BQ34Z100-R2_1_1"
-				(rectangle
-					(start -7.62 17.78)
-					(end 7.62 -17.78)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-		)
-		(symbol "DSE-Passives:R"
+		(symbol "lib_sch:R"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2617,6 +2296,166 @@
 				)
 			)
 		)
+		(symbol "lib_sch:R_horizontal"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R?"
+				(at 0 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "VAL"
+				(at 0 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify right)
+				)
+			)
+			(property "Footprint" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerance" "TOL"
+				(at 0 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify right)
+				)
+			)
+			(property "Power Rating" "PWR"
+				(at 0 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify left)
+				)
+			)
+			(property "Package" "PKG"
+				(at 0 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+					(justify left)
+				)
+			)
+			(symbol "R_horizontal_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -0.635) (xy 1.27 -0.635) (xy 1.27 0.635) (xy -1.27 0.635) (xy -1.27 -0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_horizontal_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+			)
+		)
 	)
 	(junction
 		(at 127 118.11)
@@ -2691,16 +2530,16 @@
 		(uuid "869a3e98-1288-4062-a215-d437faa031a6")
 	)
 	(junction
-		(at 118.11 118.11)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ad9cf1a1-96c2-4288-ba31-d89f81306524")
-	)
-	(junction
 		(at 152.4 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b3dc60c9-f9fa-465c-82e4-2d511e74a6f7")
+	)
+	(junction
+		(at 115.57 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c4b5c626-2a79-48f6-bb5e-5db5572b8420")
 	)
 	(junction
 		(at 114.3 101.6)
@@ -2779,6 +2618,16 @@
 			(type default)
 		)
 		(uuid "1497de32-b3a8-436a-b632-badc33ca5d44")
+	)
+	(wire
+		(pts
+			(xy 115.57 118.11) (xy 127 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a12c1e0-d753-40c0-9080-c0749ef4332f")
 	)
 	(wire
 		(pts
@@ -2892,7 +2741,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 118.11) (xy 118.11 118.11)
+			(xy 109.22 118.11) (xy 115.57 118.11)
 		)
 		(stroke
 			(width 0)
@@ -2932,7 +2781,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 123.19) (xy 127 130.81)
+			(xy 123.19 123.19) (xy 123.19 130.81)
 		)
 		(stroke
 			(width 0)
@@ -3032,7 +2881,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 123.19) (xy 127 123.19)
+			(xy 129.54 123.19) (xy 123.19 123.19)
 		)
 		(stroke
 			(width 0)
@@ -3049,16 +2898,6 @@
 			(type default)
 		)
 		(uuid "7704efaf-a3aa-45b1-8d55-2b30b2f63557")
-	)
-	(wire
-		(pts
-			(xy 118.11 125.73) (xy 118.11 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "79ee39bf-e53f-44ea-84fb-9f985f3d0a57")
 	)
 	(wire
 		(pts
@@ -3082,7 +2921,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 118.11) (xy 118.11 120.65)
+			(xy 115.57 118.11) (xy 115.57 120.65)
 		)
 		(stroke
 			(width 0)
@@ -3142,16 +2981,6 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 118.11) (xy 127 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "982d5dcd-5214-4562-9d60-5d0bf5a313eb")
-	)
-	(wire
-		(pts
 			(xy 193.04 113.03) (xy 203.2 113.03)
 		)
 		(stroke
@@ -3192,7 +3021,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 130.81) (xy 130.81 130.81)
+			(xy 123.19 130.81) (xy 130.81 130.81)
 		)
 		(stroke
 			(width 0)
@@ -3259,6 +3088,16 @@
 			(type default)
 		)
 		(uuid "c1d3e9a0-547f-4f3b-b119-9cc2ed761c01")
+	)
+	(wire
+		(pts
+			(xy 115.57 125.73) (xy 115.57 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c49c6ece-72c2-411a-8108-49a76b6cdf6e")
 	)
 	(wire
 		(pts
@@ -3482,6 +3321,17 @@
 		(uuid "1881f7b2-e286-4c1e-b69e-3d197a9fb868")
 	)
 	(label "VEN"
+		(at 125.73 97.79 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1a5d1f89-efd6-4873-9899-a6a47e4ee04b")
+	)
+	(label "VEN"
 		(at 196.85 62.23 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3491,6 +3341,17 @@
 			(justify right bottom)
 		)
 		(uuid "542cb72b-7f45-4344-8906-50ca525eedbe")
+	)
+	(label "REG25"
+		(at 123.19 123.19 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "581a2994-9de4-494e-a79e-a901034f35c4")
 	)
 	(hierarchical_label "SDA"
 		(shape input)
@@ -3565,15 +3426,15 @@
 		(uuid "e1b5d841-21a2-463f-9b5b-13993e96284b")
 	)
 	(symbol
-		(lib_id "DSE-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 203.2 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "199d203b-2e99-4907-b1aa-d53a7b3ab10a")
-		(property "Reference" "R24"
+		(uuid "100b1a1e-c949-4651-9f9e-58850993864c")
+		(property "Reference" "R30"
 			(at 204.47 115.57 0)
 			(do_not_autoplace yes)
 			(effects
@@ -3677,152 +3538,23 @@
 				(justify left)
 			)
 		)
-		(pin "2"
-			(uuid "006167f3-e54b-425f-b688-3db9303080f3")
-		)
 		(pin "1"
-			(uuid "ba36ce8c-cd29-4374-91d7-11a18cbf8bf4")
-		)
-		(instances
-			(project ""
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R24")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DSE-Passives:R")
-		(at 107.95 87.63 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1c04c374-55c3-40e1-97ed-1e846fe71228")
-		(property "Reference" "R28"
-			(at 106.68 85.09 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "165K"
-			(at 106.68 86.36 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
-			(at 107.95 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
-			(at 107.95 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "RES SMD 165K OHM 1% 1/10W 0603"
-			(at 107.95 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Vishay Dale"
-			(at 107.95 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "CRCW0603165KFKEA"
-			(at 107.95 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "541-165KHCT-ND"
-			(at 107.95 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "1%"
-			(at 106.68 87.63 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Power Rating" "100mW"
-			(at 106.68 88.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "0603"
-			(at 106.68 90.17 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
+			(uuid "11e5e6e7-e2ca-49c5-97ee-75283f2f6fb4")
 		)
 		(pin "2"
-			(uuid "2c5078a8-e3e9-40ce-983e-729f6e99290a")
-		)
-		(pin "1"
-			(uuid "fd77be77-4b68-4916-9092-7997ce364386")
+			(uuid "9f60de34-1b05-4b04-8287-a0d8d63b9738")
 		)
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R28")
+					(reference "R30")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Transistors:NMOS_GSD")
+		(lib_id "lib_sch:NMOS_GSD")
 		(at 104.14 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -3965,7 +3697,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:GND")
 		(at 175.26 133.35 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4033,7 +3765,7 @@
 	)
 	(symbol
 		(lib_name "C_2")
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C_2")
 		(at 165.1 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4042,7 +3774,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2baa5194-b8a9-4551-8dc1-6d3046c8967d")
-		(property "Reference" "C32"
+		(property "Reference" "C43"
 			(at 167.005 125.73 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4155,14 +3887,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "C32")
+					(reference "C43")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 195.58 64.77 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4171,7 +3903,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2ce27e5d-5962-4d58-b048-90de8cf979f1")
-		(property "Reference" "R25"
+		(property "Reference" "R31"
 			(at 195.58 63.5 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4283,15 +4015,15 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R25")
+					(reference "R31")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:AGND")
-		(at 118.11 128.27 0)
+		(lib_id "lib_sch:AGND")
+		(at 115.57 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4300,7 +4032,7 @@
 		(fields_autoplaced yes)
 		(uuid "32774950-f990-405e-993b-d9d3f23909b4")
 		(property "Reference" "#PWR027"
-			(at 118.11 128.27 0)
+			(at 115.57 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4309,7 +4041,7 @@
 			)
 		)
 		(property "Value" "AGND"
-			(at 118.11 132.08 0)
+			(at 115.57 132.08 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4318,7 +4050,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 118.11 128.27 0)
+			(at 115.57 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4327,7 +4059,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 118.11 128.27 0)
+			(at 115.57 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4336,7 +4068,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 118.11 128.27 0)
+			(at 115.57 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4357,7 +4089,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:R")
 		(at 107.95 77.47 0)
 		(mirror y)
 		(unit 1)
@@ -4366,7 +4098,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "32927e2f-643e-415e-9ea4-d3b8e48d98fd")
-		(property "Reference" "R27"
+		(property "Reference" "R32"
 			(at 106.68 74.93 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4479,143 +4211,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R27")
+					(reference "R32")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DSE-Passives:R")
-		(at 95.25 93.98 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "3575bc90-a07e-422b-8775-74bfe01d6136")
-		(property "Reference" "R26"
-			(at 93.98 91.44 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "133K"
-			(at 93.98 92.71 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
-			(at 95.25 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Vishay-Dale-TNPW_e3.pdf"
-			(at 95.25 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "RES 133K OHM 0.1% 0.21W 0603"
-			(at 95.25 93.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Vishay Dale"
-			(at 95.25 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "TNPW0603133KBEEA"
-			(at 95.25 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "541-TNPW0603133KBEEACT-ND"
-			(at 95.25 93.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "0.1%"
-			(at 93.98 93.98 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Power Rating" "210mW"
-			(at 93.98 95.25 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "0603"
-			(at 93.98 96.52 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "2"
-			(uuid "c709f643-bade-4de4-b2b0-f74170a78f08")
-		)
-		(pin "1"
-			(uuid "9aa686c0-e6e6-4ed0-b247-110acc739ac9")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R26")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:GND")
 		(at 124.46 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4682,8 +4285,138 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:R")
+		(at 95.25 106.68 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "46a08d1c-d91e-4e3d-a035-b2c6a080b042")
+		(property "Reference" "R35"
+			(at 93.98 104.14 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "16K5"
+			(at 93.98 105.41 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
+			(at 95.25 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Vishay-Dale-TNPW_e3.pdf"
+			(at 95.25 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RES 16.5K OHM 0.1% 0.21W 0603"
+			(at 95.25 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 95.25 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "TNPW060316K5BEEA"
+			(at 95.25 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "541-3172-1-ND"
+			(at 95.25 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "0.1%"
+			(at 93.98 106.68 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Power Rating" "210mW"
+			(at 93.98 107.95 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 93.98 109.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "a0ac1965-b72f-4b4f-8704-02b3387c4ff0")
+		)
+		(pin "2"
+			(uuid "168dfa0d-8694-43e6-a039-131b3b21a7a3")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
+					(reference "R35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "C_2")
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C_2")
 		(at 152.4 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4692,7 +4425,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "664f2a64-34bc-4eed-a9be-1cb640bd2b5a")
-		(property "Reference" "C31"
+		(property "Reference" "C42"
 			(at 154.305 115.57 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4805,7 +4538,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "C31")
+					(reference "C42")
 					(unit 1)
 				)
 			)
@@ -4813,8 +4546,8 @@
 	)
 	(symbol
 		(lib_name "C_2")
-		(lib_id "DS-Passives:C")
-		(at 118.11 123.19 0)
+		(lib_id "lib_sch:C_2")
+		(at 115.57 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4822,8 +4555,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6808715c-5f47-4cd6-8171-82279f664b22")
-		(property "Reference" "C29"
-			(at 120.015 120.65 0)
+		(property "Reference" "C46"
+			(at 117.475 120.65 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4833,7 +4566,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 120.015 121.92 0)
+			(at 117.475 121.92 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4843,7 +4576,7 @@
 			)
 		)
 		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
-			(at 118.11 121.285 0)
+			(at 115.57 121.285 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4852,7 +4585,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
-			(at 118.11 121.285 0)
+			(at 115.57 121.285 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4861,7 +4594,7 @@
 			)
 		)
 		(property "Description" "Ceramic capacitor symbol"
-			(at 118.11 123.19 0)
+			(at 115.57 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4870,7 +4603,7 @@
 			)
 		)
 		(property "Manufacturer" "KYOCERA AVX"
-			(at 118.11 121.285 0)
+			(at 115.57 121.285 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4879,7 +4612,7 @@
 			)
 		)
 		(property "MPN" "06035C104K4T4A"
-			(at 118.11 121.285 0)
+			(at 115.57 121.285 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4888,7 +4621,7 @@
 			)
 		)
 		(property "DKPN" "478-KAM15AR71H104KMCT-ND"
-			(at 118.11 123.19 0)
+			(at 115.57 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4897,7 +4630,7 @@
 			)
 		)
 		(property "Tolerance" "10%"
-			(at 120.015 124.46 0)
+			(at 117.475 124.46 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4907,7 +4640,7 @@
 			)
 		)
 		(property "Voltage Rating" "50V"
-			(at 120.015 123.19 0)
+			(at 117.475 123.19 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4917,7 +4650,7 @@
 			)
 		)
 		(property "Package" "0603"
-			(at 120.015 125.73 0)
+			(at 117.475 125.73 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4935,111 +4668,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "C29")
+					(reference "C46")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Connectors:Conn_01x02_Pin")
-		(at 186.69 63.5 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "72e7cc82-9d8a-4fa4-ada4-2aac0107cc30")
-		(property "Reference" "J7"
-			(at 186.69 57.785 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VAL"
-			(at 186.69 59.69 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 187.96 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 187.96 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 187.96 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 187.96 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 187.96 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 187.96 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b6a25995-80eb-4fa1-9bbf-ce0c0573c5e6")
-		)
-		(pin "2"
-			(uuid "6100ac28-1907-4b33-b55c-b9fc2c1f606c")
-		)
-		(instances
-			(project ""
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "J7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DS-Power:BAT+")
+		(lib_id "lib_sch:BAT+")
 		(at 88.9 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5107,7 +4743,7 @@
 	)
 	(symbol
 		(lib_name "C_2")
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C_2")
 		(at 175.26 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5116,7 +4752,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9202f81d-a078-40b0-8790-874574a9dd9b")
-		(property "Reference" "C33"
+		(property "Reference" "C44"
 			(at 177.165 125.73 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5229,14 +4865,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "C33")
+					(reference "C44")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 190.5 113.03 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5245,7 +4881,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9f048323-3486-4524-a2fd-a46608b4e696")
-		(property "Reference" "R22"
+		(property "Reference" "R28"
 			(at 190.5 111.76 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5357,14 +4993,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R22")
+					(reference "R28")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:D_Zener")
+		(lib_id "lib_sch:D_Zener")
 		(at 104.14 130.81 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5393,7 +5029,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Package-SO:SOD523"
 			(at 104.14 130.81 90)
 			(effects
 				(font
@@ -5493,7 +5129,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:AGND")
+		(lib_id "lib_sch:AGND")
 		(at 139.7 133.35 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5561,7 +5197,7 @@
 	)
 	(symbol
 		(lib_name "C_2")
-		(lib_id "DS-Passives:C")
+		(lib_id "lib_sch:C_2")
 		(at 114.3 106.68 0)
 		(mirror y)
 		(unit 1)
@@ -5570,7 +5206,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a49396d4-db07-40fc-9440-6dff3ec7d616")
-		(property "Reference" "C28"
+		(property "Reference" "C45"
 			(at 112.395 104.14 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5683,14 +5319,144 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "C28")
+					(reference "C45")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:AGND")
+		(lib_id "lib_sch:R")
+		(at 95.25 93.98 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a5e3e5d3-4df1-495d-b413-c89958cb26bb")
+		(property "Reference" "R34"
+			(at 93.98 91.44 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "133K"
+			(at 93.98 92.71 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
+			(at 95.25 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Vishay-Dale-TNPW_e3.pdf"
+			(at 95.25 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RES 133K OHM 0.1% 0.21W 0603"
+			(at 95.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 95.25 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "TNPW0603133KBEEA"
+			(at 95.25 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "541-TNPW0603133KBEEACT-ND"
+			(at 95.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "0.1%"
+			(at 93.98 93.98 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Power Rating" "210mW"
+			(at 93.98 95.25 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 93.98 96.52 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "7c9a70aa-884c-4bf1-8420-4ab63a33c9b0")
+		)
+		(pin "2"
+			(uuid "957a7377-2e0d-44f6-b554-57e125e2d591")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
+					(reference "R34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:AGND")
 		(at 95.25 111.76 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5757,7 +5523,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:GND")
 		(at 104.14 135.89 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5824,7 +5590,104 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R")
+		(lib_id "lib_sch:Conn_01x02_Pin")
+		(at 186.69 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bbee743d-dad2-4cba-b493-ecd5ecb13778")
+		(property "Reference" "J10"
+			(at 186.69 57.785 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PREC002SAAN-RC"
+			(at 186.69 59.69 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "DS-Rectangular-Connectors:conn_01x02_254"
+			(at 187.96 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Sullins-Connectors-zRzCzzzSzzN-RC.pdf"
+			(at 187.96 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CONN HEADER VERT 2POS 2.54MM"
+			(at 187.96 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Sullins Connector Solutions"
+			(at 187.96 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "PREC002SAAN-RC"
+			(at 187.96 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "S1012EC-02-ND"
+			(at 187.96 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "cfcbf917-e25b-431e-84e4-6fd4bfd3d21e")
+		)
+		(pin "1"
+			(uuid "614c3e38-d14a-475a-808d-11a2de3674e8")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
+					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:R")
 		(at 95.25 121.92 0)
 		(mirror y)
 		(unit 1)
@@ -5834,7 +5697,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bee22dd6-d9c6-41e7-a924-968a23de0e68")
-		(property "Reference" "R29"
+		(property "Reference" "R36"
 			(at 93.98 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5947,14 +5810,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R29")
+					(reference "R36")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Transistors:NMOS_GSD")
+		(lib_id "lib_sch:NMOS_GSD")
 		(at 115.57 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6097,7 +5960,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:BAT+")
+		(lib_id "lib_sch:BAT+")
 		(at 95.25 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6164,7 +6027,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 190.5 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6173,7 +6036,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c6d8bda8-fa26-4975-9d42-fa3405783f7e")
-		(property "Reference" "R23"
+		(property "Reference" "R29"
 			(at 190.5 121.92 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6285,14 +6148,14 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R23")
+					(reference "R29")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Transistors:PMOS_GSD")
+		(lib_id "lib_sch:PMOS_GSD")
 		(at 95.25 82.55 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6433,7 +6296,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DSE-PMIC:BQ34Z100-R2")
+		(lib_id "lib_sch:BQ34Z100-R2")
 		(at 139.7 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6441,8 +6304,8 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "c82cebed-05e3-4c6d-aa44-f8b2679fd542")
-		(property "Reference" "U3"
+		(uuid "d1dbb5ba-8bc7-402c-9523-6da59b48fd6d")
+		(property "Reference" "U6"
 			(at 139.7 86.36 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6514,59 +6377,189 @@
 				(hide yes)
 			)
 		)
-		(pin "14"
-			(uuid "8f46a51e-bcf2-4836-a303-0a69823d0e18")
-		)
-		(pin "6"
-			(uuid "6b539b13-c4c1-4b6b-9a00-499fab1d65a4")
-		)
-		(pin "7"
-			(uuid "8f5b22c4-9e32-42b7-b2b1-c69d87042e48")
-		)
 		(pin "11"
-			(uuid "110e3cb9-c526-42be-854c-f434b58a46cf")
-		)
-		(pin "1"
-			(uuid "4b6ad4cf-31cb-43f4-a452-73ae286d7906")
-		)
-		(pin "12"
-			(uuid "bfaffed4-fa47-4aff-9492-7ddad2aca8f2")
+			(uuid "67885c08-dd1a-43c4-80d3-24f5c6ee292a")
 		)
 		(pin "8"
-			(uuid "2a683c82-9cf1-43b5-b2c3-8a8730d08cf7")
+			(uuid "6a142985-c659-4c80-bf10-aeba4fa916a4")
 		)
-		(pin "9"
-			(uuid "a3da2d9b-6c5c-4940-b9cd-c01732308e2b")
+		(pin "14"
+			(uuid "29263f06-73ee-4c80-ac93-7152caa390a7")
 		)
-		(pin "10"
-			(uuid "9c8ddce5-9462-44a0-940a-37268baaf418")
+		(pin "12"
+			(uuid "d4f150df-94c3-4e3d-8531-1f90893dc573")
 		)
 		(pin "5"
-			(uuid "4bdf0e10-3546-4f32-97d3-bc4b188fe424")
+			(uuid "0f3cff2c-dfd4-402f-bb80-e806139ec477")
 		)
-		(pin "13"
-			(uuid "ebae4457-852b-4730-9744-7285c42eb9b5")
-		)
-		(pin "3"
-			(uuid "574d05e8-e446-4508-b828-54c9947f8bfa")
+		(pin "7"
+			(uuid "3aca7ecb-84ec-43a6-b712-e7a1af174b96")
 		)
 		(pin "2"
-			(uuid "c59e87ec-1462-41ef-8edb-e67c738447f8")
+			(uuid "a5e002f7-c06c-4f57-a22f-e06bb4f5af67")
+		)
+		(pin "13"
+			(uuid "36d54770-f46c-4bac-bac8-b35fe5c63f14")
+		)
+		(pin "1"
+			(uuid "35c06c50-22e8-46b8-bebb-4141c2fc3f85")
+		)
+		(pin "9"
+			(uuid "d5e2d1ab-d59d-45ff-a834-5197fe98597a")
 		)
 		(pin "4"
-			(uuid "bcdc9093-69b0-4a64-a59c-1a803142308f")
+			(uuid "50562dc0-0a4e-4e2a-856a-7def025a8d97")
+		)
+		(pin "3"
+			(uuid "3cdc965a-1216-4448-b066-8d74faaad9ba")
+		)
+		(pin "10"
+			(uuid "cc9804c3-ddf5-4899-a5af-5f9f60338f68")
+		)
+		(pin "6"
+			(uuid "0a4c65ef-ac8e-4e66-81c5-f8b30019ef0a")
 		)
 		(instances
-			(project "powerSupplyBoard"
+			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "U3")
+					(reference "U6")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:GND")
+		(lib_id "lib_sch:R")
+		(at 107.95 87.63 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "eaf9c490-ec3f-4d46-914f-34782544be38")
+		(property "Reference" "R33"
+			(at 106.68 85.09 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "165K"
+			(at 106.68 86.36 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
+			(at 107.95 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 107.95 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RES SMD 165K OHM 1% 1/10W 0603"
+			(at 107.95 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 107.95 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CRCW0603165KFKEA"
+			(at 107.95 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "541-165KHCT-ND"
+			(at 107.95 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 106.68 87.63 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Power Rating" "100mW"
+			(at 106.68 88.9 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 106.68 90.17 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "dffd2255-c34f-4d29-bc4e-c1a96698b697")
+		)
+		(pin "2"
+			(uuid "fb58ac19-0a49-405c-9e96-149cafad53e7")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
+					(reference "R33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:GND")
 		(at 165.1 133.35 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6633,7 +6626,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:AGND")
+		(lib_id "lib_sch:AGND")
 		(at 114.3 111.76 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6700,7 +6693,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C_horizontal")
+		(lib_id "lib_sch:C_horizontal")
 		(at 133.35 130.81 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6709,7 +6702,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f46fce7e-2f4a-4fba-b45d-5ffb7c7be2f5")
-		(property "Reference" "C30"
+		(property "Reference" "C47"
 			(at 133.35 128.905 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6821,136 +6814,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "C30")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DSE-Passives:R")
-		(at 95.25 106.68 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f892f10f-d2c9-41e2-bc9e-92970fb565a6")
-		(property "Reference" "R25"
-			(at 93.98 104.14 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "16K5"
-			(at 93.98 105.41 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
-			(at 95.25 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Vishay-Dale-TNPW_e3.pdf"
-			(at 95.25 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "RES 16.5K OHM 0.1% 0.21W 0603"
-			(at 95.25 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Vishay Dale"
-			(at 95.25 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "TNPW060316K5BEEA"
-			(at 95.25 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "541-3172-1-ND"
-			(at 95.25 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "0.1%"
-			(at 93.98 106.68 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Power Rating" "210mW"
-			(at 93.98 107.95 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "0603"
-			(at 93.98 109.22 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "2"
-			(uuid "8fcaa1cd-2cb3-43bb-b2f6-aa98cb526f4b")
-		)
-		(pin "1"
-			(uuid "1c8615b1-c7ee-4b90-9616-4af6df49cbe0")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R25")
+					(reference "C47")
 					(unit 1)
 				)
 			)
