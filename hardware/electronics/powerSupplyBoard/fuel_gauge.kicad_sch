@@ -2476,12 +2476,6 @@
 		(uuid "1bbf7ee0-6c8f-4ea0-85bc-410688767902")
 	)
 	(junction
-		(at 203.2 123.19)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1c50b784-3a1d-4ee7-a0a0-7f2ef21c45e9")
-	)
-	(junction
 		(at 107.95 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2540,12 +2534,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cd0fd67c-7ab2-4a45-996f-4c9e4645a2bc")
-	)
-	(junction
-		(at 203.2 113.03)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d3898767-5521-44d2-b020-207e2da7a1f7")
 	)
 	(junction
 		(at 139.7 132.08)
@@ -2611,7 +2599,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 123.19) (xy 215.9 123.19)
+			(xy 193.04 123.19) (xy 203.2 123.19)
 		)
 		(stroke
 			(width 0)
@@ -2661,16 +2649,6 @@
 	)
 	(wire
 		(pts
-			(xy 193.04 123.19) (xy 203.2 123.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "293f8ea7-76ff-4ec7-b4af-3923c0f8551a")
-	)
-	(wire
-		(pts
 			(xy 95.25 124.46) (xy 95.25 125.73)
 		)
 		(stroke
@@ -2678,16 +2656,6 @@
 			(type default)
 		)
 		(uuid "29f9ed58-542a-44bb-bd77-07d72e7270a4")
-	)
-	(wire
-		(pts
-			(xy 203.2 115.57) (xy 203.2 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2a3847e2-1ea2-416a-8c66-cf5d0b59d13c")
 	)
 	(wire
 		(pts
@@ -2981,26 +2949,6 @@
 	)
 	(wire
 		(pts
-			(xy 193.04 113.03) (xy 203.2 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99ccb000-bea3-4133-baba-01f330707e44")
-	)
-	(wire
-		(pts
-			(xy 203.2 123.19) (xy 203.2 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9c6f9771-d501-4383-bc98-acb1454e7c57")
-	)
-	(wire
-		(pts
 			(xy 99.06 118.11) (xy 95.25 118.11)
 		)
 		(stroke
@@ -3071,7 +3019,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 113.03) (xy 215.9 113.03)
+			(xy 193.04 113.03) (xy 203.2 113.03)
 		)
 		(stroke
 			(width 0)
@@ -3269,6 +3217,25 @@
 		)
 		(uuid "ff189fc4-a89d-48ec-b374-b33be4b19fe9")
 	)
+	(text_box "Vsense=Rsense*Imax\nVsense= +/-125mV\nImax ~= 4A"
+		(exclude_from_sim no)
+		(at 190.5 96.52 0)
+		(size 22.86 7.62)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "38cb854a-06cb-49db-a3ae-67bf1a9fd71b")
+	)
 	(text "Calc for Vmax 8.2V"
 		(exclude_from_sim no)
 		(at 82.55 101.854 0)
@@ -3355,7 +3322,7 @@
 	)
 	(global_label "SENSE-"
 		(shape input)
-		(at 215.9 113.03 0)
+		(at 203.2 113.03 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3365,7 +3332,7 @@
 		)
 		(uuid "701325dd-daff-41ae-bd9d-97a9f4cfaf0c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 226.5051 113.03 0)
+			(at 213.8051 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3377,7 +3344,7 @@
 	)
 	(global_label "SENSE+"
 		(shape input)
-		(at 215.9 123.19 0)
+		(at 203.2 123.19 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3387,7 +3354,7 @@
 		)
 		(uuid "f7296500-fc66-4202-8119-7b233dd2f906")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 226.5051 123.19 0)
+			(at 213.8051 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3444,134 +3411,6 @@
 			(justify left)
 		)
 		(uuid "c028504e-619b-49ee-8e92-ab42a182becf")
-	)
-	(symbol
-		(lib_id "lib_sch:R")
-		(at 203.2 118.11 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "100b1a1e-c949-4651-9f9e-58850993864c")
-		(property "Reference" "R30"
-			(at 204.47 115.57 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10mR"
-			(at 204.47 116.84 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "DS-Resistors-SMD:WSLHP2010"
-			(at 203.2 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Vishay-Dale-WSL-HP.pdf"
-			(at 203.2 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "RES 0.01 OHM 1% 1W 2010"
-			(at 203.2 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Vishay Dale"
-			(at 203.2 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "WSL2010R0100FEA18"
-			(at 203.2 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "WSLF-.01CT-ND"
-			(at 203.2 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "1%"
-			(at 204.47 118.11 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Power Rating" "1W"
-			(at 204.47 119.38 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "2010"
-			(at 204.47 120.65 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "1"
-			(uuid "11e5e6e7-e2ca-49c5-97ee-75283f2f6fb4")
-		)
-		(pin "2"
-			(uuid "9f60de34-1b05-4b04-8287-a0d8d63b9738")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R30")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "lib_sch:NMOS_GSD")
@@ -3923,7 +3762,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2ce27e5d-5962-4d58-b048-90de8cf979f1")
-		(property "Reference" "R31"
+		(property "Reference" "R30"
 			(at 195.58 63.5 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4035,7 +3874,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R31")
+					(reference "R30")
 					(unit 1)
 				)
 			)
@@ -4118,7 +3957,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "32927e2f-643e-415e-9ea4-d3b8e48d98fd")
-		(property "Reference" "R32"
+		(property "Reference" "R31"
 			(at 106.68 74.93 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4231,7 +4070,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R32")
+					(reference "R31")
 					(unit 1)
 				)
 			)
@@ -4315,7 +4154,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "46a08d1c-d91e-4e3d-a035-b2c6a080b042")
-		(property "Reference" "R35"
+		(property "Reference" "R34"
 			(at 93.98 104.14 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4428,7 +4267,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R35")
+					(reference "R34")
 					(unit 1)
 				)
 			)
@@ -5356,7 +5195,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a5e3e5d3-4df1-495d-b413-c89958cb26bb")
-		(property "Reference" "R34"
+		(property "Reference" "R33"
 			(at 93.98 91.44 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5469,7 +5308,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R34")
+					(reference "R33")
 					(unit 1)
 				)
 			)
@@ -5717,7 +5556,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bee22dd6-d9c6-41e7-a924-968a23de0e68")
-		(property "Reference" "R36"
+		(property "Reference" "R35"
 			(at 93.98 119.38 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5830,7 +5669,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R36")
+					(reference "R35")
 					(unit 1)
 				)
 			)
@@ -6459,7 +6298,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eaf9c490-ec3f-4d46-914f-34782544be38")
-		(property "Reference" "R33"
+		(property "Reference" "R32"
 			(at 106.68 85.09 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6572,7 +6411,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "R33")
+					(reference "R32")
 					(unit 1)
 				)
 			)
