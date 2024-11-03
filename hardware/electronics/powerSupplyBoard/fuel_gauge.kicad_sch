@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "LiFePO4 State of Charge")
-		(date "2024-11-01")
+		(date "2024-11-03")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
@@ -2719,7 +2719,7 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 64.77) (xy 204.47 64.77)
+			(xy 45.72 190.5) (xy 52.07 190.5)
 		)
 		(stroke
 			(width 0)
@@ -3079,7 +3079,7 @@
 	)
 	(wire
 		(pts
-			(xy 190.5 62.23) (xy 196.85 62.23)
+			(xy 38.1 187.96) (xy 44.45 187.96)
 		)
 		(stroke
 			(width 0)
@@ -3119,7 +3119,7 @@
 	)
 	(wire
 		(pts
-			(xy 190.5 64.77) (xy 193.04 64.77)
+			(xy 38.1 190.5) (xy 40.64 190.5)
 		)
 		(stroke
 			(width 0)
@@ -3217,10 +3217,10 @@
 		)
 		(uuid "ff189fc4-a89d-48ec-b374-b33be4b19fe9")
 	)
-	(text_box "Vsense=Rsense*Imax\nVsense= +/-125mV\nImax ~= 4A"
+	(text_box "R33 = R34(Vmax - 900mV)/900mV\nVmax = 7700mV"
 		(exclude_from_sim no)
-		(at 190.5 96.52 0)
-		(size 22.86 7.62)
+		(at 50.8 99.06 0)
+		(size 38.1 5.08)
 		(stroke
 			(width 0)
 			(type default)
@@ -3234,41 +3234,24 @@
 			)
 			(justify left top)
 		)
-		(uuid "38cb854a-06cb-49db-a3ae-67bf1a9fd71b")
+		(uuid "d17752b4-60f8-487a-9013-d9c7c5989e1c")
 	)
-	(text "Calc for Vmax 8.2V"
+	(text "Fuel Gauge"
 		(exclude_from_sim no)
-		(at 82.55 101.854 0)
+		(at 139.7 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+				(italic yes)
 			)
 		)
-		(uuid "0b651405-e30a-42c3-9be2-f1981f7d5144")
-	)
-	(text "Calc values"
-		(exclude_from_sim no)
-		(at 114.554 82.804 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "6fb87cfd-ac44-472c-a6b4-9d917a2d8fb1")
-	)
-	(text "Calc value"
-		(exclude_from_sim no)
-		(at 82.296 121.92 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "89983dd1-75a5-4c22-86ab-54504992e2a9")
+		(uuid "53f4b146-ae66-4b8a-ab6e-8b77bc8001a7")
 	)
 	(text "Pull VEN low to disable power saving mode"
 		(exclude_from_sim no)
-		(at 190.5 55.88 0)
+		(at 38.1 181.61 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3277,7 +3260,7 @@
 		(uuid "cca8d87c-6b7a-4857-8d98-f6dcd1aff971")
 	)
 	(label "REG25"
-		(at 204.47 64.77 180)
+		(at 52.07 190.5 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3299,7 +3282,7 @@
 		(uuid "1a5d1f89-efd6-4873-9899-a6a47e4ee04b")
 	)
 	(label "VEN"
-		(at 196.85 62.23 180)
+		(at 44.45 187.96 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3671,7 +3654,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
 			(at 165.1 129.54 0)
 			(effects
 				(font
@@ -3754,7 +3737,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R_horizontal")
-		(at 195.58 64.77 0)
+		(at 43.18 190.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3763,7 +3746,7 @@
 		(fields_autoplaced yes)
 		(uuid "2ce27e5d-5962-4d58-b048-90de8cf979f1")
 		(property "Reference" "R30"
-			(at 195.58 63.5 0)
+			(at 43.18 189.23 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3772,7 +3755,7 @@
 			)
 		)
 		(property "Value" "1K"
-			(at 195.58 66.04 0)
+			(at 43.18 191.77 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3782,7 +3765,7 @@
 			)
 		)
 		(property "Footprint" "DS-Resistors-SMD:CRCW0603"
-			(at 193.04 64.77 90)
+			(at 40.64 190.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3791,7 +3774,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
-			(at 193.04 64.77 90)
+			(at 40.64 190.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3800,7 +3783,7 @@
 			)
 		)
 		(property "Description" "RES SMD 1K OHM 5% 1/10W 0603"
-			(at 195.58 64.77 0)
+			(at 43.18 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3809,7 +3792,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 193.04 64.77 90)
+			(at 40.64 190.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3818,7 +3801,7 @@
 			)
 		)
 		(property "MPN" "CRCW06031K00JNEA"
-			(at 193.04 64.77 90)
+			(at 40.64 190.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3827,7 +3810,7 @@
 			)
 		)
 		(property "DKPN" "541-1.0KGCT-ND"
-			(at 195.58 64.77 0)
+			(at 43.18 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3836,7 +3819,7 @@
 			)
 		)
 		(property "Tolerance" "5%"
-			(at 195.58 67.31 0)
+			(at 43.18 193.04 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3846,7 +3829,7 @@
 			)
 		)
 		(property "Power Rating" "100mW"
-			(at 195.58 66.04 0)
+			(at 43.18 191.77 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3856,7 +3839,7 @@
 			)
 		)
 		(property "Package" "0603"
-			(at 195.58 67.31 0)
+			(at 43.18 193.04 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4164,7 +4147,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "16K5"
+		(property "Value" "14K"
 			(at 93.98 105.41 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4192,7 +4175,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES 16.5K OHM 0.1% 0.21W 0603"
+		(property "Description" "RES 14K OHM 0.1% 0.21W 0603"
 			(at 95.25 106.68 0)
 			(effects
 				(font
@@ -4210,7 +4193,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "TNPW060316K5BEEA"
+		(property "MPN" "TNPW060314K0BEEA"
 			(at 95.25 104.14 0)
 			(effects
 				(font
@@ -4219,7 +4202,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-3172-1-ND"
+		(property "DKPN" "TNP14.0KAACT-ND"
 			(at 95.25 106.68 0)
 			(effects
 				(font
@@ -4322,7 +4305,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
 			(at 152.4 118.11 0)
 			(effects
 				(font
@@ -4452,7 +4435,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
 			(at 115.57 127 0)
 			(effects
 				(font
@@ -4649,7 +4632,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
 			(at 175.26 129.54 0)
 			(effects
 				(font
@@ -5205,7 +5188,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "133K"
+		(property "Value" "100K"
 			(at 93.98 92.71 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5233,7 +5216,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES 133K OHM 0.1% 0.21W 0603"
+		(property "Description" "RES 100K OHM 0.1% 0.21W 0603"
 			(at 95.25 93.98 0)
 			(effects
 				(font
@@ -5251,7 +5234,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "TNPW0603133KBEEA"
+		(property "MPN" "TNPW0603100KBEEA"
 			(at 95.25 91.44 0)
 			(effects
 				(font
@@ -5260,7 +5243,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-TNPW0603133KBEEACT-ND"
+		(property "DKPN" "TNP100KAACT-ND"
 			(at 95.25 93.98 0)
 			(effects
 				(font
@@ -5450,7 +5433,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:Conn_01x02_Pin")
-		(at 186.69 63.5 0)
+		(at 34.29 189.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5459,7 +5442,7 @@
 		(fields_autoplaced yes)
 		(uuid "bbee743d-dad2-4cba-b493-ecd5ecb13778")
 		(property "Reference" "J11"
-			(at 186.69 57.785 0)
+			(at 34.29 183.515 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5468,7 +5451,7 @@
 			)
 		)
 		(property "Value" "PREC002SAAN-RC"
-			(at 186.69 59.69 0)
+			(at 34.29 185.42 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5477,7 +5460,7 @@
 			)
 		)
 		(property "Footprint" "DS-Rectangular-Connectors:conn_01x02_254"
-			(at 187.96 64.77 0)
+			(at 35.56 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5486,7 +5469,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Sullins-Connectors-zRzCzzzSzzN-RC.pdf"
-			(at 187.96 64.77 0)
+			(at 35.56 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5495,7 +5478,7 @@
 			)
 		)
 		(property "Description" "CONN HEADER VERT 2POS 2.54MM"
-			(at 187.96 64.77 0)
+			(at 35.56 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5504,7 +5487,7 @@
 			)
 		)
 		(property "Manufacturer" "Sullins Connector Solutions"
-			(at 187.96 64.77 0)
+			(at 35.56 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5513,7 +5496,7 @@
 			)
 		)
 		(property "MPN" "PREC002SAAN-RC"
-			(at 187.96 64.77 0)
+			(at 35.56 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5522,7 +5505,7 @@
 			)
 		)
 		(property "DKPN" "S1012EC-02-ND"
-			(at 187.96 64.77 0)
+			(at 35.56 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6191,7 +6174,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Texas-Instruments-BQ34Z100-R2"
+		(property "Datasheet" "datasheets/Texas-Instruments-BQ34Z100-R2.pdf"
 			(at 139.7 107.95 0)
 			(effects
 				(font
@@ -6308,7 +6291,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "165K"
+		(property "Value" "14K"
 			(at 106.68 86.36 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6336,7 +6319,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES SMD 165K OHM 1% 1/10W 0603"
+		(property "Description" "RES SMD 14K OHM 1% 1/10W 0603"
 			(at 107.95 87.63 0)
 			(effects
 				(font
@@ -6354,7 +6337,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "CRCW0603165KFKEA"
+		(property "MPN" "CRCW060314K0FKEA"
 			(at 107.95 85.09 0)
 			(effects
 				(font
@@ -6363,7 +6346,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-165KHCT-ND"
+		(property "DKPN" "541-14.0KHCT-ND"
 			(at 107.95 87.63 0)
 			(effects
 				(font
