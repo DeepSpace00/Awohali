@@ -4,14 +4,14 @@
 	(generator_version "8.0")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
-		(at 0 -1.7 0)
+		(at 0 -1.8 0)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(uuid "af376d30-ef75-4e1e-ae60-ce8c65b8a948")
 		(effects
 			(font
-				(size 0.5 0.5)
-				(thickness 0.05)
+				(size 0.75 0.75)
+				(thickness 0.12)
 			)
 		)
 	)
@@ -107,6 +107,17 @@
 		)
 	)
 	(attr through_hole)
+	(fp_rect
+		(start -11.49 1.46)
+		(end 11.49 4.08)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "7638d228-653b-4ee7-8dac-72e4e1bea59d")
+	)
 	(fp_rect
 		(start -11.43 1.52)
 		(end 11.43 4.02)
@@ -422,5 +433,16 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "15fbc42f-51a2-4079-9498-6848da4bce5a")
+	)
+	(model "${KIPRJMOD}/libraries/3d_models/PRPC009SBAN-M71RC.STEP"
+		(offset
+			(xyz 10.48 0.33 -2.75)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 180)
+		)
 	)
 )
