@@ -5,8 +5,8 @@
 	(uuid "6f3ae1d2-e925-4178-b812-ea14ec542b6c")
 	(paper "USLetter")
 	(title_block
-		(title "BMS Breakout Board")
-		(date "2024-11-01")
+		(title "Awohali Power Supply")
+		(date "2024-11-03")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
@@ -4495,16 +4495,6 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 170.18) (xy 38.1 170.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "09cc7b15-40a3-4798-ac60-718d4e40cf17")
-	)
-	(wire
-		(pts
 			(xy 81.28 58.42) (xy 81.28 60.96)
 		)
 		(stroke
@@ -5265,6 +5255,16 @@
 	)
 	(wire
 		(pts
+			(xy 38.1 170.18) (xy 25.4 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f3100a1-eb73-4aee-bb86-513ebfaa3667")
+	)
+	(wire
+		(pts
 			(xy 106.68 55.88) (xy 106.68 58.42)
 		)
 		(stroke
@@ -5312,6 +5312,16 @@
 			(type default)
 		)
 		(uuid "8722b507-9033-4dbd-94db-c1ec4b375e4a")
+	)
+	(wire
+		(pts
+			(xy 38.1 167.64) (xy 38.1 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87f4a269-6fbd-4530-8cae-ee24223e770f")
 	)
 	(wire
 		(pts
@@ -5983,19 +5993,32 @@
 		)
 		(uuid "03568721-833e-4200-89d8-71da01bfcf18")
 	)
+	(text "RJ11 Jack"
+		(exclude_from_sim no)
+		(at 44.45 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "4cee2b53-8989-4ab9-ac8f-16d862f6ac64")
+	)
 	(text "EPS Controller"
 		(exclude_from_sim no)
 		(at 139.7 35.56 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+				(italic yes)
 			)
 		)
 		(uuid "5a0b4c0f-64c9-493b-8df4-19c13a6ba98b")
 	)
-	(text "CANbus Transceiver"
+	(text "+3V3 CANbus Transceiver"
 		(exclude_from_sim no)
-		(at 78.74 53.34 0)
+		(at 78.74 52.07 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6003,9 +6026,9 @@
 		)
 		(uuid "846c01dc-b37e-4dcb-931c-0c2d5f247b70")
 	)
-	(text "USB and Voltage Regulator"
+	(text "USBC and +3V3 Voltage Regulator"
 		(exclude_from_sim no)
-		(at 25.4 12.7 0)
+		(at 26.67 12.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6013,9 +6036,9 @@
 		)
 		(uuid "b5aa1b09-394e-44d9-a720-a1f1b713b938")
 	)
-	(text "GPIO Connector"
+	(text "GPIO Header"
 		(exclude_from_sim no)
-		(at 24.13 162.56 0)
+		(at 21.59 162.56 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6297,17 +6320,6 @@
 			(justify left bottom)
 		)
 		(uuid "72a957e6-a7a4-4b12-b121-e6fdcba9e284")
-	)
-	(label "VUSB"
-		(at 38.1 170.18 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7695348e-a4a6-420f-8b6a-f6545981972f")
 	)
 	(label "SCL"
 		(at 215.9 17.78 0)
@@ -9883,6 +9895,73 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
 					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:+3V3")
+		(at 38.1 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a3106f08-94fa-482e-91fe-01f694b24d6c")
+		(property "Reference" "#PWR036"
+			(at 38.1 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 38.1 164.084 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 38.1 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 38.1 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.1 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1a774056-f7ca-4f6f-8e1d-ab0cc9d36a6c")
+		)
+		(instances
+			(project ""
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
