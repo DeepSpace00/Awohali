@@ -927,146 +927,6 @@
 				)
 			)
 		)
-		(symbol "lib_sch:Conn_01x02_Pin"
-			(pin_names hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J?"
-				(at 0 5.715 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "VAL"
-				(at 0 3.81 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" ""
-				(at 1.27 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x02_Pin_1_0"
-				(pin passive line
-					(at 3.81 1.27 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 -1.27 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "Conn_01x02_Pin_1_1"
-				(rectangle
-					(start 0 -1.016)
-					(end 1.27 -1.524)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0 1.524)
-					(end 1.27 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-			)
-		)
 		(symbol "lib_sch:D_Zener"
 			(pin_numbers hide)
 			(exclude_from_sim no)
@@ -3079,7 +2939,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 187.96) (xy 44.45 187.96)
+			(xy 33.02 190.5) (xy 27.94 190.5)
 		)
 		(stroke
 			(width 0)
@@ -3259,6 +3119,17 @@
 		)
 		(uuid "cca8d87c-6b7a-4857-8d98-f6dcd1aff971")
 	)
+	(label "REGIN"
+		(at 120.65 118.11 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0084d0d7-f10e-4926-8945-bbbcdac41ac6")
+	)
 	(label "REG25"
 		(at 52.07 190.5 180)
 		(fields_autoplaced yes)
@@ -3282,13 +3153,13 @@
 		(uuid "1a5d1f89-efd6-4873-9899-a6a47e4ee04b")
 	)
 	(label "VEN"
-		(at 44.45 187.96 180)
+		(at 27.94 190.5 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "542cb72b-7f45-4344-8906-50ca525eedbe")
 	)
@@ -5099,6 +4970,134 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:R_horizontal")
+		(at 35.56 190.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "9a2e479f-7628-443b-8204-62fc830756ca")
+		(property "Reference" "R35"
+			(at 35.56 189.23 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 35.56 191.77 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "lib_fp:CRCW0402"
+			(at 33.02 190.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 33.02 190.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RES SMD 0 OHM JUMPER 1/16W 0402"
+			(at 35.56 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 33.02 190.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CRCW04020000Z0ED"
+			(at 33.02 190.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "541-0.0JCT-ND"
+			(at 35.56 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "N/A"
+			(at 35.56 193.04 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify right)
+			)
+		)
+		(property "Power Rating" "62.5mW"
+			(at 35.56 191.77 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0402"
+			(at 35.56 193.04 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "fb1ec061-a9f9-46fc-b9cb-06081aafdc5c")
+		)
+		(pin "2"
+			(uuid "12b10ed2-46c5-4b99-8fd0-48cf35441399")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
+					(reference "R35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:D_Zener")
 		(at 104.14 130.81 0)
 		(unit 1)
@@ -5683,103 +5682,6 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
 					(reference "#PWR026")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:Conn_01x02_Pin")
-		(at 34.29 189.23 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bbee743d-dad2-4cba-b493-ecd5ecb13778")
-		(property "Reference" "J11"
-			(at 34.29 183.515 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PREC002SAAN-RC"
-			(at 34.29 185.42 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_fp:conn_01x02_254"
-			(at 35.56 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Sullins-Connectors-zRzCzzzSzzN-RC.pdf"
-			(at 35.56 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "CONN HEADER VERT 2POS 2.54MM"
-			(at 35.56 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Sullins Connector Solutions"
-			(at 35.56 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "PREC002SAAN-RC"
-			(at 35.56 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "S1012EC-02-ND"
-			(at 35.56 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "cfcbf917-e25b-431e-84e4-6fd4bfd3d21e")
-		)
-		(pin "1"
-			(uuid "614c3e38-d14a-475a-808d-11a2de3674e8")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/66c48dda-9393-435e-81e7-77c90d57b98a"
-					(reference "J11")
 					(unit 1)
 				)
 			)
