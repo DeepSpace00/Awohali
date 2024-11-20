@@ -6,187 +6,12 @@
 	(paper "USLetter")
 	(title_block
 		(title "LiFePO4 State of Charge")
-		(date "2024-11-18")
+		(date "2024-11-20")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
 	)
 	(lib_symbols
-		(symbol "C_2"
-			(pin_numbers hide)
-			(pin_names hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C?"
-				(at 1.905 2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "CAP"
-				(at 1.905 1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 1.905 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 1.905 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Ceramic capacitor symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at 0 1.905 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "MPN" ""
-				(at 0 1.905 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "TOL"
-				(at 1.905 -1.27 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Voltage Rating" "VOLTAGE"
-				(at 1.905 0 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(property "Package" "PKG"
-				(at 1.905 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.016 1.016)
-					)
-					(justify left)
-				)
-			)
-			(symbol "C_2_0_1"
-				(polyline
-					(pts
-						(xy -1.27 -0.635) (xy 1.27 -0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 0.635) (xy 1.27 0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_2_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 1.905)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 1.905)
-					(name ""
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "DS-Power:VSS"
 			(power)
 			(pin_numbers hide)
@@ -848,6 +673,181 @@
 					)
 					(fill
 						(type background)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:C"
+			(pin_numbers hide)
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C?"
+				(at 1.905 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "CAP"
+				(at 1.905 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Ceramic capacitor symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerance" "TOL"
+				(at 1.905 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Voltage Rating" "VOLTAGE"
+				(at 1.905 0 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(property "Package" "PKG"
+				(at 1.905 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+					(justify left)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -0.635) (xy 1.27 -0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0.635) (xy 1.27 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 1.905)
+					(name ""
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
 					)
 				)
 			)
@@ -4224,8 +4224,7 @@
 		)
 	)
 	(symbol
-		(lib_name "C_2")
-		(lib_id "lib_sch:C_2")
+		(lib_id "lib_sch:C")
 		(at 165.1 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5236,8 +5235,7 @@
 		)
 	)
 	(symbol
-		(lib_name "C_2")
-		(lib_id "lib_sch:C_2")
+		(lib_id "lib_sch:C")
 		(at 152.4 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5366,8 +5364,7 @@
 		)
 	)
 	(symbol
-		(lib_name "C_2")
-		(lib_id "lib_sch:C_2")
+		(lib_id "lib_sch:C")
 		(at 115.57 127 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5758,8 +5755,7 @@
 		)
 	)
 	(symbol
-		(lib_name "C_2")
-		(lib_id "lib_sch:C_2")
+		(lib_id "lib_sch:C")
 		(at 175.26 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6212,8 +6208,7 @@
 		)
 	)
 	(symbol
-		(lib_name "C_2")
-		(lib_id "lib_sch:C_2")
+		(lib_id "lib_sch:C")
 		(at 114.3 106.68 0)
 		(mirror y)
 		(unit 1)
