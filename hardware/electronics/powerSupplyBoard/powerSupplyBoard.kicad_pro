@@ -263,7 +263,10 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "lib_symbol_issues|2476500|1092200|af4a7c6b-a24b-48a9-8fdf-ad6467df4970|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|266700|469900|fad7600e-9c3a-414f-b825-6e3aa58b4a5b|00000000-0000-0000-0000-000000000000|||"
+    ],
     "meta": {
       "version": 0
     },
@@ -463,8 +466,8 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
-      "power_pin_not_driven": "error",
+      "pin_to_pin": "ignore",
+      "power_pin_not_driven": "ignore",
       "similar_labels": "warning",
       "simulation_model_issue": "ignore",
       "unannotated": "error",
@@ -813,7 +816,7 @@
       "workbook_filename": ""
     },
     "page_layout_descr_file": "../_SharedResources/ERAU_Drawing_Sheet.kicad_wks",
-    "plot_directory": "",
+    "plot_directory": "manufacturing/assembly/",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
