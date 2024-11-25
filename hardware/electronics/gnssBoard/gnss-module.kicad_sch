@@ -4800,8 +4800,8 @@
 			)
 			(symbol "PMOS_DGS_1_0"
 				(pin passive line
-					(at -5.08 0 0)
-					(length 1.905)
+					(at 0 -5.08 90)
+					(length 3.175)
 					(name ""
 						(effects
 							(font
@@ -4818,8 +4818,8 @@
 					)
 				)
 				(pin passive line
-					(at 0 -5.08 90)
-					(length 3.175)
+					(at 5.08 0 180)
+					(length 1.905)
 					(name ""
 						(effects
 							(font
@@ -4836,7 +4836,7 @@
 					)
 				)
 				(pin passive line
-					(at 5.08 0 180)
+					(at -5.08 0 0)
 					(length 1.905)
 					(name ""
 						(effects
@@ -5807,24 +5807,6 @@
 						)
 					)
 				)
-				(pin input line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin power_in line
 					(at -2.54 -7.62 90)
 					(length 3.81)
@@ -5835,7 +5817,7 @@
 							)
 						)
 					)
-					(number "3"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5847,6 +5829,24 @@
 					(at -7.62 2.54 0)
 					(length 2.54)
 					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5905,12 +5905,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3fadba70-fde2-4650-b0db-7000ab103b76")
-	)
-	(junction
-		(at 152.4 140.97)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "56083fcc-f454-4690-82de-bfdc8fea12fe")
 	)
 	(junction
 		(at 218.44 76.2)
@@ -6556,16 +6550,6 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 142.24) (xy 152.4 140.97)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "67fe03f7-7b28-4c2e-8268-a1f72c623930")
-	)
-	(wire
-		(pts
 			(xy 109.22 116.84) (xy 109.22 119.38)
 		)
 		(stroke
@@ -7126,7 +7110,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 135.89) (xy 152.4 140.97)
+			(xy 152.4 135.89) (xy 152.4 139.7)
 		)
 		(stroke
 			(width 0)
@@ -7855,7 +7839,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 21.59 17.78 0)
 			(effects
 				(font
@@ -7949,6 +7933,101 @@
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
 					(reference "R13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Testpoints:Testpoint")
+		(at 213.36 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0b22bfe3-d044-4b3e-aa5e-638d1a71931a")
+		(property "Reference" "TP11"
+			(at 212.09 63.5 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 213.36 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "322c7077-3dca-4acb-89ef-22503613f6c9")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
+					(reference "TP11")
 					(unit 1)
 				)
 			)
@@ -8051,7 +8130,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 245.11 29.845 0)
 			(effects
 				(font
@@ -8246,7 +8325,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 68.58 89.535 0)
 			(effects
 				(font
@@ -8413,6 +8492,101 @@
 		)
 	)
 	(symbol
+		(lib_id "DS-Testpoints:Testpoint")
+		(at 213.36 71.12 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1654640d-ad04-4ecd-b629-0797de43f9dd")
+		(property "Reference" "TP14"
+			(at 212.09 71.12 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 213.36 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e2d09566-dddc-488a-89a4-a42fe37e886c")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
+					(reference "TP14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "DS-Power:VSS")
 		(at 251.46 115.57 0)
 		(unit 1)
@@ -8509,7 +8683,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 124.46 67.31 0)
 			(effects
 				(font
@@ -8636,7 +8810,7 @@
 				)
 			)
 		)
-		(property "Footprint" "DSE-RF-Receivers:ZED-F9P-04B_UBL"
+		(property "Footprint" "lib_fp:ZED-F9P-04B_UBL"
 			(at 152.4 101.6 0)
 			(effects
 				(font
@@ -9106,7 +9280,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 39.37 127 0)
 			(effects
 				(font
@@ -9235,7 +9409,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:LTST-0603"
 			(at 152.4 25.4 90)
 			(effects
 				(font
@@ -9363,7 +9537,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 109.22 119.38 0)
 			(effects
 				(font
@@ -9731,101 +9905,6 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Testpoints:Testpoint")
-		(at 213.36 63.5 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2b35fa72-9481-4397-a575-ab143fd21174")
-		(property "Reference" "TP11"
-			(at 212.09 63.5 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 213.36 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c1559388-b4cd-4c43-a26a-189111870d1b")
-		)
-		(instances
-			(project "gnssBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
-					(reference "TP11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "DS-Jumpers:Jumper_2_Bridged")
 		(at 152.4 38.1 90)
 		(unit 1)
@@ -9990,7 +10069,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOT23-6P65_210X200x110L30X25N"
 			(at 40.64 25.4 0)
 			(effects
 				(font
@@ -10380,101 +10459,6 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Testpoints:Testpoint")
-		(at 213.36 76.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "47258612-146d-486c-a426-296f91ec2ab1")
-		(property "Reference" "TP16"
-			(at 212.09 76.2 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 213.36 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e32d08a8-6978-4823-9047-e6f2424ac767")
-		)
-		(instances
-			(project "gnssBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
-					(reference "TP16")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "DS-Batteries:Battery")
 		(at 251.46 110.49 0)
 		(unit 1)
@@ -10504,7 +10488,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:MS621FE-FL11E"
 			(at 251.46 110.49 0)
 			(effects
 				(font
@@ -10513,7 +10497,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "datasheets/Seiko-Instruments-MicroBattery.pdf"
 			(at 251.46 110.49 0)
 			(effects
 				(font
@@ -10522,7 +10506,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "BATT LITHIUM 3V 5.5MAH COIN"
 			(at 251.46 110.49 0)
 			(effects
 				(font
@@ -10531,7 +10515,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "Seiko Instruments"
 			(at 251.46 110.49 0)
 			(effects
 				(font
@@ -10540,7 +10524,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
+		(property "MPN" "MS621FE-FL11E"
 			(at 251.46 110.49 0)
 			(effects
 				(font
@@ -10549,7 +10533,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
+		(property "DKPN" "728-1057-ND"
 			(at 251.46 110.49 0)
 			(effects
 				(font
@@ -10558,7 +10542,7 @@
 				(hide yes)
 			)
 		)
-		(property "CELL" "CELL"
+		(property "CELL" "Coin, 6.8mm"
 			(at 254 110.49 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10644,6 +10628,101 @@
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
 					(reference "#PWR032")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Testpoints:Testpoint")
+		(at 213.36 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4c54abf5-b297-4101-9040-e4b5b6814f09")
+		(property "Reference" "TP13"
+			(at 212.09 68.58 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 213.36 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d421ef2c-358b-4e9b-a519-4dffbe03c889")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
+					(reference "TP13")
 					(unit 1)
 				)
 			)
@@ -10746,7 +10825,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 251.46 97.79 0)
 			(effects
 				(font
@@ -10942,7 +11021,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOD123"
 			(at 251.46 92.71 90)
 			(effects
 				(font
@@ -11070,7 +11149,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 76.2 17.78 0)
 			(effects
 				(font
@@ -11198,7 +11277,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 63.5 17.78 0)
 			(effects
 				(font
@@ -11326,7 +11405,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 135.89 17.78 0)
 			(effects
 				(font
@@ -11789,7 +11868,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 261.62 29.845 0)
 			(effects
 				(font
@@ -11917,7 +11996,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOT23-6P65_210X200x110L30X25N"
 			(at 109.22 25.4 0)
 			(effects
 				(font
@@ -12039,196 +12118,6 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Testpoints:Testpoint")
-		(at 213.36 68.58 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "835d32b4-6802-4a53-8f65-b9f4bd5233ca")
-		(property "Reference" "TP13"
-			(at 212.09 68.58 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 213.36 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4c3bbafb-20bd-4a35-99b8-cd01fac1ac1f")
-		)
-		(instances
-			(project "gnssBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
-					(reference "TP13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DS-Testpoints:Testpoint")
-		(at 213.36 73.66 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "84c5c9fb-98cb-448e-bbc7-819429e3c649")
-		(property "Reference" "TP15"
-			(at 212.09 73.66 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 213.36 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "dfb5a1cf-14c9-4800-9cbe-5b0d017cd832")
-		)
-		(instances
-			(project "gnssBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
-					(reference "TP15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "DS-Passives:L")
 		(at 48.26 88.9 0)
 		(mirror y)
@@ -12258,7 +12147,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:L_0402"
 			(at 48.26 87.63 90)
 			(effects
 				(font
@@ -12368,101 +12257,6 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Testpoints:Testpoint")
-		(at 213.36 66.04 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "85079d6d-fbc6-4c56-bc71-938fbe3ad545")
-		(property "Reference" "TP12"
-			(at 212.09 66.04 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 213.36 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a60ed385-9e68-4fcc-8d5b-9ff2b28cbd6d")
-		)
-		(instances
-			(project "gnssBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
-					(reference "TP12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "lib_sch:Duel-NMOS")
 		(at 99.06 33.02 0)
 		(mirror x)
@@ -12491,7 +12285,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOT23-6P65_210X200x110L30X25N"
 			(at 99.06 33.02 0)
 			(effects
 				(font
@@ -12708,7 +12502,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 54.61 17.78 0)
 			(effects
 				(font
@@ -12836,7 +12630,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 12.7 17.78 0)
 			(effects
 				(font
@@ -13003,6 +12797,101 @@
 		)
 	)
 	(symbol
+		(lib_id "DS-Testpoints:Testpoint")
+		(at 213.36 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8e237c6a-0967-4e8a-ad40-fbb30061e26f")
+		(property "Reference" "TP15"
+			(at 212.09 73.66 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 213.36 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2b3a4ec6-4989-48ad-b781-edc29b42584e")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
+					(reference "TP15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "DS-Power:+1V8")
 		(at 127 15.24 0)
 		(unit 1)
@@ -13153,7 +13042,7 @@
 				(hide yes)
 			)
 		)
-		(pin "3"
+		(pin "2"
 			(uuid "d776fa7e-6da7-4462-af5e-808f4f00bb63")
 		)
 		(pin "3"
@@ -13312,6 +13201,101 @@
 		)
 	)
 	(symbol
+		(lib_id "DS-Testpoints:Testpoint")
+		(at 213.36 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a6a2c90f-9ae1-40ec-a19a-dae6f1f9e6a3")
+		(property "Reference" "TP16"
+			(at 212.09 76.2 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 213.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0b5379f7-4773-4d7d-b864-66be29e4d078")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
+					(reference "TP16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:Duel-NMOS")
 		(at 30.48 33.02 0)
 		(mirror x)
@@ -13340,7 +13324,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOT23-6P65_210X200x110L30X25N"
 			(at 30.48 33.02 0)
 			(effects
 				(font
@@ -13530,7 +13514,7 @@
 	)
 	(symbol
 		(lib_id "DS-Power:VSS")
-		(at 152.4 140.97 0)
+		(at 152.4 139.7 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13539,7 +13523,7 @@
 		(fields_autoplaced yes)
 		(uuid "ab342ea9-0a2c-4086-8acb-0c02dc430251")
 		(property "Reference" "#PWR028"
-			(at 152.4 140.97 0)
+			(at 152.4 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13548,7 +13532,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 152.4 144.78 0)
+			(at 152.4 143.51 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -13557,7 +13541,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 152.4 140.97 0)
+			(at 152.4 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13566,7 +13550,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 152.4 140.97 0)
+			(at 152.4 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13575,7 +13559,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 152.4 140.97 0)
+			(at 152.4 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13590,6 +13574,101 @@
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
 					(reference "#PWR028")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Testpoints:Testpoint")
+		(at 213.36 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ad7c44a2-fda3-4fa6-b806-545bd52b4cf4")
+		(property "Reference" "TP12"
+			(at 212.09 66.04 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 213.36 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1202e486-b58b-4a55-9419-72e2740330f2")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
+					(reference "TP12")
 					(unit 1)
 				)
 			)
@@ -13624,7 +13703,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 127 17.78 0)
 			(effects
 				(font
@@ -13752,7 +13831,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 85.09 17.78 0)
 			(effects
 				(font
@@ -13937,7 +14016,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Antenna_Shield"
+		(property "Value" "CONMHF1-SMD-T"
 			(at 52.07 73.0249 0)
 			(effects
 				(font
@@ -13946,7 +14025,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CONMHF1"
 			(at 48.26 69.85 0)
 			(effects
 				(font
@@ -13955,7 +14034,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "datasheets/TE-Connectivity-Linx-CONMHF1-SMD.pdf"
 			(at 48.26 69.85 0)
 			(effects
 				(font
@@ -13964,7 +14043,34 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Antenna with extra pin for shielding"
+		(property "Description" "CONN UMC JACK STR SMD"
+			(at 48.26 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "TE Connectivity Linx"
+			(at 48.26 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CONMHF1-SMD-T"
+			(at 48.26 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "343-CONMHF1-SMD-TCT-ND"
 			(at 48.26 72.39 0)
 			(effects
 				(font
@@ -14086,7 +14192,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 39.37 135.89 0)
 			(effects
 				(font
@@ -14205,7 +14311,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VAL"
+		(property "Value" "DMG1013TQ-7"
 			(at 45.72 107.95 90)
 			(do_not_autoplace yes)
 			(effects
@@ -14215,7 +14321,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOT23-3P50_160X160X75L22X22N"
 			(at 48.26 109.22 0)
 			(effects
 				(font
@@ -14224,7 +14330,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "datasheets/Diodes-Incorporated-DMG1013TQ.pdf"
 			(at 48.26 109.22 0)
 			(effects
 				(font
@@ -14233,7 +14339,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "MOSFET P-CH 20V 460MA SOT523"
 			(at 48.26 109.22 0)
 			(effects
 				(font
@@ -14242,7 +14348,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 48.26 109.22 0)
 			(effects
 				(font
@@ -14251,7 +14357,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
+		(property "MPN" "DMG1013TQ-7"
 			(at 48.26 109.22 0)
 			(effects
 				(font
@@ -14260,7 +14366,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
+		(property "DKPN" "31-DMG1013TQ-7CT-ND"
 			(at 48.26 109.22 0)
 			(effects
 				(font
@@ -14356,7 +14462,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 50.8 116.84 90)
 			(effects
 				(font
@@ -14456,101 +14562,6 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Testpoints:Testpoint")
-		(at 213.36 71.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cc875cfe-11cd-4b87-8705-a0373b5c2e09")
-		(property "Reference" "TP14"
-			(at 212.09 71.12 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 213.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "61fea52c-cea2-458f-8e84-9cab4f595548")
-		)
-		(instances
-			(project "gnssBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5/9135f198-20bd-4bbf-af51-b670dc586568"
-					(reference "TP14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "DS-Passives:C")
 		(at 52.07 96.52 0)
 		(unit 1)
@@ -14579,7 +14590,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 52.07 94.615 0)
 			(effects
 				(font
@@ -14775,7 +14786,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:SOD882"
 			(at 64.135 86.995 0)
 			(effects
 				(font
@@ -15019,7 +15030,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW0402"
 			(at 152.4 29.21 0)
 			(effects
 				(font
@@ -15214,7 +15225,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 232.41 29.845 0)
 			(effects
 				(font
@@ -15344,7 +15355,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_fp:CRCW2512-HP"
 			(at 48.26 93.98 0)
 			(effects
 				(font
@@ -15539,7 +15550,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 252.73 29.845 0)
 			(effects
 				(font
@@ -15735,7 +15746,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DS-Capacitors-SMD:MLCC0603"
 			(at 224.79 29.845 0)
 			(effects
 				(font
