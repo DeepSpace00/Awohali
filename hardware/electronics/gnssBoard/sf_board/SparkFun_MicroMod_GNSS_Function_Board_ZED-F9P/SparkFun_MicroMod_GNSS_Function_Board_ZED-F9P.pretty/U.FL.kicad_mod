@@ -1,0 +1,158 @@
+(footprint "U.FL"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "U.FL SMD Antenna Connector\n\nSpecifications:\n• Area: 3.0mm x 2.5mm\n\nDatasheet referenced for footprint\n\nExample device(s):\n\n• U.FL")
+	(property "Reference" "REF**"
+		(at -1.27 -2.54 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "da74200f-4588-4fa8-adbc-555eccd1d80e")
+		(effects
+			(font
+				(size 0.48768 0.48768)
+				(thickness 0.12192)
+			)
+			(justify left bottom)
+		)
+	)
+	(property "Value" "U.FL"
+		(at -1.27 2.54 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "e0f0ae1d-4d5c-428d-b04f-c1a5247bf01c")
+		(effects
+			(font
+				(size 0.48768 0.48768)
+				(thickness 0.12192)
+			)
+			(justify left top)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "826f20bb-e301-4f2b-9ba7-756511c4b067")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "596239ce-01aa-478d-a9a7-e359a37fe1f2")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7d832a8b-465e-4ca7-a776-1dbbdec9494b")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_line
+		(start -1.524 -1.778)
+		(end -1.016 -2.286)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "743ada79-e010-4725-a36e-7f6568c7d429")
+	)
+	(fp_line
+		(start -1.524 -1.016)
+		(end -1.524 -1.778)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "7e600c87-c14a-4395-816e-10b6f28dbc16")
+	)
+	(fp_line
+		(start -1.016 -2.286)
+		(end -0.254 -2.286)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "917c3eb8-19ac-46de-8903-33b56cb9f164")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 0.127 0)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "ce371099-6750-4bd6-be24-5a33dbe0343f")
+	)
+	(fp_poly
+		(pts
+			(xy 0.9017 0.5207) (xy 0.2413 0.5207) (xy 0.2413 -0.5207) (xy 0.9017 -0.5207)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "6e18d95d-0c5a-4a93-913c-12dbf9f47b30")
+	)
+	(pad "1" smd roundrect
+		(at 0 -1.375)
+		(size 2.2 0.85)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(roundrect_rratio 0.05976470588)
+		(solder_mask_margin 0.0635)
+		(thermal_bridge_angle 0)
+		(uuid "95e7848e-a18d-4145-9271-96aa62378e5a")
+	)
+	(pad "2" smd roundrect
+		(at 0 1.375)
+		(size 2.2 0.85)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(roundrect_rratio 0.05976470588)
+		(solder_mask_margin 0.0635)
+		(thermal_bridge_angle 0)
+		(uuid "9c7aabc0-92f3-4119-85ab-c18a21f592d1")
+	)
+	(pad "FEED" smd roundrect
+		(at 1.525 0)
+		(size 1.05 1)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(roundrect_rratio 0.0508)
+		(solder_mask_margin 0.0635)
+		(thermal_bridge_angle 0)
+		(uuid "2f490f7a-6f36-4f73-9637-19ee9068c450")
+	)
+	(pad "NC" smd roundrect
+		(at -1.525 0)
+		(size 1.05 1)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(roundrect_rratio 0.0508)
+		(solder_mask_margin 0.0635)
+		(thermal_bridge_angle 0)
+		(uuid "f53f9e9e-7d2b-4b34-8e6e-64157d7a5231")
+	)
+)
