@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "min_clearance": 0.125
         }
       },
       "diff_pair_dimensions": [
@@ -183,7 +183,15 @@
         }
       ],
       "track_widths": [
-        0.0
+        0.0,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
@@ -215,6 +223,14 @@
         {
           "diameter": 0.0,
           "drill": 0.0
+        },
+        {
+          "diameter": 0.525,
+          "drill": 0.215
+        },
+        {
+          "diameter": 0.6,
+          "drill": 0.3
         }
       ],
       "zones_allow_external_fillets": false
@@ -234,7 +250,13 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "multiple_net_names|1485900|698500|52599bb5-1355-45c7-896e-6ebed42e813c|a2fb5221-6ca5-4088-ae4e-6266f61cbb04|/50c89994-1e88-43a3-960b-69c29381dda5/a98004c9-b167-42e1-b839-773c571241b0|/50c89994-1e88-43a3-960b-69c29381dda5/a98004c9-b167-42e1-b839-773c571241b0|/50c89994-1e88-43a3-960b-69c29381dda5/a98004c9-b167-42e1-b839-773c571241b0",
+      "no_connect_connected|1778000|1270000|6970fc22-e738-4e91-9492-dec7d76c57e5|914ab7a9-ba73-413d-a2a7-963c367c60c4|/50c89994-1e88-43a3-960b-69c29381dda5/a98004c9-b167-42e1-b839-773c571241b0||",
+      "no_connect_connected|381000|508000|bfc49f0c-3235-4925-8c12-48ef811bd027|e6dfc72a-42a8-4f4f-ad37-30baa318f701|/50c89994-1e88-43a3-960b-69c29381dda5||",
+      "power_pin_not_driven|127000|152400|7b862500-0ad7-445b-8bac-2de30cd44597|00000000-0000-0000-0000-000000000000|/50c89994-1e88-43a3-960b-69c29381dda5/a98004c9-b167-42e1-b839-773c571241b0|/50c89994-1e88-43a3-960b-69c29381dda5/a98004c9-b167-42e1-b839-773c571241b0|",
+      "power_pin_not_driven|1409700|1663700|8cefce0c-7010-4d5d-b91d-a7ca05956dd8|00000000-0000-0000-0000-000000000000|/50c89994-1e88-43a3-960b-69c29381dda5|/50c89994-1e88-43a3-960b-69c29381dda5|"
+    ],
     "meta": {
       "version": 0
     },
@@ -530,22 +552,6 @@
         "pattern": "/HOST_D-"
       },
       {
-        "netclass": "USB Diff Pair",
-        "pattern": "/USB_D-"
-      },
-      {
-        "netclass": "USB Diff Pair",
-        "pattern": "/USB_D+"
-      },
-      {
-        "netclass": "USB Diff Pair",
-        "pattern": "/ZED_D-"
-      },
-      {
-        "netclass": "USB Diff Pair",
-        "pattern": "/ZED_D+"
-      },
-      {
         "netclass": "GNSS RF",
         "pattern": "/GNSS Module/ANT_IN"
       },
@@ -555,11 +561,11 @@
       },
       {
         "netclass": "USB Diff Pair",
-        "pattern": "/GNSS Module/ZED_D_+"
+        "pattern": "/GNSS Module/ZED_D-"
       },
       {
         "netclass": "USB Diff Pair",
-        "pattern": "/GNSS Module/ZED_D_-"
+        "pattern": "/GNSS Module/ZED_D+"
       }
     ]
   },
@@ -682,7 +688,7 @@
       "Root"
     ],
     [
-      "9135f198-20bd-4bbf-af51-b670dc586568",
+      "a98004c9-b167-42e1-b839-773c571241b0",
       "GNSS Module"
     ]
   ],
