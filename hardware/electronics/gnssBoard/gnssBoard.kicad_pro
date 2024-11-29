@@ -59,11 +59,14 @@
         },
         {
           "gap": 0.125,
-          "via_gap": 0.29,
+          "via_gap": 0.295,
           "width": 0.2362
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "copper_edge_clearance|140000000|78000000|601c69ff-a8f8-4969-9b83-73209fb993e2|2b076193-97c0-4ed9-9c43-4518a987a6e5",
+        "copper_edge_clearance|140000000|78000000|601c69ff-a8f8-4969-9b83-73209fb993e2|49fb0fbe-51b2-4b9b-916b-e2ddd9af18d3"
+      ],
       "meta": {
         "version": 2
       },
@@ -225,7 +228,7 @@
           "drill": 0.0
         },
         {
-          "diameter": 0.525,
+          "diameter": 0.5275,
           "drill": 0.215
         },
         {
@@ -470,8 +473,7 @@
     "pinned_footprint_libs": [
       "lib_fp",
       "DSE-RF-Receivers",
-      "DSE-RF-Transceivers-and-Modems",
-      "DS-Connectors-PCB-Edge"
+      "DSE-RF-Transceivers-and-Modems"
     ],
     "pinned_symbol_libs": [
       "DSE-RF-Tranceivers-and-Modems",
