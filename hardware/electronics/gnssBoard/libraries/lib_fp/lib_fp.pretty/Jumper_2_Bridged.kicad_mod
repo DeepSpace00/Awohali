@@ -4,7 +4,7 @@
 	(generator_version "8.0")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
-		(at 0 -2.2 0)
+		(at 0 -1 0)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(uuid "5782c19d-2255-4a4c-b600-d5187b2f8bf0")
@@ -68,17 +68,6 @@
 		)
 	)
 	(attr smd)
-	(fp_rect
-		(start -0.25 -0.25)
-		(end 0.25 0.25)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(fill solid)
-		(layer "F.Cu")
-		(uuid "d0d1efad-34d0-429d-a7ea-c992b968eed6")
-	)
 	(fp_text user "${REFERENCE}"
 		(at 0 0 0)
 		(unlocked yes)
@@ -94,48 +83,42 @@
 	)
 	(pad "1" smd custom
 		(at -0.75 0)
-		(size 0.25 0.25)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(size 0.1 0.1)
+		(layers "F.Cu" "F.Mask")
 		(options
 			(clearance outline)
-			(anchor circle)
+			(anchor rect)
 		)
 		(primitives
 			(gr_poly
 				(pts
-					(arc
-						(start 0.5 -1)
-						(mid -0.5 0)
-						(end 0.5 1)
-					)
+					(xy -0.25 0.5) (xy -0.25 -0.5) (xy 0.25 -0.5) (xy 0.25 -0.15) (xy 0.75 -0.15) (xy 0.75 0.15) (xy 0.25 0.15)
+					(xy 0.25 0.5)
 				)
 				(width 0)
 				(fill yes)
 			)
 		)
-		(uuid "eba9d831-6eb2-40ed-873c-b7c0a8d3890c")
+		(uuid "1dacf02f-ea43-4dd8-8a41-b31465fe59ce")
 	)
 	(pad "2" smd custom
 		(at 0.75 0 180)
-		(size 0.25 0.25)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(size 0.1 0.1)
+		(layers "F.Cu" "F.Mask")
 		(options
 			(clearance outline)
-			(anchor circle)
+			(anchor rect)
 		)
 		(primitives
 			(gr_poly
 				(pts
-					(arc
-						(start 0.5 -1)
-						(mid -0.5 0)
-						(end 0.5 1)
-					)
+					(xy -0.25 0.5) (xy -0.25 -0.5) (xy 0.25 -0.5) (xy 0.25 -0.15) (xy 0.75 -0.15) (xy 0.75 0.15) (xy 0.25 0.15)
+					(xy 0.25 0.5)
 				)
 				(width 0)
 				(fill yes)
 			)
 		)
-		(uuid "1d9a3c0e-29e8-4839-949f-28018c6d2728")
+		(uuid "66e4df2b-3e77-4107-a690-d153c1e4f164")
 	)
 )

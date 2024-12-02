@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "U-bolx ZED-F9P M.2 E-Key")
-		(date "2024-11-15")
+		(date "2024-12-02")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
@@ -2172,6 +2172,157 @@
 				)
 			)
 		)
+		(symbol "lib_sch:Jumper_2_Bridged"
+			(pin_numbers hide)
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 1.905 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Jumper_2_Bridged_0_1"
+				(polyline
+					(pts
+						(xy -0.254 0.635) (xy -0.254 -0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 -0.635) (xy 0.254 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_1_1"
+				(arc
+					(start -0.254 0.635)
+					(mid -0.889 0)
+					(end -0.254 -0.635)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.254 0) (xy 0.254 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0.254 -0.635)
+					(mid 0.889 0)
+					(end 0.254 0.635)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.651)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.651)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "lib_sch:LED"
 			(pin_numbers hide)
 			(exclude_from_sim no)
@@ -2803,6 +2954,120 @@
 				)
 			)
 		)
+		(symbol "lib_sch:Testpoint"
+			(pin_numbers hide)
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at -1.27 0 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Testpoint_0_1"
+				(arc
+					(start -0.635 -0.635)
+					(mid 0 0)
+					(end -0.635 0.635)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Testpoint_1_0"
+				(pin passive line
+					(at 2.54 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "lib_sch:VSS"
 			(power)
 			(pin_numbers hide)
@@ -2936,6 +3201,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b99b48da-e21b-47a8-ae07-e10da39d389f")
+	)
+	(junction
+		(at 80.01 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e15d1d28-b45e-42ca-bf4c-cf75b121d071")
 	)
 	(junction
 		(at 186.69 133.35)
@@ -3139,6 +3410,16 @@
 	)
 	(wire
 		(pts
+			(xy 66.04 45.72) (xy 67.31 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0a7dee49-531b-48d2-9f3d-fe96d77ffba4")
+	)
+	(wire
+		(pts
 			(xy 49.53 30.48) (xy 49.53 31.75)
 		)
 		(stroke
@@ -3159,6 +3440,16 @@
 	)
 	(wire
 		(pts
+			(xy 77.47 71.12) (xy 90.17 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "131418a8-1951-46ae-a0c6-58284c738f8d")
+	)
+	(wire
+		(pts
 			(xy 105.41 107.95) (xy 115.57 107.95)
 		)
 		(stroke
@@ -3166,6 +3457,26 @@
 			(type default)
 		)
 		(uuid "1afa906b-cfd2-4d2c-b4e7-f4cfde17c987")
+	)
+	(wire
+		(pts
+			(xy 80.01 60.96) (xy 80.01 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1dddb580-2eea-4aa1-b1d1-6aae08f5facf")
+	)
+	(wire
+		(pts
+			(xy 77.47 68.58) (xy 90.17 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "213deb8d-e940-4d65-979c-b254f2e7fadd")
 	)
 	(wire
 		(pts
@@ -3229,6 +3540,16 @@
 	)
 	(wire
 		(pts
+			(xy 77.47 73.66) (xy 86.36 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ba4e0a6-649c-4cfd-b8bb-be903ef83761")
+	)
+	(wire
+		(pts
 			(xy 166.37 77.47) (xy 176.53 77.47)
 		)
 		(stroke
@@ -3246,6 +3567,16 @@
 			(type default)
 		)
 		(uuid "44dc4d04-9eda-4cb5-bb1f-8072ee5daaae")
+	)
+	(wire
+		(pts
+			(xy 80.01 63.5) (xy 77.47 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "452b476e-55ba-4fdc-9e87-ed38623557aa")
 	)
 	(wire
 		(pts
@@ -3319,6 +3650,16 @@
 	)
 	(wire
 		(pts
+			(xy 77.47 66.04) (xy 86.36 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e106606-2d97-4976-9583-cafba9bb154a")
+	)
+	(wire
+		(pts
 			(xy 67.31 30.48) (xy 59.69 30.48)
 		)
 		(stroke
@@ -3369,7 +3710,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 45.72) (xy 67.31 45.72)
+			(xy 59.69 45.72) (xy 60.96 45.72)
 		)
 		(stroke
 			(width 0)
@@ -3489,6 +3830,16 @@
 	)
 	(wire
 		(pts
+			(xy 80.01 81.28) (xy 80.01 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad1baa85-0d88-434c-9bec-b99148e0a923")
+	)
+	(wire
+		(pts
 			(xy 166.37 87.63) (xy 176.53 87.63)
 		)
 		(stroke
@@ -3496,6 +3847,16 @@
 			(type default)
 		)
 		(uuid "af38ac38-20fb-4017-87f7-ec6ebc1a3e01")
+	)
+	(wire
+		(pts
+			(xy 77.47 76.2) (xy 86.36 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af55d1ef-d451-4492-a8ca-fd336917d210")
 	)
 	(wire
 		(pts
@@ -3549,6 +3910,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 66.04) (xy 86.36 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b90b116b-f2f1-412d-b6bb-d30a4769dafa")
+	)
+	(wire
+		(pts
 			(xy 16.51 40.64) (xy 16.51 45.72)
 		)
 		(stroke
@@ -3556,6 +3927,16 @@
 			(type default)
 		)
 		(uuid "bc27d543-784d-4f02-b7a8-b82e5b2b4e9e")
+	)
+	(wire
+		(pts
+			(xy 80.01 83.82) (xy 80.01 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf7df304-f2a3-406b-8e2a-bd7db4b22a69")
 	)
 	(wire
 		(pts
@@ -3599,6 +3980,16 @@
 	)
 	(wire
 		(pts
+			(xy 77.47 81.28) (xy 80.01 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfe482aa-8d7d-4c1c-956e-372204e0c79d")
+	)
+	(wire
+		(pts
 			(xy 201.93 27.94) (xy 215.9 27.94)
 		)
 		(stroke
@@ -3626,6 +4017,16 @@
 			(type default)
 		)
 		(uuid "de24727d-2d78-4496-abb6-af6ab837ab3a")
+	)
+	(wire
+		(pts
+			(xy 80.01 78.74) (xy 77.47 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e0d0c0da-f228-41b4-936a-85c1eba35793")
 	)
 	(wire
 		(pts
@@ -3731,6 +4132,17 @@
 		)
 		(uuid "476e2d3a-9ff6-4e61-b375-3e4f33c12e5b")
 	)
+	(label "ZED_RXD_1V8"
+		(at 90.17 68.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4c1bee03-339d-4b37-8f7a-9687a4e1b848")
+	)
 	(label "HOST_D+"
 		(at 105.41 105.41 0)
 		(fields_autoplaced yes)
@@ -3797,6 +4209,28 @@
 		)
 		(uuid "94e7679d-9982-4b94-bde6-a0acfd6669ff")
 	)
+	(label "SDA_1V8"
+		(at 86.36 73.66 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9846711c-cf1d-41a1-bf78-430df74c1b7f")
+	)
+	(label "ZED_TXD_1V8"
+		(at 90.17 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "abd2b3ac-5950-4731-bfa4-7e4ec2235145")
+	)
 	(label "EXTINT"
 		(at 176.53 80.01 180)
 		(fields_autoplaced yes)
@@ -3852,6 +4286,17 @@
 		)
 		(uuid "d33e5d61-14e9-4e76-9e53-ceb3d5aa896d")
 	)
+	(label "SCL_1V8"
+		(at 86.36 76.2 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d5eaf3b4-f09e-4c7e-9c3e-9302c33ac824")
+	)
 	(label "ZED_RXD_1V8"
 		(at 201.93 43.18 0)
 		(fields_autoplaced yes)
@@ -3895,6 +4340,101 @@
 			(justify right bottom)
 		)
 		(uuid "f64aff2b-e1e5-4379-be22-3e1df482b9b2")
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "02ead1fc-42d7-4e98-aef1-c50b6fec812e")
+		(property "Reference" "TP6"
+			(at 73.66 76.2 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "24a9f9ff-5d93-41b6-bbce-a09cd6bca76d")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP6")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "lib_sch:C")
@@ -4019,6 +4559,73 @@
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
 					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 80.01 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "19ac6b2e-7d44-4705-b2e5-6ef600c8ea32")
+		(property "Reference" "#PWR039"
+			(at 80.01 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 80.01 87.63 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 80.01 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 80.01 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 80.01 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c10cd544-b130-4d5d-8749-455831d06192")
+		)
+		(instances
+			(project ""
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR039")
 					(unit 1)
 				)
 			)
@@ -4420,7 +5027,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "452b0379-f70a-46c1-80c5-45cfb2bcda4a")
-		(property "Reference" "#PWR041"
+		(property "Reference" "#PWR03"
 			(at 16.51 48.26 0)
 			(effects
 				(font
@@ -4471,7 +5078,7 @@
 		(instances
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR041")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -4487,7 +5094,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "527107ea-5bd5-4337-b2fd-244ec376acaf")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR05"
 			(at 140.97 64.77 0)
 			(effects
 				(font
@@ -4538,7 +5145,7 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR04")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -4673,6 +5280,196 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5a852433-752b-4121-8ef3-842a743f262f")
+		(property "Reference" "TP2"
+			(at 73.66 66.04 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c5923ea3-0e9f-4c38-a44d-c3610ac3c58a")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5c33ca5d-ce5e-4d57-98ea-c2d5e5eea754")
+		(property "Reference" "TP5"
+			(at 73.66 73.66 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c0749f2b-9b62-4686-83cf-31261f3009b7")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:VSS")
 		(at 59.69 48.26 0)
 		(unit 1)
@@ -4682,7 +5479,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "64af44c0-cd51-4a1a-a3f0-838256b21adb")
-		(property "Reference" "#PWR040"
+		(property "Reference" "#PWR04"
 			(at 59.69 48.26 0)
 			(effects
 				(font
@@ -4733,7 +5530,7 @@
 		(instances
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR040")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -4758,7 +5555,7 @@
 				)
 			)
 		)
-		(property "Value" "VAL"
+		(property "Value" "Standoff"
 			(at 25.4 60.96 0)
 			(do_not_autoplace yes)
 			(effects
@@ -4841,10 +5638,9 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "71f07126-c53c-422f-a9b5-f33c56177b1c")
 		(property "Reference" "J2"
-			(at 143.1641 64.77 0)
+			(at 118.11 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4853,12 +5649,13 @@
 			)
 		)
 		(property "Value" "M.2_E_Key_PCB_Edge"
-			(at 143.1641 67.31 0)
+			(at 163.576 68.58 0)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "lib_fp:M.2 E-Key"
@@ -5135,7 +5932,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7c1b46a8-9b53-4cd3-af98-1cef0dc2e953")
-		(property "Reference" "#PWR027"
+		(property "Reference" "#PWR07"
 			(at 186.69 130.81 0)
 			(effects
 				(font
@@ -5186,7 +5983,7 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR027")
+					(reference "#PWR07")
 					(unit 1)
 				)
 			)
@@ -5706,7 +6503,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "978555f4-6955-4254-bc95-7cafba2bd91b")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR08"
 			(at 140.97 166.37 0)
 			(effects
 				(font
@@ -5757,7 +6554,7 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR05")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -5773,7 +6570,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "99650bce-4361-48e1-a87b-0b3cbe6020e7")
-		(property "Reference" "#PWR043"
+		(property "Reference" "#PWR01"
 			(at 16.51 27.94 0)
 			(effects
 				(font
@@ -5824,7 +6621,7 @@
 		(instances
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR043")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -5840,7 +6637,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9edec56b-0831-4565-9f25-f3ec2d458435")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR06"
 			(at 25.4 69.85 0)
 			(effects
 				(font
@@ -5891,7 +6688,7 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR010")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -5907,7 +6704,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aaca3b49-e570-4ede-bf55-3c8f50e809d1")
-		(property "Reference" "#PWR042"
+		(property "Reference" "#PWR02"
 			(at 59.69 27.94 0)
 			(effects
 				(font
@@ -5958,7 +6755,428 @@
 		(instances
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR042")
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c3e138a9-1280-442a-9028-b730f9cf5ae7")
+		(property "Reference" "TP3"
+			(at 73.66 68.58 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ec8b2ace-e49d-4d7e-8cac-af7fd74d867e")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 71.12 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ce1463a4-bd3e-4ef3-937c-84af75f35cb2")
+		(property "Reference" "TP4"
+			(at 73.66 71.12 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8a78b057-3eca-43f9-9fc3-1e011e79f244")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Jumper_2_Bridged")
+		(at 63.5 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d80ea049-c658-4064-8eb9-40022850198a")
+		(property "Reference" "JP1"
+			(at 63.5 43.815 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 63.5 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_fp:Jumper_2_Bridged"
+			(at 63.5 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 63.5 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "390791fb-fac2-43f2-bbd3-3f5dfbc30163")
+		)
+		(pin "1"
+			(uuid "741f116c-bf7f-4381-8ea5-f4fd10b744de")
+		)
+		(instances
+			(project ""
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "JP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:+1V8")
+		(at 86.36 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e329f6bc-e78c-4994-9659-3d0eeb831901")
+		(property "Reference" "#PWR038"
+			(at 86.36 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+1V8"
+			(at 86.36 57.404 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 86.36 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 86.36 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 86.36 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d49cdaa8-ca86-49b6-a723-76f485d6f9fb")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR038")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e8ef0bff-20c8-489f-ad2d-3061e73739b5")
+		(property "Reference" "TP7"
+			(at 73.66 78.74 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8f9b6e18-cd91-4f3e-8f6c-231b2cc96687")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP7")
 					(unit 1)
 				)
 			)
@@ -6087,6 +7305,263 @@
 			(project "gnssBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
 					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f0517edf-13a2-4d28-b7c2-8d14c83b9f46")
+		(property "Reference" "TP1"
+			(at 73.66 63.5 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4611e9db-3315-4322-93f9-2df4c471a5a8")
+		)
+		(instances
+			(project ""
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:+3V3")
+		(at 80.01 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f540e2e4-a8dd-4c5c-8b69-af78638d2bdb")
+		(property "Reference" "#PWR037"
+			(at 80.01 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 80.01 57.404 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 80.01 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 80.01 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 80.01 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "48c81309-566c-4f79-91bb-abe6b98de213")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 74.93 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f9efa151-47c0-4669-90f5-af06fa3bbc04")
+		(property "Reference" "TP8"
+			(at 73.66 81.28 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "lib_fp:TP_1mm"
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 74.93 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9788fa5c-e241-4f1e-9905-b2b95ee92161")
+		)
+		(instances
+			(project "gnssBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "TP8")
 					(unit 1)
 				)
 			)
