@@ -4540,7 +4540,7 @@
 				)
 			)
 			(pin input line
-				(at 15.24 -12.7 180)
+				(at 15.24 -19.05 180)
 				(length 2.54)
 				(name "ANT_GNSS"
 					(effects
@@ -4648,7 +4648,7 @@
 				)
 			)
 			(pin output line
-				(at 15.24 7.62 180)
+				(at 15.24 5.08 180)
 				(length 2.54)
 				(name "SIM_RST"
 					(effects
@@ -4666,7 +4666,7 @@
 				)
 			)
 			(pin output clock
-				(at 15.24 5.08 180)
+				(at 15.24 2.54 180)
 				(length 2.54)
 				(name "SIM_CLK"
 					(effects
@@ -4684,7 +4684,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 15.24 2.54 180)
+				(at 15.24 0 180)
 				(length 2.54)
 				(name "SIM_IO"
 					(effects
@@ -4702,7 +4702,7 @@
 				)
 			)
 			(pin power_out line
-				(at 15.24 0 180)
+				(at 15.24 7.62 180)
 				(length 2.54)
 				(name "VSIM"
 					(effects
@@ -4882,7 +4882,7 @@
 				)
 			)
 			(pin output line
-				(at 15.24 -17.78 180)
+				(at 15.24 -12.7 180)
 				(length 2.54)
 				(name "RFCTRL2"
 					(effects
@@ -4900,7 +4900,7 @@
 				)
 			)
 			(pin output line
-				(at 15.24 -15.24 180)
+				(at 15.24 -10.16 180)
 				(length 2.54)
 				(name "RFCTRL1"
 					(effects
@@ -4918,7 +4918,7 @@
 				)
 			)
 			(pin output line
-				(at 15.24 -5.08 180)
+				(at 15.24 -16.51 180)
 				(length 2.54)
 				(name "ANT_ON"
 					(effects
@@ -4936,7 +4936,7 @@
 				)
 			)
 			(pin input line
-				(at 15.24 -22.86 180)
+				(at 15.24 -24.13 180)
 				(length 2.54)
 				(name "ADC"
 					(effects
@@ -4990,7 +4990,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 15.24 -10.16 180)
+				(at 15.24 -5.08 180)
 				(length 2.54)
 				(name "ANT"
 					(effects
@@ -6830,7 +6830,7 @@
 		)
 		(symbol "LM51571-Q1_0_0"
 			(pin passive line
-				(at -12.7 -12.7 0)
+				(at 12.7 -12.7 180)
 				(length 2.54)
 				(name "PGND"
 					(effects
@@ -6848,7 +6848,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 -7.62 0)
+				(at -12.7 -10.16 0)
 				(length 2.54)
 				(name "SS"
 					(effects
@@ -6866,7 +6866,7 @@
 				)
 			)
 			(pin input line
-				(at 12.7 -5.08 180)
+				(at -12.7 -5.08 0)
 				(length 2.54)
 				(name "MODE"
 					(effects
@@ -6938,7 +6938,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 -2.54 0)
+				(at -12.7 -7.62 0)
 				(length 2.54)
 				(name "RT"
 					(effects
@@ -6956,7 +6956,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -12.7 180)
+				(at 12.7 -10.16 180)
 				(length 2.54)
 				(name "AGND"
 					(effects
@@ -6974,7 +6974,7 @@
 				)
 			)
 			(pin output line
-				(at 12.7 0 180)
+				(at -12.7 -12.7 0)
 				(length 2.54)
 				(name "COMP"
 					(effects
@@ -7048,7 +7048,7 @@
 				)
 			)
 			(pin no_connect line
-				(at 12.7 -8.89 180)
+				(at 12.7 -6.35 180)
 				(length 2.54)
 				(name "NC"
 					(effects
@@ -7066,7 +7066,7 @@
 				)
 			)
 			(pin passive line
-				(at -12.7 -12.7 0)
+				(at 12.7 -12.7 180)
 				(length 2.54) hide
 				(name "PGND"
 					(effects
@@ -7084,7 +7084,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -12.7 180)
+				(at 12.7 -10.16 180)
 				(length 2.54) hide
 				(name "AGND"
 					(effects
@@ -7934,6 +7934,364 @@
 					(effects
 						(font
 							(size 0 0)
+						)
+					)
+				)
+			)
+		)
+	)
+	(symbol "SIM_Card"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 16.51 0)
+			(do_not_autoplace)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VAL"
+			(at 0 13.97 0)
+			(do_not_autoplace)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 12.7 10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 12.7 10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 12.7 10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 12.7 10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 12.7 10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 12.7 10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "SIM_Card_0_0"
+			(pin power_in line
+				(at 15.24 10.16 180)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 7.62 180)
+				(length 2.54)
+				(name "RST"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input clock
+				(at 15.24 5.08 180)
+				(length 2.54)
+				(name "CLK"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 2.54 180)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 15.24 0 180)
+				(length 2.54)
+				(name "VPP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at 15.24 -2.54 180)
+				(length 2.54)
+				(name "SDIO"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin no_connect line
+				(at 15.24 -6.35 180)
+				(length 2.54)
+				(name "NC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54)
+				(name "MP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(symbol "SIM_Card_0_1"
+			(polyline
+				(pts
+					(xy -10.16 10.16) (xy 7.62 10.16) (xy 7.62 1.27) (xy 3.81 -2.54) (xy -10.16 -2.54) (xy -10.16 10.16)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 12.7 12.7)
+				(end -12.7 -12.7)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "SIM_Card_1_0"
+			(pin no_connect line
+				(at 15.24 -6.35 180)
+				(length 2.54) hide
+				(name "NC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54) hide
+				(name "MP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54) hide
+				(name "MP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54) hide
+				(name "MP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54) hide
+				(name "MP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54) hide
+				(name "MP"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "MP8"
+					(effects
+						(font
+							(size 1.27 1.27)
 						)
 					)
 				)
