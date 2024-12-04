@@ -3215,10 +3215,6 @@
 		(uuid "eff02fd0-48a4-4604-ab1f-b6d83720416f")
 	)
 	(no_connect
-		(at 115.57 72.39)
-		(uuid "0e11ea75-b821-466b-93eb-aec220346ab1")
-	)
-	(no_connect
 		(at 115.57 120.65)
 		(uuid "10d951e8-1500-4a64-a6fa-e01764e65c9a")
 	)
@@ -3540,6 +3536,16 @@
 	)
 	(wire
 		(pts
+			(xy 105.41 72.39) (xy 115.57 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36d3614f-0c8a-4e3c-841d-449df5225d45")
+	)
+	(wire
+		(pts
 			(xy 77.47 73.66) (xy 86.36 73.66)
 		)
 		(stroke
@@ -3800,16 +3806,6 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 82.55) (xy 176.53 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8db7896f-defe-4729-bc25-dcba4714e976")
-	)
-	(wire
-		(pts
 			(xy 201.93 35.56) (xy 215.9 35.56)
 		)
 		(stroke
@@ -4000,6 +3996,16 @@
 	)
 	(wire
 		(pts
+			(xy 166.37 82.55) (xy 176.53 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d17952cd-fc68-48b2-a96b-8a06f467429f")
+	)
+	(wire
+		(pts
 			(xy 59.69 45.72) (xy 59.69 48.26)
 		)
 		(stroke
@@ -4057,6 +4063,16 @@
 			(type default)
 		)
 		(uuid "ecb02c43-3f19-499d-ac8a-11da92fffec3")
+	)
+	(wire
+		(pts
+			(xy 201.93 49.53) (xy 215.9 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6a5678c-ed56-491b-91ec-9088a8f72d1f")
 	)
 	(wire
 		(pts
@@ -4121,6 +4137,17 @@
 		)
 		(uuid "265387af-615d-41e8-8316-ea7243c40684")
 	)
+	(label "RESET_N"
+		(at 105.41 72.39 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "43ad39b5-25e6-4690-b8e4-a80780ddda3e")
+	)
 	(label "HOST_D-"
 		(at 105.41 107.95 0)
 		(fields_autoplaced yes)
@@ -4131,6 +4158,17 @@
 			(justify left bottom)
 		)
 		(uuid "476e2d3a-9ff6-4e61-b375-3e4f33c12e5b")
+	)
+	(label "TX_RDY"
+		(at 176.53 82.55 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4900280b-5b91-4ad6-adf6-e34d1dd16c58")
 	)
 	(label "ZED_RXD_1V8"
 		(at 90.17 68.58 180)
@@ -4154,16 +4192,16 @@
 		)
 		(uuid "59c7d567-a6ec-4e74-b83c-2be162c1b715")
 	)
-	(label "RESET_N"
-		(at 176.53 82.55 180)
+	(label "TX_RDY"
+		(at 201.93 49.53 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "5a0e5552-a81c-4bfd-9b3f-153adfc99dc2")
+		(uuid "6b7b654f-4ebb-4ea4-b3ce-477cd2800d5e")
 	)
 	(label "ZED_TXD_1V8"
 		(at 180.34 125.73 180)
@@ -7755,7 +7793,7 @@
 			)
 			(uuid "0bd6bb3e-06d0-4add-b931-d6cd1cbc8f92")
 		)
-		(pin "EXTINT" output
+		(pin "EXTINT" input
 			(at 215.9 60.96 180)
 			(effects
 				(font
@@ -7814,6 +7852,16 @@
 				(justify left)
 			)
 			(uuid "19a3e379-7f1f-4b35-8c2f-7a73e3cd8383")
+		)
+		(pin "TX_RDY" output
+			(at 215.9 49.53 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "8fa3e02b-cf74-40e1-93e6-48e30fb917d2")
 		)
 		(instances
 			(project "gnssBoard"
