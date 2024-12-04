@@ -428,6 +428,127 @@
 				)
 			)
 		)
+		(symbol "DS-Power:+3V8"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+3V8"
+				(at 0 3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+3V8_0_1"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V8_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "LED_horizontal_1"
 			(pin_numbers hide)
 			(exclude_from_sim no)
@@ -2581,7 +2702,7 @@
 			)
 			(symbol "LM51571-Q1_0_0"
 				(pin passive line
-					(at -12.7 -12.7 0)
+					(at 12.7 -12.7 180)
 					(length 2.54)
 					(name "PGND"
 						(effects
@@ -2599,7 +2720,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 -7.62 0)
+					(at -12.7 -10.16 0)
 					(length 2.54)
 					(name "SS"
 						(effects
@@ -2617,7 +2738,7 @@
 					)
 				)
 				(pin input line
-					(at 12.7 -5.08 180)
+					(at -12.7 -5.08 0)
 					(length 2.54)
 					(name "MODE"
 						(effects
@@ -2689,7 +2810,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 -2.54 0)
+					(at -12.7 -7.62 0)
 					(length 2.54)
 					(name "RT"
 						(effects
@@ -2707,7 +2828,7 @@
 					)
 				)
 				(pin passive line
-					(at 12.7 -12.7 180)
+					(at 12.7 -10.16 180)
 					(length 2.54)
 					(name "AGND"
 						(effects
@@ -2725,7 +2846,7 @@
 					)
 				)
 				(pin output line
-					(at 12.7 0 180)
+					(at -12.7 -12.7 0)
 					(length 2.54)
 					(name "COMP"
 						(effects
@@ -2799,7 +2920,7 @@
 					)
 				)
 				(pin no_connect line
-					(at 12.7 -8.89 180)
+					(at 12.7 -6.35 180)
 					(length 2.54)
 					(name "NC"
 						(effects
@@ -2817,7 +2938,7 @@
 					)
 				)
 				(pin passive line
-					(at -12.7 -12.7 0)
+					(at 12.7 -12.7 180)
 					(length 2.54) hide
 					(name "PGND"
 						(effects
@@ -2835,7 +2956,7 @@
 					)
 				)
 				(pin passive line
-					(at 12.7 -12.7 180)
+					(at 12.7 -10.16 180)
 					(length 2.54) hide
 					(name "AGND"
 						(effects
@@ -3549,76 +3670,88 @@
 		)
 	)
 	(junction
-		(at 92.71 25.4)
+		(at 25.4 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "0325ca86-530e-455b-8dc3-0d07c9cd7e06")
+		(uuid "233cb700-3430-4398-a984-8a2abb6ecb5a")
 	)
 	(junction
-		(at 69.85 38.1)
+		(at 90.17 33.02)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "0c73ab81-4445-4311-aa01-6fc03f8066d0")
+		(uuid "3ab3eaec-a33a-4af2-8e62-3d465238fbb9")
 	)
 	(junction
-		(at 101.6 25.4)
+		(at 39.37 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "1e482ff9-571c-4c2b-8751-04983677e236")
+		(uuid "3d39a4c5-6eb4-40c8-9475-9b8b3593a347")
 	)
 	(junction
-		(at 22.86 40.64)
+		(at 142.24 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "2a8a53f3-bae3-490e-9869-7db5e8b9ac4b")
+		(uuid "3e5b34ea-ad9e-4ab4-bf46-1b027f05fb28")
 	)
 	(junction
-		(at 66.04 50.8)
+		(at 16.51 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "2af97e27-a4e1-499e-b12d-71ea4465ef55")
+		(uuid "5227d14b-7031-47ec-a666-98674e0990ec")
 	)
 	(junction
-		(at 22.86 45.72)
+		(at 16.51 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "6ecfbde5-25e3-440f-88c9-36072de838d6")
+		(uuid "64fa3159-8457-40c7-93f9-8db3dd959ca5")
 	)
 	(junction
-		(at 12.7 33.02)
+		(at 26.67 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "9469902c-aabf-499f-b60a-43c2cf519a3e")
+		(uuid "6ab1eb65-0e7d-4df4-8793-ae175e2a042a")
 	)
 	(junction
-		(at 35.56 25.4)
+		(at 17.78 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a373475f-4dbe-4caf-b5ca-919f1ee0e4d7")
+	)
+	(junction
+		(at 39.37 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a4249fe5-c6ef-486b-b935-07a8b27f8d41")
+	)
+	(junction
+		(at 16.51 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a7730ea1-8d5b-437d-82e7-79fb5bbfc58b")
+	)
+	(junction
+		(at 111.76 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a88cf2b2-3ca8-4cdb-9f0b-0ed08db9f3fa")
+	)
+	(junction
+		(at 48.26 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b0dfacd8-8c5f-4562-9ffc-dd349efb3437")
 	)
 	(junction
-		(at 22.86 25.4)
+		(at 26.67 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bef8b9b1-a48f-48b3-b353-4dfa01474cc4")
 	)
 	(junction
-		(at 66.04 25.4)
+		(at 78.74 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ccc61015-7c76-4d49-b081-3827cf35bafc")
-	)
-	(junction
-		(at 92.71 33.02)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cdbe35fe-9a62-46ae-8719-eda0f653449d")
-	)
-	(junction
-		(at 80.01 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "db643b81-c5f6-44f7-a4d7-32deff9e8ce6")
 	)
 	(junction
 		(at 80.01 104.14)
@@ -3627,10 +3760,58 @@
 		(uuid "e15d1d28-b45e-42ca-bf4c-cf75b121d071")
 	)
 	(junction
+		(at 78.74 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e315ce99-549b-41e4-b51c-4735f8dce509")
+	)
+	(junction
+		(at 46.99 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e3943d7b-5226-4f5b-836e-67550959a67e")
+	)
+	(junction
+		(at 31.75 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e6ec6b92-4977-4670-a826-a439d61e7c85")
+	)
+	(junction
+		(at 101.6 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e8291256-84d0-48de-bbae-a321acb3aea1")
+	)
+	(junction
+		(at 90.17 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eca40d53-9a06-400b-bd6e-6353ee480fb4")
+	)
+	(junction
 		(at 186.69 133.35)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "eff02fd0-48a4-4604-ab1f-b6d83720416f")
+	)
+	(junction
+		(at 46.99 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f12a60ce-0513-433a-8aaf-f53792ee836b")
+	)
+	(junction
+		(at 121.92 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f3448e4c-ff31-450c-b6c1-f56a4e7f2cef")
+	)
+	(junction
+		(at 132.08 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f90502b4-37cd-46f7-8029-ad0ad90c5e1f")
 	)
 	(no_connect
 		(at 115.57 120.65)
@@ -3798,13 +3979,13 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 43.18) (xy 66.04 50.8)
+			(xy 46.99 68.58) (xy 46.99 66.04)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "02e86788-6835-42d9-b3f7-0b5c43e9ab2c")
+		(uuid "04c3261b-01f2-458c-8cf1-adcd1b0c7753")
 	)
 	(wire
 		(pts
@@ -3818,23 +3999,43 @@
 	)
 	(wire
 		(pts
-			(xy 35.56 50.8) (xy 38.1 50.8)
+			(xy 111.76 25.4) (xy 121.92 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "07b92ddc-05f5-4fc4-8cd6-23f717aafff1")
+		(uuid "06b7caff-3a54-41eb-8c81-31937d61a86c")
 	)
 	(wire
 		(pts
-			(xy 114.3 43.18) (xy 114.3 46.99)
+			(xy 142.24 33.02) (xy 142.24 35.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1177a2d5-303e-4a54-856c-d5cdf95469db")
+		(uuid "082bc01a-2825-4d05-9208-64526218e6e7")
+	)
+	(wire
+		(pts
+			(xy 101.6 25.4) (xy 111.76 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09c2d13c-a989-4b11-b9a1-d78c4c9c95ea")
+	)
+	(wire
+		(pts
+			(xy 186.69 77.47) (xy 186.69 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b85f9d9-8561-4500-941a-8cc9d178c111")
 	)
 	(wire
 		(pts
@@ -3848,7 +4049,17 @@
 	)
 	(wire
 		(pts
-			(xy 35.56 15.24) (xy 35.56 25.4)
+			(xy 111.76 25.4) (xy 111.76 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "160f1d9c-2b7d-4bce-86c6-b9eafe5108bf")
+	)
+	(wire
+		(pts
+			(xy 48.26 15.24) (xy 48.26 25.4)
 		)
 		(stroke
 			(width 0)
@@ -3858,13 +4069,33 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 50.8) (xy 63.5 50.8)
+			(xy 121.92 25.4) (xy 132.08 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "177d6909-4266-41cf-84c7-3018340bcb61")
+	)
+	(wire
+		(pts
+			(xy 78.74 50.8) (xy 76.2 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "18b8a6d3-fb73-4e8a-9746-e95d7701766c")
+	)
+	(wire
+		(pts
+			(xy 46.99 58.42) (xy 46.99 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1982cb37-b44b-44a7-b323-0b672daa2e05")
 	)
 	(wire
 		(pts
@@ -3888,6 +4119,16 @@
 	)
 	(wire
 		(pts
+			(xy 90.17 26.67) (xy 90.17 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f0cde13-3781-40ee-ac4b-6dc935fc23ec")
+	)
+	(wire
+		(pts
 			(xy 77.47 91.44) (xy 90.17 91.44)
 		)
 		(stroke
@@ -3898,16 +4139,6 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 55.88) (xy 80.01 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "214f865b-870d-49d1-8ffc-7f1f89dc60a3")
-	)
-	(wire
-		(pts
 			(xy 166.37 97.79) (xy 176.53 97.79)
 		)
 		(stroke
@@ -3915,6 +4146,16 @@
 			(type default)
 		)
 		(uuid "262d3eeb-2003-42c2-b36c-67978d568818")
+	)
+	(wire
+		(pts
+			(xy 31.75 50.8) (xy 39.37 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "265dcca8-df13-476f-bb3d-7c1438ce0fc2")
 	)
 	(wire
 		(pts
@@ -3938,23 +4179,23 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 53.34) (xy 66.04 50.8)
+			(xy 16.51 33.02) (xy 16.51 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29c9c501-ec05-48ae-bce1-b47b2db816ca")
+	)
+	(wire
+		(pts
+			(xy 78.74 53.34) (xy 78.74 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "2ae59bf3-9187-4920-befd-edbb04a2d96a")
-	)
-	(wire
-		(pts
-			(xy 92.71 25.4) (xy 101.6 25.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2d2ca69a-fe94-45f2-988a-5c11c62c01b5")
 	)
 	(wire
 		(pts
@@ -3968,6 +4209,16 @@
 	)
 	(wire
 		(pts
+			(xy 25.4 48.26) (xy 50.8 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33683384-ebc1-40d5-9c72-a8f81f72636d")
+	)
+	(wire
+		(pts
 			(xy 201.93 30.48) (xy 215.9 30.48)
 		)
 		(stroke
@@ -3975,6 +4226,16 @@
 			(type default)
 		)
 		(uuid "34e4d049-1b70-4b4c-9436-90cb97c7469c")
+	)
+	(wire
+		(pts
+			(xy 31.75 58.42) (xy 31.75 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3980dd64-cc1b-48e5-a450-334bda4a03db")
 	)
 	(wire
 		(pts
@@ -3998,43 +4259,13 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 40.64) (xy 22.86 45.72)
+			(xy 50.8 43.18) (xy 16.51 43.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "3fc2c134-d897-4d2c-8773-3b2c761c1d62")
-	)
-	(wire
-		(pts
-			(xy 63.5 33.02) (xy 92.71 33.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4014a7eb-fe31-4d01-a155-c157372caf3b")
-	)
-	(wire
-		(pts
-			(xy 101.6 43.18) (xy 101.6 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "40ead568-eb52-4f23-90bc-13a4b389d62a")
-	)
-	(wire
-		(pts
-			(xy 12.7 33.02) (xy 12.7 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "433374a9-847f-4a08-a902-35d5c7b176c3")
+		(uuid "3bd08a58-4698-4fbe-a5f5-37113ce87e66")
 	)
 	(wire
 		(pts
@@ -4058,16 +4289,6 @@
 	)
 	(wire
 		(pts
-			(xy 35.56 30.48) (xy 35.56 25.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "46234e27-3ce0-4381-8852-4a8795ac7b39")
-	)
-	(wire
-		(pts
 			(xy 166.37 138.43) (xy 168.91 138.43)
 		)
 		(stroke
@@ -4078,13 +4299,33 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 35.56) (xy 38.1 35.56)
+			(xy 17.78 45.72) (xy 50.8 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "48de0584-43b9-49f8-9a52-e3a1bdfc6070")
+		(uuid "4944aa5a-ed71-4fc3-b2e0-dc3788eff8c1")
+	)
+	(wire
+		(pts
+			(xy 50.8 30.48) (xy 48.26 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a136a43-92d6-4b38-86d8-33ac8182e3b6")
+	)
+	(wire
+		(pts
+			(xy 90.17 25.4) (xy 101.6 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4da6697e-038f-4b15-aaad-10446cf52f4d")
 	)
 	(wire
 		(pts
@@ -4098,7 +4339,7 @@
 	)
 	(wire
 		(pts
-			(xy 12.7 25.4) (xy 22.86 25.4)
+			(xy 16.51 25.4) (xy 26.67 25.4)
 		)
 		(stroke
 			(width 0)
@@ -4108,17 +4349,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 43.18) (xy 66.04 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4f2dbed2-ed8d-47ba-9fde-9461eb91428f")
-	)
-	(wire
-		(pts
-			(xy 12.7 26.67) (xy 12.7 25.4)
+			(xy 16.51 27.94) (xy 16.51 25.4)
 		)
 		(stroke
 			(width 0)
@@ -4128,13 +4359,23 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 30.48) (xy 35.56 30.48)
+			(xy 25.4 58.42) (xy 25.4 68.58)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "525ef3cf-5fb2-4746-bc94-bbfc377b12b8")
+		(uuid "5099386c-71e9-420c-9c61-19b98e27d763")
+	)
+	(wire
+		(pts
+			(xy 142.24 25.4) (xy 142.24 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5408935b-e750-48c9-bad6-e95e0676d9ca")
 	)
 	(wire
 		(pts
@@ -4158,17 +4399,47 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 40.64) (xy 80.01 38.1)
+			(xy 132.08 25.4) (xy 142.24 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "55f143ef-169e-4e61-8b2d-ad3d5f43ee5d")
+		(uuid "5669f073-47bd-4799-af40-93fb338043d4")
 	)
 	(wire
 		(pts
-			(xy 22.86 25.4) (xy 35.56 25.4)
+			(xy 48.26 30.48) (xy 48.26 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a81ffb8-b5af-4e79-a470-409d98f87577")
+	)
+	(wire
+		(pts
+			(xy 111.76 33.02) (xy 111.76 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b942bca-1021-4b68-8fc5-e7c0b016f456")
+	)
+	(wire
+		(pts
+			(xy 90.17 31.75) (xy 90.17 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c846204-4a75-48cc-b5b0-be1f8bd327e1")
+	)
+	(wire
+		(pts
+			(xy 26.67 25.4) (xy 48.26 25.4)
 		)
 		(stroke
 			(width 0)
@@ -4188,6 +4459,36 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 33.02) (xy 101.6 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61b7581f-172a-4b05-98f8-a62c709a5407")
+	)
+	(wire
+		(pts
+			(xy 17.78 68.58) (xy 25.4 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "621e0064-5b14-405f-8490-e5cfc2163512")
+	)
+	(wire
+		(pts
+			(xy 46.99 50.8) (xy 46.99 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "623f2f6b-ea67-4802-a0ca-d4b1864a716f")
+	)
+	(wire
+		(pts
 			(xy 201.93 45.72) (xy 215.9 45.72)
 		)
 		(stroke
@@ -4198,23 +4499,13 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 25.4) (xy 92.71 25.4)
+			(xy 86.36 25.4) (xy 90.17 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "660b7beb-5cb6-4d08-a5a2-8dc220ddfdf7")
-	)
-	(wire
-		(pts
-			(xy 22.86 40.64) (xy 30.48 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69e60748-c433-4860-8449-3f5ac6bd4be6")
 	)
 	(wire
 		(pts
@@ -4225,16 +4516,6 @@
 			(type default)
 		)
 		(uuid "6b18b696-45be-42dd-af1b-b45e749b4178")
-	)
-	(wire
-		(pts
-			(xy 22.86 45.72) (xy 25.4 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c5e4001-8c35-42ac-80dc-f832aa0f58d1")
 	)
 	(wire
 		(pts
@@ -4258,7 +4539,17 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 15.24) (xy 35.56 15.24)
+			(xy 76.2 48.26) (xy 78.74 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fde0988-ebc7-4409-b8f7-8ef5ab804b38")
+	)
+	(wire
+		(pts
+			(xy 60.96 15.24) (xy 48.26 15.24)
 		)
 		(stroke
 			(width 0)
@@ -4268,7 +4559,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 33.02) (xy 12.7 33.02)
+			(xy 26.67 35.56) (xy 16.51 35.56)
 		)
 		(stroke
 			(width 0)
@@ -4278,13 +4569,23 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 55.88) (xy 80.01 53.34)
+			(xy 31.75 53.34) (xy 31.75 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "772a11cc-4b51-49b8-bd64-bfbc4b28c472")
+		(uuid "7508c438-d0ed-4116-88d4-c4ba191f5c38")
+	)
+	(wire
+		(pts
+			(xy 78.74 48.26) (xy 78.74 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76bc4033-cebf-496e-b7ea-7119fd40154c")
 	)
 	(wire
 		(pts
@@ -4308,23 +4609,23 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 25.4) (xy 101.6 25.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "824a1922-75fb-4885-853f-ae27cc17dbb5")
-	)
-	(wire
-		(pts
-			(xy 66.04 25.4) (xy 73.66 25.4)
+			(xy 78.74 25.4) (xy 81.28 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "83c030cd-0029-4dc5-aa84-5781ddee02e3")
+	)
+	(wire
+		(pts
+			(xy 25.4 68.58) (xy 31.75 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84fa11cc-9985-44c2-a0fa-cb2135babd3d")
 	)
 	(wire
 		(pts
@@ -4348,27 +4649,27 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 45.72) (xy 69.85 55.88)
+			(xy 76.2 33.02) (xy 90.17 33.02)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8d4b3e8a-fc80-421b-b489-351cf62883ca")
+		(uuid "8dcb0143-204c-45ba-9942-79846b9d0e0b")
 	)
 	(wire
 		(pts
-			(xy 30.48 45.72) (xy 38.1 45.72)
+			(xy 16.51 22.86) (xy 16.51 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8e508f1a-bae8-4af1-9a22-46bdde9fa171")
+		(uuid "8e1791dc-85be-4423-9715-c1a7e889d772")
 	)
 	(wire
 		(pts
-			(xy 114.3 38.1) (xy 114.3 25.4)
+			(xy 101.6 27.94) (xy 101.6 25.4)
 		)
 		(stroke
 			(width 0)
@@ -4378,13 +4679,43 @@
 	)
 	(wire
 		(pts
-			(xy 35.56 40.64) (xy 38.1 40.64)
+			(xy 16.51 68.58) (xy 17.78 68.58)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9c5913a4-e0b5-4c01-99f9-5bdaa43d085c")
+		(uuid "8f2b2030-3995-4e43-84da-ac925e93cb4a")
+	)
+	(wire
+		(pts
+			(xy 17.78 60.96) (xy 17.78 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9858ac6f-dbce-4227-888a-4648913d69e1")
+	)
+	(wire
+		(pts
+			(xy 186.69 85.09) (xy 186.69 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9969b1dc-d370-46cc-b21f-cd506ba37e4a")
+	)
+	(wire
+		(pts
+			(xy 39.37 68.58) (xy 46.99 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ad5a18e-fb76-4106-9ecc-bd6bb4a8d86b")
 	)
 	(wire
 		(pts
@@ -4398,7 +4729,27 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 26.67) (xy 22.86 25.4)
+			(xy 16.51 43.18) (xy 16.51 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ed5c577-137b-4803-aaec-a322d8a6f3c7")
+	)
+	(wire
+		(pts
+			(xy 180.34 85.09) (xy 180.34 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f946488-a237-4169-b930-6e63d8c07163")
+	)
+	(wire
+		(pts
+			(xy 26.67 27.94) (xy 26.67 25.4)
 		)
 		(stroke
 			(width 0)
@@ -4408,23 +4759,43 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 35.56) (xy 22.86 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a52e2a34-cee9-4c3d-9b30-63e430ae62b5")
-	)
-	(wire
-		(pts
-			(xy 63.5 25.4) (xy 66.04 25.4)
+			(xy 76.2 25.4) (xy 78.74 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "a62f924f-e514-4450-9e50-1462792b5ed7")
+	)
+	(wire
+		(pts
+			(xy 90.17 39.37) (xy 90.17 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a97f618a-4483-4d6d-8e6f-def86d401031")
+	)
+	(wire
+		(pts
+			(xy 31.75 68.58) (xy 39.37 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9c3acad-4bb7-4525-8da1-91579c7d5b38")
+	)
+	(wire
+		(pts
+			(xy 50.8 50.8) (xy 46.99 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa9a3642-c210-4dd8-a48b-37e3d318971a")
 	)
 	(wire
 		(pts
@@ -4438,7 +4809,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 87.63) (xy 176.53 87.63)
+			(xy 166.37 87.63) (xy 180.34 87.63)
 		)
 		(stroke
 			(width 0)
@@ -4465,16 +4836,6 @@
 			(type default)
 		)
 		(uuid "b149ff36-f1e2-4346-9aad-aaebdb532547")
-	)
-	(wire
-		(pts
-			(xy 22.86 35.56) (xy 22.86 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b19ec2b0-f13c-474b-8df5-abd636964a56")
 	)
 	(wire
 		(pts
@@ -4508,13 +4869,13 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 38.1) (xy 63.5 38.1)
+			(xy 46.99 68.58) (xy 46.99 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ba92afa2-b550-46d7-95d2-733c3826f8c5")
+		(uuid "bc0c6c81-2bf9-4743-ae9f-457e4062f3cd")
 	)
 	(wire
 		(pts
@@ -4538,7 +4899,17 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 15.24) (xy 66.04 15.24)
+			(xy 142.24 22.86) (xy 142.24 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c25f250e-6e40-4228-8b03-c1f7e433625c")
+	)
+	(wire
+		(pts
+			(xy 66.04 15.24) (xy 78.74 15.24)
 		)
 		(stroke
 			(width 0)
@@ -4548,23 +4919,23 @@
 	)
 	(wire
 		(pts
-			(xy 12.7 33.02) (xy 12.7 35.56)
+			(xy 39.37 58.42) (xy 39.37 68.58)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c524d417-7623-4327-8b48-ff7be3a95599")
+		(uuid "c8a96f5b-6e83-40cd-88f9-719c1222d462")
 	)
 	(wire
 		(pts
-			(xy 92.71 30.48) (xy 92.71 33.02)
+			(xy 121.92 33.02) (xy 121.92 35.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c9ce1149-b734-42ca-851e-dbececaa3f96")
+		(uuid "cae30abe-89fc-495a-87d7-5ae353aeb0b1")
 	)
 	(wire
 		(pts
@@ -4575,6 +4946,16 @@
 			(type default)
 		)
 		(uuid "cd239386-a70c-4988-b7d9-6d20c81d408b")
+	)
+	(wire
+		(pts
+			(xy 132.08 25.4) (xy 132.08 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdb9653a-bb65-4a7f-8971-085d3c21a284")
 	)
 	(wire
 		(pts
@@ -4598,17 +4979,17 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 38.1) (xy 69.85 38.1)
+			(xy 40.64 35.56) (xy 50.8 35.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d91207b1-39d1-4cb3-8fbb-62d195ec761b")
+		(uuid "d448b2cd-393f-4cdd-b5c7-3a6baef6370b")
 	)
 	(wire
 		(pts
-			(xy 166.37 90.17) (xy 176.53 90.17)
+			(xy 166.37 90.17) (xy 186.69 90.17)
 		)
 		(stroke
 			(width 0)
@@ -4618,7 +4999,7 @@
 	)
 	(wire
 		(pts
-			(xy 35.56 25.4) (xy 38.1 25.4)
+			(xy 48.26 25.4) (xy 50.8 25.4)
 		)
 		(stroke
 			(width 0)
@@ -4648,16 +5029,6 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 45.72) (xy 22.86 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e470c854-b97c-4128-9593-acb80f06ec4e")
-	)
-	(wire
-		(pts
 			(xy 201.93 60.96) (xy 215.9 60.96)
 		)
 		(stroke
@@ -4668,23 +5039,43 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 35.56) (xy 92.71 33.02)
+			(xy 132.08 33.02) (xy 132.08 35.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e88a12c1-31c4-4d0c-a817-53eb361a3d71")
+		(uuid "e52d8044-d4c7-4761-a8c3-6b1c1f5f603a")
 	)
 	(wire
 		(pts
-			(xy 69.85 38.1) (xy 69.85 40.64)
+			(xy 121.92 25.4) (xy 121.92 27.94)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ebc52983-d900-48fc-85bb-dd4c64d9577a")
+		(uuid "e7ad5e93-b5d0-48c6-afb2-97f0e7a04acf")
+	)
+	(wire
+		(pts
+			(xy 180.34 77.47) (xy 180.34 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e8352c19-8687-4ae5-a934-335dc64194a2")
+	)
+	(wire
+		(pts
+			(xy 39.37 50.8) (xy 46.99 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e906a3bd-a7ee-4b2d-ab89-f4d135bcacf9")
 	)
 	(wire
 		(pts
@@ -4698,43 +5089,63 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 45.72) (xy 80.01 48.26)
+			(xy 39.37 50.8) (xy 39.37 53.34)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f28e52a1-667f-4d2e-afdc-f86ba6935c32")
+		(uuid "f3782455-f293-4820-9479-d3a4e3f561db")
 	)
 	(wire
 		(pts
-			(xy 35.56 53.34) (xy 35.56 50.8)
+			(xy 17.78 66.04) (xy 17.78 68.58)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f4a2dbb3-4eda-4f04-8252-36c9c7ac16ac")
+		(uuid "f3a6de02-b256-4ddf-9abc-aa1a61e5ff3d")
 	)
 	(wire
 		(pts
-			(xy 101.6 25.4) (xy 101.6 38.1)
+			(xy 26.67 35.56) (xy 35.56 35.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f6426b19-7f02-4b89-ae6a-130c9a7ccf12")
+		(uuid "f3b3db6d-69f7-46b0-a171-1a1d23ecdd8b")
 	)
 	(wire
 		(pts
-			(xy 66.04 15.24) (xy 66.04 25.4)
+			(xy 25.4 53.34) (xy 25.4 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f47b7528-9f42-4e28-b278-552a66287262")
+	)
+	(wire
+		(pts
+			(xy 78.74 15.24) (xy 78.74 25.4)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "f7632cae-e9ea-49a1-8649-4e5afd12c6f8")
+	)
+	(wire
+		(pts
+			(xy 90.17 33.02) (xy 90.17 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f883f923-4891-48e1-812b-edf9f5ce911d")
 	)
 	(wire
 		(pts
@@ -4748,7 +5159,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 31.75) (xy 22.86 33.02)
+			(xy 26.67 33.02) (xy 26.67 35.56)
 		)
 		(stroke
 			(width 0)
@@ -4758,13 +5169,13 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 55.88) (xy 80.01 55.88)
+			(xy 16.51 35.56) (xy 16.51 43.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ffcd1925-9c7d-4f39-989f-1fdd3c506290")
+		(uuid "ffa7559c-047a-4fd4-af67-0e472c75f7c8")
 	)
 	(label "HOST_D-"
 		(at 201.93 30.48 0)
@@ -5116,16 +5527,16 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 80.01 58.42 0)
+		(at 132.08 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "055d2e8f-745e-4c59-ad83-0eb96f406a8a")
-		(property "Reference" "#PWR017"
-			(at 80.01 58.42 0)
+		(uuid "0463267b-fabe-4c1c-a6d3-11d44ba863b6")
+		(property "Reference" "#PWR013"
+			(at 132.08 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5134,7 +5545,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 80.01 62.23 0)
+			(at 132.08 39.37 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5143,7 +5554,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 80.01 58.42 0)
+			(at 132.08 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5152,7 +5563,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 80.01 58.42 0)
+			(at 132.08 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5161,7 +5572,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 80.01 58.42 0)
+			(at 132.08 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5170,12 +5581,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "46d97d73-2218-40db-ac70-f717cbba5d46")
+			(uuid "2efc59b0-1d71-4cc7-a174-a0cd6a9f5cf1")
 		)
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR017")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -5183,7 +5594,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:C")
-		(at 22.86 29.21 0)
+		(at 26.67 30.48 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5191,7 +5602,7 @@
 		(dnp no)
 		(uuid "081349bf-b52a-487f-8426-e2ab483a8478")
 		(property "Reference" "C2"
-			(at 24.765 26.67 0)
+			(at 28.575 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5201,7 +5612,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 24.765 27.94 0)
+			(at 28.575 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5210,8 +5621,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 22.86 27.305 0)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 26.67 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5219,8 +5630,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 22.86 27.305 0)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 26.67 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5228,8 +5639,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 22.86 29.21 0)
+		(property "Description" "CAP CER 0.1UF 10V X7R 0603"
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5237,8 +5648,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 22.86 27.305 0)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 26.67 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5246,8 +5657,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 22.86 27.305 0)
+		(property "MPN" "KAM15AR71A104KT"
+			(at 26.67 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5255,8 +5666,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 22.86 29.21 0)
+		(property "DKPN" "478-KAM15AR71A104KTCT-ND"
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5264,8 +5675,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 24.765 30.48 0)
+		(property "Tolerance" "10%"
+			(at 28.575 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5274,8 +5685,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 24.765 29.21 0)
+		(property "Voltage Rating" "10V"
+			(at 28.575 30.48 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5284,8 +5695,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 24.765 31.75 0)
+		(property "Package" "0603"
+			(at 28.575 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5311,7 +5722,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R")
-		(at 80.01 50.8 0)
+		(at 46.99 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5319,8 +5730,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "095b6ae6-dd7b-4009-ab44-bd8f8ddded7b")
-		(property "Reference" "R1"
-			(at 81.28 48.26 0)
+		(property "Reference" "R4"
+			(at 48.26 60.96 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5330,7 +5741,7 @@
 			)
 		)
 		(property "Value" "301R"
-			(at 81.28 49.53 0)
+			(at 48.26 62.23 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5339,8 +5750,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 80.01 48.26 0)
+		(property "Footprint" "lib_fp:CRCW0402"
+			(at 46.99 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5348,8 +5759,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 80.01 48.26 0)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 46.99 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5357,8 +5768,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 80.01 50.8 0)
+		(property "Description" "RES SMD 301 OHM 1% 1/16W 0402"
+			(at 46.99 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5366,8 +5777,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 80.01 48.26 0)
+		(property "Manufacturer" "Vishay Dale"
+			(at 46.99 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5375,8 +5786,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 80.01 48.26 0)
+		(property "MPN" "CRCW0402301RFKED"
+			(at 46.99 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5384,8 +5795,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 80.01 50.8 0)
+		(property "DKPN" "541-301LCT-ND"
+			(at 46.99 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5393,8 +5804,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 81.28 50.8 0)
+		(property "Tolerance" "1%"
+			(at 48.26 63.5 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5403,8 +5814,8 @@
 				(justify left)
 			)
 		)
-		(property "Power Rating" "PWR"
-			(at 81.28 52.07 0)
+		(property "Power Rating" "62.5mW"
+			(at 48.26 64.77 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5413,8 +5824,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 81.28 53.34 0)
+		(property "Package" "0402"
+			(at 48.26 66.04 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5432,7 +5843,74 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "R1")
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 90.17 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "12aee45c-3bff-47f3-af8f-2630711cab05")
+		(property "Reference" "#PWR017"
+			(at 90.17 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 90.17 45.72 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 90.17 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 90.17 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 90.17 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c305a0bb-0b40-4d0b-b7ff-2bf71026f985")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -5636,16 +6114,16 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 101.6 46.99 0)
+		(at 121.92 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "354a6d3c-a00a-479c-87f2-42c9c7b008f8")
-		(property "Reference" "#PWR018"
-			(at 101.6 46.99 0)
+		(uuid "2140c3a6-2838-4074-afce-6b9998638af9")
+		(property "Reference" "#PWR012"
+			(at 121.92 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5654,7 +6132,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 101.6 50.8 0)
+			(at 121.92 39.37 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5663,7 +6141,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 101.6 46.99 0)
+			(at 121.92 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5672,7 +6150,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 46.99 0)
+			(at 121.92 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5681,7 +6159,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 101.6 46.99 0)
+			(at 121.92 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5690,29 +6168,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "bfd6a065-6aa0-4f4f-aefc-17369464e85f")
+			(uuid "d9aec6fa-5da1-45fd-a676-79661239b64f")
 		)
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR018")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 114.3 46.99 0)
+		(lib_id "lib_sch:+3V3")
+		(at 16.51 22.86 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "440622e2-9a7e-425a-b6bc-28d4b8a509a9")
-		(property "Reference" "#PWR019"
-			(at 114.3 46.99 0)
+		(uuid "26f1ad1f-3005-48e6-af00-b12c94838401")
+		(property "Reference" "#PWR04"
+			(at 16.51 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5720,8 +6198,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VSS"
-			(at 114.3 50.8 0)
+		(property "Value" "+3V3"
+			(at 16.51 19.304 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5730,7 +6208,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 114.3 46.99 0)
+			(at 16.51 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5739,7 +6217,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 114.3 46.99 0)
+			(at 16.51 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5748,7 +6226,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 114.3 46.99 0)
+			(at 16.51 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5757,28 +6235,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "4dff78d3-fb3c-4f60-973b-a4ee8b201941")
+			(uuid "33e4bcef-d0d7-4513-8ad7-c2e040de7722")
 		)
 		(instances
-			(project "cellularBoard"
+			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR019")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:C")
-		(at 80.01 43.18 0)
+		(lib_id "lib_sch:R")
+		(at 180.34 82.55 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4c50e578-b81f-48ee-82d4-c2e6d67ea15e")
-		(property "Reference" "C14"
-			(at 81.915 40.64 0)
+		(fields_autoplaced yes)
+		(uuid "30cb49b2-343e-40b7-a28f-50f16bfa2e18")
+		(property "Reference" "R5"
+			(at 181.61 80.01 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5787,8 +6266,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10nF"
-			(at 81.915 41.91 0)
+		(property "Value" "10K"
+			(at 181.61 81.28 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5798,7 +6277,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 80.01 41.275 0)
+			(at 180.34 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5807,7 +6286,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 80.01 41.275 0)
+			(at 180.34 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5815,8 +6294,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 80.01 43.18 0)
+		(property "Description" ""
+			(at 180.34 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5825,7 +6304,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 80.01 41.275 0)
+			(at 180.34 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5834,7 +6313,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 80.01 41.275 0)
+			(at 180.34 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5843,7 +6322,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 80.01 43.18 0)
+			(at 180.34 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5852,7 +6331,7 @@
 			)
 		)
 		(property "Tolerance" "TOL"
-			(at 81.915 44.45 0)
+			(at 181.61 82.55 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5861,8 +6340,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 81.915 43.18 0)
+		(property "Power Rating" "PWR"
+			(at 181.61 83.82 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5872,7 +6351,135 @@
 			)
 		)
 		(property "Package" "PKG"
-			(at 81.915 45.72 0)
+			(at 181.61 85.09 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "3496190b-9773-4f9d-a6df-8453ed3a8289")
+		)
+		(pin "2"
+			(uuid "62cfc0cd-9d69-44b5-b32d-c63014fa5343")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 121.92 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3c13ce7a-c660-4bac-9782-d0514bd73385")
+		(property "Reference" "C6"
+			(at 123.825 27.94 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10nF"
+			(at 123.825 29.21 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 121.92 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 121.92 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 10000PF 16V X7R 0603"
+			(at 121.92 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 121.92 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15AR71C103JT"
+			(at 121.92 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71C103JTCT-ND"
+			(at 121.92 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "5%"
+			(at 123.825 31.75 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "16V"
+			(at 123.825 30.48 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 123.825 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5882,15 +6489,143 @@
 			)
 		)
 		(pin "2"
-			(uuid "31dfc7b6-9be5-41da-81be-2fab4c49d543")
+			(uuid "3a2a1075-3c8b-4d9f-a24a-cc58ad341874")
 		)
 		(pin "1"
-			(uuid "7b7299ee-60bc-405f-a147-76fc092ffb35")
+			(uuid "d2a0bd51-0ded-4d5c-ba9a-48259157e30d")
 		)
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "C14")
+					(reference "C6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 111.76 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4563ebc5-d2cf-46c8-ab3c-9a8581b4ab9f")
+		(property "Reference" "C5"
+			(at 113.665 27.94 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 113.665 29.21 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 111.76 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 111.76 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 0.1UF 10V X7R 0603"
+			(at 111.76 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 111.76 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15AR71A104KT"
+			(at 111.76 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71A104KTCT-ND"
+			(at 111.76 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 113.665 31.75 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "10V"
+			(at 113.665 30.48 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 113.665 33.02 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "201aa048-065b-4ff4-ab0b-d8cdcc905db2")
+		)
+		(pin "1"
+			(uuid "32faedda-4e53-4f95-ade8-0dd1e1f0b39e")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "C5")
 					(unit 1)
 				)
 			)
@@ -5964,36 +6699,35 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:C")
-		(at 101.6 40.64 0)
+		(lib_id "lib_sch:+1V8")
+		(at 186.69 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "58835803-d22c-4071-9164-b823f3e47e7a")
-		(property "Reference" "C16"
-			(at 103.505 38.1 0)
-			(do_not_autoplace yes)
+		(fields_autoplaced yes)
+		(uuid "547df22a-f3fb-466f-aee6-984ffb375d31")
+		(property "Reference" "#PWR015"
+			(at 186.69 77.47 0)
 			(effects
 				(font
-					(size 1.016 1.016)
+					(size 1.27 1.27)
 				)
-				(justify left)
+				(hide yes)
 			)
 		)
-		(property "Value" "100nF"
-			(at 103.505 39.37 0)
+		(property "Value" "+1V8"
+			(at 186.69 73.914 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
-					(size 1.016 1.016)
+					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 101.6 38.735 0)
+			(at 186.69 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6002,7 +6736,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 38.735 0)
+			(at 186.69 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6010,82 +6744,22 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 101.6 40.64 0)
+		(property "Description" ""
+			(at 186.69 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(property "Manufacturer" ""
-			(at 101.6 38.735 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 101.6 38.735 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 101.6 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "TOL"
-			(at 103.505 41.91 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 103.505 40.64 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "PKG"
-			(at 103.505 43.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "2"
-			(uuid "c7566832-c2c3-4233-947d-1349b5604916")
 		)
 		(pin "1"
-			(uuid "86ba6f1c-d882-4a92-81ad-f5538c375409")
+			(uuid "99a93b8e-ccb2-447b-af2e-2a723db8ffad")
 		)
 		(instances
-			(project "cellularBoard"
+			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "C16")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -6283,7 +6957,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R")
-		(at 92.71 27.94 0)
+		(at 90.17 29.21 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6291,8 +6965,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5e3b69ff-3115-48c2-8cd1-5f6f6550a6cb")
-		(property "Reference" "R3"
-			(at 93.98 25.4 0)
+		(property "Reference" "R1"
+			(at 91.44 26.67 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6302,7 +6976,7 @@
 			)
 		)
 		(property "Value" "6K98"
-			(at 93.98 26.67 0)
+			(at 91.44 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6311,8 +6985,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 92.71 25.4 0)
+		(property "Footprint" "lib_fp:CRCW0402"
+			(at 90.17 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6320,8 +6994,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 92.71 25.4 0)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 90.17 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6329,8 +7003,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 92.71 27.94 0)
+		(property "Description" "RES SMD 6.98K OHM 1% 1/16W 0402"
+			(at 90.17 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6338,8 +7012,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 92.71 25.4 0)
+		(property "Manufacturer" "Vishay Dale"
+			(at 90.17 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6347,8 +7021,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 92.71 25.4 0)
+		(property "MPN" "CRCW04026K98FKED"
+			(at 90.17 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6356,8 +7030,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 92.71 27.94 0)
+		(property "DKPN" "541-6.98KLCT-ND"
+			(at 90.17 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6365,8 +7039,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 93.98 27.94 0)
+		(property "Tolerance" "1%"
+			(at 91.44 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6375,8 +7049,8 @@
 				(justify left)
 			)
 		)
-		(property "Power Rating" "PWR"
-			(at 93.98 29.21 0)
+		(property "Power Rating" "62.5mW"
+			(at 91.44 30.48 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6385,8 +7059,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 93.98 30.48 0)
+		(property "Package" "0402"
+			(at 91.44 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6404,7 +7078,7 @@
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "R3")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -6412,7 +7086,7 @@
 	)
 	(symbol
 		(lib_id "DS-Diodes:D_Schottky_horizontal")
-		(at 76.2 25.4 0)
+		(at 83.82 25.4 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6421,7 +7095,7 @@
 		(fields_autoplaced yes)
 		(uuid "60c79b8b-7910-46be-9d00-6ef36073c34b")
 		(property "Reference" "D1"
-			(at 76.2 23.876 0)
+			(at 83.82 23.876 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6430,7 +7104,7 @@
 			)
 		)
 		(property "Value" "VAL"
-			(at 76.2 26.924 0)
+			(at 83.82 26.924 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6440,7 +7114,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 76.2 25.4 0)
+			(at 83.82 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6449,7 +7123,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 25.4 0)
+			(at 83.82 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6458,7 +7132,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 76.2 25.4 0)
+			(at 83.82 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6467,7 +7141,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 76.2 25.4 0)
+			(at 83.82 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6476,7 +7150,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 76.2 25.4 0)
+			(at 83.82 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6485,7 +7159,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 76.2 25.4 0)
+			(at 83.82 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6494,7 +7168,7 @@
 			)
 		)
 		(property "Reverse Voltage" "RVOLT"
-			(at 76.2 26.924 0)
+			(at 83.82 26.924 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6504,7 +7178,7 @@
 			)
 		)
 		(property "Forward Voltage" "420mV"
-			(at 76.2 28.194 0)
+			(at 83.82 28.194 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6514,7 +7188,7 @@
 			)
 		)
 		(property "Current" "1A1"
-			(at 76.2 28.194 0)
+			(at 83.82 28.194 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6540,7 +7214,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 22.86 48.26 0)
+		(at 46.99 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6549,7 +7223,7 @@
 		(fields_autoplaced yes)
 		(uuid "6274016e-d464-48a7-bc66-c40f0f834862")
 		(property "Reference" "#PWR03"
-			(at 22.86 48.26 0)
+			(at 46.99 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6558,7 +7232,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 22.86 52.07 0)
+			(at 46.99 74.93 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6567,7 +7241,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 22.86 48.26 0)
+			(at 46.99 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6576,7 +7250,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 22.86 48.26 0)
+			(at 46.99 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6585,7 +7259,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 22.86 48.26 0)
+			(at 46.99 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6600,6 +7274,134 @@
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 39.37 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6339f516-4a11-4a2b-b637-daeb665d5da1")
+		(property "Reference" "C19"
+			(at 41.275 53.34 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "150pF"
+			(at 41.275 54.61 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 39.37 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 39.37 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 150PF 50V X7R 0603"
+			(at 39.37 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 39.37 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "06035C151K4T2A"
+			(at 39.37 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-13033-1-ND"
+			(at 39.37 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 41.275 57.15 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "50V"
+			(at 41.275 55.88 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 41.275 58.42 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "246434b1-4209-43ef-8a5e-c307cc3f7595")
+		)
+		(pin "1"
+			(uuid "79b29b2b-c92a-4d95-8c3d-afc428e15cf4")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "C19")
 					(unit 1)
 				)
 			)
@@ -6694,6 +7496,135 @@
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
 					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:R")
+		(at 186.69 82.55 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6c6532f3-e36c-46ba-ad21-6f1703e237ff")
+		(property "Reference" "R6"
+			(at 187.96 80.01 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 187.96 81.28 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 186.69 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 186.69 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 186.69 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 186.69 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 186.69 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 186.69 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "TOL"
+			(at 187.96 82.55 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Power Rating" "PWR"
+			(at 187.96 83.82 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "PKG"
+			(at 187.96 85.09 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "e942f131-f455-4014-bdf8-40613e2ef8a9")
+		)
+		(pin "2"
+			(uuid "b92053dc-df20-4dbc-8742-e8a9362f2d7f")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -6992,6 +7923,73 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 111.76 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "750410df-2ee0-4d59-b984-8ef41504a9e8")
+		(property "Reference" "#PWR011"
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 111.76 39.37 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ea11cd63-ad72-4cc1-9834-2e3deb27ea3b")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:+3V3")
 		(at 186.69 130.81 0)
 		(unit 1)
@@ -7060,7 +8058,7 @@
 	)
 	(symbol
 		(lib_id "DS-Passives:L_horizontal")
-		(at 50.8 15.24 0)
+		(at 63.5 15.24 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7068,8 +8066,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7edfdd26-8802-4329-baf0-0b19ced75cbd")
-		(property "Reference" "L2"
-			(at 50.8 12.7 0)
+		(property "Reference" "L1"
+			(at 63.5 12.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7078,7 +8076,7 @@
 			)
 		)
 		(property "Value" "680nH"
-			(at 50.8 13.97 0)
+			(at 63.5 13.97 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7087,7 +8085,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 49.53 15.24 0)
+			(at 62.23 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7096,7 +8094,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 49.53 15.24 0)
+			(at 62.23 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7105,7 +8103,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 50.8 15.24 0)
+			(at 63.5 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7114,7 +8112,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 50.8 15.24 0)
+			(at 63.5 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7123,7 +8121,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 50.8 15.24 0)
+			(at 63.5 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7132,7 +8130,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 50.8 15.24 0)
+			(at 63.5 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7141,7 +8139,7 @@
 			)
 		)
 		(property "Tolerance" "TOL"
-			(at 50.8 16.129 0)
+			(at 63.5 16.129 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7151,7 +8149,7 @@
 			)
 		)
 		(property "Current Rating" "IMAX"
-			(at 50.8 16.129 0)
+			(at 63.5 16.129 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7161,7 +8159,7 @@
 			)
 		)
 		(property "DC Resistance" "46mR"
-			(at 50.8 17.145 0)
+			(at 63.5 17.145 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7171,7 +8169,7 @@
 			)
 		)
 		(property "Resonant Frequency" "FRES"
-			(at 50.8 17.145 0)
+			(at 63.5 17.145 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7189,7 +8187,7 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "L2")
+					(reference "L1")
 					(unit 1)
 				)
 			)
@@ -7197,7 +8195,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:LM51571-Q1")
-		(at 50.8 38.1 0)
+		(at 63.5 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7206,7 +8204,7 @@
 		(fields_autoplaced yes)
 		(uuid "7f8cca54-c352-4d6a-bf46-073b5b933331")
 		(property "Reference" "U1"
-			(at 50.8 19.05 0)
+			(at 63.5 19.05 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7215,7 +8213,7 @@
 			)
 		)
 		(property "Value" "LM51571-Q1"
-			(at 50.8 21.59 0)
+			(at 63.5 21.59 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7224,7 +8222,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 50.8 38.1 0)
+			(at 63.5 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7233,7 +8231,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 50.8 38.1 0)
+			(at 63.5 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7242,7 +8240,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 50.8 38.1 0)
+			(at 63.5 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7251,7 +8249,7 @@
 			)
 		)
 		(property "Manufacturer" "Texas Instruments"
-			(at 50.8 38.1 0)
+			(at 63.5 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7260,7 +8258,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 50.8 38.1 0)
+			(at 63.5 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7269,7 +8267,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 50.8 38.1 0)
+			(at 63.5 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7468,15 +8466,15 @@
 	)
 	(symbol
 		(lib_id "lib_sch:C")
-		(at 114.3 40.64 0)
+		(at 101.6 30.48 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "8d0b4733-a940-41f7-97aa-2e42167feeda")
-		(property "Reference" "C15"
-			(at 116.205 38.1 0)
+		(property "Reference" "C4"
+			(at 103.505 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7486,7 +8484,7 @@
 			)
 		)
 		(property "Value" "22uF"
-			(at 116.205 39.37 0)
+			(at 103.505 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7496,7 +8494,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 114.3 38.735 0)
+			(at 101.6 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7504,8 +8502,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 114.3 38.735 0)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 101.6 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7513,8 +8511,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 114.3 40.64 0)
+		(property "Description" "CAP CER 22UF 6.3V X7T 0805"
+			(at 101.6 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7522,8 +8520,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 114.3 38.735 0)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 101.6 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7531,8 +8529,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 114.3 38.735 0)
+		(property "MPN" "KAM21AT70J226KU"
+			(at 101.6 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7540,8 +8538,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 114.3 40.64 0)
+		(property "DKPN" "478-KAM21AT70J226KUCT-ND"
+			(at 101.6 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7549,8 +8547,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 116.205 41.91 0)
+		(property "Tolerance" "10%"
+			(at 103.505 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7559,8 +8557,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 116.205 40.64 0)
+		(property "Voltage Rating" "6V3"
+			(at 103.505 30.48 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7569,8 +8567,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 116.205 43.18 0)
+		(property "Package" "0805"
+			(at 103.505 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7588,7 +8586,203 @@
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "C15")
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 142.24 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8ecd97e3-7aef-4465-8da0-c350ca8a62b9")
+		(property "Reference" "#PWR014"
+			(at 142.24 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 142.24 39.37 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "68fa37fd-5d51-4365-890f-cc5741d69e7a")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:R")
+		(at 17.78 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8f62827a-eb06-4eb2-9ace-692512f70d75")
+		(property "Reference" "R3"
+			(at 19.05 60.96 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "9K31"
+			(at 19.05 62.23 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:CRCW0402"
+			(at 17.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 17.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RES SMD 9.31K OHM 1% 1/16W 0402"
+			(at 17.78 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 17.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CRCW04029K31FKED"
+			(at 17.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "541-9.31KLCT-ND"
+			(at 17.78 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 19.05 63.5 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Power Rating" "62.5mW"
+			(at 19.05 64.77 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0402"
+			(at 19.05 66.04 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "b6e457f4-e16b-4e9c-92da-6536b5e35374")
+		)
+		(pin "2"
+			(uuid "75c20089-8a08-4e70-aae1-8789160b3d64")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -7662,6 +8856,134 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:C")
+		(at 142.24 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9e56a4bc-4aa4-4e89-8cde-e633a4096244")
+		(property "Reference" "C8"
+			(at 144.145 27.94 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "15pF"
+			(at 144.145 29.21 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 142.24 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 142.24 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 15PF 50V NP0 0603"
+			(at 142.24 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 142.24 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15ACG1H150JT"
+			(at 142.24 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15ACG1H150JTCT-ND"
+			(at 142.24 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "5%"
+			(at 144.145 31.75 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "50V"
+			(at 144.145 30.48 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 144.145 33.02 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "75681ade-4f4f-4c73-8fec-b1a160a25387")
+		)
+		(pin "1"
+			(uuid "f219c1d9-755c-4aec-9d4a-c38a16505edf")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:VSS")
 		(at 25.4 107.95 0)
 		(unit 1)
@@ -7729,83 +9051,16 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 12.7 35.56 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a3b325e4-2127-4ea0-bc54-9b0a456cdf4b")
-		(property "Reference" "#PWR04"
-			(at 12.7 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VSS"
-			(at 12.7 39.37 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 12.7 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 12.7 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 12.7 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5d09f021-8ca6-48ac-9515-e8e06394fad3")
-		)
-		(instances
-			(project "cellularBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "lib_sch:C")
-		(at 69.85 43.18 0)
+		(at 25.4 55.88 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b3d8a4e1-251a-47dd-8e7e-14c19f6c953c")
-		(property "Reference" "C12"
-			(at 71.755 40.64 0)
+		(uuid "a3d22e73-a8e4-484b-b382-a4908b0ecdf4")
+		(property "Reference" "C9"
+			(at 27.305 53.34 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7814,8 +9069,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "300pF"
-			(at 71.755 41.91 0)
+		(property "Value" "10nF"
+			(at 27.305 54.61 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7824,8 +9079,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 69.85 41.275 0)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 25.4 53.975 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7833,8 +9088,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 69.85 41.275 0)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 25.4 53.975 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7842,8 +9097,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 69.85 43.18 0)
+		(property "Description" "CAP CER 10000PF 16V X7R 0603"
+			(at 25.4 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7851,8 +9106,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 69.85 41.275 0)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 25.4 53.975 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7860,8 +9115,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 69.85 41.275 0)
+		(property "MPN" "KAM15AR71C103JT"
+			(at 25.4 53.975 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7869,8 +9124,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 69.85 43.18 0)
+		(property "DKPN" "478-KAM15AR71C103JTCT-ND"
+			(at 25.4 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7878,8 +9133,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 71.755 44.45 0)
+		(property "Tolerance" "5%"
+			(at 27.305 57.15 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7888,8 +9143,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 71.755 43.18 0)
+		(property "Voltage Rating" "16V"
+			(at 27.305 55.88 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7898,8 +9153,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 71.755 45.72 0)
+		(property "Package" "0603"
+			(at 27.305 58.42 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7909,15 +9164,15 @@
 			)
 		)
 		(pin "2"
-			(uuid "a681d368-5091-4ca6-b92c-c55f865acb0e")
+			(uuid "18eaa277-fe06-4bf5-baa5-7e6302590ed1")
 		)
 		(pin "1"
-			(uuid "c4dd4221-9b3d-4f51-ab81-788ff0602122")
+			(uuid "c3e5b019-b2b1-41fb-b4bc-3fb629706eaf")
 		)
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "C12")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -7925,7 +9180,202 @@
 	)
 	(symbol
 		(lib_id "lib_sch:C")
-		(at 12.7 29.21 0)
+		(at 132.08 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a79cfee4-f163-471e-8638-5eef05cf1938")
+		(property "Reference" "C7"
+			(at 133.985 27.94 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "68pF"
+			(at 133.985 29.21 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 132.08 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 132.08 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 68PF 100V C0G/NP0 0603"
+			(at 132.08 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 132.08 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15ACG2A680JT"
+			(at 132.08 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15ACG2A680JTCT-ND"
+			(at 132.08 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "5%"
+			(at 133.985 31.75 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 133.985 30.48 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 133.985 33.02 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "1128ce8c-9332-4ddf-a923-beb42738398c")
+		)
+		(pin "1"
+			(uuid "ccdc110c-8b40-4454-928d-47baf47a80de")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 101.6 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b3a94aa1-4bb2-43fc-b986-888e058505dc")
+		(property "Reference" "#PWR09"
+			(at 101.6 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 101.6 39.37 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a7b5d628-1dd8-4506-b610-bfc874f50156")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 16.51 30.48 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7933,7 +9383,7 @@
 		(dnp no)
 		(uuid "bb5ac493-20a2-4f53-aaf4-5cb1b8d6b433")
 		(property "Reference" "C1"
-			(at 14.605 26.67 0)
+			(at 18.415 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7943,7 +9393,7 @@
 			)
 		)
 		(property "Value" "2.2uF"
-			(at 14.605 27.94 0)
+			(at 18.415 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7952,8 +9402,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 12.7 27.305 0)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 16.51 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7961,8 +9411,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 12.7 27.305 0)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 16.51 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7970,8 +9420,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 12.7 29.21 0)
+		(property "Description" "0603 X7R 2.2UF10% 6.3V AEC-Q200"
+			(at 16.51 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7979,8 +9429,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 12.7 27.305 0)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 16.51 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7988,8 +9438,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 12.7 27.305 0)
+		(property "MPN" "KAM15AR70J225KT"
+			(at 16.51 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7997,8 +9447,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 12.7 29.21 0)
+		(property "DKPN" "478-KAM15AR70J225KTCT-ND"
+			(at 16.51 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8006,8 +9456,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 14.605 30.48 0)
+		(property "Tolerance" "10%"
+			(at 18.415 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8016,8 +9466,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 14.605 29.21 0)
+		(property "Voltage Rating" "6V3"
+			(at 18.415 30.48 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8026,8 +9476,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 14.605 31.75 0)
+		(property "Package" "0603"
+			(at 18.415 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8147,195 +9597,128 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 35.56 53.34 0)
+		(lib_id "lib_sch:C")
+		(at 31.75 55.88 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cc65cc23-27b1-43ec-9fd8-ca343493cfc3")
-		(property "Reference" "#PWR09"
-			(at 35.56 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VSS"
-			(at 35.56 57.15 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 35.56 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 35.56 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 35.56 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "47ecc441-ac74-41c3-a05d-1783e5927b88")
-		)
-		(instances
-			(project "cellularBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "#PWR09")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:C_horizontal")
-		(at 27.94 45.72 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cdfc2819-8c50-4694-9599-45ecaafb3263")
-		(property "Reference" "C11"
-			(at 27.94 43.815 0)
+		(uuid "cc95fd87-f01a-444c-a5be-9af21bb591ed")
+		(property "Reference" "C10"
+			(at 33.655 53.34 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.016 1.016)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "10nF"
-			(at 27.94 47.625 0)
+		(property "Value" "150pF"
+			(at 33.655 54.61 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 27.94 51.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 27.94 51.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 27.94 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 27.94 51.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 27.94 51.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 27.94 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerace" "TOL"
-			(at 27.94 47.625 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
+					(size 1.016 1.016)
 				)
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLT"
-			(at 27.94 48.895 0)
-			(do_not_autoplace yes)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 31.75 53.975 0)
 			(effects
 				(font
-					(size 0.762 0.762)
+					(size 1.27 1.27)
 				)
-				(justify right)
+				(hide yes)
 			)
 		)
-		(property "Package" "PKG"
-			(at 27.94 48.895 0)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 31.75 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 150PF 50V X7R 0603"
+			(at 31.75 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 31.75 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "06035C151K4T2A"
+			(at 31.75 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-13033-1-ND"
+			(at 31.75 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 33.655 57.15 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
-					(size 0.762 0.762)
+					(size 1.016 1.016)
 				)
 				(justify left)
 			)
 		)
-		(pin "1"
-			(uuid "8237f44e-3378-4430-b54c-3d2c89024021")
+		(property "Voltage Rating" "50V"
+			(at 33.655 55.88 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 33.655 58.42 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
 		)
 		(pin "2"
-			(uuid "c52746c8-b448-4c2a-8c5b-9c2571cd7d1f")
+			(uuid "a1d2363b-fe43-4829-99bd-210b9a8df996")
+		)
+		(pin "1"
+			(uuid "cfeb3977-63a2-4174-a74d-cb5e9ee40011")
 		)
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "C11")
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -8438,7 +9821,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 66.04 53.34 0)
+		(at 78.74 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8447,7 +9830,7 @@
 		(fields_autoplaced yes)
 		(uuid "d13a86c2-404f-486d-b82e-b4f175d0ee28")
 		(property "Reference" "#PWR010"
-			(at 66.04 53.34 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8456,7 +9839,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 66.04 57.15 0)
+			(at 78.74 57.15 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8465,7 +9848,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 66.04 53.34 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8474,7 +9857,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 66.04 53.34 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8483,7 +9866,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 66.04 53.34 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8505,7 +9888,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:C_horizontal")
-		(at 27.94 35.56 0)
+		(at 38.1 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8513,8 +9896,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4415d48-7cb0-4f30-9222-97395fc927f9")
-		(property "Reference" "C13"
-			(at 27.94 33.655 0)
+		(property "Reference" "C3"
+			(at 38.1 33.655 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8523,7 +9906,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 27.94 37.465 0)
+			(at 38.1 37.465 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8532,8 +9915,8 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
-			(at 27.94 41.275 0)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 38.1 41.275 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8541,8 +9924,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 27.94 41.275 0)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 38.1 41.275 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8550,8 +9933,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 27.94 35.56 0)
+		(property "Description" "0603 X7R 1UF10% 10V AEC-Q200"
+			(at 38.1 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8559,8 +9942,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 27.94 41.275 0)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 38.1 41.275 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8568,8 +9951,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 27.94 41.275 0)
+		(property "MPN" "KAM15AR71A105KT"
+			(at 38.1 41.275 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8577,8 +9960,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 27.94 35.56 0)
+		(property "DKPN" "478-KAM15AR71A105KTCT-ND"
+			(at 38.1 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8586,8 +9969,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerace" "TOL"
-			(at 27.94 37.465 0)
+		(property "Tolerace" "10%"
+			(at 38.1 37.465 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8596,8 +9979,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLT"
-			(at 27.94 38.735 0)
+		(property "Voltage Rating" "10V"
+			(at 38.1 38.735 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8606,8 +9989,8 @@
 				(justify right)
 			)
 		)
-		(property "Package" "PKG"
-			(at 27.94 38.735 0)
+		(property "Package" "0603"
+			(at 38.1 38.735 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8625,7 +10008,7 @@
 		(instances
 			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "C13")
+					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -8693,6 +10076,201 @@
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
 					(reference "#PWR038")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 46.99 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e6bc0569-fe07-4bf8-b76b-60392b106786")
+		(property "Reference" "C11"
+			(at 48.895 53.34 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10nF"
+			(at 48.895 54.61 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 46.99 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 46.99 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 10000PF 16V X7R 0603"
+			(at 46.99 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 46.99 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15AR71C103JT"
+			(at 46.99 53.975 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71C103JTCT-ND"
+			(at 46.99 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "5%"
+			(at 48.895 57.15 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "16V"
+			(at 48.895 55.88 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 48.895 58.42 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "a4b2a79a-d589-46b2-8ef0-5ed8d50675ce")
+		)
+		(pin "1"
+			(uuid "fe1d269e-ab1b-4d57-bff7-9e9bd62ed8d4")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:+1V8")
+		(at 180.34 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e76b6cb3-da36-4a47-80ea-5c264879abfc")
+		(property "Reference" "#PWR016"
+			(at 180.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+1V8"
+			(at 180.34 73.914 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 180.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 180.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 180.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b655062d-a8fc-4268-91c4-36fea2e18748")
+		)
+		(instances
+			(project "cellularBoard"
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -8794,6 +10372,73 @@
 		)
 	)
 	(symbol
+		(lib_id "DS-Power:+3V8")
+		(at 142.24 22.86 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ecb6d80a-9758-4f6f-a1e5-37e2ff33f23d")
+		(property "Reference" "#PWR019"
+			(at 142.24 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V8"
+			(at 142.24 19.304 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c1862374-ce4f-44f3-831b-2f171b2a6ac0")
+		)
+		(instances
+			(project ""
+				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
+					(reference "#PWR019")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:R_horizontal")
 		(at 181.61 140.97 0)
 		(unit 1)
@@ -8803,7 +10448,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ee2190fa-8ed7-4cf6-aa39-02d0642956d8")
-		(property "Reference" "R5"
+		(property "Reference" "R8"
 			(at 181.61 139.7 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8915,7 +10560,7 @@
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "R5")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -9018,7 +10663,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R")
-		(at 92.71 38.1 0)
+		(at 90.17 36.83 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9026,8 +10671,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f3e077f3-3569-4a90-aeda-bf7283985ac9")
-		(property "Reference" "R6"
-			(at 93.98 35.56 0)
+		(property "Reference" "R2"
+			(at 91.44 34.29 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9037,7 +10682,7 @@
 			)
 		)
 		(property "Value" "2K49"
-			(at 93.98 36.83 0)
+			(at 91.44 35.56 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9046,8 +10691,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 92.71 35.56 0)
+		(property "Footprint" "lib_fp:CRCW0402"
+			(at 90.17 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9055,8 +10700,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 92.71 35.56 0)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 90.17 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9064,8 +10709,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 92.71 38.1 0)
+		(property "Description" "RES SMD 2.49K OHM 1% 1/16W 0402"
+			(at 90.17 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9073,8 +10718,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 92.71 35.56 0)
+		(property "Manufacturer" "Vishay Dale"
+			(at 90.17 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9082,8 +10727,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 92.71 35.56 0)
+		(property "MPN" "CRCW04022K49FKED"
+			(at 90.17 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9091,8 +10736,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 92.71 38.1 0)
+		(property "DKPN" "541-2.49KLCT-ND"
+			(at 90.17 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9100,8 +10745,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 93.98 38.1 0)
+		(property "Tolerance" "1%"
+			(at 91.44 36.83 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9110,8 +10755,8 @@
 				(justify left)
 			)
 		)
-		(property "Power Rating" "PWR"
-			(at 93.98 39.37 0)
+		(property "Power Rating" "62.5mW"
+			(at 91.44 38.1 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9120,8 +10765,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 93.98 40.64 0)
+		(property "Package" "0402"
+			(at 91.44 39.37 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9138,134 +10783,6 @@
 		)
 		(instances
 			(project "cellularBoard"
-				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "R6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:R_horizontal")
-		(at 33.02 40.64 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f450b684-4301-4151-9317-10c8a80fb2a5")
-		(property "Reference" "R2"
-			(at 33.02 39.37 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-			)
-		)
-		(property "Value" "9K31"
-			(at 33.02 41.91 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 30.48 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 30.48 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 33.02 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 30.48 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 30.48 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 33.02 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "TOL"
-			(at 33.02 43.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Power Rating" "PWR"
-			(at 33.02 41.91 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "PKG"
-			(at 33.02 43.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify left)
-			)
-		)
-		(pin "2"
-			(uuid "53d36eeb-9416-4b9d-9848-96b42ae16316")
-		)
-		(pin "1"
-			(uuid "8c82c791-20fa-4b14-ad8a-8289082fb6f7")
-		)
-		(instances
-			(project ""
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
 					(reference "R2")
 					(unit 1)
@@ -9445,7 +10962,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa97a75d-165f-4168-8c10-f805be534ecf")
-		(property "Reference" "R4"
+		(property "Reference" "R7"
 			(at 181.61 132.08 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9557,7 +11074,7 @@
 		(instances
 			(project "cellularBoard"
 				(path "/50c89994-1e88-43a3-960b-69c29381dda5"
-					(reference "R4")
+					(reference "R7")
 					(unit 1)
 				)
 			)
