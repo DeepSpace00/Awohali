@@ -6,8 +6,8 @@
 	(paper "USLetter")
 	(title_block
 		(title "Awohali Power Supply")
-		(date "2024-11-29")
-		(rev "01")
+		(date "2024-12-17")
+		(rev "02")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
 	)
@@ -3615,10 +3615,22 @@
 		(uuid "04803862-4c81-4966-8b29-f1fb6c150d0e")
 	)
 	(junction
+		(at 186.69 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0889fc1c-896a-4b00-95f2-ae40cf89e9eb")
+	)
+	(junction
 		(at 172.72 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0d8bf9f1-1419-41fd-ae3e-b3dc7931c5d7")
+	)
+	(junction
+		(at 200.66 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "153df039-79fd-4712-897b-9bfacef35a57")
 	)
 	(junction
 		(at 74.93 140.97)
@@ -3663,6 +3675,12 @@
 		(uuid "5e08c848-7f54-4fc4-be29-994953ae97e5")
 	)
 	(junction
+		(at 200.66 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6200819f-c1ab-4f0b-af63-ece79603ab99")
+	)
+	(junction
 		(at 165.1 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3705,40 +3723,16 @@
 		(uuid "a2106d9f-f8d9-48ef-b2f7-a7e98a115a09")
 	)
 	(junction
-		(at 204.47 111.76)
+		(at 215.9 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a3c777d9-06fb-484e-b6a0-8556bd087bd6")
-	)
-	(junction
-		(at 204.47 109.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ae9613f1-21c0-44c8-9126-12050651afee")
-	)
-	(junction
-		(at 186.69 99.06)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b61733e1-6871-46b1-9021-608d7f6cb07d")
 	)
 	(junction
 		(at 134.62 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c1081896-a6e8-43e0-8f5b-7bb2fd6c4797")
-	)
-	(junction
-		(at 189.23 111.76)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c81b8d67-502d-4ded-b3c8-f98f023bc224")
-	)
-	(junction
-		(at 189.23 109.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ddabce5f-1a11-404e-83dd-7c0d6d5d6a3b")
 	)
 	(junction
 		(at 185.42 88.9)
@@ -3751,12 +3745,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f10a4c3a-5097-4136-a92b-dd8830f13be1")
-	)
-	(junction
-		(at 204.47 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fdd2d267-637c-4156-ac6b-b35935aef61a")
 	)
 	(no_connect
 		(at 118.11 63.5)
@@ -3896,16 +3884,6 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 115.57) (xy 194.31 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0d786dc9-4ecf-4338-a531-58718941e475")
-	)
-	(wire
-		(pts
 			(xy 74.93 143.51) (xy 74.93 140.97)
 		)
 		(stroke
@@ -3986,6 +3964,16 @@
 	)
 	(wire
 		(pts
+			(xy 190.5 101.6) (xy 190.5 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17e088b4-4b51-48f9-9e6f-489c97e75d8d")
+	)
+	(wire
+		(pts
 			(xy 50.8 24.13) (xy 62.23 24.13)
 		)
 		(stroke
@@ -4026,17 +4014,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 109.22) (xy 191.77 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2aecc21b-5131-482b-a33d-f2622f135e93")
-	)
-	(wire
-		(pts
-			(xy 161.29 109.22) (xy 189.23 109.22)
+			(xy 161.29 109.22) (xy 200.66 109.22)
 		)
 		(stroke
 			(width 0)
@@ -4156,16 +4134,6 @@
 	)
 	(wire
 		(pts
-			(xy 186.69 99.06) (xy 204.47 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d03c5c8-0665-430e-9f9e-b0bdded443b5")
-	)
-	(wire
-		(pts
 			(xy 114.3 124.46) (xy 118.11 124.46)
 		)
 		(stroke
@@ -4206,7 +4174,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 111.76) (xy 189.23 115.57)
+			(xy 200.66 111.76) (xy 200.66 115.57)
 		)
 		(stroke
 			(width 0)
@@ -4406,6 +4374,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 109.22) (xy 203.2 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6cc6dd26-003d-46b5-8b5a-dc57a602fd60")
+	)
+	(wire
+		(pts
 			(xy 81.28 29.21) (xy 83.82 29.21)
 		)
 		(stroke
@@ -4416,7 +4394,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 111.76) (xy 204.47 111.76)
+			(xy 213.36 111.76) (xy 215.9 111.76)
 		)
 		(stroke
 			(width 0)
@@ -4546,7 +4524,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 118.11) (xy 204.47 115.57)
+			(xy 215.9 111.76) (xy 215.9 123.19)
 		)
 		(stroke
 			(width 0)
@@ -4566,7 +4544,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 111.76) (xy 204.47 109.22)
+			(xy 215.9 111.76) (xy 215.9 109.22)
 		)
 		(stroke
 			(width 0)
@@ -4596,7 +4574,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 109.22) (xy 201.93 109.22)
+			(xy 215.9 109.22) (xy 213.36 109.22)
 		)
 		(stroke
 			(width 0)
@@ -4643,16 +4621,6 @@
 			(type default)
 		)
 		(uuid "8e8b9117-a614-4b73-adc8-bb5369d0dc0b")
-	)
-	(wire
-		(pts
-			(xy 199.39 115.57) (xy 204.47 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8eb522c8-2ad3-42d8-a312-5da2e43efa1d")
 	)
 	(wire
 		(pts
@@ -4876,7 +4844,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 109.22) (xy 189.23 111.76)
+			(xy 200.66 109.22) (xy 200.66 111.76)
 		)
 		(stroke
 			(width 0)
@@ -5026,7 +4994,17 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 111.76) (xy 191.77 111.76)
+			(xy 200.66 120.65) (xy 200.66 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb243d15-6a9f-473f-be53-5b4e40c98dc2")
+	)
+	(wire
+		(pts
+			(xy 200.66 111.76) (xy 203.2 111.76)
 		)
 		(stroke
 			(width 0)
@@ -5063,6 +5041,16 @@
 			(type default)
 		)
 		(uuid "ee873421-f1f7-450f-84cb-5c8b0dc4548b")
+	)
+	(wire
+		(pts
+			(xy 190.5 99.06) (xy 186.69 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee96e774-6e03-4e15-afdc-1b0d6e49b985")
 	)
 	(wire
 		(pts
@@ -5133,26 +5121,6 @@
 			(type default)
 		)
 		(uuid "faa7d3d7-d249-487a-9eda-b2ffc06ebddf")
-	)
-	(wire
-		(pts
-			(xy 204.47 109.22) (xy 204.47 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc4bbeea-3688-4430-9fb7-dd5c25f79fc9")
-	)
-	(wire
-		(pts
-			(xy 204.47 115.57) (xy 204.47 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc674b2a-70a9-41ea-96e0-ad7286d6ae26")
 	)
 	(text "Tag-Connect Socket"
 		(exclude_from_sim no)
@@ -5636,7 +5604,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 204.47 118.11 0)
+		(at 215.9 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5644,8 +5612,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "03942ac5-8f7d-4c90-a5d7-825149b09699")
-		(property "Reference" "#PWR024"
-			(at 204.47 118.11 0)
+		(property "Reference" "#PWR026"
+			(at 215.9 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5654,7 +5622,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 204.47 121.92 0)
+			(at 215.9 127 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5663,7 +5631,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 204.47 118.11 0)
+			(at 215.9 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5672,7 +5640,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 204.47 118.11 0)
+			(at 215.9 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5681,7 +5649,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 204.47 118.11 0)
+			(at 215.9 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5695,7 +5663,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "#PWR024")
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -5703,7 +5671,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:SPST-NO Button")
-		(at 196.85 110.49 0)
+		(at 208.28 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5712,7 +5680,7 @@
 		(fields_autoplaced yes)
 		(uuid "07c62ac1-2392-465a-97e3-73a350fff9c4")
 		(property "Reference" "SW2"
-			(at 196.85 104.14 0)
+			(at 208.28 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5721,7 +5689,7 @@
 			)
 		)
 		(property "Value" "PTS647"
-			(at 196.85 106.045 0)
+			(at 208.28 106.045 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5730,7 +5698,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:SW_4.5x4.5"
-			(at 207.645 110.49 0)
+			(at 219.075 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5740,7 +5708,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/CK-Switches-PTS647.pdf"
-			(at 196.85 110.49 0)
+			(at 208.28 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5749,7 +5717,7 @@
 			)
 		)
 		(property "Description" "SWITCH TACTILE SPST-NO 0.05A 12V"
-			(at 207.645 110.49 0)
+			(at 219.075 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5758,7 +5726,7 @@
 			)
 		)
 		(property "Manufacturer" "C&K"
-			(at 196.85 111.125 0)
+			(at 208.28 111.125 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5769,7 +5737,7 @@
 			)
 		)
 		(property "MPN" "PTS 647 SK38 SMTR2 LFS"
-			(at 196.85 110.49 0)
+			(at 208.28 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5778,7 +5746,7 @@
 			)
 		)
 		(property "DKPN" "PTS647SK38SMTR2LFSCT-ND"
-			(at 196.85 110.49 0)
+			(at 208.28 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5893,7 +5861,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "SCL"
 			(at 166.37 83.82 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5983,7 +5951,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "176db3c0-b748-4149-bc71-3370c9af50e8")
-		(property "Reference" "C3"
+		(property "Reference" "C2"
 			(at 100.965 50.8 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6096,7 +6064,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "C3")
+					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -7290,7 +7258,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2K2"
+		(property "Value" "300R"
 			(at 63.5 27.94 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7318,7 +7286,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES SMD 2.2K OHM 1% 1/16W 0402"
+		(property "Description" "RES SMD 300 OHM 5% 1/16W 0402"
 			(at 62.23 29.21 0)
 			(effects
 				(font
@@ -7336,7 +7304,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "CRCW04022K20FKED"
+		(property "MPN" "CRCW0402300RJNED"
 			(at 62.23 26.67 0)
 			(effects
 				(font
@@ -7345,7 +7313,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-2.20KLCT-ND"
+		(property "DKPN" "541-300JCT-ND"
 			(at 62.23 29.21 0)
 			(effects
 				(font
@@ -7354,7 +7322,7 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "1%"
+		(property "Tolerance" "5%"
 			(at 63.5 29.21 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8102,7 +8070,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "+3V3"
 			(at 127 43.18 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8183,6 +8151,135 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:C")
+		(at 101.6 29.21 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "70c08063-5df7-48c6-b421-40d19e455c68")
+		(property "Reference" "C3"
+			(at 103.505 26.67 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uF"
+			(at 103.505 27.94 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 101.6 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 101.6 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "0603 X7R 1UF10% 16V AEC-Q200"
+			(at 101.6 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 101.6 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15AR71C105KT"
+			(at 101.6 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71C105KTCT-ND"
+			(at 101.6 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 103.505 30.48 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "16V"
+			(at 103.505 29.21 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 103.505 31.75 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "fcc4ccf2-2962-478b-b84d-ae8fdcd9576d")
+		)
+		(pin "2"
+			(uuid "cba354aa-0d37-479a-aa6f-5c1a61c03c3a")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:VSS")
 		(at 180.34 58.42 0)
 		(unit 1)
@@ -8244,133 +8341,6 @@
 			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
 					(reference "#PWR020")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:R_horizontal")
-		(at 113.03 109.22 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "77b0b81e-15cf-4ad4-9f40-ec4290f1a880")
-		(property "Reference" "R4"
-			(at 113.03 107.95 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-			)
-		)
-		(property "Value" "2K2"
-			(at 113.03 110.49 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "lib_fp:CRCW0402"
-			(at 110.49 109.22 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
-			(at 110.49 109.22 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "RES SMD 2.2K OHM 1% 1/16W 0402"
-			(at 113.03 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Vishay Dale"
-			(at 110.49 109.22 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "CRCW04022K20FKED"
-			(at 110.49 109.22 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "541-2.20KLCT-ND"
-			(at 113.03 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "1%"
-			(at 113.03 111.76 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Power Rating" "62.5mW"
-			(at 113.03 110.49 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "0402"
-			(at 113.03 111.76 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify left)
-			)
-		)
-		(pin "1"
-			(uuid "65af587b-66a8-4be4-8910-2e226c84af55")
-		)
-		(pin "2"
-			(uuid "6299a285-0af9-47f7-8f71-68de7f210d44")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -8578,6 +8548,73 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 190.5 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "82a92f35-142d-42e9-b709-d03d0378c1b5")
+		(property "Reference" "#PWR024"
+			(at 190.5 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 190.5 105.41 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 190.5 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 190.5 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5523f2fe-a369-4059-9e3f-41175b67ec5d")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "#PWR024")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:C")
 		(at 172.72 53.34 0)
 		(unit 1)
@@ -8701,134 +8738,6 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
 					(reference "C6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:C")
-		(at 101.6 29.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "875d8fe2-95cc-4cb2-8037-72a50307150a")
-		(property "Reference" "C2"
-			(at 103.505 26.67 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF"
-			(at 103.505 27.94 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "lib_fp:MLCC0805"
-			(at 101.6 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
-			(at 101.6 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "0805 X7R 10UF20% 10V AEC-Q200"
-			(at 101.6 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "KYOCERA AVX"
-			(at 101.6 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "KAM21AR71A106MU"
-			(at 101.6 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "478-KAM21AR71A106MUCT-ND"
-			(at 101.6 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "20%"
-			(at 103.505 30.48 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Voltage Rating" "10V"
-			(at 103.505 29.21 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "0805"
-			(at 103.505 31.75 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "1"
-			(uuid "91c2d784-2fa0-4a32-a19c-2011f3972634")
-		)
-		(pin "2"
-			(uuid "e93351a4-1fa3-4768-8844-f255fc880bb9")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -9159,6 +9068,73 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
+		(at 200.66 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8f63966a-85dd-487c-9379-55aeeaf9d6a7")
+		(property "Reference" "#PWR025"
+			(at 200.66 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 200.66 127 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.66 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 200.66 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fe6b9486-175c-4281-a17d-91ada72b70a9")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:VSS")
 		(at 99.06 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9353,6 +9329,134 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:C")
+		(at 200.66 118.11 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "948c41c6-97f8-49f7-a965-798c811d2d2d")
+		(property "Reference" "C10"
+			(at 202.565 115.57 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 202.565 116.84 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 200.66 116.205 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 200.66 116.205 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
+			(at 200.66 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 200.66 116.205 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15AR71H104KM"
+			(at 200.66 116.205 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71H104KMCT-ND"
+			(at 200.66 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 202.565 119.38 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "50V"
+			(at 202.565 118.11 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 202.565 120.65 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "469423f1-815a-40d7-840e-c8331ff7296f")
+		)
+		(pin "2"
+			(uuid "0b7e621a-c5ed-4d6c-8a12-bca6eba1698c")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:VSS")
 		(at 100.33 111.76 0)
 		(unit 1)
@@ -9429,7 +9533,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b5737dc-29aa-4273-8477-b870a77f05fc")
-		(property "Reference" "C8"
+		(property "Reference" "C7"
 			(at 179.07 97.155 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9541,7 +9645,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "C8")
+					(reference "C7")
 					(unit 1)
 				)
 			)
@@ -9690,7 +9794,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "aec90fdf-26cc-46da-9d47-5315a4f70028")
-		(property "Reference" "C7"
+		(property "Reference" "C8"
 			(at 182.245 50.8 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9803,7 +9907,7 @@
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "C7")
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -9945,7 +10049,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "SDA"
 			(at 172.72 88.9 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10026,262 +10130,6 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:C")
-		(at 74.93 29.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d2f492f6-5b3e-4e84-97a7-03a286711094")
-		(property "Reference" "C1"
-			(at 76.835 26.67 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF"
-			(at 76.835 27.94 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "lib_fp:MLCC0805"
-			(at 74.93 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
-			(at 74.93 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "0805 X7R 10UF20% 10V AEC-Q200"
-			(at 74.93 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "KYOCERA AVX"
-			(at 74.93 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "KAM21AR71A106MU"
-			(at 74.93 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "478-KAM21AR71A106MUCT-ND"
-			(at 74.93 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "20%"
-			(at 76.835 30.48 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Voltage Rating" "10V"
-			(at 76.835 29.21 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "0805"
-			(at 76.835 31.75 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "1"
-			(uuid "acfeb3ed-6392-4aba-a1f2-d111da64e2cb")
-		)
-		(pin "2"
-			(uuid "082b1635-ab05-4d54-9668-e987fef83f8f")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:C_horizontal")
-		(at 196.85 115.57 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d58d81f1-b756-4034-9cf1-23aba2c3eebf")
-		(property "Reference" "C10"
-			(at 196.85 113.665 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 196.85 117.475 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "lib_fp:MLCC0603"
-			(at 196.85 121.285 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
-			(at 196.85 121.285 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
-			(at 196.85 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "KYOCERA AVX"
-			(at 196.85 121.285 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "KAM15AR71H104KM"
-			(at 196.85 121.285 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "478-KAM15AR71H104KMCT-ND"
-			(at 196.85 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerace" "10%"
-			(at 196.85 117.475 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify left)
-			)
-		)
-		(property "Voltage Rating" "50V"
-			(at 196.85 118.745 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify right)
-			)
-		)
-		(property "Package" "0603"
-			(at 196.85 118.745 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-				(justify left)
-			)
-		)
-		(pin "2"
-			(uuid "6d967153-96d8-4282-a209-a583d3685584")
-		)
-		(pin "1"
-			(uuid "035a51f7-2e94-418a-8b2f-ec321db99376")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
-					(reference "C10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "lib_sch:TestPoint")
 		(at 50.8 24.13 0)
 		(unit 1)
@@ -10300,7 +10148,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "VUSB"
 			(at 50.8 19.05 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10805,6 +10653,263 @@
 			)
 		)
 	)
+	(symbol
+		(lib_id "lib_sch:R_horizontal")
+		(at 113.03 109.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fc4578dd-76d6-40c0-b7e6-308514511cea")
+		(property "Reference" "R4"
+			(at 113.03 107.95 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 113.03 110.49 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "lib_fp:CRCW0402"
+			(at 110.49 109.22 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+			(at 110.49 109.22 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RES SMD 100 OHM 1% 1/16W 0402"
+			(at 113.03 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 110.49 109.22 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CRCW0402100RFKED"
+			(at 110.49 109.22 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "541-100LCT-ND"
+			(at 113.03 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 113.03 111.76 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify right)
+			)
+		)
+		(property "Power Rating" "62.5mW"
+			(at 113.03 110.49 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0402"
+			(at 113.03 111.76 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "274bbd08-3460-4d19-a2a6-ae0ef45c66e9")
+		)
+		(pin "2"
+			(uuid "0beb4d2d-5d39-463c-967a-af6ed5097e5a")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 74.93 29.21 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fd462c2f-fe1a-4cf7-a3b6-48067c498a1c")
+		(property "Reference" "C1"
+			(at 76.835 26.67 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uF"
+			(at 76.835 27.94 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "lib_fp:MLCC0603"
+			(at 74.93 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Kyocera-AVX-MLCCKAM.pdf"
+			(at 74.93 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "0603 X7R 1UF10% 16V AEC-Q200"
+			(at 74.93 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 74.93 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "KAM15AR71C105KT"
+			(at 74.93 27.305 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71C105KTCT-ND"
+			(at 74.93 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 76.835 30.48 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "16V"
+			(at 76.835 29.21 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 76.835 31.75 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "6419d91e-bc39-4666-88fe-fcb57d429095")
+		)
+		(pin "2"
+			(uuid "92bdc8f2-22cc-4c4e-9c9e-148c34ea879f")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
 	(sheet
 		(at 228.6 50.8)
 		(size 38.1 25.4)
@@ -10987,6 +11092,44 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 228.6 88.9)
+		(size 38.1 25.4)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "70190797-7e10-4051-a1b9-803af62c45a0")
+		(property "Sheetname" "Voltage Regulator"
+			(at 228.6 88.1884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "voltage-regulator.kicad_sch"
+			(at 228.6 114.8846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c"
+					(page "4")
 				)
 			)
 		)
