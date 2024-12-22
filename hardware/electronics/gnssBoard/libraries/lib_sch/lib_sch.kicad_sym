@@ -413,9 +413,9 @@
 			)
 		)
 		(symbol "AP7361E_1_0"
-			(pin no_connect line
+			(pin passive line
 				(at 0 -12.7 90)
-				(length 2.54) hide
+				(length 2.54)
 				(name "NC"
 					(effects
 						(font
@@ -450,7 +450,7 @@
 				)
 				(alternate "NC" no_connect line)
 			)
-			(pin no_connect line
+			(pin passive line
 				(at 0 -12.7 90)
 				(length 2.54) hide
 				(name "NC"
@@ -1131,7 +1131,7 @@
 					)
 				)
 			)
-			(pin open_collector line
+			(pin input line
 				(at 25.4 -22.86 180)
 				(length 2.54)
 				(name "~{LED_2}"
@@ -1851,7 +1851,7 @@
 					)
 				)
 			)
-			(pin open_collector line
+			(pin input line
 				(at 25.4 -20.32 180)
 				(length 2.54)
 				(name "~{LED_1}"
@@ -3524,6 +3524,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "net tie"
 			(at 0 0 0)
 			(effects
 				(font
@@ -5571,7 +5580,120 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "TP"
-			(at -1.27 0 0)
+			(at 0 6.35 0)
+			(do_not_autoplace)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VAL"
+			(at 0 4.445 0)
+			(do_not_autoplace)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 2.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 2.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 0 2.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 0 2.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 0 2.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 0 2.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "Testpoint_0_1"
+			(arc
+				(start -0.635 3.175)
+				(mid 0 2.54)
+				(end 0.635 3.175)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Testpoint_1_0"
+			(pin passive line
+				(at 0 0 90)
+				(length 2.54)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+	)
+	(symbol "Testpoint_horizontal"
+		(pin_numbers hide)
+		(pin_names hide)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "TP"
+			(at -1.27 1.27 0)
 			(do_not_autoplace)
 			(effects
 				(font
@@ -5580,13 +5702,14 @@
 				(justify right)
 			)
 		)
-		(property "Value" ""
-			(at 0 0 0)
+		(property "Value" "VAL"
+			(at -1.27 -1.27 0)
+			(do_not_autoplace)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -5643,7 +5766,7 @@
 				(hide yes)
 			)
 		)
-		(symbol "Testpoint_0_1"
+		(symbol "Testpoint_horizontal_0_1"
 			(arc
 				(start -0.635 -0.635)
 				(mid 0 0)
@@ -5657,7 +5780,7 @@
 				)
 			)
 		)
-		(symbol "Testpoint_1_0"
+		(symbol "Testpoint_horizontal_1_0"
 			(pin passive line
 				(at 2.54 0 180)
 				(length 2.54)
@@ -6237,7 +6360,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6291,7 +6414,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6446,24 +6569,6 @@
 					)
 				)
 				(number "33"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at -3.81 31.75 270)
-				(length 2.54) hide
-				(name "VCC"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "34"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -6725,7 +6830,7 @@
 			)
 		)
 		(symbol "ZED-F9P-04B_1_0"
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6797,7 +6902,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6815,7 +6920,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6833,7 +6938,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6851,7 +6956,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6869,7 +6974,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6887,7 +6992,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6905,7 +7010,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6923,7 +7028,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6941,7 +7046,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6959,7 +7064,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6977,7 +7082,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -6995,7 +7100,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -7013,7 +7118,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -7031,7 +7136,25 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin passive line
+				(at -3.81 31.75 270)
+				(length 2.54) hide
+				(name "VCC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "34"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -7161,7 +7284,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -7197,7 +7320,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
@@ -7665,9 +7788,9 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
-				(length 2.54) hide
+				(length 2.54)
 				(name "Reserved"
 					(effects
 						(font
@@ -7863,7 +7986,7 @@
 					)
 				)
 			)
-			(pin no_connect line
+			(pin free line
 				(at 25.4 -25.4 180)
 				(length 2.54) hide
 				(name "Reserved"
