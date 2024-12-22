@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.762,
-          "height": 1.524,
-          "width": 1.524
+          "drill": 0.0,
+          "height": 5.5,
+          "width": 5.5
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -63,7 +63,25 @@
           "width": 0.2362
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "clearance|129900000|112900000|27899433-540b-4d2e-9786-135d5a956ee0|0ce8acdd-6f40-420b-b122-5dbf636889ec",
+        "clearance|129900000|113400000|4f8507e8-3545-4045-a566-4576081611ab|0ce8acdd-6f40-420b-b122-5dbf636889ec",
+        "clearance|149450000|107900000|f85e4cef-2517-4c91-9cd4-ec19977ab271|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d",
+        "clearance|149450000|108400000|9cb662c9-db28-4a22-b72c-f4c1a25113df|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d",
+        "copper_edge_clearance|140000000|78000000|601c69ff-a8f8-4969-9b83-73209fb993e2|dcd397f5-a972-45a3-9305-8378a9b1efd2",
+        "items_not_allowed|137200000|115000000|202e1e14-a6e1-447c-8d3a-1753aa976686|00000000-0000-0000-0000-000000000000",
+        "items_not_allowed|141900000|114900000|3238aab0-4516-425c-81c9-a73f74617705|00000000-0000-0000-0000-000000000000",
+        "items_not_allowed|143700000|114900000|1b3f07e6-3fd7-43a3-a197-418c0be56704|00000000-0000-0000-0000-000000000000",
+        "items_not_allowed|145800000|114800000|5275afda-93d9-4813-bba3-4950628e7d87|00000000-0000-0000-0000-000000000000",
+        "missing_courtyard|140000000|120000000|4ebd0d55-8873-440a-8f5c-81c7db9d0399|00000000-0000-0000-0000-000000000000",
+        "solder_mask_bridge|129900000|112900000|0ce8acdd-6f40-420b-b122-5dbf636889ec|27899433-540b-4d2e-9786-135d5a956ee0",
+        "solder_mask_bridge|129900000|113400000|0ce8acdd-6f40-420b-b122-5dbf636889ec|4f8507e8-3545-4045-a566-4576081611ab",
+        "solder_mask_bridge|149450000|107900000|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d|f85e4cef-2517-4c91-9cd4-ec19977ab271",
+        "solder_mask_bridge|149450000|108400000|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d|9cb662c9-db28-4a22-b72c-f4c1a25113df",
+        "text_height|130000000|115450000|736f8695-3f11-4008-a72b-75e9a57a05d2|00000000-0000-0000-0000-000000000000",
+        "text_height|149800000|106425000|4158b5e3-25e2-4d49-9d9d-11efa948f2dd|00000000-0000-0000-0000-000000000000",
+        "text_thickness|140000000|98000000|6c9e974e-2f14-4673-85ca-0a8e175cd649|00000000-0000-0000-0000-000000000000"
+      ],
       "meta": {
         "version": 2
       },
@@ -81,7 +99,7 @@
         "extra_footprint": "warning",
         "footprint": "error",
         "footprint_symbol_mismatch": "warning",
-        "footprint_type_mismatch": "ignore",
+        "footprint_type_mismatch": "warning",
         "hole_clearance": "error",
         "hole_near_hole": "error",
         "holes_co_located": "warning",
@@ -94,16 +112,16 @@
         "lib_footprint_mismatch": "warning",
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
-        "missing_courtyard": "ignore",
+        "missing_courtyard": "warning",
         "missing_footprint": "warning",
         "net_conflict": "warning",
-        "npth_inside_courtyard": "ignore",
+        "npth_inside_courtyard": "warning",
         "padstack": "warning",
-        "pth_inside_courtyard": "ignore",
+        "pth_inside_courtyard": "warning",
         "shorting_items": "error",
         "silk_edge_clearance": "warning",
         "silk_over_copper": "warning",
-        "silk_overlap": "ignore",
+        "silk_overlap": "warning",
         "skew_out_of_range": "error",
         "solder_mask_bridge": "error",
         "starved_thermal": "error",
@@ -130,7 +148,7 @@
         "min_microvia_drill": 0.2,
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.0,
-        "min_text_height": 0.8,
+        "min_text_height": 0.75,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.2,
         "min_track_width": 0.1016,
@@ -450,7 +468,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
+      "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "similar_labels": "warning",
       "simulation_model_issue": "ignore",
@@ -679,10 +697,6 @@
     [
       "50c89994-1e88-43a3-960b-69c29381dda5",
       "Root"
-    ],
-    [
-      "a98004c9-b167-42e1-b839-773c571241b0",
-      "GNSS Module"
     ]
   ],
   "text_variables": {}
