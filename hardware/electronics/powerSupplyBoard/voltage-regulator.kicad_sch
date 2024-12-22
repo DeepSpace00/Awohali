@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Voltage Regulator")
-		(date "2024-12-17")
+		(date "2024-12-22")
 		(rev "02")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2024")
@@ -364,6 +364,236 @@
 				)
 			)
 		)
+		(symbol "DS-Power:PWR_FLAG"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy -1.27 1.905) (xy 0 2.54) (xy 1.27 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_1_1"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "DS-Power:VSYS"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "VSYS"
+				(at 0 3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VSYS_0_1"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "VSYS_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "lib_sch:C"
 			(pin_numbers hide)
 			(pin_names hide)
@@ -679,7 +909,7 @@
 				)
 			)
 		)
-		(symbol "lib_sch:PACK+"
+		(symbol "lib_sch:GND"
 			(power)
 			(pin_numbers hide)
 			(pin_names
@@ -696,8 +926,8 @@
 					(hide yes)
 				)
 			)
-			(property "Value" "PACK+"
-				(at 0 3.556 0)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
 				(do_not_autoplace)
 				(effects
 					(font
@@ -741,10 +971,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "PACK+_0_1"
+			(symbol "GND_0_1"
 				(polyline
 					(pts
-						(xy -1.27 2.54) (xy 0 2.54)
+						(xy -1.27 -1.27) (xy -1.27 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -756,7 +986,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy -0.635 -1.905) (xy 0.635 -1.905)
 					)
 					(stroke
 						(width 0)
@@ -768,104 +998,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "PACK+_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "lib_sch:PACK-"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "PACK-"
-				(at 0 -3.556 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "PACK-_0_1"
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy -1.27 -2.54)
+						(xy -0.254 -2.54) (xy -0.254 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -877,7 +1010,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 -2.54)
+						(xy -0.254 -2.54) (xy 0.254 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -889,7 +1022,19 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 -2.54) (xy 0 -2.54)
+						(xy 0 0) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy -1.27 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -900,7 +1045,7 @@
 					)
 				)
 			)
-			(symbol "PACK-_1_1"
+			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
 					(length 0)
@@ -1623,6 +1768,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 95.25) (xy 165.1 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adb2516c-115c-4a15-a0de-ac41400ccff6")
+	)
+	(wire
+		(pts
 			(xy 111.76 113.03) (xy 129.54 113.03)
 		)
 		(stroke
@@ -1710,6 +1865,73 @@
 			(type default)
 		)
 		(uuid "fa2b5cf3-67b0-4506-b653-ebd231f841de")
+	)
+	(symbol
+		(lib_id "lib_sch:GND")
+		(at 111.76 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1385df47-cbfc-41aa-b27c-81c43f2de7ed")
+		(property "Reference" "#PWR066"
+			(at 111.76 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 111.76 132.08 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.76 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d7befd29-1685-4641-a0d3-b3a40dafe241")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
+					(reference "#PWR066")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "lib_sch:R")
@@ -1834,6 +2056,140 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
 					(reference "R37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:GND")
+		(at 198.12 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "15a548ca-7e01-4373-ac08-e70d02f4a1b7")
+		(property "Reference" "#PWR073"
+			(at 198.12 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 198.12 109.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 198.12 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 198.12 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 198.12 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "26592d32-27e2-4d18-b42a-34ecb18f2db6")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
+					(reference "#PWR073")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:GND")
+		(at 124.46 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1656eab0-695f-4ed6-b145-c102d18c16f9")
+		(property "Reference" "#PWR067"
+			(at 124.46 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 124.46 132.08 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 124.46 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 124.46 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 124.46 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "664f011a-b73a-4833-9189-fcf270e68ab7")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
+					(reference "#PWR067")
 					(unit 1)
 				)
 			)
@@ -2065,6 +2421,73 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:GND")
+		(at 152.4 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2c6724d2-3e30-4c14-95f1-55524952e4e2")
+		(property "Reference" "#PWR068"
+			(at 152.4 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 152.4 132.08 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "44fbd9b4-6422-4c83-8829-193d76d8559f")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
+					(reference "#PWR068")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:R")
 		(at 160.02 120.65 0)
 		(unit 1)
@@ -2193,17 +2616,17 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 152.4 128.27 0)
+		(lib_id "DS-Power:PWR_FLAG")
+		(at 165.1 95.25 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "6429f4f0-5d4b-44a9-870a-e5b8aa3239ed")
-		(property "Reference" "#PWR068"
-			(at 152.4 128.27 0)
+		(uuid "4b746b5c-0f80-426b-a9dc-8ac851334581")
+		(property "Reference" "#FLG06"
+			(at 165.1 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2211,8 +2634,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "PACK-"
-			(at 152.4 131.826 0)
+		(property "Value" "PWR_FLAG"
+			(at 165.1 91.44 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2221,7 +2644,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 152.4 128.27 0)
+			(at 165.1 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2230,7 +2653,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 152.4 128.27 0)
+			(at 165.1 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2238,8 +2661,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 152.4 128.27 0)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 165.1 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2248,12 +2671,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "38354cfa-77ec-457b-ae2d-2a1dcb9f0d9f")
+			(uuid "91a6f7c1-464c-419a-87fd-f38421e21998")
 		)
 		(instances
-			(project "powerSupplyBoard"
+			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR068")
+					(reference "#FLG06")
 					(unit 1)
 				)
 			)
@@ -2518,73 +2941,6 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 111.76 128.27 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "845d86f4-ab3b-4010-883b-21f6ad743ee8")
-		(property "Reference" "#PWR066"
-			(at 111.76 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PACK-"
-			(at 111.76 131.826 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 111.76 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 111.76 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 111.76 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8cab873a-66ac-4422-8924-5ba12c4fc130")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR066")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "DS-Power:+3V3_OUT")
 		(at 177.8 95.25 0)
 		(unit 1)
@@ -2652,7 +3008,74 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:PACK+")
+		(lib_id "lib_sch:GND")
+		(at 160.02 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "97c8fd08-f6d1-4ae0-b278-175331f17e4f")
+		(property "Reference" "#PWR069"
+			(at 160.02 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 160.02 132.08 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.02 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.02 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 160.02 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "14e58bac-aed4-45e1-8c6f-d22e2f360d0b")
+		)
+		(instances
+			(project "powerSupplyBoard"
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
+					(reference "#PWR069")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Power:VSYS")
 		(at 101.6 95.25 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2660,7 +3083,7 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "a33f5669-c799-48e5-bf04-9d3f8c380eb3")
+		(uuid "af657324-2aca-4438-965a-dc5aed5dc03a")
 		(property "Reference" "#PWR064"
 			(at 101.6 95.25 0)
 			(effects
@@ -2670,7 +3093,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "PACK+"
+		(property "Value" "VSYS"
 			(at 101.6 91.694 0)
 			(do_not_autoplace yes)
 			(effects
@@ -2707,79 +3130,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "9d04f0b6-cc96-414d-9c46-a8be064e133a")
+			(uuid "9996246a-dd8b-4457-acbf-5f738beea88d")
 		)
 		(instances
 			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
 					(reference "#PWR064")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 177.8 128.27 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "af0aed97-a180-47c0-8f5c-e288f697629e")
-		(property "Reference" "#PWR071"
-			(at 177.8 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PACK-"
-			(at 177.8 131.826 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 177.8 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 177.8 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 177.8 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6253525c-4c7c-4c8c-ac74-a646008731f9")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR071")
 					(unit 1)
 				)
 			)
@@ -2908,6 +3264,73 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
 					(reference "R35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:GND")
+		(at 101.6 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b81aff89-44f7-462e-9e5f-6a507641865e")
+		(property "Reference" "#PWR065"
+			(at 101.6 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 101.6 132.08 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b7a6d7b8-750f-48dd-8e43-792176537d49")
+		)
+		(instances
+			(project ""
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
+					(reference "#PWR065")
 					(unit 1)
 				)
 			)
@@ -3118,73 +3541,6 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 101.6 128.27 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c803e0bb-8065-432f-8ee6-1ac2007ae804")
-		(property "Reference" "#PWR065"
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PACK-"
-			(at 101.6 131.826 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6468b302-61eb-4579-8246-4c43cc4c7c5f")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR065")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "lib_sch:TPS62993-Q1")
 		(at 139.7 107.95 0)
 		(unit 1)
@@ -3303,17 +3659,17 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 198.12 105.41 0)
+		(lib_id "lib_sch:GND")
+		(at 177.8 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "dcbb6189-f2d2-4338-bc35-95c03290e579")
-		(property "Reference" "#PWR073"
-			(at 198.12 105.41 0)
+		(uuid "feb8ea63-5d16-41ac-9001-29b06d3dfdfb")
+		(property "Reference" "#PWR071"
+			(at 177.8 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3321,8 +3677,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "PACK-"
-			(at 198.12 108.966 0)
+		(property "Value" "GND"
+			(at 177.8 132.08 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3331,7 +3687,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 198.12 105.41 0)
+			(at 177.8 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3340,7 +3696,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 198.12 105.41 0)
+			(at 177.8 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3349,7 +3705,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 198.12 105.41 0)
+			(at 177.8 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3358,145 +3714,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "927149ed-2481-4fb6-bf18-bde394e5c4ed")
+			(uuid "0d0ae0de-05f4-43f3-9fa5-eb5d999796a9")
 		)
 		(instances
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR073")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 160.02 128.27 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "df8ed321-268d-4bb1-8a00-ab77a5b9bf6f")
-		(property "Reference" "#PWR069"
-			(at 160.02 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PACK-"
-			(at 160.02 132.08 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 160.02 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 160.02 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 160.02 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bff378c4-2519-4e55-807f-e2d6c8a20b86")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR069")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:PACK-")
-		(at 124.46 128.27 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fe6262b6-fbd7-4f6e-87b8-7a96e22226db")
-		(property "Reference" "#PWR067"
-			(at 124.46 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PACK-"
-			(at 124.46 131.826 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 124.46 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 124.46 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 124.46 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "53750478-48f3-4eaa-97d9-8812498fb879")
-		)
-		(instances
-			(project "powerSupplyBoard"
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/70190797-7e10-4051-a1b9-803af62c45a0"
-					(reference "#PWR067")
+					(reference "#PWR071")
 					(unit 1)
 				)
 			)
