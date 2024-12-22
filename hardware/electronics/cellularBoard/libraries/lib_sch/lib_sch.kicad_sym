@@ -9449,7 +9449,7 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin passive line
 				(at 0 43.18 270)
 				(length 2.54) hide
 				(name "VCC"
@@ -9467,7 +9467,7 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin passive line
 				(at 0 43.18 270)
 				(length 2.54) hide
 				(name "VCC"
@@ -10631,8 +10631,8 @@
 				)
 			)
 			(pin no_connect line
-				(at 15.24 -6.35 180)
-				(length 2.54) hide
+				(at 15.24 -5.08 180)
+				(length 2.54)
 				(name "NC"
 					(effects
 						(font
@@ -10649,7 +10649,7 @@
 				)
 			)
 			(pin no_connect line
-				(at 15.24 -6.35 180)
+				(at 15.24 -7.62 180)
 				(length 2.54)
 				(name "NC"
 					(effects
@@ -11189,7 +11189,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "TP"
-			(at -1.27 0 0)
+			(at -1.27 1.27 0)
 			(do_not_autoplace)
 			(effects
 				(font
@@ -11198,13 +11198,14 @@
 				(justify right)
 			)
 		)
-		(property "Value" ""
-			(at 0 0 0)
+		(property "Value" "VAL"
+			(at -1.27 -1.27 0)
+			(do_not_autoplace)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
