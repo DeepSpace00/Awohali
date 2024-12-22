@@ -504,7 +504,7 @@
         "line_style": 0,
         "microvia_diameter": 0.6,
         "microvia_drill": 0.3,
-        "name": "GNSS RF",
+        "name": "Cellular RF",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.2565,
@@ -545,20 +545,24 @@
         "pattern": "/HOST_D-"
       },
       {
-        "netclass": "GNSS RF",
-        "pattern": "/GNSS Module/ANT_IN"
-      },
-      {
-        "netclass": "GNSS RF",
-        "pattern": "/GNSS Module/RF_IN"
+        "netclass": "USB Diff Pair",
+        "pattern": "/SARA_D+"
       },
       {
         "netclass": "USB Diff Pair",
-        "pattern": "/GNSS Module/ZED_D-"
+        "pattern": "/SARA_D-"
       },
       {
-        "netclass": "USB Diff Pair",
-        "pattern": "/GNSS Module/ZED_D+"
+        "netclass": "Cellular RF",
+        "pattern": "/RF_IN"
+      },
+      {
+        "netclass": "Cellular RF",
+        "pattern": "/ANT_CAPS"
+      },
+      {
+        "netclass": "Cellular RF",
+        "pattern": "/ANT_IN"
       }
     ]
   },
@@ -679,10 +683,6 @@
     [
       "50c89994-1e88-43a3-960b-69c29381dda5",
       "Root"
-    ],
-    [
-      "a98004c9-b167-42e1-b839-773c571241b0",
-      "Cellular Modem"
     ]
   ],
   "text_variables": {}
