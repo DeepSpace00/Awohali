@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.125
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [
@@ -64,23 +64,9 @@
         }
       ],
       "drc_exclusions": [
-        "clearance|129900000|112900000|27899433-540b-4d2e-9786-135d5a956ee0|0ce8acdd-6f40-420b-b122-5dbf636889ec",
-        "clearance|129900000|113400000|4f8507e8-3545-4045-a566-4576081611ab|0ce8acdd-6f40-420b-b122-5dbf636889ec",
-        "clearance|149450000|107900000|f85e4cef-2517-4c91-9cd4-ec19977ab271|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d",
-        "clearance|149450000|108400000|9cb662c9-db28-4a22-b72c-f4c1a25113df|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d",
-        "copper_edge_clearance|140000000|78000000|601c69ff-a8f8-4969-9b83-73209fb993e2|dcd397f5-a972-45a3-9305-8378a9b1efd2",
         "items_not_allowed|137200000|115000000|202e1e14-a6e1-447c-8d3a-1753aa976686|00000000-0000-0000-0000-000000000000",
         "items_not_allowed|141900000|114900000|3238aab0-4516-425c-81c9-a73f74617705|00000000-0000-0000-0000-000000000000",
-        "items_not_allowed|143700000|114900000|1b3f07e6-3fd7-43a3-a197-418c0be56704|00000000-0000-0000-0000-000000000000",
-        "items_not_allowed|145800000|114800000|5275afda-93d9-4813-bba3-4950628e7d87|00000000-0000-0000-0000-000000000000",
-        "missing_courtyard|140000000|120000000|4ebd0d55-8873-440a-8f5c-81c7db9d0399|00000000-0000-0000-0000-000000000000",
-        "solder_mask_bridge|129900000|112900000|0ce8acdd-6f40-420b-b122-5dbf636889ec|27899433-540b-4d2e-9786-135d5a956ee0",
-        "solder_mask_bridge|129900000|113400000|0ce8acdd-6f40-420b-b122-5dbf636889ec|4f8507e8-3545-4045-a566-4576081611ab",
-        "solder_mask_bridge|149450000|107900000|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d|f85e4cef-2517-4c91-9cd4-ec19977ab271",
-        "solder_mask_bridge|149450000|108400000|8fae5e29-f2b7-4db1-a439-6f6ffd4f5a8d|9cb662c9-db28-4a22-b72c-f4c1a25113df",
-        "text_height|130000000|115450000|736f8695-3f11-4008-a72b-75e9a57a05d2|00000000-0000-0000-0000-000000000000",
-        "text_height|149800000|106425000|4158b5e3-25e2-4d49-9d9d-11efa948f2dd|00000000-0000-0000-0000-000000000000",
-        "text_thickness|140000000|98000000|6c9e974e-2f14-4673-85ca-0a8e175cd649|00000000-0000-0000-0000-000000000000"
+        "missing_courtyard|140000000|120000000|4ebd0d55-8873-440a-8f5c-81c7db9d0399|00000000-0000-0000-0000-000000000000"
       ],
       "meta": {
         "version": 2
@@ -585,7 +571,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "manufacturing/fabrication/gerbers/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -596,7 +582,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
-    "bom_export_filename": "",
+    "bom_export_filename": "manufacturing/fabrication/gnssBoard.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -607,39 +593,350 @@
       "ref_range_delimiter": "",
       "string_delimiter": "\""
     },
-    "bom_presets": [],
+    "bom_presets": [
+      {
+        "exclude_dnp": false,
+        "fields_ordered": [
+          {
+            "group_by": false,
+            "label": "Customer Reference",
+            "name": "Reference",
+            "show": true
+          },
+          {
+            "group_by": false,
+            "label": "Value",
+            "name": "Value",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Datasheet",
+            "name": "Datasheet",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Footprint",
+            "name": "Footprint",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Quantity",
+            "name": "${QUANTITY}",
+            "show": true
+          },
+          {
+            "group_by": false,
+            "label": "#",
+            "name": "${ITEM_NUMBER}",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "CELL",
+            "name": "CELL",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Color",
+            "name": "Color",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Current",
+            "name": "Current",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Current Rating",
+            "name": "Current Rating",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "DC Resistance",
+            "name": "DC Resistance",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Forward Voltage",
+            "name": "Forward Voltage",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "ID",
+            "name": "ID",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Manufacturer Part Number",
+            "name": "MPN",
+            "show": true
+          },
+          {
+            "group_by": false,
+            "label": "Manufacturer Name",
+            "name": "Manufacturer",
+            "show": true
+          },
+          {
+            "group_by": true,
+            "label": "Digi-Key Part Number",
+            "name": "DKPN",
+            "show": true
+          },
+          {
+            "group_by": false,
+            "label": "Package",
+            "name": "Package",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Power Rating",
+            "name": "Power Rating",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "RDSON",
+            "name": "RDSON",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Resonant Frequency",
+            "name": "Resonant Frequency",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Reverse Voltage",
+            "name": "Reverse Voltage",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Tolerace",
+            "name": "Tolerace",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Tolerance",
+            "name": "Tolerance",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "VDSS",
+            "name": "VDSS",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "VGSTH",
+            "name": "VGSTH",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Voltage Rating",
+            "name": "Voltage Rating",
+            "show": false
+          },
+          {
+            "group_by": false,
+            "label": "Description",
+            "name": "Description",
+            "show": false
+          },
+          {
+            "group_by": true,
+            "label": "DNP",
+            "name": "${DNP}",
+            "show": true
+          }
+        ],
+        "filter_string": "",
+        "group_symbols": true,
+        "name": "Digi-Key",
+        "sort_asc": true,
+        "sort_field": "Reference"
+      }
+    ],
     "bom_settings": {
       "exclude_dnp": false,
       "fields_ordered": [
         {
           "group_by": false,
-          "label": "Reference",
+          "label": "Customer Reference",
           "name": "Reference",
           "show": true
         },
         {
-          "group_by": true,
+          "group_by": false,
           "label": "Value",
           "name": "Value",
-          "show": true
+          "show": false
         },
         {
           "group_by": false,
           "label": "Datasheet",
           "name": "Datasheet",
-          "show": true
+          "show": false
         },
         {
           "group_by": false,
           "label": "Footprint",
           "name": "Footprint",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Quantity",
+          "name": "${QUANTITY}",
           "show": true
         },
         {
           "group_by": false,
-          "label": "Qty",
-          "name": "${QUANTITY}",
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "CELL",
+          "name": "CELL",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Color",
+          "name": "Color",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Current",
+          "name": "Current",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Current Rating",
+          "name": "Current Rating",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "DC Resistance",
+          "name": "DC Resistance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Forward Voltage",
+          "name": "Forward Voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "ID",
+          "name": "ID",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer Part Number",
+          "name": "MPN",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer Name",
+          "name": "Manufacturer",
+          "show": true
+        },
+        {
+          "group_by": true,
+          "label": "Digi-Key Part Number",
+          "name": "DKPN",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Package",
+          "name": "Package",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Power Rating",
+          "name": "Power Rating",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "RDSON",
+          "name": "RDSON",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Resonant Frequency",
+          "name": "Resonant Frequency",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Reverse Voltage",
+          "name": "Reverse Voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Tolerace",
+          "name": "Tolerace",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Tolerance",
+          "name": "Tolerance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "VDSS",
+          "name": "VDSS",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "VGSTH",
+          "name": "VGSTH",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Voltage Rating",
+          "name": "Voltage Rating",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
         },
         {
           "group_by": true,
@@ -650,7 +947,7 @@
       ],
       "filter_string": "",
       "group_symbols": true,
-      "name": "Grouped By Value",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
