@@ -1,0 +1,13 @@
+{
+    aliases {
+        gnss = &gnss;
+    };
+};
+
+&usart6 {
+    status = "okay";
+    current-speed = <38400>;
+    gnss: gnss-nema-generic {
+        compatible = "gnss-nema-generic";
+    };
+};
