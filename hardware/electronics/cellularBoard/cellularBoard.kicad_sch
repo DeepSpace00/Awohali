@@ -6,10 +6,10 @@
 	(paper "USLetter")
 	(title_block
 		(title "U-bolx ZED-F9P M.2 E-Key")
-		(date "2024-12-23")
+		(date "2025-01-01")
 		(rev "01")
 		(comment 2 "PROTOTYPE")
-		(comment 3 "2024")
+		(comment 3 "2025")
 	)
 	(lib_symbols
 		(symbol "DS-Power:PWR_FLAG"
@@ -7417,16 +7417,6 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 115.57) (xy 107.95 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ab03fb1-7852-4284-aee2-8b65c550b52b")
-	)
-	(wire
-		(pts
 			(xy 181.61 147.32) (xy 219.71 147.32)
 		)
 		(stroke
@@ -8537,16 +8527,6 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 119.38) (xy 114.3 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a11b0848-c139-4d7d-913e-9db9deb360ea")
-	)
-	(wire
-		(pts
 			(xy 109.22 158.75) (xy 114.3 158.75)
 		)
 		(stroke
@@ -8717,7 +8697,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 119.38) (xy 114.3 116.84)
+			(xy 107.95 114.3) (xy 107.95 116.84)
 		)
 		(stroke
 			(width 0)
@@ -9127,7 +9107,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 116.84) (xy 127 119.38)
+			(xy 114.3 116.84) (xy 114.3 119.38)
 		)
 		(stroke
 			(width 0)
@@ -9215,15 +9195,24 @@
 		)
 		(uuid "ffa7559c-047a-4fd4-af67-0e472c75f7c8")
 	)
-	(text "NEEDS TO BE 50.0 Ohm IMPEDANCE"
+	(text_box "Antenna Feedline Impedance: 50 Ohm\nFor 0.8mm thickness, tracewidth is 0.2565mm"
 		(exclude_from_sim no)
-		(at 118.11 138.684 0)
+		(at 123.19 104.14 0)
+		(size 39.37 22.86)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
+			(justify left top)
 		)
-		(uuid "071c1ea1-8617-499d-ac34-ed13a863de28")
+		(uuid "30aa7e0a-1edc-43f3-9b0e-af831310f773")
 	)
 	(text "SARA-R520 Cellular Modem"
 		(exclude_from_sim no)
@@ -10940,7 +10929,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:Testpoint")
-		(at 114.3 114.3 270)
+		(at 107.95 119.38 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -10948,7 +10937,7 @@
 		(dnp no)
 		(uuid "2d5cea2f-ea41-4b6c-9013-d91df501dfb9")
 		(property "Reference" "TP7"
-			(at 114.3 110.49 90)
+			(at 107.95 121.285 90)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10957,7 +10946,7 @@
 			)
 		)
 		(property "Value" "+1V8"
-			(at 114.3 112.395 90)
+			(at 107.95 123.19 90)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10966,7 +10955,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:TP_1mm"
-			(at 114.3 114.3 0)
+			(at 107.95 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10975,7 +10964,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 114.3 114.3 0)
+			(at 107.95 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10984,7 +10973,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 114.3 114.3 0)
+			(at 107.95 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10993,7 +10982,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 114.3 114.3 0)
+			(at 107.95 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11002,7 +10991,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 114.3 114.3 0)
+			(at 107.95 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11011,7 +11000,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 114.3 114.3 0)
+			(at 107.95 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12110,7 +12099,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:Testpoint")
-		(at 127 114.3 270)
+		(at 114.3 114.3 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -12118,7 +12107,7 @@
 		(dnp no)
 		(uuid "508d4c20-410b-4b9c-9326-4b34a2896731")
 		(property "Reference" "TP8"
-			(at 127 110.49 90)
+			(at 114.3 110.49 90)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12127,7 +12116,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 127 112.395 90)
+			(at 114.3 112.395 90)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12136,7 +12125,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:TP_1mm"
-			(at 127 114.3 0)
+			(at 114.3 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12145,7 +12134,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 114.3 0)
+			(at 114.3 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12154,7 +12143,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 127 114.3 0)
+			(at 114.3 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12163,7 +12152,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 127 114.3 0)
+			(at 114.3 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12172,7 +12161,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 127 114.3 0)
+			(at 114.3 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12181,7 +12170,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 127 114.3 0)
+			(at 114.3 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12434,7 +12423,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 127 119.38 0)
+		(at 114.3 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12443,7 +12432,7 @@
 		(fields_autoplaced yes)
 		(uuid "55e7faf9-38f1-44dc-b308-11e4d3330991")
 		(property "Reference" "#PWR010"
-			(at 127 119.38 0)
+			(at 114.3 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12452,7 +12441,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 127 123.19 0)
+			(at 114.3 123.19 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12461,7 +12450,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 127 119.38 0)
+			(at 114.3 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12470,7 +12459,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 119.38 0)
+			(at 114.3 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12479,7 +12468,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 127 119.38 0)
+			(at 114.3 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17079,7 +17068,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:+1V8")
-		(at 107.95 115.57 0)
+		(at 107.95 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17088,7 +17077,7 @@
 		(fields_autoplaced yes)
 		(uuid "dbd05943-8bc7-4222-a59e-5fe71b129168")
 		(property "Reference" "#PWR09"
-			(at 107.95 115.57 0)
+			(at 107.95 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17097,7 +17086,7 @@
 			)
 		)
 		(property "Value" "+1V8"
-			(at 107.95 112.014 0)
+			(at 107.95 110.744 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -17106,7 +17095,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 107.95 115.57 0)
+			(at 107.95 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17115,7 +17104,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 107.95 115.57 0)
+			(at 107.95 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17124,7 +17113,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 107.95 115.57 0)
+			(at 107.95 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
