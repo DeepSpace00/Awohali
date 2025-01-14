@@ -12,6 +12,248 @@
 		(comment 3 "2024")
 	)
 	(lib_symbols
+		(symbol "DS-Power:CHG+"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "CHG+"
+				(at 0 3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CHG+_0_1"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CHG+_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "DS-Power:CHG-"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "CHG-"
+				(at 0 -3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CHG-_0_1"
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy -1.27 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CHG-_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "DS-Power:PWR_FLAG"
 			(power)
 			(pin_numbers hide)
@@ -2798,127 +3040,6 @@
 						(effects
 							(font
 								(size 0 0)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "lib_sch:PACK+"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "PACK+"
-				(at 0 3.556 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "PACK+_0_1"
-				(polyline
-					(pts
-						(xy -1.27 2.54) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "PACK+_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
 							)
 						)
 					)
@@ -6459,7 +6580,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Footprint" "lib_fp:CRCW2010"
+		(property "Footprint" "lib_fp:NetTie-2_SMD_Pad2.0mm"
 			(at 144.78 139.7 0)
 			(effects
 				(font
@@ -6468,7 +6589,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+		(property "Datasheet" ""
 			(at 144.78 139.7 0)
 			(effects
 				(font
@@ -6477,7 +6598,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES SMD 0 OHM JUMPER 3/4W 2010"
+		(property "Description" ""
 			(at 147.32 139.7 0)
 			(effects
 				(font
@@ -6486,7 +6607,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "Vishay Dale"
+		(property "Manufacturer" ""
 			(at 147.32 139.7 0)
 			(effects
 				(font
@@ -6495,7 +6616,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "CRCW20100000Z0EF"
+		(property "MPN" ""
 			(at 147.32 139.7 0)
 			(effects
 				(font
@@ -6504,7 +6625,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-0.0WCT-ND"
+		(property "DKPN" ""
 			(at 147.32 139.7 0)
 			(effects
 				(font
@@ -6523,6 +6644,73 @@
 			(project "powerSupplyBoard"
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/391a8be7-2326-4149-9988-5c06224e0655"
 					(reference "NT2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Power:CHG-")
+		(at 177.8 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "19c4cec3-afac-4b97-a82e-c2a22bd7f329")
+		(property "Reference" "#PWR063"
+			(at 177.8 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "CHG-"
+			(at 177.8 119.126 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.8 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 177.8 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "02ad1552-2e19-466a-b913-260cb6698f66")
+		)
+		(instances
+			(project ""
+				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/391a8be7-2326-4149-9988-5c06224e0655"
+					(reference "#PWR063")
 					(unit 1)
 				)
 			)
@@ -8134,73 +8322,6 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:PACK+")
-		(at 163.83 114.3 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4fc5b027-6380-40f2-bfa5-295e20b3c80b")
-		(property "Reference" "#PWR040"
-			(at 163.83 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PACK+"
-			(at 163.83 110.744 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 163.83 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 163.83 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 163.83 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8df83a26-7006-4127-b4fc-3e8152ba940b")
-		)
-		(instances
-			(project ""
-				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/391a8be7-2326-4149-9988-5c06224e0655"
-					(reference "#PWR040")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "lib_sch:GND")
 		(at 165.1 87.63 0)
 		(unit 1)
@@ -8660,7 +8781,7 @@
 				)
 			)
 		)
-		(property "Value" "PACK+"
+		(property "Value" "CHG+"
 			(at 158.75 121.92 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8965,7 +9086,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Footprint" "lib_fp:CRCW2010"
+		(property "Footprint" "lib_fp:NetTie-2_SMD_Pad2.0mm"
 			(at 144.78 127 0)
 			(effects
 				(font
@@ -8974,7 +9095,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+		(property "Datasheet" ""
 			(at 144.78 127 0)
 			(effects
 				(font
@@ -8983,7 +9104,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES SMD 0 OHM JUMPER 3/4W 2010"
+		(property "Description" ""
 			(at 147.32 127 0)
 			(effects
 				(font
@@ -8992,7 +9113,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "Vishay Dale"
+		(property "Manufacturer" ""
 			(at 147.32 127 0)
 			(effects
 				(font
@@ -9001,7 +9122,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "CRCW20100000Z0EF"
+		(property "MPN" ""
 			(at 147.32 127 0)
 			(effects
 				(font
@@ -9010,7 +9131,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-0.0WCT-ND"
+		(property "DKPN" ""
 			(at 147.32 127 0)
 			(effects
 				(font
@@ -10801,17 +10922,17 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:GND")
-		(at 177.8 115.57 0)
+		(lib_id "DS-Power:CHG+")
+		(at 163.83 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "d31eb730-647a-4d7b-beec-16a4191e049d")
-		(property "Reference" "#PWR042"
-			(at 177.8 115.57 0)
+		(uuid "cf83697a-a417-4c50-93f7-117a8a35d6a2")
+		(property "Reference" "#PWR040"
+			(at 163.83 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10819,8 +10940,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GND"
-			(at 177.8 119.38 0)
+		(property "Value" "CHG+"
+			(at 163.83 110.744 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10829,7 +10950,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 177.8 115.57 0)
+			(at 163.83 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10838,7 +10959,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 115.57 0)
+			(at 163.83 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10847,7 +10968,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 177.8 115.57 0)
+			(at 163.83 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10856,12 +10977,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "a06eed71-8ba6-4ee4-981d-fd5c4f332568")
+			(uuid "43c28c4d-47c5-4e9f-85ae-3722b89c9af9")
 		)
 		(instances
-			(project "powerSupplyBoard"
+			(project ""
 				(path "/6f3ae1d2-e925-4178-b812-ea14ec542b6c/391a8be7-2326-4149-9988-5c06224e0655"
-					(reference "#PWR042")
+					(reference "#PWR040")
 					(unit 1)
 				)
 			)
