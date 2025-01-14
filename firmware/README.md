@@ -6,6 +6,8 @@
 - ```west init -l```
 - ```west update```
 
+make sure to install dfu-utils and fix udev rules
+
 
 
 Copyright Madison Gleydura 2024.

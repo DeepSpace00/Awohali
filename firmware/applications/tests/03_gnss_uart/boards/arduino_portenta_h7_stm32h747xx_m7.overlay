@@ -1,13 +1,13 @@
-{
-    aliases {
-        gnss = &gnss;
-    };
+/ {
+	aliases {
+		gnss = &gnssdev;
+	};
 };
 
-&usart6 {
+&usart1 {
     status = "okay";
     current-speed = <38400>;
-    gnss: gnss-nema-generic {
-        compatible = "gnss-nema-generic";
-    };
+    gnssdev: gnss-nmea-generic {
+    	compatible = "gnss-nmea-generic";
+  	};
 };
