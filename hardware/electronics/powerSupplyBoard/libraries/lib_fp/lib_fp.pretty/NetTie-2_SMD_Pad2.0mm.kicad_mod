@@ -6,9 +6,10 @@
 	(descr "Net tie, 2 pin, 2.0mm square SMD pads")
 	(tags "net tie")
 	(property "Reference" "REF**"
-		(at 0 -2 0)
+		(at 0 -2 180)
 		(layer "F.SilkS")
-		(uuid "e43a42ff-5f00-407f-9cb0-b7c0adefac4c")
+		(hide yes)
+		(uuid "c5fb85aa-a61d-45d6-a2d1-a74935f302fb")
 		(effects
 			(font
 				(size 1 1)
@@ -16,22 +17,23 @@
 			)
 		)
 	)
-	(property "Value" "NetTie-2_SMD_Pad2.0mm"
-		(at 0 2 0)
-		(layer "F.Fab")
-		(uuid "aa279801-fa88-435e-8d15-5843434053f5")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-		)
-	)
-	(property "Footprint" ""
-		(at 0 0 0)
+	(property "Value" "Net-Tie"
+		(at 0 2 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "48e4d32c-3287-448d-be47-a95615fa1e0e")
+		(uuid "a0b5487b-69ae-423c-acbe-b02a3c512237")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" "lib_fp:NetTie-2_SMD_Pad2.0mm"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3603c1fd-b5d8-4464-9202-80d9bead267d")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -40,10 +42,10 @@
 		)
 	)
 	(property "Datasheet" ""
-		(at 0 0 0)
+		(at 0 0 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "3da5f300-722f-4027-916c-a4a2c82e0344")
+		(uuid "0aabd57b-387d-4fc2-b148-1f6374881bda")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -52,10 +54,10 @@
 		)
 	)
 	(property "Description" ""
-		(at 0 0 0)
+		(at 0 0 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "6d1b3bb4-4f23-483b-a23b-bc1093ff7b2f")
+		(uuid "e456c1a2-a2e8-4fd6-a7f1-8ddf6ab36298")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -63,7 +65,46 @@
 			)
 		)
 	)
-	(attr exclude_from_pos_files exclude_from_bom)
+	(property "Manufacturer" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f5ce7bcb-b80f-4b9b-aa23-1c966c7d845b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "MPN" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1f4700c5-0015-4692-b2ca-720042a2cc4f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "DKPN" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5d1fa5e7-7671-4a64-9eda-d64957e9264a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr exclude_from_pos_files)
 	(net_tie_pad_groups "1, 2")
 	(fp_poly
 		(pts
@@ -75,7 +116,7 @@
 		)
 		(fill solid)
 		(layer "F.Cu")
-		(uuid "6a9126b3-b920-44c9-b511-6f380a574c64")
+		(uuid "58948358-6998-4548-9c18-3cb3e5bc1749")
 	)
 	(fp_line
 		(start -3.25 -1.25)
@@ -85,7 +126,7 @@
 			(type solid)
 		)
 		(layer "F.CrtYd")
-		(uuid "ba5dff51-6608-435c-98ba-87ba7945446f")
+		(uuid "7da8ade5-a6a5-44f3-bfc2-88063e53ab71")
 	)
 	(fp_line
 		(start -3.25 1.25)
@@ -95,7 +136,7 @@
 			(type solid)
 		)
 		(layer "F.CrtYd")
-		(uuid "e39def5f-919b-488a-bb0f-9772dfda17d5")
+		(uuid "a015002c-b5ae-4ca0-9b0d-6205f871a19d")
 	)
 	(fp_line
 		(start 3.25 -1.25)
@@ -105,7 +146,7 @@
 			(type solid)
 		)
 		(layer "F.CrtYd")
-		(uuid "186b891d-c8e4-4f75-ac8a-fa4b65188d38")
+		(uuid "74814df9-f83a-43be-928d-0c4461db8245")
 	)
 	(fp_line
 		(start 3.25 1.25)
@@ -115,18 +156,18 @@
 			(type solid)
 		)
 		(layer "F.CrtYd")
-		(uuid "b05eec56-fadf-45b5-b3c7-e37f296c2e9b")
+		(uuid "c8e83363-3a39-4639-9f2d-9aa7c38a7fc4")
 	)
 	(pad "1" smd circle
 		(at -2 0)
 		(size 2 2)
 		(layers "F.Cu")
-		(uuid "0c827eb0-274f-4608-87d9-84dbfb7ceb64")
+		(uuid "435a4ca3-6c35-4aff-9e6b-f8fc07ad7b0b")
 	)
 	(pad "2" smd circle
 		(at 2 0)
 		(size 2 2)
 		(layers "F.Cu")
-		(uuid "a963eb17-c454-44b9-931e-862b0a6392a0")
+		(uuid "a1f1cbe8-598d-4421-98da-a743f33a534b")
 	)
 )

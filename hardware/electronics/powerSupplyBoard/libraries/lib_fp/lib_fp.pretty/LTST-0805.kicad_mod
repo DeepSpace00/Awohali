@@ -5,21 +5,22 @@
 	(layer "F.Cu")
 	(descr "LED, Chip; 3.50 mm L X 2.20 mm W X 1.95 mm H body")
 	(property "Reference" "REF**"
-		(at 0 -1.5 0)
+		(at -1.9 0 0)
 		(layer "F.SilkS")
-		(uuid "c0619c97-caf3-4b95-b0d9-0253eff3e66b")
+		(uuid "af0765eb-d913-4913-bed1-ca98891ce235")
 		(effects
 			(font
 				(size 0.75 0.75)
 				(thickness 0.12)
 			)
+			(justify left)
 		)
 	)
-	(property "Value" "Val**"
+	(property "Value" "LTST-C171KRKT"
 		(at 0 0 0)
 		(layer "User.1")
 		(hide yes)
-		(uuid "2ae9f45d-acde-4da8-b68c-64d5f3a95903")
+		(uuid "4f526535-a4ed-49ec-b252-ec824ac0003e")
 		(effects
 			(font
 				(size 0.75 0.75)
@@ -27,11 +28,11 @@
 			)
 		)
 	)
-	(property "Footprint" ""
+	(property "Footprint" "lib_fp:LTST-0805"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "a081134c-85ac-47e6-ba8c-10e51c4d966e")
+		(uuid "61f74246-036a-4ac5-bf2c-df6f21031be1")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -39,11 +40,11 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "datasheets/Lite-On-LTST-C171KRKT.pdf"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "0f75e90b-39db-4900-87a5-a0c3680d7b62")
+		(uuid "cca5c295-3981-44a7-b421-9b440fc5848b")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -51,14 +52,79 @@
 			)
 		)
 	)
-	(property "Description" ""
+	(property "Description" "LED RED CLEAR SMD"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "2bf09ec9-af92-4f46-9950-48f724810300")
+		(uuid "82886b17-2c65-4640-8d20-3a2872ad93dd")
 		(effects
 			(font
 				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Manufacturer" "Lite-On Inc."
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9b4e3098-8d8f-4eff-87b7-6d8ff9dced35")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "MPN" "LTST-C171KRKT"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2c5b98bd-d234-4247-84ba-c823d36d091f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "DKPN" "160-1427-1-ND"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "87c0bae2-ab96-4df9-88b2-d6dc5fdd14d5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Forward Voltage" "2V"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "196e88be-dae3-4bb5-920f-dea040339cba")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Current" "20mA"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1223e4f5-fd10-4238-8615-a8432426b719")
+		(effects
+			(font
+				(size 1 1)
 				(thickness 0.15)
 			)
 		)
@@ -72,7 +138,7 @@
 			(type default)
 		)
 		(layer "F.SilkS")
-		(uuid "f501508b-c524-4c8e-85f0-6c1fe16fc53a")
+		(uuid "655d15c2-cc3d-414b-9fe9-c0cce5a07f8e")
 	)
 	(fp_line
 		(start -0.5 -0.75)
@@ -82,7 +148,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "a667d6e9-94fc-4c71-882e-70f4c42ffb6f")
+		(uuid "e74f3bd6-8b08-4227-88d6-59240c4394b4")
 	)
 	(fp_line
 		(start -0.5 0.75)
@@ -92,7 +158,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "5b1c84e9-0a0e-4c5f-aecd-90d23b0f38be")
+		(uuid "7c21f989-6fba-45bd-8f3e-b97ffe30add2")
 	)
 	(fp_line
 		(start -1 -0.625)
@@ -102,7 +168,7 @@
 			(type solid)
 		)
 		(layer "Dwgs.User")
-		(uuid "f33c884c-f098-45c6-af92-8b8d699cd517")
+		(uuid "3e7e6a3d-2bb0-4f7f-bf73-405810c42bb6")
 	)
 	(fp_line
 		(start -1 -0.625)
@@ -112,7 +178,7 @@
 			(type solid)
 		)
 		(layer "Dwgs.User")
-		(uuid "61bc42ed-849b-4b9c-8bc1-e1ddd14db20c")
+		(uuid "f1997482-04a0-4dc9-91bb-44af5f1232d0")
 	)
 	(fp_line
 		(start -0.55 -0.625)
@@ -122,7 +188,7 @@
 			(type solid)
 		)
 		(layer "Dwgs.User")
-		(uuid "25b11c15-5f3f-4235-b34b-ad9671b2ad0c")
+		(uuid "f8fdf1dc-1d52-41f8-8ed3-df941fa9c725")
 	)
 	(fp_line
 		(start 0.55 0.625)
@@ -132,7 +198,7 @@
 			(type solid)
 		)
 		(layer "Dwgs.User")
-		(uuid "2807ebdc-2fe9-42f0-8382-dc2c8e5e4097")
+		(uuid "5afa90c8-f772-4763-b047-2c16ec10d3b9")
 	)
 	(fp_line
 		(start 1 -0.625)
@@ -142,7 +208,7 @@
 			(type solid)
 		)
 		(layer "Dwgs.User")
-		(uuid "af99b3e9-e4d0-4d45-9fbd-5f538ade5fb2")
+		(uuid "8b1ef13f-20c0-4562-88d0-a949ef097b40")
 	)
 	(fp_line
 		(start 1 0.625)
@@ -152,7 +218,7 @@
 			(type solid)
 		)
 		(layer "Dwgs.User")
-		(uuid "bbf0d541-e75c-40f9-99ee-7de9af6221dd")
+		(uuid "673996da-3406-4e8b-9a99-9b9e45725052")
 	)
 	(fp_rect
 		(start -1.7 -1)
@@ -163,7 +229,7 @@
 		)
 		(fill none)
 		(layer "F.CrtYd")
-		(uuid "c6c54fdd-e1dd-4a32-b210-72249a8de1c8")
+		(uuid "b64f045b-53c5-49e9-82d7-65bdfffea9f7")
 	)
 	(fp_line
 		(start -1.08 -0.7)
@@ -173,7 +239,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "d336d5e7-5ffc-47db-8fb3-958b5d0a44af")
+		(uuid "185e61bb-c71d-47c1-9869-4485d062b34f")
 	)
 	(fp_line
 		(start -1.08 0.314968)
@@ -183,7 +249,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "0887cb7b-6135-4505-9a58-a7b2a4e7e45c")
+		(uuid "e4601c4a-2fde-4395-9555-720157e5ee0d")
 	)
 	(fp_line
 		(start -0.694968 0.7)
@@ -193,7 +259,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "18ac5980-e4ff-438e-a09d-13f3a31c6588")
+		(uuid "d88fed75-f00a-421a-8882-ba9116eb61f8")
 	)
 	(fp_line
 		(start 0 -0.35)
@@ -203,7 +269,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "7a8cfa6f-b1bf-4cc9-a5bc-0dfa7cbf1b97")
+		(uuid "0e890516-0432-45e2-9b59-5d91a73d3205")
 	)
 	(fp_line
 		(start 0.35 0)
@@ -213,7 +279,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "5a374d51-f0d3-4b9d-a550-37b6c2204416")
+		(uuid "f7e032fe-1cd8-45cf-ae21-6decfea6f61a")
 	)
 	(fp_line
 		(start 1.08 -0.7)
@@ -223,7 +289,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "552c74c7-8c15-421d-858e-9815bc5623c8")
+		(uuid "e60ba079-adeb-4e8f-a583-cd58a7dea0cd")
 	)
 	(fp_line
 		(start 1.08 0.7)
@@ -233,7 +299,7 @@
 			(type solid)
 		)
 		(layer "F.Fab")
-		(uuid "767ef31c-db22-4f0e-9ac8-b32b1bd86238")
+		(uuid "cdb18028-ccb1-4337-a312-bb9d8ebf599d")
 	)
 	(fp_circle
 		(center 0 0)
@@ -244,13 +310,13 @@
 		)
 		(fill none)
 		(layer "F.Fab")
-		(uuid "62c74523-fdbc-40dd-9201-c471cd37b8ce")
+		(uuid "9aca895d-6b25-4282-84be-a470d1cff0e4")
 	)
 	(fp_text user "${REFERENCE}"
 		(at 0 0 0)
 		(layer "User.1")
 		(hide yes)
-		(uuid "f6d01133-063f-4f77-918a-687ad83f0755")
+		(uuid "edd93f91-ebc0-4b0a-b657-9ea69dc967f6")
 		(effects
 			(font
 				(size 0.75 0.75)
@@ -263,14 +329,14 @@
 		(size 1.1 1.25)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(roundrect_rratio 0.25)
-		(uuid "570c85b6-3c3b-4777-84ab-859e7faa2d0e")
+		(uuid "7b6e483d-80db-4a0b-bc43-433d35006079")
 	)
 	(pad "2" smd roundrect
 		(at -0.95 0)
 		(size 1.1 1.25)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(roundrect_rratio 0.25)
-		(uuid "81f155f8-5feb-48cd-89e4-0ad947566b50")
+		(uuid "ed7ee6dd-a5d5-473f-8d17-715b8370ccb3")
 	)
 	(model "${KIPRJMOD}/libraries/3d_models/LTST-C171GKT.STEP"
 		(offset
