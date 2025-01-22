@@ -12,115 +12,6 @@
 		(comment 3 "2025")
 	)
 	(lib_symbols
-		(symbol "DS-Power:PWR_FLAG"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#FLG"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "PWR_FLAG"
-				(at 0 3.81 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Special symbol for telling ERC where power comes from"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "PWR_FLAG_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 1.27) (xy -1.27 1.905) (xy 0 2.54) (xy 1.27 1.905) (xy 0 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "PWR_FLAG_1_1"
-				(pin power_out line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "lib_sch:+1V8"
 			(power)
 			(pin_numbers hide)
@@ -3993,6 +3884,115 @@
 					(at 0 -3.81 90)
 					(length 2.54)
 					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "lib_sch:PWR_FLAG"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy -1.27 1.905) (xy 0 2.54) (xy 1.27 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_1_1"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9131,7 +9131,7 @@
 		)
 		(uuid "ff81d647-252e-4dbb-945e-0b34e8dc256b")
 	)
-	(text_box "Antenna Feedline Impedance: 50 Ohm\nFor 0.8mm thickness, tracewidth is 0.2565mm"
+	(text_box "Antenna Feedline Impedance: 50 Ohm\nFor 0.8mm thickness, tracewidth is 0.3175mm"
 		(exclude_from_sim no)
 		(at 123.19 104.14 0)
 		(size 39.37 22.86)
@@ -9197,7 +9197,6 @@
 	)
 	(label "MODULE_STS"
 		(at 248.92 36.83 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9208,7 +9207,6 @@
 	)
 	(label "ANT_IN"
 		(at 134.62 143.51 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9220,7 +9218,6 @@
 	)
 	(label "SIM_CLK"
 		(at 96.52 167.64 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9231,7 +9228,6 @@
 	)
 	(label "SARA_TXD_1V8"
 		(at 21.59 153.67 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9242,7 +9238,6 @@
 	)
 	(label "SARA_RXD_1V8"
 		(at 248.92 77.47 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9253,7 +9248,6 @@
 	)
 	(label "MODULE_STS"
 		(at 100.33 120.65 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9264,7 +9258,6 @@
 	)
 	(label "SIM_RST"
 		(at 96.52 165.1 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9275,7 +9268,6 @@
 	)
 	(label "SIM_IO"
 		(at 96.52 170.18 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9286,7 +9278,6 @@
 	)
 	(label "SARA_RXD_1V8"
 		(at 21.59 151.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9297,7 +9288,6 @@
 	)
 	(label "SIM_RST"
 		(at 165.1 144.78 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9308,7 +9298,6 @@
 	)
 	(label "SARA_CTS_1V8"
 		(at 21.59 163.83 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9319,7 +9308,6 @@
 	)
 	(label "SARA_SCL_1V8"
 		(at 21.59 140.97 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9330,7 +9318,6 @@
 	)
 	(label "SIM_IO"
 		(at 165.1 154.94 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9341,7 +9328,6 @@
 	)
 	(label "SARA_SDA_1V8"
 		(at 21.59 143.51 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9352,7 +9338,6 @@
 	)
 	(label "RESET_N"
 		(at 173.99 26.67 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9363,7 +9348,6 @@
 	)
 	(label "SARA_RTS_1V8"
 		(at 248.92 85.09 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9374,7 +9358,6 @@
 	)
 	(label "ANT_DET"
 		(at 96.52 146.05 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9385,7 +9368,6 @@
 	)
 	(label "SW"
 		(at 78.74 31.75 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9396,7 +9378,6 @@
 	)
 	(label "SARA_RTS_1V8"
 		(at 21.59 161.29 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9407,7 +9388,6 @@
 	)
 	(label "NETWORK_STS"
 		(at 100.33 118.11 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9418,7 +9398,6 @@
 	)
 	(label "SARA_TXD_1V8"
 		(at 248.92 80.01 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9429,7 +9408,6 @@
 	)
 	(label "SARA_SCL_1V8"
 		(at 248.92 44.45 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9440,7 +9418,6 @@
 	)
 	(label "SIM_CLK"
 		(at 165.1 147.32 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9451,7 +9428,6 @@
 	)
 	(label "NETWORK_STS"
 		(at 248.92 34.29 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9462,7 +9438,6 @@
 	)
 	(label "SARA_CTS_1V8"
 		(at 248.92 82.55 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9473,7 +9448,6 @@
 	)
 	(label "SLEEP"
 		(at 21.59 118.11 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9484,7 +9458,6 @@
 	)
 	(label "SARA_SDA_1V8"
 		(at 248.92 41.91 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9495,7 +9468,6 @@
 	)
 	(label "RF_IN"
 		(at 96.52 143.51 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9506,7 +9478,6 @@
 	)
 	(label "RESET_N"
 		(at 21.59 123.19 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9517,7 +9488,6 @@
 	)
 	(label "SLEEP"
 		(at 248.92 31.75 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9525,6 +9495,72 @@
 			(justify right bottom)
 		)
 		(uuid "fa23e838-0132-4964-90ac-3fb953aea0ba")
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 114.3 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "41e0b564-7fdb-4382-bf1f-e3b51bc41781")
+		(property "Netclass" "Cellular RF"
+			(at 114.3 139.446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify bottom)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 128.27 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "83dd2538-7468-4e89-b98e-7e55e1ecd370")
+		(property "Netclass" "Cellular RF"
+			(at 128.27 139.446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify bottom)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 99.06 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f2f90ebf-8161-4866-9219-844ac3147f49")
+		(property "Netclass" "Cellular RF"
+			(at 99.06 139.446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify bottom)
+			)
+		)
 	)
 	(symbol
 		(lib_id "lib_sch:C_horizontal")
@@ -9783,7 +9819,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:PWR_FLAG")
+		(lib_id "lib_sch:PWR_FLAG")
 		(at 49.53 74.93 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11552,7 +11588,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:PWR_FLAG")
+		(lib_id "lib_sch:PWR_FLAG")
 		(at 152.4 31.75 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -15556,7 +15592,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:PWR_FLAG")
+		(lib_id "lib_sch:PWR_FLAG")
 		(at 27.94 29.21 0)
 		(unit 1)
 		(exclude_from_sim no)
