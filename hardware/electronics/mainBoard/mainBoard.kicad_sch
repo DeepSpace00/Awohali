@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "be16e32f-2ccf-4272-9ec7-94d5fe7a55e0")
 	(paper "USLetter")
 	(title_block
@@ -12,9 +12,33 @@
 		(comment 3 "2025")
 	)
 	(lib_symbols)
+	(bus
+		(pts
+			(xy 152.4 76.2) (xy 165.1 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d396430-7d57-458a-aedb-0c3426a4d861")
+	)
+	(bus
+		(pts
+			(xy 152.4 78.74) (xy 165.1 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f50384d1-3572-48e1-8264-7b8a647be5ea")
+	)
 	(sheet
-		(at 127 76.2)
-		(size 25.4 50.8)
+		(at 165.1 73.66)
+		(size 19.05 7.62)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -23,9 +47,9 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "4e5c1533-14c1-4d03-9f71-2a8f0c579906")
-		(property "Sheetname" "Microcontroller"
-			(at 127 75.4884 0)
+		(uuid "4db0ae70-3e3f-410d-943b-4aabcfaef4e0")
+		(property "Sheetname" "USB"
+			(at 165.1 72.9484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33,8 +57,8 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "microcontroller.kicad_sch"
-			(at 127 127.5846 0)
+		(property "Sheetfile" "usb.kicad_sch"
+			(at 165.1 81.8646 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -45,7 +69,343 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 50.8)
+		(size 63.5 76.2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "4e5c1533-14c1-4d03-9f71-2a8f0c579906")
+		(property "Sheetname" "STM32H745"
+			(at 88.9 50.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "stm32h745_io.kicad_sch"
+			(at 88.9 127.5846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "USART6{TX RX CK CTS RTS}" bidirectional
+			(at 152.4 63.5 0)
+			(uuid "6700e60a-bdb4-412a-a108-792c28f839f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C1{SCL SDA}" bidirectional
+			(at 152.4 78.74 0)
+			(uuid "e6f11bdc-ddb6-4446-a1c3-16d268c9a6da")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "UART5{RX TX}" bidirectional
+			(at 88.9 85.09 180)
+			(uuid "2bedc0e9-af84-4e2f-b8da-49cf6c385a15")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "NRST" input
+			(at 88.9 54.61 180)
+			(uuid "bac25858-50ef-455b-bee3-ec962d6d789d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "UART7{RX TX}" bidirectional
+			(at 88.9 87.63 180)
+			(uuid "eff5f528-8644-486c-b62a-ac20bfcc5eb0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "I2C4{SCL SDA}" bidirectional
+			(at 88.9 77.47 180)
+			(uuid "27502fd8-8d8d-42a8-beed-7bb3055ed716")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_FS{DP DN}" bidirectional
+			(at 152.4 76.2 0)
+			(uuid "a8e478e9-ea63-446e-880e-1fbddc87ee3c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "32768Hz" input
+			(at 152.4 118.11 0)
+			(uuid "f81df0fe-0648-4e24-895d-cd03d69eec7b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "UART8{RX TX}" bidirectional
+			(at 88.9 90.17 180)
+			(uuid "8dfa4cf8-c95e-42f9-a8a7-00f98804e708")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDMMC2{CLK CMD D[0..3]}" bidirectional
+			(at 88.9 101.6 180)
+			(uuid "dc60915b-7f90-4895-bedc-e1560d3eebfd")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "FDCAN1{RX TX}" bidirectional
+			(at 88.9 59.69 180)
+			(uuid "825825ab-16a3-4383-9af3-c745996e84ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "I2C3{SCL SDA}" bidirectional
+			(at 88.9 74.93 180)
+			(uuid "e8063911-1488-4187-a973-89d4972e23e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USART3{TX RX CK CTS RTS}" bidirectional
+			(at 152.4 54.61 0)
+			(uuid "e276198e-c9b2-4b54-850c-bdc7dd3f7268")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "QSPI1{IO[0..3] CLK NCS}" bidirectional
+			(at 88.9 104.14 180)
+			(uuid "c4c7e9e8-45d1-4d11-ae2d-b610c0b42153")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "RMII{TX_EN TXD[0..1] RXD[0..1] CRS_DV MDC MDIO REF_CLK}" bidirectional
+			(at 88.9 96.52 180)
+			(uuid "4b3cbd27-f059-4186-b3ac-e7e615f64e66")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "UART4{RX TX}" bidirectional
+			(at 88.9 57.15 180)
+			(uuid "985d706d-a919-4462-b50f-668c08c76bf4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "25MHz" input
+			(at 152.4 121.92 0)
+			(uuid "7582e19c-df8d-4fe7-bb99-0c81a47ea25a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C2{SCL SDA}" bidirectional
+			(at 88.9 72.39 180)
+			(uuid "cdd894ea-0d03-4770-bbf3-483f5d47f7a3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DBG{JTMS{slash}SWDIO JTCK{slash}SWCLK JTDI JTDO{slash}SWO}" bidirectional
+			(at 88.9 124.46 180)
+			(uuid "17dd1965-437c-4897-bb16-ff4eb0966b24")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GNSS{RST PPS INT TX_RDY PWR_EN}" bidirectional
+			(at 152.4 57.15 0)
+			(uuid "14e4f38f-6701-44a6-82cf-a2406a69744e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LTE{RST SLEEP NET_STS PWR_EN}" bidirectional
+			(at 152.4 66.04 0)
+			(uuid "a1d65da7-2b51-44c7-9018-e815b69b7ec8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 201.93 25.4)
+		(size 25.4 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7a8265b6-c79a-4517-8962-7ab70ae708ee")
+		(property "Sheetname" "STM32H745 Power Supplies"
+			(at 201.93 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "stm32h745_power_supplies.kicad_sch"
+			(at 201.93 43.7646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 165.1 109.22)
+		(size 25.4 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c3529d28-dd5c-4d66-bcad-149fe9f71f3f")
+		(property "Sheetname" "Clocks"
+			(at 165.1 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "clocks.kicad_sch"
+			(at 165.1 127.5846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(page "4")
 				)
 			)
 		)
@@ -55,4 +415,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
