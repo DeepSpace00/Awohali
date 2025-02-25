@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "3630760a-d35a-4769-80de-6ba1e0ddddd8")
 	(paper "USLetter")
 	(title_block
@@ -14,9 +14,13 @@
 	(lib_symbols
 		(symbol "lib_sch:+3V3_OUT"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -89,7 +93,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 1.27 2.54)
 					)
 					(stroke
 						(width 0)
@@ -101,7 +105,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -132,10 +136,15 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:C"
-			(pin_numbers hide)
-			(pin_names hide)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -246,7 +255,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -1.27 -0.635) (xy 1.27 -0.635)
+						(xy -1.27 0.635) (xy 1.27 0.635)
 					)
 					(stroke
 						(width 0)
@@ -258,7 +267,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.27 0.635) (xy 1.27 0.635)
+						(xy -1.27 -0.635) (xy 1.27 -0.635)
 					)
 					(stroke
 						(width 0)
@@ -307,9 +316,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:Conn_01x02_Pin"
-			(pin_names hide)
+			(pin_names
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -425,17 +437,6 @@
 			)
 			(symbol "Conn_01x02_Pin_1_1"
 				(rectangle
-					(start 0 -1.016)
-					(end 1.27 -1.524)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
 					(start 0 1.524)
 					(end 1.27 1.016)
 					(stroke
@@ -446,13 +447,29 @@
 						(type outline)
 					)
 				)
+				(rectangle
+					(start 0 -1.016)
+					(end 1.27 -1.524)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -604,10 +621,15 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:L_horizontal"
-			(pin_numbers hide)
-			(pin_names hide)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -725,20 +747,8 @@
 			)
 			(symbol "L_horizontal_0_1"
 				(arc
-					(start -1.016 0.508)
+					(start -1.524 0)
 					(mid -1.3752 0.3592)
-					(end -1.524 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -0.508 0)
-					(mid -0.6568 0.3592)
 					(end -1.016 0.508)
 					(stroke
 						(width 0)
@@ -749,8 +759,8 @@
 					)
 				)
 				(arc
-					(start 0 0.508)
-					(mid -0.3592 0.3592)
+					(start -1.016 0.508)
+					(mid -0.6568 0.3592)
 					(end -0.508 0)
 					(stroke
 						(width 0)
@@ -761,8 +771,8 @@
 					)
 				)
 				(arc
-					(start 0.508 0)
-					(mid 0.3592 0.3592)
+					(start -0.508 0)
+					(mid -0.3592 0.3592)
 					(end 0 0.508)
 					(stroke
 						(width 0)
@@ -773,8 +783,8 @@
 					)
 				)
 				(arc
-					(start 1.016 0.508)
-					(mid 0.6568 0.3592)
+					(start 0 0.508)
+					(mid 0.3592 0.3592)
 					(end 0.508 0)
 					(stroke
 						(width 0)
@@ -785,9 +795,21 @@
 					)
 				)
 				(arc
-					(start 1.524 0)
-					(mid 1.3752 0.3592)
+					(start 0.508 0)
+					(mid 0.6568 0.3592)
 					(end 1.016 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.016 0.508)
+					(mid 1.3752 0.3592)
+					(end 1.524 0)
 					(stroke
 						(width 0)
 						(type default)
@@ -835,12 +857,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:PWR_FLAG"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -901,7 +928,7 @@
 			(symbol "PWR_FLAG_0_1"
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 1.27)
+						(xy 0 1.27) (xy -1.27 1.905) (xy 0 2.54) (xy 1.27 1.905) (xy 0 1.27)
 					)
 					(stroke
 						(width 0)
@@ -913,7 +940,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 1.27) (xy -1.27 1.905) (xy 0 2.54) (xy 1.27 1.905) (xy 0 1.27)
+						(xy 0 0) (xy 0 1.27)
 					)
 					(stroke
 						(width 0)
@@ -944,6 +971,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:R"
 			(exclude_from_sim no)
@@ -1105,6 +1133,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:TPS62993-Q1"
 			(exclude_from_sim no)
@@ -1183,17 +1212,35 @@
 				)
 			)
 			(symbol "TPS62993-Q1_0_0"
-				(pin output line
-					(at 10.16 0 180)
+				(pin power_in line
+					(at -10.16 10.16 0)
 					(length 2.54)
-					(name "PG"
+					(name "VIN"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "1"
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 5.08 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1237,53 +1284,17 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 10.16 -10.16 180)
+				(pin output line
+					(at 10.16 0 180)
 					(length 2.54)
-					(name "GND"
+					(name "PG"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -10.16 5.08 0)
-					(length 2.54)
-					(name "EN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 10.16 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1309,27 +1320,26 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 10.16 -10.16 180)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
 			(symbol "TPS62993-Q1_1_0"
-				(pin input line
-					(at -10.16 -10.16 0)
-					(length 2.54)
-					(name "MODE"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "S-CONF" input line)
-				)
 				(pin input line
 					(at -10.16 -5.08 0)
 					(length 2.54)
@@ -1349,6 +1359,25 @@
 					)
 					(alternate "TR" input line)
 				)
+				(pin input line
+					(at -10.16 -10.16 0)
+					(length 2.54)
+					(name "MODE"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "S-CONF" input line)
+				)
 			)
 			(symbol "TPS62993-Q1_1_1"
 				(rectangle
@@ -1363,12 +1392,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "lib_sch:VSYS"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1441,7 +1475,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 1.27 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1453,7 +1487,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1484,6 +1518,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
 	(junction
