@@ -600,6 +600,22 @@
 		(color 0 0 0 0)
 		(uuid "ad486364-62e2-4f40-9955-13d58a53b82a")
 	)
+	(junction
+		(at 137.16 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c01b8d2d-ff6a-42cd-9319-55b1019cb45e")
+	)
+	(wire
+		(pts
+			(xy 160.02 114.3) (xy 157.48 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "18fa7cd6-7f5e-40ba-aa7b-8da6334b7707")
+	)
 	(wire
 		(pts
 			(xy 160.02 95.25) (xy 157.48 95.25)
@@ -619,6 +635,26 @@
 			(type default)
 		)
 		(uuid "35c5341d-132a-408b-baee-08131138b395")
+	)
+	(wire
+		(pts
+			(xy 165.1 109.22) (xy 157.48 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4329f693-4365-4325-928e-5fdd92af911f")
+	)
+	(wire
+		(pts
+			(xy 137.16 109.22) (xy 142.24 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6732e4cc-1ef5-48e8-aaf1-f87a762bb420")
 	)
 	(wire
 		(pts
@@ -672,6 +708,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 114.3) (xy 142.24 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a27994e3-088a-48e2-bce3-ebd4941e0f45")
+	)
+	(wire
+		(pts
 			(xy 165.1 72.39) (xy 157.48 72.39)
 		)
 		(stroke
@@ -679,6 +725,16 @@
 			(type default)
 		)
 		(uuid "cd7f4afb-1243-4511-b315-aa0123c58caa")
+	)
+	(wire
+		(pts
+			(xy 160.02 115.57) (xy 160.02 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcc0890d-e092-4c2d-9254-24a15c737227")
 	)
 	(wire
 		(pts
@@ -699,6 +755,17 @@
 			(type default)
 		)
 		(uuid "f8d87983-4c49-4fb6-88a6-5ac960bfdc96")
+	)
+	(hierarchical_label "25MHz_Ethernet"
+		(shape output)
+		(at 165.1 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "28e5877c-9760-4467-ac6f-a8f420d01bd3")
 	)
 	(hierarchical_label "25MHz"
 		(shape output)
@@ -721,6 +788,74 @@
 			(justify left)
 		)
 		(uuid "5e488c45-43f6-4aeb-a632-88173367a40e")
+	)
+	(symbol
+		(lib_id "DS-Power:+3V3")
+		(at 137.16 109.22 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "185b3783-5eaa-4779-bb47-15ea919c41e9")
+		(property "Reference" "#PWR0108"
+			(at 137.16 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 137.16 105.664 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b03ab6e7-9527-4ca1-8e8e-2abb9bd4bc9a")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "#PWR0108")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "lib_sch:ECS_XTAL_4-SMD")
@@ -949,6 +1084,74 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
 					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Power:VSS")
+		(at 160.02 115.57 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "53ea7c39-7ce2-444c-ab15-b2f8b6b08d1b")
+		(property "Reference" "#PWR0109"
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 160.02 119.38 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2d33e2e4-726d-4f74-8289-c09ab7d7a153")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "#PWR0109")
 					(unit 1)
 				)
 			)
@@ -1391,6 +1594,135 @@
 		)
 	)
 	(symbol
+		(lib_id "DS-Passives:C")
+		(at 137.16 111.76 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eee05b0e-8db3-435e-8623-dd41ed763a46")
+		(property "Reference" "C62"
+			(at 135.255 109.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 135.255 110.49 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 109.855 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 109.855 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Ceramic capacitor symbol"
+			(at 137.16 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 137.16 109.855 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 137.16 109.855 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" ""
+			(at 137.16 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "TOL"
+			(at 135.255 113.03 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "VOLTAGE"
+			(at 135.255 111.76 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "PKG"
+			(at 135.255 114.3 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "d5001822-329c-441f-8485-358708a69b90")
+		)
+		(pin "1"
+			(uuid "5cf33273-c375-4dae-86e8-363ad378509e")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "C62")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "DS-Power:VSS")
 		(at 160.02 78.74 0)
 		(mirror y)
@@ -1453,6 +1785,109 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
 					(reference "#PWR021")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:ECS_XTAL_4-SMD")
+		(at 149.86 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fa317c1f-d608-4655-a1d8-a3b773803d32")
+		(property "Reference" "X3"
+			(at 149.86 103.632 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ECS-2016MVQ"
+			(at 149.86 105.41 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 149.86 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/ECS-2016MVQ.pdf"
+			(at 149.86 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "XTAL OSC XO 25.0000MHZ CMOS SMD"
+			(at 149.86 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "ECS Inc."
+			(at 149.86 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "ECS-2016MVQ-250-CN-TR"
+			(at 149.86 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "50-ECS-2016MVQ-250-CN-CT-ND"
+			(at 149.86 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4209fdb5-08b3-4b3f-9fb0-0e58ae687524")
+		)
+		(pin "1"
+			(uuid "e448e6e3-9039-4c49-91c8-865d9824c8e0")
+		)
+		(pin "4"
+			(uuid "a013d65e-7e8d-4f4e-ba91-c92bac3b7995")
+		)
+		(pin "3"
+			(uuid "f45b4343-b298-4841-9972-83ea1d0f4f92")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "X3")
 					(unit 1)
 				)
 			)
