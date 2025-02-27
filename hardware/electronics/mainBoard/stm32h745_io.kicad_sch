@@ -12,7 +12,133 @@
 		(comment 3 "2025")
 	)
 	(lib_symbols
-		(symbol "DS-Passives:C_horizontal"
+		(symbol "lib_sch:+3V3"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+3V3"
+				(at 0 3.556 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+3V3_0_1"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lib_sch:C_horizontal"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -185,7 +311,133 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "DS-Passives:R_horizontal"
+		(symbol "lib_sch:NetTie_2"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "NT"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "NetTie_2"
+				(at 0 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Net tie, 2 pins"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "net tie short"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Net*Tie*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NetTie_2_0_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NetTie_2_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lib_sch:R_horizontal"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -346,235 +598,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "DS-Power:+3V3"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+3V3"
-				(at 0 3.556 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+3V3_0_1"
-				(polyline
-					(pts
-						(xy -1.27 2.54) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 1.27 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+3V3_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "DS-Power:VSS"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "VSS"
-				(at 0 -3.81 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "VSS_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "VSS_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "DS-Switches:SPDT"
+		(symbol "lib_sch:SPDT"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -755,7 +779,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "DS-Switches:SPST-NO Button"
+		(symbol "lib_sch:SPST-NO Button"
 			(pin_names
 				(offset 1.016)
 			)
@@ -961,7 +985,7 @@
 							)
 						)
 					)
-					(number "4"
+					(number "2"
 						(effects
 							(font
 								(size 1.016 1.016)
@@ -979,7 +1003,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "3"
 						(effects
 							(font
 								(size 1.016 1.016)
@@ -997,136 +1021,10 @@
 							)
 						)
 					)
-					(number "3"
+					(number "4"
 						(effects
 							(font
 								(size 1.016 1.016)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:NetTie_2"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board yes)
-			(property "Reference" "NT"
-				(at 0 1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "NetTie_2"
-				(at 0 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Net tie, 2 pins"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "net tie short"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Net*Tie*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "NetTie_2_0_1"
-				(polyline
-					(pts
-						(xy -1.27 0) (xy 1.27 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "NetTie_2_1_1"
-				(pin passive line
-					(at -2.54 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
 							)
 						)
 					)
@@ -3871,6 +3769,108 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "lib_sch:VSS"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "VSS"
+				(at 0 -3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VSS_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "VSS_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "CAN Bus"
 		(exclude_from_sim no)
@@ -4236,6 +4236,15 @@
 		(uuid "42c03fcb-8d51-42ac-aa28-74e29cd6a349")
 	)
 	(bus_entry
+		(at 147.32 24.13)
+		(size 2.54 2.54)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "45584238-6d38-4038-8270-fd27a5a036a4")
+	)
+	(bus_entry
 		(at 170.18 147.32)
 		(size 2.54 2.54)
 		(stroke
@@ -4344,7 +4353,7 @@
 		(uuid "68471ef7-d6b4-44e2-8ff0-61ec43f5ba53")
 	)
 	(bus_entry
-		(at 147.32 24.13)
+		(at 147.32 26.67)
 		(size 2.54 2.54)
 		(stroke
 			(width 0)
@@ -4690,6 +4699,16 @@
 			(type default)
 		)
 		(uuid "0cdd8a01-c60d-41ce-9ade-bead0f2cabec")
+	)
+	(wire
+		(pts
+			(xy 30.48 143.51) (xy 43.18 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0effbe6a-6492-4177-8c74-63e164090c18")
 	)
 	(wire
 		(pts
@@ -5073,16 +5092,6 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 140.97) (xy 43.18 140.97)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3b7d20be-8e10-4197-95c4-859636350f38")
-	)
-	(wire
-		(pts
 			(xy 34.29 171.45) (xy 43.18 171.45)
 		)
 		(stroke
@@ -5151,6 +5160,16 @@
 		)
 		(uuid "4242da24-a54a-4579-b3ef-7bf965161add")
 	)
+	(wire
+		(pts
+			(xy 30.48 140.97) (xy 43.18 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "45db21c0-5486-4f72-abac-3f53ef8f217e")
+	)
 	(bus
 		(pts
 			(xy 208.28 74.93) (xy 208.28 77.47)
@@ -5180,6 +5199,16 @@
 			(type default)
 		)
 		(uuid "49a5eb74-2fab-4474-a168-954a6ca2b476")
+	)
+	(wire
+		(pts
+			(xy 147.32 24.13) (xy 134.62 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a255259-a51e-4f9c-ae09-0497290499f3")
 	)
 	(bus
 		(pts
@@ -5453,7 +5482,7 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 24.13) (xy 147.32 24.13)
+			(xy 134.62 26.67) (xy 147.32 26.67)
 		)
 		(stroke
 			(width 0)
@@ -5820,6 +5849,16 @@
 			(type default)
 		)
 		(uuid "93054610-5c08-4e9d-aa50-6acec17301c9")
+	)
+	(bus
+		(pts
+			(xy 149.86 26.67) (xy 149.86 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "930fc24b-1801-4657-9c94-9ea82e248450")
 	)
 	(wire
 		(pts
@@ -6861,6 +6900,16 @@
 		)
 		(uuid "22880a47-a35f-4882-bf47-008b0c529de2")
 	)
+	(label "LTE.PWR_EN"
+		(at 30.48 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2291411a-c971-4326-a1cd-ef05b1d6b225")
+	)
 	(label "USART6.CK"
 		(at 220.98 125.73 0)
 		(effects
@@ -6981,16 +7030,6 @@
 		)
 		(uuid "3240e40f-1e66-4395-bd30-1a0427e108af")
 	)
-	(label "LTE.PWR_EN"
-		(at 30.48 140.97 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "32540a0c-0fe7-4959-b503-3371edc1e1af")
-	)
 	(label "25MHz"
 		(at 95.25 153.67 180)
 		(effects
@@ -7022,7 +7061,7 @@
 		(uuid "37e6f22b-ac73-4d5e-bde5-af808ac9179a")
 	)
 	(label "LTE.PWR_EN"
-		(at 134.62 24.13 0)
+		(at 134.62 26.67 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7171,6 +7210,16 @@
 		)
 		(uuid "4ea82ccc-5594-4001-9b2f-693b323bf77b")
 	)
+	(label "LTE.MOD_STS"
+		(at 30.48 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5a22340d-f6e8-4bb6-83e6-61f558c70f9b")
+	)
 	(label "QSPI1.IO3"
 		(at 189.23 102.87 0)
 		(effects
@@ -7310,6 +7359,16 @@
 			(justify left bottom)
 		)
 		(uuid "7d03f07b-46b9-4cbd-88b0-bc35e7ed7b06")
+	)
+	(label "LTE.MOD_STS"
+		(at 134.62 24.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7f44d3dc-d1dd-413d-be86-2af1e931dd3f")
 	)
 	(label "USART6.RX"
 		(at 93.98 40.64 180)
@@ -7964,7 +8023,7 @@
 	)
 	(hierarchical_label "LTE{RST SLEEP NET_STS PWR_EN}"
 		(shape bidirectional)
-		(at 149.86 26.67 0)
+		(at 149.86 29.21 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8704,7 +8763,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:VSS")
+		(lib_id "lib_sch:VSS")
 		(at 105.41 179.07 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8771,7 +8830,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:VSS")
+		(lib_id "lib_sch:VSS")
 		(at 97.79 195.58 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8838,7 +8897,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:+3V3")
+		(lib_id "lib_sch:+3V3")
 		(at 118.11 182.88 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8905,7 +8964,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:NetTie_2")
+		(lib_id "lib_sch:NetTie_2")
 		(at 139.7 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8973,7 +9032,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:VSS")
+		(lib_id "lib_sch:VSS")
 		(at 118.11 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9040,7 +9099,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 92.71 189.23 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9689,7 +9748,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Power:+3V3")
+		(lib_id "lib_sch:+3V3")
 		(at 97.79 189.23 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9756,7 +9815,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Switches:SPDT")
+		(lib_id "lib_sch:SPDT")
 		(at 110.49 184.15 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9855,7 +9914,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 92.71 194.31 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9983,7 +10042,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:R_horizontal")
+		(lib_id "lib_sch:R_horizontal")
 		(at 92.71 184.15 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10111,7 +10170,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Switches:SPST-NO Button")
+		(lib_id "lib_sch:SPST-NO Button")
 		(at 97.79 175.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10217,7 +10276,7 @@
 		)
 	)
 	(symbol
-		(lib_id "DS-Passives:C_horizontal")
+		(lib_id "lib_sch:C_horizontal")
 		(at 97.79 179.07 0)
 		(unit 1)
 		(exclude_from_sim no)
