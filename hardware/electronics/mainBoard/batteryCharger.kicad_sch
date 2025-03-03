@@ -6,12 +6,168 @@
 	(paper "USLetter")
 	(title_block
 		(title "Battery Charger")
-		(date "2025-02-26")
+		(date "2025-03-03")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
 	)
 	(lib_symbols
+		(symbol ".DS-Jumpers:Jumper_2_Bridged"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 1.905 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Jumper_2_Bridged_0_1"
+				(polyline
+					(pts
+						(xy -0.254 0.635) (xy -0.254 -0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 -0.635) (xy 0.254 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_1_1"
+				(arc
+					(start -0.254 -0.635)
+					(mid -0.889 0)
+					(end -0.254 0.635)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.254 0) (xy 0.254 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0.254 0.635)
+					(mid 0.889 0)
+					(end 0.254 -0.635)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.651)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.651)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "lib_sch:+3V3"
 			(power)
 			(pin_numbers
@@ -4939,7 +5095,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 123.19) (xy 161.29 123.19)
+			(xy 144.78 123.19) (xy 160.02 123.19)
 		)
 		(stroke
 			(width 0)
@@ -5119,7 +5275,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 137.16) (xy 88.9 137.16)
+			(xy 74.93 137.16) (xy 78.74 137.16)
 		)
 		(stroke
 			(width 0)
@@ -5189,7 +5345,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 137.16) (xy 80.01 137.16)
+			(xy 64.77 137.16) (xy 69.85 137.16)
 		)
 		(stroke
 			(width 0)
@@ -5729,7 +5885,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 120.65) (xy 161.29 123.19)
+			(xy 160.02 120.65) (xy 160.02 123.19)
 		)
 		(stroke
 			(width 0)
@@ -6099,6 +6255,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 137.16) (xy 88.9 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7c66823-c3e2-49d0-9818-dc6200b3dbaf")
+	)
+	(wire
+		(pts
 			(xy 62.23 53.34) (xy 69.85 53.34)
 		)
 		(stroke
@@ -6156,6 +6322,16 @@
 			(type default)
 		)
 		(uuid "c2043b37-5682-49d1-a670-6651ede572f5")
+	)
+	(wire
+		(pts
+			(xy 93.98 137.16) (xy 96.52 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2cb626f-a060-40c2-8f90-16da6da8dd84")
 	)
 	(wire
 		(pts
@@ -6339,16 +6515,6 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 137.16) (xy 96.52 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f1b6e6d2-1269-4d92-ac90-24ea59075892")
-	)
-	(wire
-		(pts
 			(xy 45.72 53.34) (xy 45.72 54.61)
 		)
 		(stroke
@@ -6447,6 +6613,16 @@
 		)
 		(uuid "2b7ff92f-7d86-401f-9fd7-357bf618bd6c")
 	)
+	(label "~{QON}"
+		(at 92.71 152.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3bfb0fc5-ec95-4ba6-9da4-b456728d99ab")
+	)
 	(label "TS"
 		(at 129.54 128.27 180)
 		(effects
@@ -6487,8 +6663,18 @@
 		)
 		(uuid "53f83454-8b2e-4c19-8f73-2fe91ee677b3")
 	)
+	(label "TS"
+		(at 227.33 105.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5b82670d-fc4e-4a9a-ba8c-c499d5cdf9b6")
+	)
 	(label "REGN"
-		(at 74.93 137.16 0)
+		(at 64.77 137.16 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6506,6 +6692,16 @@
 			(justify right bottom)
 		)
 		(uuid "c001831d-7bba-4fac-bc77-b24571bc3a54")
+	)
+	(label "~{CE}"
+		(at 92.71 142.24 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c967cb67-ccd8-49ee-b122-dd0ac576bc56")
 	)
 	(label "PMID"
 		(at 132.08 85.09 180)
@@ -6556,6 +6752,16 @@
 			(justify left bottom)
 		)
 		(uuid "e15d583b-1357-4621-b2a1-8d98c94ca77a")
+	)
+	(label "BAT_CHG_INT"
+		(at 83.82 149.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e685697c-f98e-4c4d-b97d-8c6bc95add4d")
 	)
 	(label "REGN"
 		(at 213.36 90.17 270)
@@ -8273,6 +8479,75 @@
 		)
 	)
 	(symbol
+		(lib_id ".DS-Jumpers:Jumper_2_Bridged")
+		(at 91.44 137.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3e1c6506-b31f-42d8-8624-aee8154c4450")
+		(property "Reference" "JP1"
+			(at 91.44 135.255 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 91.44 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 91.44 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8b0d93d0-34ca-489d-99c7-0e3c5b46bee7")
+		)
+		(pin "2"
+			(uuid "731c419b-3323-46e0-9ac2-8b613df179ff")
+		)
+		(instances
+			(project ""
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/358f4008-8d95-4575-a32e-016ac6c7f14c/e4a7374c-b8e2-4805-9d19-02e8c1eab01e"
+					(reference "JP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:GND")
 		(at 85.09 74.93 0)
 		(unit 1)
@@ -8485,7 +8760,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "44c0e74f-9487-4f50-a25c-179c760369ef")
 		(property "Reference" "#PWR0151"
 			(at 86.36 132.08 0)
@@ -9165,7 +9439,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R_horizontal")
-		(at 82.55 137.16 0)
+		(at 72.39 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9174,7 +9448,7 @@
 		(fields_autoplaced yes)
 		(uuid "65b907fc-7f15-41b1-9e95-e763cadc39f5")
 		(property "Reference" "R59"
-			(at 82.55 135.89 0)
+			(at 72.39 135.89 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9183,7 +9457,7 @@
 			)
 		)
 		(property "Value" "2K2"
-			(at 82.55 138.43 0)
+			(at 72.39 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9193,7 +9467,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:CRCW0402"
-			(at 80.01 137.16 90)
+			(at 69.85 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9202,7 +9476,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
-			(at 80.01 137.16 90)
+			(at 69.85 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9211,7 +9485,7 @@
 			)
 		)
 		(property "Description" "RES SMD 2.2K OHM 1% 1/16W 0402"
-			(at 82.55 137.16 0)
+			(at 72.39 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9220,7 +9494,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 80.01 137.16 90)
+			(at 69.85 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9229,7 +9503,7 @@
 			)
 		)
 		(property "MPN" "CRCW04022K20FKED"
-			(at 80.01 137.16 90)
+			(at 69.85 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9238,7 +9512,7 @@
 			)
 		)
 		(property "DKPN" "541-2.20KLCT-ND"
-			(at 82.55 137.16 0)
+			(at 72.39 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9247,7 +9521,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 82.55 139.7 0)
+			(at 72.39 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9257,7 +9531,7 @@
 			)
 		)
 		(property "Power Rating" "62.5mW"
-			(at 82.55 138.43 0)
+			(at 72.39 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9267,7 +9541,7 @@
 			)
 		)
 		(property "Package" "0402"
-			(at 82.55 139.7 0)
+			(at 72.39 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9277,7 +9551,7 @@
 			)
 		)
 		(property "Zener Voltage" ""
-			(at 82.55 137.16 0)
+			(at 72.39 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10483,7 +10757,7 @@
 				)
 			)
 		)
-		(property "Value" "6K04"
+		(property "Value" "8K2"
 			(at 132.08 93.98 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10511,7 +10785,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RES SMD 6.04K OHM 1% 1/16W 0402"
+		(property "Description" ""
 			(at 132.08 92.71 0)
 			(effects
 				(font
@@ -10529,7 +10803,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "CRCW04026K04FKED"
+		(property "MPN" ""
 			(at 129.54 92.71 90)
 			(effects
 				(font
@@ -10538,7 +10812,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "541-6.04KLCT-ND"
+		(property "DKPN" ""
 			(at 132.08 92.71 0)
 			(effects
 				(font
@@ -10575,15 +10849,6 @@
 					(size 0.762 0.762)
 				)
 				(justify left)
-			)
-		)
-		(property "Zener Voltage" ""
-			(at 132.08 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -11430,7 +11695,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:LED_horizontal")
-		(at 91.44 137.16 0)
+		(at 81.28 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11439,7 +11704,7 @@
 		(fields_autoplaced yes)
 		(uuid "96bace69-d84c-4505-9857-3e9e9d1f48a3")
 		(property "Reference" "D11"
-			(at 91.44 135.636 0)
+			(at 81.28 135.636 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11448,7 +11713,7 @@
 			)
 		)
 		(property "Value" "LTST-C171GKT"
-			(at 91.44 138.684 0)
+			(at 81.28 138.684 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11457,7 +11722,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:LTST-0805"
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11466,7 +11731,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Lite-On-LTST-C171GKT.pdf"
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11475,7 +11740,7 @@
 			)
 		)
 		(property "Description" "LED GREEN CLEAR CHIP SMD"
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11484,7 +11749,7 @@
 			)
 		)
 		(property "Manufacturer" "Lite-On Inc."
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11493,7 +11758,7 @@
 			)
 		)
 		(property "MPN" "LTST-C171GKT"
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11502,7 +11767,7 @@
 			)
 		)
 		(property "DKPN" "160-1423-1-ND"
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11511,7 +11776,7 @@
 			)
 		)
 		(property "Forward Voltage" "2V1"
-			(at 91.44 139.954 0)
+			(at 81.28 139.954 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11521,7 +11786,7 @@
 			)
 		)
 		(property "Current" "20mA"
-			(at 91.44 139.954 0)
+			(at 81.28 139.954 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11531,7 +11796,7 @@
 			)
 		)
 		(property "Zener Voltage" ""
-			(at 91.44 137.16 0)
+			(at 81.28 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13778,7 +14043,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:CHG+")
-		(at 161.29 120.65 0)
+		(at 160.02 120.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13787,7 +14052,7 @@
 		(fields_autoplaced yes)
 		(uuid "f39c2893-e0c9-4753-800e-60ca9158d154")
 		(property "Reference" "#PWR0178"
-			(at 161.29 120.65 0)
+			(at 160.02 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13796,7 +14061,7 @@
 			)
 		)
 		(property "Value" "CHG+"
-			(at 161.29 117.094 0)
+			(at 160.02 117.094 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -13805,7 +14070,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 161.29 120.65 0)
+			(at 160.02 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13814,7 +14079,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 161.29 120.65 0)
+			(at 160.02 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13823,7 +14088,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 161.29 120.65 0)
+			(at 160.02 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
