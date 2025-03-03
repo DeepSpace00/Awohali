@@ -7,7 +7,7 @@ Reg1_R2 = 10 # k-ohms
 Reg2_R1 = 20 # k-ohms
 Reg2_R2 = 10 # k-ohms
 
-Reg3_R1 = 8.45 # k-ohms
+Reg3_R1 = 8.25 # k-ohms
 Reg3_R2 = 10 # k-ohms
 
 Vout1 = 0.6*(Reg1_R1/Reg1_R2) + 0.6 # Volts
@@ -19,7 +19,7 @@ print(f"V_OUT_2\t= {Vout2:.3f} V")
 print(f"V_OUT_3\t= {Vout3:.3f} V")
 
 # Switching Frequency Calculation
-R_osc = 61.9 # k-ohm
+R_osc = 69.8 # k-ohm
 
 f_osc = 37254 * np.pow(R_osc,-0.966)
 
