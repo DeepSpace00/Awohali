@@ -1,0 +1,49 @@
+{
+    "build": {
+      "cpu": "cortex-m0plus",
+      "extra_flags": "-DSTM32L052xx",
+      "f_cpu": "16000000L",
+      "framework_extra_flags": {
+        "arduino": "-D__CORTEX_SC=0"
+      },
+      "mcu": "stm32l052k8u6",
+      "product_line": "STM32L052xx",
+      "variant": "STM32L0xx/L052K6-GDMS"
+    },
+    "debug": {
+      "default_tools": [
+        "blackmagic"
+      ],
+      "jlink_device": "STM32L052K8",
+      "onboard_tools": [
+        "stlink",
+        "blackmagic"
+      ],
+      "openocd_target": "stm32l0",
+      "svd_path": "STM32L052.svd"
+    },
+    "frameworks": [
+      "arduino",
+      "cmsis",
+      "mbed",
+      "stm32cube",
+      "libopencm3",
+      "zephyr"
+    ],
+    "name": "GDMS Main board",
+    "platform": "ststm32",
+    "upload": {
+      "maximum_ram_size": 8192,
+      "maximum_size": 65536,
+      "protocol": "stlink",
+      "protocols": [
+        "jlink",
+        "cmsis-dap",
+        "stlink",
+        "mbed",
+        "blackmagic"
+      ]
+    },
+    "url": "https://developer.mbed.org/platforms/ST-Nucleo-L053R8/",
+    "vendor": "ST"
+  }

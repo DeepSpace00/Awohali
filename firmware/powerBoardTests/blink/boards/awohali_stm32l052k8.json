@@ -1,0 +1,40 @@
+{
+    "build": {
+      "cpu": "cortex-m0plus",
+      "extra_flags": "-DSTM32L052xx",
+      "f_cpu": "32000000L",
+      "mcu": "stm32l052k8u6",
+      "product_line": "STM32L052xx",
+      "platform": "stm32",
+      "variant": "AWOHALI_STM32L052K8",
+      "framework_extra_flags": {
+        "arduino": "-D__CORTEX_SC=0 -DARDUINO_AWOHALI_STM32L052K8"
+      }
+    },
+    "debug": {
+      "jlink_device": "STM32L052K8",
+      "openocd_target": "stm32l0",
+      "svd_path": "STM32L052x.svd",
+      "default_tools": [
+        "jlink"
+      ]
+    },
+    "frameworks": [
+      "arduino",
+      "stm32cube",
+      "zephyr"
+    ],
+    "name": "Awohali-Power-Board",
+    "upload": {
+      "maximum_ram_size": 8192,
+      "maximum_size": 65536,
+      "protocol": "blackmagic",
+      "protocols": [
+        "jlink",
+        "stlink",
+        "blackmagic"
+      ]
+    },
+    "url": "https://github.com/DeepSpace00",
+    "vendor": "DeepSpace00"
+}
