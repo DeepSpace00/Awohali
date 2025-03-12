@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Clocks")
-		(date "2025-03-06")
+		(date "2025-03-08")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -588,27 +588,81 @@
 			(embedded_fonts no)
 		)
 	)
-	(junction
-		(at 137.16 72.39)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6f7dd228-8568-4646-a81b-c1fa77b13263")
+	(text "USB Hub 24MHz Clock"
+		(exclude_from_sim no)
+		(at 228.6 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "47b99516-5f43-42cf-83a5-3a3825fb4bb3")
+	)
+	(text "25MHz Clock"
+		(exclude_from_sim no)
+		(at 114.3 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "7bfb9a93-55ad-4983-8ae2-7edd5fa24b16")
+	)
+	(text "32768Hz Clock"
+		(exclude_from_sim no)
+		(at 50.8 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "8c1b9b1f-66b2-4ba8-b4b5-0cac213af21c")
+	)
+	(text "Ethernet 25MHz Clock"
+		(exclude_from_sim no)
+		(at 165.1 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "e441b2c4-689b-4c44-8246-24abe4df84b9")
 	)
 	(junction
-		(at 137.16 90.17)
+		(at 215.9 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "ad486364-62e2-4f40-9955-13d58a53b82a")
+		(uuid "0171b2fe-c85f-4cc4-8b6f-2fb6fe8928c7")
 	)
 	(junction
-		(at 137.16 109.22)
+		(at 101.6 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "c01b8d2d-ff6a-42cd-9319-55b1019cb45e")
+		(uuid "64040310-a115-4d86-b0d0-d6d6c193a340")
+	)
+	(junction
+		(at 152.4 105.41)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8482d096-367d-430c-9a99-b706059f737a")
+	)
+	(junction
+		(at 38.1 105.41)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bfd071e0-5791-4d10-8641-b1e472af70e2")
 	)
 	(wire
 		(pts
-			(xy 160.02 114.3) (xy 157.48 114.3)
+			(xy 175.26 110.49) (xy 172.72 110.49)
 		)
 		(stroke
 			(width 0)
@@ -618,7 +672,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 95.25) (xy 157.48 95.25)
+			(xy 124.46 110.49) (xy 121.92 110.49)
 		)
 		(stroke
 			(width 0)
@@ -628,7 +682,17 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 96.52) (xy 160.02 95.25)
+			(xy 215.9 105.41) (xy 220.98 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b6c697d-020d-4eb4-86c1-d99442094986")
+	)
+	(wire
+		(pts
+			(xy 124.46 111.76) (xy 124.46 110.49)
 		)
 		(stroke
 			(width 0)
@@ -638,7 +702,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 109.22) (xy 157.48 109.22)
+			(xy 180.34 105.41) (xy 172.72 105.41)
 		)
 		(stroke
 			(width 0)
@@ -648,7 +712,17 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 109.22) (xy 142.24 109.22)
+			(xy 243.84 105.41) (xy 236.22 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51270cbd-e628-48f6-be50-1971f8d06172")
+	)
+	(wire
+		(pts
+			(xy 152.4 105.41) (xy 157.48 105.41)
 		)
 		(stroke
 			(width 0)
@@ -658,7 +732,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 78.74) (xy 160.02 77.47)
+			(xy 60.96 111.76) (xy 60.96 110.49)
 		)
 		(stroke
 			(width 0)
@@ -668,7 +742,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 77.47) (xy 142.24 77.47)
+			(xy 38.1 110.49) (xy 43.18 110.49)
 		)
 		(stroke
 			(width 0)
@@ -678,7 +752,17 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 95.25) (xy 142.24 95.25)
+			(xy 238.76 111.76) (xy 238.76 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7de243b4-8486-4c8d-9449-5ee608d0c3e2")
+	)
+	(wire
+		(pts
+			(xy 101.6 110.49) (xy 106.68 110.49)
 		)
 		(stroke
 			(width 0)
@@ -688,7 +772,17 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 90.17) (xy 157.48 90.17)
+			(xy 238.76 110.49) (xy 236.22 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e2d449a-ec77-401b-8f47-bb439d5d240c")
+	)
+	(wire
+		(pts
+			(xy 129.54 105.41) (xy 121.92 105.41)
 		)
 		(stroke
 			(width 0)
@@ -698,7 +792,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 72.39) (xy 142.24 72.39)
+			(xy 38.1 105.41) (xy 43.18 105.41)
 		)
 		(stroke
 			(width 0)
@@ -708,7 +802,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 114.3) (xy 142.24 114.3)
+			(xy 152.4 110.49) (xy 157.48 110.49)
 		)
 		(stroke
 			(width 0)
@@ -718,7 +812,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 72.39) (xy 157.48 72.39)
+			(xy 66.04 105.41) (xy 58.42 105.41)
 		)
 		(stroke
 			(width 0)
@@ -728,7 +822,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 115.57) (xy 160.02 114.3)
+			(xy 175.26 111.76) (xy 175.26 110.49)
 		)
 		(stroke
 			(width 0)
@@ -738,7 +832,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 77.47) (xy 157.48 77.47)
+			(xy 60.96 110.49) (xy 58.42 110.49)
 		)
 		(stroke
 			(width 0)
@@ -748,7 +842,17 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 90.17) (xy 142.24 90.17)
+			(xy 215.9 110.49) (xy 220.98 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e8651682-f091-401f-a35d-17de163d1111")
+	)
+	(wire
+		(pts
+			(xy 101.6 105.41) (xy 106.68 105.41)
 		)
 		(stroke
 			(width 0)
@@ -758,7 +862,7 @@
 	)
 	(hierarchical_label "25MHz_Ethernet"
 		(shape output)
-		(at 165.1 109.22 0)
+		(at 180.34 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -769,7 +873,7 @@
 	)
 	(hierarchical_label "25MHz"
 		(shape output)
-		(at 165.1 90.17 0)
+		(at 129.54 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -780,7 +884,7 @@
 	)
 	(hierarchical_label "32768Hz"
 		(shape output)
-		(at 165.1 72.39 0)
+		(at 66.04 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -789,9 +893,20 @@
 		)
 		(uuid "5e488c45-43f6-4aeb-a632-88173367a40e")
 	)
+	(hierarchical_label "24MHz"
+		(shape output)
+		(at 243.84 105.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "66ca17c1-0516-41a8-ab9d-9043a7a83f56")
+	)
 	(symbol
 		(lib_id "lib_sch:+3V3")
-		(at 137.16 109.22 0)
+		(at 152.4 105.41 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -800,8 +915,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "185b3783-5eaa-4779-bb47-15ea919c41e9")
-		(property "Reference" "#PWR0108"
-			(at 137.16 109.22 0)
+		(property "Reference" "#PWR0110"
+			(at 152.4 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -810,7 +925,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 137.16 105.664 0)
+			(at 152.4 101.854 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -819,7 +934,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 109.22 0)
+			(at 152.4 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -828,7 +943,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 109.22 0)
+			(at 152.4 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -837,7 +952,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 109.22 0)
+			(at 152.4 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -851,7 +966,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "#PWR0108")
+					(reference "#PWR0110")
 					(unit 1)
 				)
 			)
@@ -859,7 +974,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:ECS_XTAL_4-SMD")
-		(at 149.86 74.93 0)
+		(at 50.8 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -868,7 +983,7 @@
 		(fields_autoplaced yes)
 		(uuid "307a8773-2466-470a-bfbd-4399ca3ea9d9")
 		(property "Reference" "X1"
-			(at 149.86 66.802 0)
+			(at 50.8 99.822 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -877,7 +992,7 @@
 			)
 		)
 		(property "Value" "ECS-327ATQ2016MV"
-			(at 149.86 68.58 0)
+			(at 50.8 101.6 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -886,7 +1001,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 74.93 0)
+			(at 50.8 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -895,7 +1010,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/ECS-327ATQ2016MV.pdf"
-			(at 149.86 74.93 0)
+			(at 50.8 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -904,7 +1019,7 @@
 			)
 		)
 		(property "Description" "XTAL OSC XO 32.768 KHZ CMOS SMD"
-			(at 149.86 74.93 0)
+			(at 50.8 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -912,8 +1027,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "ECS-327ATQ2016MV-BS-TR"
-			(at 149.86 74.93 0)
+		(property "Manufacturer" "ECS Inc."
+			(at 50.8 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -921,8 +1036,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "ECS Inc."
-			(at 149.86 74.93 0)
+		(property "MPN" "ECS-327ATQ2016MV-BS-TR"
+			(at 50.8 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -931,7 +1046,7 @@
 			)
 		)
 		(property "DKPN" "50-ECS-327ATQ2016MV-BS-TRCT-ND"
-			(at 149.86 74.93 0)
+			(at 50.8 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -961,37 +1076,35 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:C")
-		(at 137.16 92.71 0)
-		(mirror y)
+		(lib_id "lib_sch:ECS_XTAL_4-SMD")
+		(at 228.6 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "347792dc-2b2d-4160-8de4-e0c089dedfca")
-		(property "Reference" "C3"
-			(at 135.255 90.17 0)
+		(fields_autoplaced yes)
+		(uuid "3c9162de-b46d-4a4e-9acf-3fa2a804e9a4")
+		(property "Reference" "X4"
+			(at 228.6 99.822 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
-					(size 1.016 1.016)
+					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "100nF"
-			(at 135.255 91.44 0)
+		(property "Value" "ECS-3225MVQ"
+			(at 228.6 101.6 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
-					(size 1.016 1.016)
+					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 90.805 0)
+			(at 228.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -999,8 +1112,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 137.16 90.805 0)
+		(property "Datasheet" "datasheets/ECS-3225MVQ.pdf"
+			(at 228.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1008,8 +1121,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 137.16 92.71 0)
+		(property "Description" "XTAL OSC XO 24.0000MHZ CMOS SMD"
+			(at 228.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1017,8 +1130,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 137.16 90.805 0)
+		(property "Manufacturer" "ECS Inc."
+			(at 228.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1026,8 +1139,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 137.16 90.805 0)
+		(property "MPN" "ECS-3225MVQ-240-CN-TR"
+			(at 228.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1035,55 +1148,31 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 137.16 92.71 0)
+		(property "DKPN" "50-ECS-3225MVQ-240-CN-CT-ND"
+			(at 228.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
-			)
-		)
-		(property "Tolerance" "TOL"
-			(at 135.255 93.98 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 135.255 92.71 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "PKG"
-			(at 135.255 95.25 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
 			)
 		)
 		(pin "2"
-			(uuid "e9ad6e0e-5b51-4af9-8387-7d86e1e6a951")
+			(uuid "41eaa3cc-cbc0-48d7-bee9-57c51dd5ac62")
 		)
 		(pin "1"
-			(uuid "bef5e46d-e467-43dc-9284-750d3bfb743c")
+			(uuid "d6a2fd1c-ea72-4875-b3e7-34a11276e340")
+		)
+		(pin "4"
+			(uuid "9c3ff277-8a33-46fd-b2b7-fc1970ba4ea1")
+		)
+		(pin "3"
+			(uuid "c302eacc-b1fb-4618-9b7d-f456c2862375")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "C3")
+					(reference "X4")
 					(unit 1)
 				)
 			)
@@ -1091,7 +1180,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 160.02 115.57 0)
+		(at 175.26 111.76 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1100,8 +1189,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "53ea7c39-7ce2-444c-ab15-b2f8b6b08d1b")
-		(property "Reference" "#PWR0109"
-			(at 160.02 115.57 0)
+		(property "Reference" "#PWR0114"
+			(at 175.26 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1110,7 +1199,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 160.02 119.38 0)
+			(at 175.26 115.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1119,7 +1208,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 160.02 115.57 0)
+			(at 175.26 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1128,7 +1217,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 160.02 115.57 0)
+			(at 175.26 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1137,7 +1226,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 160.02 115.57 0)
+			(at 175.26 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1151,7 +1240,136 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "#PWR0109")
+					(reference "#PWR0114")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 101.6 107.95 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "697293fe-145c-42c7-afa1-e42885505f5f")
+		(property "Reference" "C55"
+			(at 99.695 105.41 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 99.695 106.68 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/KYOCERA-AVX-MLCCKAM.pdf"
+			(at 101.6 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
+			(at 101.6 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 101.6 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "06035C104K4T2A"
+			(at 101.6 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71H104KTCT-ND"
+			(at 101.6 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 99.695 109.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "50V"
+			(at 99.695 107.95 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 99.695 110.49 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "afee887c-0fe0-42db-857a-4b075ff01230")
+		)
+		(pin "1"
+			(uuid "543a811e-786a-4224-ae00-5b8d0fa49acd")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "C55")
 					(unit 1)
 				)
 			)
@@ -1159,7 +1377,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:+3V3")
-		(at 137.16 90.17 0)
+		(at 101.6 105.41 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1168,8 +1386,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "87eb9664-e598-4470-8f7d-adaef94ae057")
-		(property "Reference" "#PWR022"
-			(at 137.16 90.17 0)
+		(property "Reference" "#PWR0109"
+			(at 101.6 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1178,7 +1396,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 137.16 86.614 0)
+			(at 101.6 101.854 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1187,7 +1405,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 90.17 0)
+			(at 101.6 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1196,7 +1414,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 90.17 0)
+			(at 101.6 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1205,7 +1423,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 90.17 0)
+			(at 101.6 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1219,7 +1437,136 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "#PWR022")
+					(reference "#PWR0109")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 38.1 107.95 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8c9caddc-b239-47ca-8739-44999a35759b")
+		(property "Reference" "C54"
+			(at 36.195 105.41 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 36.195 106.68 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 38.1 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/KYOCERA-AVX-MLCCKAM.pdf"
+			(at 38.1 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
+			(at 38.1 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 38.1 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "06035C104K4T2A"
+			(at 38.1 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71H104KTCT-ND"
+			(at 38.1 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 36.195 109.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "50V"
+			(at 36.195 107.95 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 36.195 110.49 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "c31235e8-838a-42e3-8cf4-c9a1a2d75e95")
+		)
+		(pin "1"
+			(uuid "c3810267-63d1-450a-a6d3-4d89b1186d20")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "C54")
 					(unit 1)
 				)
 			)
@@ -1227,7 +1574,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 160.02 96.52 0)
+		(at 124.46 111.76 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1236,8 +1583,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a4d5e9ee-f248-4539-8b50-d627970d520d")
-		(property "Reference" "#PWR023"
-			(at 160.02 96.52 0)
+		(property "Reference" "#PWR0113"
+			(at 124.46 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1246,7 +1593,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 160.02 100.33 0)
+			(at 124.46 115.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1255,7 +1602,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 160.02 96.52 0)
+			(at 124.46 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1264,7 +1611,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 160.02 96.52 0)
+			(at 124.46 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1273,7 +1620,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 160.02 96.52 0)
+			(at 124.46 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1287,7 +1634,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "#PWR023")
+					(reference "#PWR0113")
 					(unit 1)
 				)
 			)
@@ -1295,7 +1642,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:ECS_XTAL_4-SMD")
-		(at 149.86 92.71 0)
+		(at 114.3 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1304,7 +1651,7 @@
 		(fields_autoplaced yes)
 		(uuid "c22b9814-74a2-4815-9086-9153f9f3685b")
 		(property "Reference" "X2"
-			(at 149.86 84.582 0)
+			(at 114.3 99.822 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1313,7 +1660,7 @@
 			)
 		)
 		(property "Value" "ECS-2016MVQ"
-			(at 149.86 86.36 0)
+			(at 114.3 101.6 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1322,7 +1669,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 92.71 0)
+			(at 114.3 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1331,7 +1678,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/ECS-2016MVQ.pdf"
-			(at 149.86 92.71 0)
+			(at 114.3 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1340,7 +1687,7 @@
 			)
 		)
 		(property "Description" "XTAL OSC XO 25.0000MHZ CMOS SMD"
-			(at 149.86 92.71 0)
+			(at 114.3 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1349,7 +1696,7 @@
 			)
 		)
 		(property "Manufacturer" "ECS Inc."
-			(at 149.86 92.71 0)
+			(at 114.3 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1358,7 +1705,7 @@
 			)
 		)
 		(property "MPN" "ECS-2016MVQ-250-CN-TR"
-			(at 149.86 92.71 0)
+			(at 114.3 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1367,7 +1714,7 @@
 			)
 		)
 		(property "DKPN" "50-ECS-2016MVQ-250-CN-CT-ND"
-			(at 149.86 92.71 0)
+			(at 114.3 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1397,17 +1744,85 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:C")
-		(at 137.16 74.93 0)
+		(lib_id "lib_sch:+3V3")
+		(at 215.9 105.41 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d3f4d208-d9e8-4b35-b29e-9b52311b6693")
-		(property "Reference" "C2"
-			(at 135.255 72.39 0)
+		(fields_autoplaced yes)
+		(uuid "cbefcc07-a9da-4cf6-a4b2-47b9ad8f13a6")
+		(property "Reference" "#PWR0111"
+			(at 215.9 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 215.9 101.854 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 215.9 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 215.9 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fdc645c-dae6-43ed-bcd4-2516314a5234")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "#PWR0111")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:C")
+		(at 215.9 107.95 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cd442a4a-4e3c-4b5b-a04a-5494fb9fe0c3")
+		(property "Reference" "C57"
+			(at 213.995 105.41 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1417,7 +1832,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 135.255 73.66 0)
+			(at 213.995 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1427,7 +1842,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 73.025 0)
+			(at 215.9 106.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1435,8 +1850,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 137.16 73.025 0)
+		(property "Datasheet" "datasheets/KYOCERA-AVX-MLCCKAM.pdf"
+			(at 215.9 106.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1444,8 +1859,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 137.16 74.93 0)
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
+			(at 215.9 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1453,8 +1868,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 137.16 73.025 0)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 215.9 106.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1462,8 +1877,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 137.16 73.025 0)
+		(property "MPN" "06035C104K4T2A"
+			(at 215.9 106.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1471,8 +1886,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 137.16 74.93 0)
+		(property "DKPN" "478-KAM15AR71H104KTCT-ND"
+			(at 215.9 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1480,8 +1895,8 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "TOL"
-			(at 135.255 76.2 0)
+		(property "Tolerance" "10%"
+			(at 213.995 109.22 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1490,8 +1905,8 @@
 				(justify left)
 			)
 		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 135.255 74.93 0)
+		(property "Voltage Rating" "50V"
+			(at 213.995 107.95 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1500,8 +1915,8 @@
 				(justify left)
 			)
 		)
-		(property "Package" "PKG"
-			(at 135.255 77.47 0)
+		(property "Package" "0603"
+			(at 213.995 110.49 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1511,33 +1926,52 @@
 			)
 		)
 		(pin "2"
-			(uuid "03f0050f-b908-4517-9213-910a58a1ba43")
+			(uuid "2a4459e6-f46c-4017-afe2-a71f633ff70d")
 		)
 		(pin "1"
-			(uuid "a84ae257-36f0-40ca-aaf3-cb73f462738e")
+			(uuid "839440bf-aa2d-4676-8c60-247f2f8f6312")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "C2")
+					(reference "C57")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:+3V3")
-		(at 137.16 72.39 0)
+		(lib_id "lib_sch:C")
+		(at 152.4 107.95 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e35e9a7c-0469-4462-b3c0-80cbfbc23f69")
-		(property "Reference" "#PWR020"
-			(at 137.16 72.39 0)
+		(uuid "e13c6c14-4072-4daf-8abd-b5286444603a")
+		(property "Reference" "C56"
+			(at 150.495 105.41 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 150.495 106.68 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 106.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1545,8 +1979,118 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 137.16 68.834 0)
+		(property "Datasheet" "datasheets/KYOCERA-AVX-MLCCKAM.pdf"
+			(at 152.4 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CAP CER 0.1UF 50V X7R 0603"
+			(at 152.4 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 152.4 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "06035C104K4T2A"
+			(at 152.4 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "478-KAM15AR71H104KTCT-ND"
+			(at 152.4 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10%"
+			(at 150.495 109.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Voltage Rating" "50V"
+			(at 150.495 107.95 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Package" "0603"
+			(at 150.495 110.49 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(pin "2"
+			(uuid "3071ffc8-d803-425a-b2c1-0cb2181c0c8e")
+		)
+		(pin "1"
+			(uuid "2c2e22e7-bfa7-4a03-9285-af4064d38739")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "C56")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:VSS")
+		(at 238.76 111.76 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e15e16e5-e95e-4b24-98d1-c49ba2f5ab8a")
+		(property "Reference" "#PWR0115"
+			(at 238.76 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 238.76 115.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1555,7 +2099,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 72.39 0)
+			(at 238.76 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1564,7 +2108,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 72.39 0)
+			(at 238.76 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1573,7 +2117,75 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 72.39 0)
+			(at 238.76 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8e618d64-8cd2-4019-972d-5788df298d09")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
+					(reference "#PWR0115")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:+3V3")
+		(at 38.1 105.41 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e35e9a7c-0469-4462-b3c0-80cbfbc23f69")
+		(property "Reference" "#PWR0108"
+			(at 38.1 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 38.1 101.854 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 38.1 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 38.1 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.1 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1587,136 +2199,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "#PWR020")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:C")
-		(at 137.16 111.76 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "eee05b0e-8db3-435e-8623-dd41ed763a46")
-		(property "Reference" "C62"
-			(at 135.255 109.22 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100nF"
-			(at 135.255 110.49 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 137.16 109.855 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 137.16 109.855 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Ceramic capacitor symbol"
-			(at 137.16 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 137.16 109.855 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 137.16 109.855 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 137.16 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "TOL"
-			(at 135.255 113.03 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Voltage Rating" "VOLTAGE"
-			(at 135.255 111.76 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(property "Package" "PKG"
-			(at 135.255 114.3 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.016 1.016)
-				)
-				(justify left)
-			)
-		)
-		(pin "2"
-			(uuid "d5001822-329c-441f-8485-358708a69b90")
-		)
-		(pin "1"
-			(uuid "5cf33273-c375-4dae-86e8-363ad378509e")
-		)
-		(instances
-			(project "mainBoard"
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "C62")
+					(reference "#PWR0108")
 					(unit 1)
 				)
 			)
@@ -1724,7 +2207,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:VSS")
-		(at 160.02 78.74 0)
+		(at 60.96 111.76 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1733,8 +2216,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f7080ee9-bcb0-4659-b01e-dd6ced8ba0e9")
-		(property "Reference" "#PWR021"
-			(at 160.02 78.74 0)
+		(property "Reference" "#PWR0112"
+			(at 60.96 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1743,7 +2226,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 160.02 82.55 0)
+			(at 60.96 115.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1752,7 +2235,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 160.02 78.74 0)
+			(at 60.96 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1761,7 +2244,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 160.02 78.74 0)
+			(at 60.96 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1770,7 +2253,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 160.02 78.74 0)
+			(at 60.96 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1784,7 +2267,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/c3529d28-dd5c-4d66-bcad-149fe9f71f3f"
-					(reference "#PWR021")
+					(reference "#PWR0112")
 					(unit 1)
 				)
 			)
@@ -1792,7 +2275,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:ECS_XTAL_4-SMD")
-		(at 149.86 111.76 0)
+		(at 165.1 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1801,7 +2284,7 @@
 		(fields_autoplaced yes)
 		(uuid "fa317c1f-d608-4655-a1d8-a3b773803d32")
 		(property "Reference" "X3"
-			(at 149.86 103.632 0)
+			(at 165.1 99.822 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1810,7 +2293,7 @@
 			)
 		)
 		(property "Value" "ECS-2016MVQ"
-			(at 149.86 105.41 0)
+			(at 165.1 101.6 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1819,7 +2302,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 111.76 0)
+			(at 165.1 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1828,7 +2311,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/ECS-2016MVQ.pdf"
-			(at 149.86 111.76 0)
+			(at 165.1 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1837,7 +2320,7 @@
 			)
 		)
 		(property "Description" "XTAL OSC XO 25.0000MHZ CMOS SMD"
-			(at 149.86 111.76 0)
+			(at 165.1 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1846,7 +2329,7 @@
 			)
 		)
 		(property "Manufacturer" "ECS Inc."
-			(at 149.86 111.76 0)
+			(at 165.1 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1855,7 +2338,7 @@
 			)
 		)
 		(property "MPN" "ECS-2016MVQ-250-CN-TR"
-			(at 149.86 111.76 0)
+			(at 165.1 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1864,7 +2347,7 @@
 			)
 		)
 		(property "DKPN" "50-ECS-2016MVQ-250-CN-CT-ND"
-			(at 149.86 111.76 0)
+			(at 165.1 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
