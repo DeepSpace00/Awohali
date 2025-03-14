@@ -6,13 +6,13 @@
 	(paper "USLetter")
 	(title_block
 		(title "Memory")
-		(date "2025-03-08")
+		(date "2025-03-12")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
 	)
 	(lib_symbols
-		(symbol "lib_sch:+3V3"
+		(symbol "lib_pwr:+3V3"
 			(power)
 			(pin_numbers
 				(hide yes)
@@ -119,6 +119,108 @@
 			(symbol "+3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lib_pwr:VSS"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "VSS"
+				(at 0 -3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VSS_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "VSS_1_1"
+				(pin power_in line
+					(at 0 0 270)
 					(length 0)
 					(name "~"
 						(effects
@@ -521,7 +623,9 @@
 						)
 					)
 				)
-				(pin passive line
+			)
+			(symbol "M24512-DRE_1_0"
+				(pin power_in line
 					(at 8.89 -6.35 180)
 					(length 2.54)
 					(name "VSS"
@@ -550,108 +654,6 @@
 					)
 					(fill
 						(type background)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "lib_sch:VSS"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "VSS"
-				(at 0 -3.81 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "VSS_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "VSS_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
 					)
 				)
 			)
@@ -745,42 +747,6 @@
 						)
 					)
 					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 12.7 -10.16 180)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 12.7 -12.7 180)
-					(length 2.54)
-					(name "GND_PAD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -902,6 +868,42 @@
 					)
 					(alternate "IO3" bidirectional line)
 					(alternate "~{RESET}" input line)
+				)
+				(pin power_in line
+					(at 12.7 -10.16 180)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 12.7 -12.7 180)
+					(length 2.54)
+					(name "GND_PAD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
 				)
 			)
 			(symbol "W25Q128JVP_1_1"
@@ -1311,12 +1313,6 @@
 		(uuid "439fc2aa-b511-4a48-9867-81aacf2ccbb3")
 	)
 	(junction
-		(at 88.9 95.25)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5ef524ee-626b-4376-837e-9ff216a51654")
-	)
-	(junction
 		(at 78.74 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1329,16 +1325,22 @@
 		(uuid "9a3cef10-0fcd-4d07-afc8-0f3af4b21c87")
 	)
 	(junction
+		(at 120.65 92.71)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9f59348d-d210-41ca-bf57-43e2d09d7335")
+	)
+	(junction
 		(at 151.13 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c2adc9cc-f3bb-472b-bbac-c18a8df81ddc")
 	)
 	(junction
-		(at 120.65 92.71)
+		(at 88.9 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d1a0673a-6498-4852-a32d-33f663bb56b0")
+		(uuid "eb17eaeb-26ed-42a8-b447-019c53c9e2c6")
 	)
 	(bus_entry
 		(at 35.56 92.71)
@@ -2211,17 +2213,17 @@
 		(uuid "ff2d3e3b-d772-4acc-81c6-156b4c9301d0")
 	)
 	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 151.13 107.95 0)
+		(lib_id "lib_pwr:+3V3")
+		(at 88.9 95.25 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "0e8f17bf-fbcf-493b-8347-64058bbdc9ed")
-		(property "Reference" "#PWR069"
-			(at 151.13 107.95 0)
+		(uuid "07a41867-3453-4266-bf00-362c5b6a74fa")
+		(property "Reference" "#PWR066"
+			(at 88.9 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2229,8 +2231,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VSS"
-			(at 151.13 111.76 0)
+		(property "Value" "+3V3"
+			(at 88.9 91.694 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2239,7 +2241,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 151.13 107.95 0)
+			(at 88.9 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2248,7 +2250,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 151.13 107.95 0)
+			(at 88.9 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2257,7 +2259,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 151.13 107.95 0)
+			(at 88.9 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2266,12 +2268,79 @@
 			)
 		)
 		(pin "1"
-			(uuid "bd7ecc95-7e77-4fd1-88b7-2aec06b9d89a")
+			(uuid "0f740dc4-5162-4ea4-8fda-60abe62c7cb2")
+		)
+		(instances
+			(project ""
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
+					(reference "#PWR066")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:+3V3")
+		(at 120.65 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0a997816-d221-4618-9517-3201a59fc59f")
+		(property "Reference" "#PWR065"
+			(at 120.65 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 120.65 89.154 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 120.65 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 120.65 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b4006957-075c-4998-9bb0-417706140eba")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR069")
+					(reference "#PWR065")
 					(unit 1)
 				)
 			)
@@ -2287,7 +2356,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "13b884bd-e6aa-4f72-b2b0-4ef045ff0fa4")
-		(property "Reference" "J1"
+		(property "Reference" "J2"
 			(at 241.935 86.36 0)
 			(effects
 				(font
@@ -2387,141 +2456,7 @@
 		(instances
 			(project ""
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 88.9 104.14 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1b759853-a02c-49bb-9e79-214c037cdfce")
-		(property "Reference" "#PWR068"
-			(at 88.9 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VSS"
-			(at 88.9 107.95 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 88.9 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 88.9 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 88.9 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "71fa59b6-6a7f-484b-b5cf-430929a81f1d")
-		)
-		(instances
-			(project "mainBoard"
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR068")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 215.9 118.11 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1c3fd143-7771-4d9a-8d8b-3750dddd0af7")
-		(property "Reference" "#PWR071"
-			(at 215.9 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VSS"
-			(at 215.9 121.92 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 215.9 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 215.9 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3713a016-9ac5-4fee-929a-d5519864e065")
-		)
-		(instances
-			(project "mainBoard"
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR071")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -2657,17 +2592,17 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 120.65 99.06 0)
+		(lib_id "lib_pwr:VSS")
+		(at 264.16 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3aa3c7cf-8c3f-4b2a-b617-ec790c83857f")
-		(property "Reference" "#PWR067"
-			(at 120.65 99.06 0)
+		(uuid "435a2429-6fb6-48c9-897a-c6855535444d")
+		(property "Reference" "#PWR073"
+			(at 264.16 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2676,7 +2611,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 120.65 102.87 0)
+			(at 264.16 125.73 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2685,7 +2620,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 120.65 99.06 0)
+			(at 264.16 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2694,7 +2629,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 120.65 99.06 0)
+			(at 264.16 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2703,7 +2638,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 120.65 99.06 0)
+			(at 264.16 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2712,97 +2647,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "a2c3c5dc-d1de-4aa7-9acc-73351b28a2c7")
+			(uuid "796faf5d-84d3-49fa-aa9e-a2cb2073d3f9")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR067")
+					(reference "#PWR073")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:+3V3")
-		(at 215.9 77.47 0)
+		(lib_id "lib_pwr:VSS")
+		(at 215.9 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "4aab4ac2-e6b9-4157-a62e-f73e29dc3918")
-		(property "Reference" "#PWR063"
-			(at 215.9 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 215.9 73.914 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 215.9 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 215.9 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0d0f438c-2798-4ab6-86e9-6f5fb0d4c675")
-		)
-		(instances
-			(project ""
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR063")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 210.82 88.9 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6446cc28-34f8-4ed0-af9f-334352a85fda")
-		(property "Reference" "#PWR064"
-			(at 210.82 88.9 0)
+		(uuid "5b25e7b8-c553-4ea4-b594-be2661e56871")
+		(property "Reference" "#PWR071"
+			(at 215.9 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2811,7 +2678,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 210.82 92.71 0)
+			(at 215.9 121.92 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2820,7 +2687,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 210.82 88.9 0)
+			(at 215.9 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2829,7 +2696,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 210.82 88.9 0)
+			(at 215.9 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2838,7 +2705,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 210.82 88.9 0)
+			(at 215.9 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2847,12 +2714,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ea567e77-50be-4fcf-ae4b-69a803324630")
+			(uuid "43ac2f46-a1af-49f5-9e69-4032d2d5655f")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR064")
+					(reference "#PWR071")
 					(unit 1)
 				)
 			)
@@ -2982,73 +2849,6 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
 					(reference "C32")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 264.16 121.92 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "70393661-af32-445a-a50c-efd169879f44")
-		(property "Reference" "#PWR073"
-			(at 264.16 121.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VSS"
-			(at 264.16 125.73 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 264.16 121.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 264.16 121.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 264.16 121.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "13708432-18f6-46b8-b381-3e786098f28b")
-		)
-		(instances
-			(project ""
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR073")
 					(unit 1)
 				)
 			)
@@ -3306,84 +3106,17 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:+3V3")
-		(at 120.65 92.71 0)
+		(lib_id "lib_pwr:VSS")
+		(at 88.9 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "9618149a-bfd0-4186-8c8f-6b5f0294332c")
-		(property "Reference" "#PWR065"
-			(at 120.65 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 120.65 89.154 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 120.65 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 120.65 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 120.65 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2322adba-f26d-4d8b-af95-6b934c4f16c4")
-		)
-		(instances
-			(project ""
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR065")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:VSS")
-		(at 151.13 115.57 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9ecdeaf6-283e-4dfd-b09a-57540430624f")
-		(property "Reference" "#PWR070"
-			(at 151.13 115.57 0)
+		(uuid "8d606ff2-445f-405d-89bb-b9f8897a2c93")
+		(property "Reference" "#PWR068"
+			(at 88.9 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3392,7 +3125,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 151.13 119.38 0)
+			(at 88.9 107.95 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3401,7 +3134,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 151.13 115.57 0)
+			(at 88.9 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3410,7 +3143,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 151.13 115.57 0)
+			(at 88.9 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3419,7 +3152,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 151.13 115.57 0)
+			(at 88.9 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3428,12 +3161,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "94919e60-950c-469d-80c4-a877e5370e8b")
+			(uuid "9ec8ff44-3e88-4e72-8a3e-98c0872c1367")
 		)
 		(instances
-			(project ""
+			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR070")
+					(reference "#PWR068")
 					(unit 1)
 				)
 			)
@@ -3555,7 +3288,208 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:VSS")
+		(lib_id "lib_pwr:VSS")
+		(at 151.13 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b349775b-1b89-4b44-919a-c7fe677f8240")
+		(property "Reference" "#PWR070"
+			(at 151.13 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 151.13 119.38 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 151.13 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 151.13 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 151.13 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6f5d6b9f-e32a-4c1d-ac02-6af1c0e0d235")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
+					(reference "#PWR070")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:VSS")
+		(at 210.82 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b61485bd-4ccb-4bfd-a264-27dbb6f5815d")
+		(property "Reference" "#PWR0192"
+			(at 210.82 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 210.82 92.71 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 210.82 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 210.82 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 210.82 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d1a927af-866f-42ea-bc82-5659e4f51c86")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
+					(reference "#PWR0192")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:+3V3")
+		(at 215.9 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b737d363-e208-4461-96ab-5d4fe7d4c844")
+		(property "Reference" "#PWR063"
+			(at 215.9 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 215.9 73.914 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 215.9 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 215.9 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fb97a39-5761-44aa-97ec-cbd58c74bb72")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
+					(reference "#PWR063")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:VSS")
 		(at 78.74 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -3563,7 +3497,7 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "df4aff6c-fd50-44b2-b210-d014b796a562")
+		(uuid "d787c41a-86c7-4860-acaa-eb9874e3c585")
 		(property "Reference" "#PWR072"
 			(at 78.74 121.92 0)
 			(effects
@@ -3610,7 +3544,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "e8d0e32b-b3ab-42e8-8c5e-0e4837990f2e")
+			(uuid "4697b087-d90b-4ffc-8107-c30ca2fe9a2d")
 		)
 		(instances
 			(project ""
@@ -3622,17 +3556,17 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:+3V3")
-		(at 88.9 95.25 0)
+		(lib_id "lib_pwr:VSS")
+		(at 151.13 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "dfa9e4cd-2a42-460c-b294-eea08d16b147")
-		(property "Reference" "#PWR066"
-			(at 88.9 95.25 0)
+		(uuid "e05c8515-0544-4af6-82ae-e2924f7a160f")
+		(property "Reference" "#PWR069"
+			(at 151.13 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3640,8 +3574,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 88.9 91.694 0)
+		(property "Value" "VSS"
+			(at 151.13 111.76 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3650,7 +3584,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 88.9 95.25 0)
+			(at 151.13 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3659,7 +3593,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 88.9 95.25 0)
+			(at 151.13 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3668,7 +3602,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 88.9 95.25 0)
+			(at 151.13 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3677,12 +3611,79 @@
 			)
 		)
 		(pin "1"
-			(uuid "32096f4a-dab2-4076-8e29-186b341d79bd")
+			(uuid "d466e3c1-9496-43cc-a510-72a636454344")
 		)
 		(instances
-			(project ""
+			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "#PWR066")
+					(reference "#PWR069")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:VSS")
+		(at 120.65 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f26cda53-75c7-4ede-a1c6-077c7440c205")
+		(property "Reference" "#PWR0189"
+			(at 120.65 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 120.65 102.87 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 120.65 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 120.65 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0f38e424-6250-4bcf-982d-9f58a337ed9c")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
+					(reference "#PWR0189")
 					(unit 1)
 				)
 			)
