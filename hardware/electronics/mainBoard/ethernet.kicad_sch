@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Ethernet")
-		(date "2025-03-12")
+		(date "2025-03-15")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -2622,6 +2622,125 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "lib_sch:Testpoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at -1.27 0 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Testpoint_0_1"
+				(arc
+					(start -0.635 0.635)
+					(mid 0 0)
+					(end -0.635 -0.635)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Testpoint_1_0"
+				(pin passive line
+					(at 2.54 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(junction
 		(at 113.03 120.65)
@@ -3320,6 +3439,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 175.26) (xy 154.94 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4460c4c5-709a-46fe-93a5-b2c196bc6794")
+	)
+	(wire
+		(pts
 			(xy 157.48 135.89) (xy 154.94 135.89)
 		)
 		(stroke
@@ -3387,6 +3516,16 @@
 			(type default)
 		)
 		(uuid "5494983d-52ba-4cb9-91cf-5a42611d1ee2")
+	)
+	(wire
+		(pts
+			(xy 166.37 160.02) (xy 154.94 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56ac4ff3-b71d-404e-bdbd-f7f6009ed269")
 	)
 	(wire
 		(pts
@@ -3560,6 +3699,26 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 176.53) (xy 157.48 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d32a379-768f-4c34-acc1-8f94ca6587c0")
+	)
+	(wire
+		(pts
+			(xy 166.37 171.45) (xy 154.94 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e3f1403-135a-4bc3-956d-0bd6f8d71a0b")
+	)
+	(wire
+		(pts
 			(xy 175.26 134.62) (xy 175.26 137.16)
 		)
 		(stroke
@@ -3697,6 +3856,16 @@
 			(type default)
 		)
 		(uuid "89d503f5-c9ec-42d7-ab65-d280dec15595")
+	)
+	(wire
+		(pts
+			(xy 166.37 163.83) (xy 154.94 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8abd4dc4-3b98-4e48-b244-815e2647d4a8")
 	)
 	(wire
 		(pts
@@ -4250,6 +4419,16 @@
 	)
 	(wire
 		(pts
+			(xy 166.37 167.64) (xy 154.94 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1c429aa-3914-466b-aa0a-1faa5102e38f")
+	)
+	(wire
+		(pts
 			(xy 176.53 97.79) (xy 201.93 97.79)
 		)
 		(stroke
@@ -4329,6 +4508,16 @@
 		(uuid "ffd8d6b1-83c4-4da3-895d-000a6a4766c3")
 	)
 	(label "RXP"
+		(at 166.37 167.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "00636cec-1f34-4905-8268-e19868741411")
+	)
+	(label "RXP"
 		(at 158.75 97.79 180)
 		(effects
 			(font
@@ -4359,6 +4548,16 @@
 		(uuid "0e0d3252-5898-4ee9-b1f0-0034d25d3a39")
 	)
 	(label "RXN"
+		(at 166.37 171.45 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "36bad7f4-0822-4235-98bf-54b6cdb42682")
+	)
+	(label "RXN"
 		(at 158.75 100.33 180)
 		(effects
 			(font
@@ -4377,6 +4576,16 @@
 			(justify left bottom)
 		)
 		(uuid "3e5743c8-3f14-4a5d-9c15-ad869dbb8cbf")
+	)
+	(label "TXN"
+		(at 166.37 163.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4079cf37-52d8-4031-9c7e-5ec1106c47e9")
 	)
 	(label "RXD0"
 		(at 76.2 102.87 0)
@@ -4477,6 +4686,16 @@
 			(justify right bottom)
 		)
 		(uuid "89ee9cea-4e43-4ce0-9078-f014eb30e196")
+	)
+	(label "TXP"
+		(at 166.37 160.02 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8fe2f785-5f9f-4e85-b0e1-66741956c57c")
 	)
 	(label "3V3_Ethernet"
 		(at 139.7 76.2 0)
@@ -4601,7 +4820,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "07cdee4b-6842-4eee-831d-36ca651926a6")
-		(property "Reference" "#PWR089"
+		(property "Reference" "#PWR092"
 			(at 233.68 133.35 0)
 			(effects
 				(font
@@ -4652,7 +4871,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR089")
+					(reference "#PWR092")
 					(unit 1)
 				)
 			)
@@ -4772,38 +4991,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 233.68 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 233.68 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 233.68 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 233.68 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "34c1cc6a-bc63-45ba-a3cc-70eb57727e6f")
 		)
@@ -4829,7 +5016,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1cbb4108-ee82-4cb0-9ed0-c2d020ff9803")
-		(property "Reference" "#PWR087"
+		(property "Reference" "#PWR090"
 			(at 215.9 133.35 0)
 			(effects
 				(font
@@ -4880,7 +5067,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR087")
+					(reference "#PWR090")
 					(unit 1)
 				)
 			)
@@ -4998,38 +5185,6 @@
 					(size 1.016 1.016)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 194.31 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 194.31 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 194.31 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 194.31 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "1"
@@ -5161,38 +5316,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 121.92 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 121.92 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 121.92 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 121.92 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "ff54f83d-bdd4-4137-bcff-255316787d17")
 		)
@@ -5322,38 +5445,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 176.53 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 176.53 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 176.53 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 176.53 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "87114d56-7204-41a0-ad55-0ed8fc3ada3f")
 		)
@@ -5370,6 +5461,101 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 152.4 163.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "346e66b2-4bcf-4b83-89fb-e4d9e79ff392")
+		(property "Reference" "TP17"
+			(at 151.13 163.83 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 152.4 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d4079c8a-9118-451e-96be-deff44d976c3")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
+					(reference "TP17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_pwr:VSS")
 		(at 224.79 133.35 0)
 		(unit 1)
@@ -5379,7 +5565,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "367d5422-3844-4bb3-9dbb-b46b00c1dfd8")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR091"
 			(at 224.79 133.35 0)
 			(effects
 				(font
@@ -5430,7 +5616,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR088")
+					(reference "#PWR091")
 					(unit 1)
 				)
 			)
@@ -5550,38 +5736,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 185.42 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 185.42 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 185.42 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 185.42 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "7d829139-9b98-4068-9b0c-e503213cb825")
 		)
@@ -5677,38 +5831,6 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
-			)
-		)
-		(property "Frequency" ""
-			(at 251.46 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 251.46 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 251.46 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 251.46 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "1"
@@ -5870,38 +5992,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 147.32 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 147.32 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 147.32 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 147.32 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "868bf609-2fbf-44cf-849c-c873e56b1483")
 		)
@@ -6031,38 +6121,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 86.36 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 86.36 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 86.36 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 86.36 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "5b140fab-b88f-4942-bd0d-806acea569d1")
 		)
@@ -6088,7 +6146,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "52248778-ee63-4dcd-a6ab-4e168f9430a6")
-		(property "Reference" "#PWR085"
+		(property "Reference" "#PWR088"
 			(at 167.64 115.57 0)
 			(effects
 				(font
@@ -6139,7 +6197,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR085")
+					(reference "#PWR088")
 					(unit 1)
 				)
 			)
@@ -6155,7 +6213,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "53e522fc-39d8-43eb-a83b-716cb2fba942")
-		(property "Reference" "#PWR080"
+		(property "Reference" "#PWR083"
 			(at 86.36 73.66 0)
 			(effects
 				(font
@@ -6206,7 +6264,74 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR080")
+					(reference "#PWR083")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:VSS")
+		(at 157.48 176.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "53f9fe57-010c-4a78-8d1d-9ef666917aa8")
+		(property "Reference" "#PWR097"
+			(at 157.48 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 157.48 180.34 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 157.48 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 157.48 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 157.48 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dd31e998-330b-44e5-8c52-07f7fb58680b")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
+					(reference "#PWR097")
 					(unit 1)
 				)
 			)
@@ -6323,38 +6448,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 228.6 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 228.6 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 228.6 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 228.6 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "f12bf416-d863-4095-8ac2-d81974af1612")
 		)
@@ -6451,38 +6544,6 @@
 				(hide yes)
 			)
 		)
-		(property "Frequency" ""
-			(at 212.09 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 212.09 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 212.09 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 212.09 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "5"
 			(uuid "48a83d9f-166f-4c81-b703-b77ffd2f5906")
 		)
@@ -6520,7 +6581,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "645154f4-12c4-4a89-8a07-faa8f2501c78")
-		(property "Reference" "#FLG06"
+		(property "Reference" "#FLG013"
 			(at 219.71 76.2 0)
 			(effects
 				(font
@@ -6571,7 +6632,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#FLG06")
+					(reference "#FLG013")
 					(unit 1)
 				)
 			)
@@ -6690,38 +6751,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 101.6 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "63eab9c3-3bc6-4e78-aaf4-539095e8f3e7")
 		)
@@ -6747,7 +6776,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6fb58ed8-f089-4f24-9275-d9cf8a3434aa")
-		(property "Reference" "#PWR090"
+		(property "Reference" "#PWR093"
 			(at 157.48 137.16 0)
 			(effects
 				(font
@@ -6798,7 +6827,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR090")
+					(reference "#PWR093")
 					(unit 1)
 				)
 			)
@@ -6918,38 +6947,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 175.26 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 175.26 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 175.26 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 175.26 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "bffa6365-32a7-4008-81e2-8b608258f4fc")
 		)
@@ -6975,7 +6972,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "783b1089-662e-4da6-986f-87bb3d383e6e")
-		(property "Reference" "#PWR081"
+		(property "Reference" "#PWR084"
 			(at 156.21 83.82 0)
 			(effects
 				(font
@@ -7026,7 +7023,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR081")
+					(reference "#PWR084")
 					(unit 1)
 				)
 			)
@@ -7146,38 +7143,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 95.25 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 95.25 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 95.25 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 95.25 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "f3962ef4-0fac-4487-aedc-c240e4e447a7")
 		)
@@ -7203,7 +7168,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "842f7b72-15bb-4fa9-9e23-4d92e303741f")
-		(property "Reference" "#PWR083"
+		(property "Reference" "#PWR086"
 			(at 199.39 87.63 0)
 			(effects
 				(font
@@ -7254,7 +7219,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR083")
+					(reference "#PWR086")
 					(unit 1)
 				)
 			)
@@ -7373,38 +7338,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 139.7 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 139.7 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 139.7 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 139.7 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "5cd26dda-ce60-442d-8559-7008580a585e")
 		)
@@ -7415,6 +7348,101 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
 					(reference "C37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 152.4 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8e76a496-c86f-4a67-9f86-b234f1c09429")
+		(property "Reference" "TP16"
+			(at 151.13 160.02 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 152.4 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1c73d955-0f1a-4d31-addb-64500a0b4f89")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
+					(reference "TP16")
 					(unit 1)
 				)
 			)
@@ -7540,38 +7568,6 @@
 					(size 0.762 0.762)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 130.81 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 130.81 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 130.81 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 130.81 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "1"
@@ -7700,38 +7696,6 @@
 					(size 0.762 0.762)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 93.98 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 93.98 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 93.98 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 93.98 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "1"
@@ -7863,38 +7827,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 224.79 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 224.79 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 224.79 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 224.79 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "2017703c-d4e9-48e3-8186-14082f27edff")
 		)
@@ -7905,6 +7837,101 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
 					(reference "R31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 152.4 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9934960c-b8f2-4af4-8877-d86a34765b23")
+		(property "Reference" "TP18"
+			(at 151.13 167.64 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 152.4 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "65c67928-8801-4aa4-b3e8-6457ea7e1f57")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
+					(reference "TP18")
 					(unit 1)
 				)
 			)
@@ -8022,38 +8049,6 @@
 					(size 1.016 1.016)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 104.14 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 104.14 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 104.14 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 104.14 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
@@ -8184,38 +8179,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 71.12 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 71.12 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 71.12 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 71.12 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "23bba990-29ac-4563-86f7-35c13d48c6ef")
 		)
@@ -8241,7 +8204,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b430299-5bdf-46f4-b403-55637ad1c106")
-		(property "Reference" "#PWR093"
+		(property "Reference" "#PWR096"
 			(at 185.42 137.16 0)
 			(effects
 				(font
@@ -8292,7 +8255,102 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR093")
+					(reference "#PWR096")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 152.4 171.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a5eaebbf-004e-4bc8-89be-0c49a3399135")
+		(property "Reference" "TP19"
+			(at 151.13 171.45 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "N/A"
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "N/A"
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "N/A"
+			(at 152.4 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a4cc7423-a9f4-4e97-94fa-9d60149278df")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
+					(reference "TP19")
 					(unit 1)
 				)
 			)
@@ -8412,38 +8470,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 156.21 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 156.21 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 156.21 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 156.21 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "a3279987-0449-465d-811c-1a8a86686791")
 		)
@@ -8469,7 +8495,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a77a0cbd-735c-4490-b976-928b57b17847")
-		(property "Reference" "#PWR092"
+		(property "Reference" "#PWR095"
 			(at 175.26 137.16 0)
 			(effects
 				(font
@@ -8520,7 +8546,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR092")
+					(reference "#PWR095")
 					(unit 1)
 				)
 			)
@@ -8640,38 +8666,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 167.64 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 167.64 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 167.64 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 167.64 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "f2a19d66-689d-4558-908d-9f810bd4b8e8")
 		)
@@ -8697,7 +8691,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a90d17c9-9e2a-4faa-8673-1230053de1e8")
-		(property "Reference" "#PWR086"
+		(property "Reference" "#PWR089"
 			(at 185.42 123.19 0)
 			(effects
 				(font
@@ -8748,7 +8742,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR086")
+					(reference "#PWR089")
 					(unit 1)
 				)
 			)
@@ -8836,38 +8830,6 @@
 				(hide yes)
 			)
 		)
-		(property "Frequency" ""
-			(at 139.7 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 139.7 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 139.7 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 139.7 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "10"
 			(uuid "908eafca-ded5-41a6-a3f2-1b94310a3c51")
 		)
@@ -8947,6 +8909,101 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
 					(reference "U6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Testpoint")
+		(at 152.4 175.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "aeac117c-a07a-4a33-92f5-11e04889bebe")
+		(property "Reference" "TP20"
+			(at 151.13 175.26 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "RCWCTE"
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/KOA-RC-Series.pdf"
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "PC TEST POINT"
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "KOA Speer Electronics, Inc."
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RCWCTE"
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "2019-RCWCTECT-ND"
+			(at 152.4 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0ef2d8a0-5159-4e7f-b0ec-2ee852a5784a")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
+					(reference "TP20")
 					(unit 1)
 				)
 			)
@@ -9064,38 +9121,6 @@
 					(size 1.016 1.016)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 165.1 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 165.1 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 165.1 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 165.1 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
@@ -9227,38 +9252,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 185.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 185.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 185.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 185.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "4410d8f5-cea3-49d6-b871-dbdbbf6254d5")
 		)
@@ -9284,7 +9277,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cf5440bf-3cd9-495d-968f-f610d901370e")
-		(property "Reference" "#PWR091"
+		(property "Reference" "#PWR094"
 			(at 165.1 137.16 0)
 			(effects
 				(font
@@ -9335,7 +9328,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR091")
+					(reference "#PWR094")
 					(unit 1)
 				)
 			)
@@ -9455,38 +9448,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 215.9 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 215.9 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 215.9 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 215.9 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "1"
 			(uuid "201fef85-ed87-416e-b1a9-74e1bae29c00")
 		)
@@ -9512,7 +9473,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "df109c94-fb27-4620-bb1b-4ff369290ed4")
-		(property "Reference" "#PWR084"
+		(property "Reference" "#PWR087"
 			(at 67.31 110.49 0)
 			(effects
 				(font
@@ -9563,7 +9524,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR084")
+					(reference "#PWR087")
 					(unit 1)
 				)
 			)
@@ -9683,38 +9644,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 113.03 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 113.03 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 113.03 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 113.03 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "9e44dac8-ab6d-4461-8f5b-e7d8acd1d676")
 		)
@@ -9740,7 +9669,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e8cb0123-8243-4416-8ef8-6067f7768743")
-		(property "Reference" "#PWR082"
+		(property "Reference" "#PWR085"
 			(at 233.68 86.36 0)
 			(effects
 				(font
@@ -9791,7 +9720,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR082")
+					(reference "#PWR085")
 					(unit 1)
 				)
 			)
@@ -9908,38 +9837,6 @@
 					(size 0.762 0.762)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 160.02 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 160.02 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 160.02 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 160.02 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
@@ -10070,38 +9967,6 @@
 				(justify left)
 			)
 		)
-		(property "Frequency" ""
-			(at 71.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 71.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 71.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 71.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "6eb82597-ad6e-4620-b6af-7668add1bf16")
 		)
@@ -10228,38 +10093,6 @@
 					(size 0.762 0.762)
 				)
 				(justify left)
-			)
-		)
-		(property "Frequency" ""
-			(at 71.12 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Tolerace" ""
-			(at 71.12 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Trip Current" ""
-			(at 71.12 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Voltage" ""
-			(at 71.12 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "1"
