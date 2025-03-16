@@ -6,8 +6,8 @@
 	(paper "USLetter")
 	(title_block
 		(title "U-bolx ZED-F9P M.2 E-Key")
-		(date "2025-01-13")
-		(rev "01")
+		(date "2025-03-16")
+		(rev "1.1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
 	)
@@ -8527,6 +8527,16 @@
 	)
 	(wire
 		(pts
+			(xy 44.45 82.55) (xy 44.45 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "086de7dc-29d3-45c5-a7d8-688687f00cab")
+	)
+	(wire
+		(pts
 			(xy 241.3 142.24) (xy 241.3 144.78)
 		)
 		(stroke
@@ -9587,16 +9597,6 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 82.55) (xy 50.8 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "91a08697-a0f5-489c-ab86-690747604b0e")
-	)
-	(wire
-		(pts
 			(xy 88.9 69.85) (xy 88.9 71.12)
 		)
 		(stroke
@@ -9724,6 +9724,16 @@
 			(type default)
 		)
 		(uuid "aa87dbe9-3d16-4a09-9ebc-f045c5196c67")
+	)
+	(wire
+		(pts
+			(xy 50.8 82.55) (xy 50.8 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abd317ba-3c62-4c87-91ea-45fe77d71425")
 	)
 	(wire
 		(pts
@@ -10167,16 +10177,6 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 82.55) (xy 44.45 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e6b0a05b-2dfa-43b7-b6b9-356ebbbc8120")
-	)
-	(wire
-		(pts
 			(xy 63.5 97.79) (xy 66.04 97.79)
 		)
 		(stroke
@@ -10375,6 +10375,16 @@
 		)
 		(uuid "4273798b-c1d2-41d4-bad0-ad9453542916")
 	)
+	(label "ZED_TXD_1V8"
+		(at 255.27 73.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4291df1a-1225-4ebd-8301-4af5bb438beb")
+	)
 	(label "RESET_N"
 		(at 180.34 22.86 0)
 		(effects
@@ -10484,16 +10494,6 @@
 			(justify right bottom)
 		)
 		(uuid "6fa2d2fe-8a61-46ce-ac4f-8010c3da32e7")
-	)
-	(label "ZED_TXD_1V8"
-		(at 255.27 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "700c97c3-5dca-4ff2-b761-78ddaa0a70f9")
 	)
 	(label "EXTINT"
 		(at 88.9 142.24 0)
@@ -10655,16 +10655,6 @@
 		)
 		(uuid "c55c5a94-2386-4e71-91b5-73324f0f4beb")
 	)
-	(label "ZED_RXD_1V8"
-		(at 255.27 73.66 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c9a63a53-bca6-4770-8ab5-f0584b026b61")
-	)
 	(label "SCL_1V8"
 		(at 251.46 40.64 180)
 		(effects
@@ -10674,6 +10664,16 @@
 			(justify right bottom)
 		)
 		(uuid "cdfa8426-3949-48a2-b9ba-79d769054d72")
+	)
+	(label "ZED_RXD_1V8"
+		(at 255.27 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d4654916-89fa-4990-ba5c-ec1875106a84")
 	)
 	(label "SCL_3V3"
 		(at 88.9 182.88 0)
@@ -12158,7 +12158,7 @@
 	(symbol
 		(lib_name "Testpoint_1")
 		(lib_id "lib_sch:Testpoint_1")
-		(at 44.45 82.55 0)
+		(at 50.8 82.55 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -12167,7 +12167,7 @@
 		(fields_autoplaced yes)
 		(uuid "2cba1faa-8656-4193-9235-39d0e0a406c3")
 		(property "Reference" "TP6"
-			(at 44.45 76.2 0)
+			(at 50.8 76.2 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12175,8 +12175,8 @@
 				)
 			)
 		)
-		(property "Value" "RXD"
-			(at 44.45 78.105 0)
+		(property "Value" "TXD"
+			(at 50.8 78.105 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12185,7 +12185,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:TP_1mm"
-			(at 44.45 80.01 90)
+			(at 50.8 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12194,7 +12194,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 44.45 80.01 90)
+			(at 50.8 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12203,7 +12203,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 44.45 80.01 90)
+			(at 50.8 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12212,7 +12212,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 44.45 80.01 90)
+			(at 50.8 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12221,7 +12221,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 44.45 80.01 90)
+			(at 50.8 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12230,7 +12230,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 44.45 80.01 90)
+			(at 50.8 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16950,7 +16950,7 @@
 	(symbol
 		(lib_name "Testpoint_1")
 		(lib_id "lib_sch:Testpoint_1")
-		(at 50.8 82.55 0)
+		(at 44.45 82.55 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -16959,7 +16959,7 @@
 		(fields_autoplaced yes)
 		(uuid "aea03039-385d-424e-b07a-06830b4e3436")
 		(property "Reference" "TP7"
-			(at 50.8 76.2 0)
+			(at 44.45 76.2 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -16967,8 +16967,8 @@
 				)
 			)
 		)
-		(property "Value" "TXD"
-			(at 50.8 78.105 0)
+		(property "Value" "RXD"
+			(at 44.45 78.105 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -16977,7 +16977,7 @@
 			)
 		)
 		(property "Footprint" "lib_fp:TP_1mm"
-			(at 50.8 80.01 90)
+			(at 44.45 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16986,7 +16986,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 50.8 80.01 90)
+			(at 44.45 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16995,7 +16995,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 50.8 80.01 90)
+			(at 44.45 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17004,7 +17004,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 50.8 80.01 90)
+			(at 44.45 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17013,7 +17013,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 50.8 80.01 90)
+			(at 44.45 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17022,7 +17022,7 @@
 			)
 		)
 		(property "DKPN" ""
-			(at 50.8 80.01 90)
+			(at 44.45 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
