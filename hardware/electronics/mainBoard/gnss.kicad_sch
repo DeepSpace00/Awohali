@@ -1375,6 +1375,43 @@
 					)
 				)
 				(pin passive line
+					(at 5.08 -48.26 90)
+					(length 2.54)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -48.26 90)
+					(length 2.54)
+					(hide yes)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
 					(at 25.4 43.18 180)
 					(length 2.54)
 					(name "RESERVED"
@@ -4504,6 +4541,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 156.21) (xy 144.78 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f774c4c-078d-4f63-9fdb-a110f86b12f2")
+	)
+	(wire
+		(pts
 			(xy 40.64 128.27) (xy 53.34 128.27)
 		)
 		(stroke
@@ -6148,7 +6195,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_ICs:SOT583"
 			(at 215.9 38.1 0)
 			(effects
 				(font
@@ -6391,7 +6438,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_switches:JS102011JCQN"
 			(at 25.4 109.22 0)
 			(effects
 				(font
@@ -7629,7 +7676,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_connectors:MDT420E01001"
 			(at 139.7 81.28 0)
 			(effects
 				(font
@@ -7883,6 +7930,12 @@
 		)
 		(pin "53"
 			(uuid "4dafb3a5-07c8-4bb9-b06c-96e809de59f3")
+		)
+		(pin "S1"
+			(uuid "7aafd6cf-0ee4-4fbf-a049-4397e76e9bf1")
+		)
+		(pin "S2"
+			(uuid "3c6600f7-fe06-4516-b48c-aa3d5a3500a2")
 		)
 		(instances
 			(project ""
@@ -8372,7 +8425,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_ICs:QFN40P170X200X55-12"
 			(at 63.5 181.61 0)
 			(effects
 				(font
@@ -8533,6 +8586,73 @@
 			(project ""
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/a790e55f-aead-4e0e-93f9-b61f88112fc6"
 					(reference "#FLG016")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:VSS")
+		(at 144.78 157.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6b81950f-0e04-4a63-80a5-f61f173db900")
+		(property "Reference" "#PWR0303"
+			(at 144.78 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 144.78 161.29 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.78 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 144.78 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b5a91cc3-b1f2-48ed-bf0a-35d58d92e7e8")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/a790e55f-aead-4e0e-93f9-b61f88112fc6"
+					(reference "#PWR0303")
 					(unit 1)
 				)
 			)
@@ -10188,7 +10308,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_ICs:QFN40P170X200X55-12"
 			(at 63.5 130.81 0)
 			(effects
 				(font
@@ -11550,7 +11670,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "lib_switches:JS102011JCQN"
 			(at 25.4 160.02 0)
 			(effects
 				(font
