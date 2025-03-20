@@ -1,7 +1,7 @@
 (footprint "MJR-5381-X1"
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
 		(at 0 -14 0)
@@ -10,8 +10,8 @@
 		(uuid "bbf1351c-3fa7-4faa-b645-17283432ab43")
 		(effects
 			(font
-				(size 1 1)
-				(thickness 0.1)
+				(size 0.75 0.75)
+				(thickness 0.12)
 			)
 		)
 	)
@@ -25,19 +25,6 @@
 			(font
 				(size 0.5 0.5)
 				(thickness 0.05)
-			)
-		)
-	)
-	(property "Footprint" ""
-		(at 0 0 0)
-		(unlocked yes)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "29911c1f-6e71-4050-bc45-b719c1746434")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
 			)
 		)
 	)
@@ -125,9 +112,29 @@
 			(width 0.05)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.CrtYd")
 		(uuid "f7dbbcac-d990-4d75-a2f0-6480e10826ab")
+	)
+	(fp_line
+		(start -10 4)
+		(end -10 6.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "c347cfe9-e502-465b-ae87-5e901a782347")
+	)
+	(fp_line
+		(start 10 4)
+		(end 10 6.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "64480923-fcfb-4bd9-b8a5-997241939b09")
 	)
 	(fp_rect
 		(start -15.15 4)
@@ -136,7 +143,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "a91000fe-252b-4604-af00-3bc7b734a259")
 	)
@@ -147,7 +154,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "489ef456-c5e0-46e5-9f83-5a3f9797c10c")
 	)
@@ -158,7 +165,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "37364957-96d3-4061-b016-34fe2dcc0244")
 	)
@@ -332,6 +339,10 @@
 			(copperpour allowed)
 			(footprints not_allowed)
 		)
+		(placement
+			(enabled no)
+			(sheetname "")
+		)
 		(fill
 			(thermal_gap 0.5)
 			(thermal_bridge_width 0.5)
@@ -343,6 +354,7 @@
 			)
 		)
 	)
+	(embedded_fonts no)
 	(model "${KIPRJMOD}/libraries/lib_3d/MRJR-538X-01.STEP"
 		(offset
 			(xyz 0 -13 7.5)
