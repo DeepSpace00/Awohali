@@ -98,6 +98,26 @@
 		(layer "F.CrtYd")
 		(uuid "c49b8568-2607-44ea-b9ab-8861f165dc1f")
 	)
+	(fp_line
+		(start 0 -0.35)
+		(end 0 0.35)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "099e5259-6822-4f06-b065-6d6779b9f400")
+	)
+	(fp_line
+		(start 0.35 0)
+		(end -0.35 0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c301a80d-bafd-4538-b189-a5bed3b1efc9")
+	)
 	(fp_rect
 		(start -1 -1)
 		(end 1 1)
@@ -109,12 +129,35 @@
 		(layer "F.Fab")
 		(uuid "583eb6b5-9a86-44ae-8c06-dd6d60bd2261")
 	)
+	(fp_circle
+		(center 0 0)
+		(end 0 0.25)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "21ca1e1d-316f-40e5-9840-3161860c83cf")
+	)
 	(fp_text user "${REFERENCE}"
 		(at 0 0 0)
 		(unlocked yes)
 		(layer "F.Fab")
 		(hide yes)
 		(uuid "b6d920bd-9fe7-42ff-8c2f-888cbaadf034")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.05)
+			)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 270)
+		(layer "User.1")
+		(hide yes)
+		(uuid "89b512fb-87e1-4f76-b3c1-76ab48eeb59e")
 		(effects
 			(font
 				(size 0.5 0.5)
