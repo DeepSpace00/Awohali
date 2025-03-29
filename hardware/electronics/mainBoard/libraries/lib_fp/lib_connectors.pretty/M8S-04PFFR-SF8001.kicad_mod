@@ -1,7 +1,7 @@
 (footprint "M8S-04PFFR-SF8001"
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
 		(at 0 3.05 0)
@@ -25,19 +25,6 @@
 			(font
 				(size 0.5 0.5)
 				(thickness 0.05)
-			)
-		)
-	)
-	(property "Footprint" ""
-		(at 0 0 0)
-		(unlocked yes)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "d523908f-4b8e-455f-a2e3-95f9a340f72e")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
 			)
 		)
 	)
@@ -85,7 +72,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.CrtYd")
 		(uuid "d0f31bfb-1365-4fc2-9159-675d83962ac0")
 	)
@@ -96,7 +83,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "d7438833-4789-496d-8500-dc8ab12d790e")
 	)
@@ -107,7 +94,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "c3f8e22c-86c4-4f70-8757-be13335b79d0")
 	)
@@ -118,7 +105,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "11c7148c-b665-41e7-851f-7755e6c3c30e")
 	)
@@ -179,22 +166,23 @@
 		(remove_unused_layers no)
 		(uuid "6d3076a7-15c0-43e2-b2fb-48cf6c08b0be")
 	)
-	(pad "S1" thru_hole circle
+	(pad "S1" thru_hole oval
 		(at -6.25 0)
-		(size 3.75 3.75)
-		(drill 3)
+		(size 2 3.75)
+		(drill oval 1.25 3)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "3a99bd70-2ea2-403a-9d3a-8f5ae6106936")
 	)
-	(pad "S2" thru_hole circle
+	(pad "S2" thru_hole oval
 		(at 6.25 0)
-		(size 3.75 3.75)
-		(drill 3)
+		(size 2 3.75)
+		(drill oval 1.25 3)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "8736d161-0ffd-4ee7-8c08-c3638d83e5ec")
 	)
+	(embedded_fonts no)
 	(model "${KIPRJMOD}/libraries/lib_3d/M8S-04PFFR-SF8001.STEP"
 		(offset
 			(xyz 0 18.15 6.35)
