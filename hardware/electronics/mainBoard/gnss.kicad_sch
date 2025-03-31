@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "GNSS Card")
-		(date "2025-03-20")
+		(date "2025-03-31")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -4046,6 +4046,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5818ddea-6d6d-4be6-91e7-47b028c7afe9")
+	)
+	(junction
+		(at 228.6 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7d422507-ed79-42e0-868f-442aee08e23e")
 	)
 	(junction
 		(at 228.6 45.72)
@@ -10998,6 +11004,73 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/a790e55f-aead-4e0e-93f9-b61f88112fc6"
 					(reference "C49")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:+3V3")
+		(at 228.6 40.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e286910c-fc94-432d-8480-d26773120e7e")
+		(property "Reference" "#PWR0119"
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 228.6 37.084 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2984bbec-15b8-4049-94ff-cd442c06c6d7")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/a790e55f-aead-4e0e-93f9-b61f88112fc6"
+					(reference "#PWR0119")
 					(unit 1)
 				)
 			)

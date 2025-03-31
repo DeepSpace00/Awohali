@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "LTE Card")
-		(date "2025-03-20")
+		(date "2025-03-31")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -4496,6 +4496,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "36a3150f-7c42-4bf0-b019-39ebc69db9fb")
+	)
+	(junction
+		(at 228.6 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4dfde185-3298-4124-8d15-0e04dfa75384")
 	)
 	(junction
 		(at 50.8 52.07)
@@ -11943,6 +11949,73 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7ff6c767-11c2-4c6d-a16f-82c26617ef6d"
 					(reference "C64")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:+3V3")
+		(at 228.6 40.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d6705638-d8da-4ab5-9772-c2c657f5c652")
+		(property "Reference" "#PWR0120"
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 228.6 37.084 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "987d981e-6b3f-4e38-9d2d-dff34a2c95a2")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7ff6c767-11c2-4c6d-a16f-82c26617ef6d"
+					(reference "#PWR0120")
 					(unit 1)
 				)
 			)

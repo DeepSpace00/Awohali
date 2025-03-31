@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Auxillary M.2 Card")
-		(date "2025-03-20")
+		(date "2025-03-31")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -4532,6 +4532,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "73d518a0-1956-4e3c-a7fa-b1a654fdc173")
+	)
+	(junction
+		(at 228.6 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "92ecf489-ea1d-4d24-b46f-7b7e00aef9af")
 	)
 	(junction
 		(at 80.01 52.07)
@@ -10361,6 +10367,73 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/571f6c84-8d33-4174-99a4-33ea9071a243"
 					(reference "#PWR0158")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:+3V3")
+		(at 228.6 40.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7341f8f9-2b6a-42c9-b90a-e5bc225c59c4")
+		(property "Reference" "#PWR0143"
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 228.6 37.084 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "68f2de1a-c4f6-472f-91a0-bdbd397b8211")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/571f6c84-8d33-4174-99a4-33ea9071a243"
+					(reference "#PWR0143")
 					(unit 1)
 				)
 			)
