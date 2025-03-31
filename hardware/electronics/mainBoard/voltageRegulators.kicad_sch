@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Voltage Regulators")
-		(date "2025-03-20")
+		(date "2025-03-31")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -9905,7 +9905,7 @@
 				)
 			)
 		)
-		(property "Footprint" "lib_connectors:conn_01x04_254_right_angle"
+		(property "Footprint" "lib_connectors:conn_01x04_254"
 			(at 241.3 35.56 0)
 			(effects
 				(font
@@ -9914,7 +9914,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Sullins-xRxCzzzSxxN-M71RC.pdf"
+		(property "Datasheet" "datasheets/Sullins-xRxCzzzSxxN-RC.pdf"
 			(at 241.3 35.56 0)
 			(effects
 				(font
@@ -9923,7 +9923,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "CONN HEADER R/A 4POS 2.54MM"
+		(property "Description" "CONN HEADER VERT 4POS 2.54MM"
 			(at 241.3 35.56 0)
 			(effects
 				(font
@@ -9941,7 +9941,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "PRPC004SBAN-M71RC"
+		(property "MPN" "PRPC004SAAN-RC"
 			(at 241.3 35.56 0)
 			(effects
 				(font
@@ -9950,7 +9950,7 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "S1111EC-04-ND"
+		(property "DKPN" "S1011EC-04-ND"
 			(at 241.3 35.56 0)
 			(effects
 				(font
@@ -10137,6 +10137,106 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/8fe11cde-b323-4b38-a163-6c6134ab47c7"
 					(reference "TP99")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:Conn_01x04_Pin")
+		(at 187.96 124.46 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7a463c56-61c4-4de1-9230-7289539d6a4c")
+		(property "Reference" "J31"
+			(at 187.96 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x04_Pin"
+			(at 187.96 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_connectors:conn_01x04_254"
+			(at 187.96 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Sullins-xRxCzzzSxxN-RC.pdf"
+			(at 187.96 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CONN HEADER VERT 4POS 2.54MM"
+			(at 187.96 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Sullins Connector Solutions"
+			(at 187.96 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "PRPC004SAAN-RC"
+			(at 187.96 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "S1011EC-04-ND"
+			(at 187.96 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "97e7a4e6-2cd8-4435-9064-89d2148825fc")
+		)
+		(pin "2"
+			(uuid "7f8c9044-11b0-46d4-b433-1b563005fb6f")
+		)
+		(pin "3"
+			(uuid "6d9fe16a-a59c-4c93-b01f-d51d8bcfc632")
+		)
+		(pin "4"
+			(uuid "0a395348-fcee-4f07-bceb-c9ae7940a12a")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/8fe11cde-b323-4b38-a163-6c6134ab47c7"
+					(reference "J31")
 					(unit 1)
 				)
 			)
@@ -11477,106 +11577,6 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/8fe11cde-b323-4b38-a163-6c6134ab47c7"
 					(reference "C134")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:Conn_01x04_Pin")
-		(at 187.96 124.46 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "a4c163e2-1fc1-4a81-96aa-9d1f7c13e3b6")
-		(property "Reference" "J31"
-			(at 187.96 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Conn_01x04_Pin"
-			(at 187.96 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_connectors:conn_01x04_254_right_angle"
-			(at 187.96 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Sullins-xRxCzzzSxxN-M71RC.pdf"
-			(at 187.96 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "CONN HEADER R/A 4POS 2.54MM"
-			(at 187.96 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Sullins Connector Solutions"
-			(at 187.96 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "PRPC004SBAN-M71RC"
-			(at 187.96 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "S1111EC-04-ND"
-			(at 187.96 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "44256045-ec8c-46c9-a48b-44ae9e11d6b9")
-		)
-		(pin "2"
-			(uuid "67ef3676-5d6c-4fd8-91f1-890b0f06d47f")
-		)
-		(pin "3"
-			(uuid "1bba7340-ac78-4730-b9db-ebb6b07388ab")
-		)
-		(pin "4"
-			(uuid "5b153ac7-883a-454b-8cc2-d1fbc02ec218")
-		)
-		(instances
-			(project "mainBoard"
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/8fe11cde-b323-4b38-a163-6c6134ab47c7"
-					(reference "J31")
 					(unit 1)
 				)
 			)
