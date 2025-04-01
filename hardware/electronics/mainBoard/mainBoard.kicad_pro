@@ -38,8 +38,8 @@
         "other_text_upright": false,
         "pads": {
           "drill": 0.0,
-          "height": 0.25,
-          "width": 0.25
+          "height": 0.7,
+          "width": 0.6
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.0
+          "min_clearance": 0.127
         }
       },
       "diff_pair_dimensions": [
@@ -571,28 +571,47 @@
         "wire_width": 6
       },
       {
+        "clearance": 0.75,
+        "diff_pair_gap": 0.75,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.5,
+        "microvia_drill": 0.2,
         "name": "CANBus",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
-        "schematic_color": "rgba(0, 0, 0, 0.000)"
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2,
+        "via_diameter": 0.5,
+        "via_drill": 0.2
       },
       {
+        "clearance": 0.15,
+        "diff_pair_gap": 0.15,
+        "diff_pair_width": 0.7215,
+        "microvia_diameter": 1.0,
+        "microvia_drill": 0.5,
         "name": "MII",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)"
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.7215,
+        "via_diameter": 1.0,
+        "via_drill": 0.5
       },
       {
+        "clearance": 0.2,
         "name": "RF",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2,
-        "schematic_color": "rgba(0, 0, 0, 0.000)"
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.301,
+        "via_diameter": 0.6
       },
       {
         "bus_width": 12,
-        "clearance": 0.25,
-        "diff_pair_gap": 0.25,
-        "diff_pair_width": 0.362,
+        "clearance": 0.3,
+        "diff_pair_gap": 0.3,
+        "diff_pair_width": 0.31,
         "line_style": 0,
         "microvia_diameter": 0.6,
         "microvia_drill": 0.3,
@@ -600,7 +619,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.362,
+        "track_width": 0.31,
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
@@ -616,6 +635,12 @@
       ],
       "/CANBus Transceivers/CANL": [
         "CANBus"
+      ],
+      "/EPS Controller/USB_FS.DN": [
+        "USB"
+      ],
+      "/EPS Controller/USB_FS.DP": [
+        "USB"
       ],
       "/Ethernet/RMII.CRS_DV": [
         "MII"
