@@ -51,6 +51,13 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+void MX_I2C2_Init(void);
+void MX_I2C3_Init(void);
+void MX_I2C4_Init(void);
+void MX_UART4_Init(void);
+void MX_UART5_Init(void);
+void MX_USART3_UART_Init(void);
+void MX_USART6_UART_Init(void);
 
 /* USER CODE BEGIN EFP */
 
