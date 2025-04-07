@@ -1,0 +1,28 @@
+** Profile: "TPS543B22-STARTUP-transient"  [ C:\Users\madis\Documents\Repositories\DeepSpace00\Awohali\hardware\electronics\mainBoard\libraries\lib_spice\TPS543B22_PSPICE_TRANS\tps543b22_trans-pspicefiles\tps543b22-startup\transient.sim ] 
+
+** Creating circuit file "transient.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+.LIB "../../../we-xhmi.lib" 
+.LIB "../../../tps543b22_trans.lib" 
+* From [PSPICE NETLIST] section of C:\cds_spb_home\cdssetup\OrCAD_PSpiceTIPSpice_Install\23.1.0\PSpice.ini file:
+.lib "nom_pspti.lib" 
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 2m 0 50n SKIPBP 
+.OPTIONS FILEMODELSEARCH
+.OPTIONS ABSTOL= 10p
+.OPTIONS GMIN= 1n
+.OPTIONS ITL2= 50
+.OPTIONS ITL4= 20
+.OPTIONS METHOD= Gear
+.OPTIONS TRTOL= 1000
+.PROBE64 V(alias(*)) I(alias(*)) 
+.INC "..\TPS543B22-STARTUP.net" 
+
+
+.END
