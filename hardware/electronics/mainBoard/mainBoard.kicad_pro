@@ -38,8 +38,8 @@
         "other_text_upright": false,
         "pads": {
           "drill": 0.0,
-          "height": 0.7,
-          "width": 0.6
+          "height": 0.25,
+          "width": 0.25
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -571,47 +571,28 @@
         "wire_width": 6
       },
       {
-        "clearance": 0.75,
-        "diff_pair_gap": 0.75,
-        "diff_pair_width": 0.2,
-        "microvia_diameter": 0.5,
-        "microvia_drill": 0.2,
         "name": "CANBus",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
-        "via_diameter": 0.5,
-        "via_drill": 0.2
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
-        "clearance": 0.15,
-        "diff_pair_gap": 0.15,
-        "diff_pair_width": 0.7215,
-        "microvia_diameter": 1.0,
-        "microvia_drill": 0.5,
-        "name": "MII",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.7215,
-        "via_diameter": 1.0,
-        "via_drill": 0.5
-      },
-      {
-        "clearance": 0.2,
         "name": "RF",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.301,
-        "via_diameter": 0.6
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
+        "name": "RMII",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
         "bus_width": 12,
-        "clearance": 0.3,
-        "diff_pair_gap": 0.3,
-        "diff_pair_width": 0.31,
+        "clearance": 0.25,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.362,
         "line_style": 0,
         "microvia_diameter": 0.6,
         "microvia_drill": 0.3,
@@ -619,7 +600,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.31,
+        "track_width": 0.362,
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
@@ -643,31 +624,31 @@
         "USB"
       ],
       "/Ethernet/RMII.CRS_DV": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.MDC": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.MDIO": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.REF_CLK": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.RXD0": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.RXD1": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.TXD0": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.TXD1": [
-        "MII"
+        "RMII"
       ],
       "/Ethernet/RMII.TX_EN": [
-        "MII"
+        "RMII"
       ],
       "/RF Interface/AUX_RF-IN": [
         "RF"
@@ -1039,10 +1020,6 @@
       "Environmental Sensors"
     ],
     [
-      "c0203235-08db-49a1-a217-6943ab2af0f0",
-      "H7 Debugger"
-    ],
-    [
       "33ed3f59-5a0e-4fda-9238-d9f0ec67772d",
       "EPS Controller"
     ],
@@ -1057,10 +1034,6 @@
     [
       "8fe11cde-b323-4b38-a163-6c6134ab47c7",
       "Voltage Regulators"
-    ],
-    [
-      "df26174f-2ea5-483c-9533-6572426fece1",
-      "L0 Debugger"
     ]
   ],
   "text_variables": {}
