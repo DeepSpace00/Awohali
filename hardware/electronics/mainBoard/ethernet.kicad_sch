@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Ethernet")
-		(date "2025-03-31")
+		(date "2025-04-08")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -1739,78 +1739,6 @@
 					)
 				)
 				(pin input line
-					(at -15.24 11.43 0)
-					(length 2.54)
-					(name "RXD0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 8.89 0)
-					(length 2.54)
-					(name "RXD1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 6.35 0)
-					(length 2.54)
-					(name "RXER"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -15.24 1.27 0)
-					(length 2.54)
-					(name "CRS_DV"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
 					(at -15.24 -3.81 0)
 					(length 2.54)
 					(name "MDC"
@@ -1839,42 +1767,6 @@
 						)
 					)
 					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 -11.43 0)
-					(length 2.54)
-					(name "nRST"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 -13.97 0)
-					(length 2.54)
-					(name "nINT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1947,42 +1839,6 @@
 						)
 					)
 					(number "22"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 15.24 8.89 180)
-					(length 2.54)
-					(name "LED1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 15.24 6.35 180)
-					(length 2.54)
-					(name "LED2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2064,6 +1920,119 @@
 				)
 			)
 			(symbol "LAN8742Ax_1_0"
+				(pin input line
+					(at -15.24 11.43 0)
+					(length 2.54)
+					(name "RXD0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "MODE0" input line)
+				)
+				(pin input line
+					(at -15.24 8.89 0)
+					(length 2.54)
+					(name "RXD1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "MODE1" input line)
+				)
+				(pin input line
+					(at -15.24 6.35 0)
+					(length 2.54)
+					(name "RXER"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "PHYAD0" input line)
+				)
+				(pin bidirectional line
+					(at -15.24 1.27 0)
+					(length 2.54)
+					(name "CRS_DV"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "MODE2" input line)
+				)
+				(pin input line
+					(at -15.24 -11.43 0)
+					(length 2.54)
+					(name "~{RESET}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -13.97 0)
+					(length 2.54)
+					(name "~{INT}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "REFCLKO" output clock)
+				)
 				(pin input clock
 					(at -15.24 -19.05 0)
 					(length 2.54)
@@ -2081,6 +2050,7 @@
 							)
 						)
 					)
+					(alternate "CLKIN" input clock)
 				)
 				(pin output clock
 					(at -15.24 -21.59 0)
@@ -2099,6 +2069,48 @@
 							)
 						)
 					)
+				)
+				(pin output line
+					(at 15.24 8.89 180)
+					(length 2.54)
+					(name "LED1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "~{INT}" output line)
+					(alternate "~{PME}" output line)
+					(alternate "~{REGOFF}" input line)
+				)
+				(pin output line
+					(at 15.24 6.35 180)
+					(length 2.54)
+					(name "LED2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "~{INTSEL}" output line)
+					(alternate "~{INT}" output line)
+					(alternate "~{PME}" output line)
 				)
 				(pin power_out line
 					(at 15.24 -11.43 180)
@@ -2940,20 +2952,9 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "RMII: 50MHz clock\nMII: 25MHz clock"
+	(text "Single ended impedance: 50 Ohm\nDifferential impedance: 100 Ohm\nLength matching: +/- 1.27mm for RX/RX and TX/TX pairs"
 		(exclude_from_sim no)
-		(at 38.1 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b633759d-1b39-4cf5-b25a-24584256091e")
-	)
-	(text "Single ended impedance: 50 Ohm\nLength matching: +/- 1.27mm for RX/RX and TX/TX pairs"
-		(exclude_from_sim no)
-		(at 38.1 81.28 0)
+		(at 38.1 139.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4813,6 +4814,16 @@
 		)
 		(uuid "0e0d3252-5898-4ee9-b1f0-0034d25d3a39")
 	)
+	(label "~{RESET}_H7"
+		(at 109.22 125.73 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2c25bde7-fe00-4c89-8465-1c9866dbc3ee")
+	)
 	(label "RXN"
 		(at 39.37 186.69 180)
 		(effects
@@ -4902,16 +4913,6 @@
 			(justify right bottom)
 		)
 		(uuid "7337f5a0-a1b6-499a-957e-7f02ddcb0c0c")
-	)
-	(label "nRST"
-		(at 109.22 125.73 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "76a5c691-5f70-4dc7-ad39-35ac9e6f2701")
 	)
 	(label "REF_CLK"
 		(at 109.22 128.27 0)
@@ -5054,17 +5055,6 @@
 		)
 		(uuid "2fdbb571-6dc2-445b-a1e2-1defd72371f6")
 	)
-	(hierarchical_label "nRST"
-		(shape input)
-		(at 109.22 125.73 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "81f74929-1e83-4c48-ba46-0ef71f93977b")
-	)
 	(hierarchical_label "{RMII}"
 		(shape bidirectional)
 		(at 38.1 90.17 90)
@@ -5076,6 +5066,109 @@
 		)
 		(uuid "ac618560-2258-47c5-9bb1-08273ddbc1b2")
 	)
+	(hierarchical_label "~{RESET}_H7"
+		(shape input)
+		(at 109.22 125.73 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c1ca8003-49c7-49ad-9966-b786c4cb8b1e")
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 41.91 129.54) (xy 44.45 129.54) (xy 44.45 91.44) (xy 41.91 91.44)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid 17db44e7-d12d-4e33-b6aa-fa6339a04575)
+		)
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 170.18 91.44) (xy 172.72 91.44) (xy 172.72 101.6) (xy 170.18 101.6)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid 87923152-a5fd-4894-b742-4c852ac5d603)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 43.18 91.44 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2c4ec49c-8583-4c36-b7ce-e36baba5a502")
+		(property "Netclass" "RMII"
+			(at 43.8785 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -223.52 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 171.45 91.44 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6edb71d1-4f5a-4f59-a2fc-d22b54b1905b")
+		(property "Netclass" "RMII_DIFF"
+			(at 172.1485 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -95.25 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
 	(symbol
 		(lib_id "lib_pwr:VSS")
 		(at 233.68 133.35 0)
@@ -5086,7 +5179,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "07cdee4b-6842-4eee-831d-36ca651926a6")
-		(property "Reference" "#PWR091"
+		(property "Reference" "#PWR0114"
 			(at 233.68 133.35 0)
 			(effects
 				(font
@@ -5137,7 +5230,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR091")
+					(reference "#PWR0114")
 					(unit 1)
 				)
 			)
@@ -5153,7 +5246,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0daa9fce-22bc-4c65-ae1c-5388dbef608f")
-		(property "Reference" "R32"
+		(property "Reference" "R39"
 			(at 234.95 127 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5266,7 +5359,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R32")
+					(reference "R39")
 					(unit 1)
 				)
 			)
@@ -5282,7 +5375,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1cbb4108-ee82-4cb0-9ed0-c2d020ff9803")
-		(property "Reference" "#PWR089"
+		(property "Reference" "#PWR0112"
 			(at 215.9 133.35 0)
 			(effects
 				(font
@@ -5333,7 +5426,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR089")
+					(reference "#PWR0112")
 					(unit 1)
 				)
 			)
@@ -5349,7 +5442,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "288c6825-b189-4fe4-a368-ebf262506cbb")
-		(property "Reference" "R18"
+		(property "Reference" "R25"
 			(at 195.58 78.74 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5462,7 +5555,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R18")
+					(reference "R25")
 					(unit 1)
 				)
 			)
@@ -5478,7 +5571,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "29804279-511c-42af-860e-ff6d6c999647")
-		(property "Reference" "R23"
+		(property "Reference" "R30"
 			(at 123.19 80.01 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5591,7 +5684,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R23")
+					(reference "R30")
 					(unit 1)
 				)
 			)
@@ -5607,7 +5700,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2faa2731-8c2b-4f51-9b1f-071ff9f81ed6")
-		(property "Reference" "R16"
+		(property "Reference" "R23"
 			(at 177.8 78.74 0)
 			(do_not_autoplace yes)
 			(effects
@@ -5720,7 +5813,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R16")
+					(reference "R23")
 					(unit 1)
 				)
 			)
@@ -5831,7 +5924,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "367d5422-3844-4bb3-9dbb-b46b00c1dfd8")
-		(property "Reference" "#PWR090"
+		(property "Reference" "#PWR0113"
 			(at 224.79 133.35 0)
 			(effects
 				(font
@@ -5882,7 +5975,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR090")
+					(reference "#PWR0113")
 					(unit 1)
 				)
 			)
@@ -5898,7 +5991,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3d87f9fc-305a-41b6-90ee-de35ad2839b6")
-		(property "Reference" "R17"
+		(property "Reference" "R24"
 			(at 186.69 78.74 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6011,7 +6104,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R17")
+					(reference "R24")
 					(unit 1)
 				)
 			)
@@ -6027,7 +6120,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "417abddd-6cfc-4380-9b01-e5aad159a2e6")
-		(property "Reference" "J4"
+		(property "Reference" "J5"
 			(at 251.46 86.36 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6144,7 +6237,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "J4")
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -6160,7 +6253,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "438b73be-e804-479f-b59a-0840920d0e68")
-		(property "Reference" "C34"
+		(property "Reference" "C43"
 			(at 149.225 77.47 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6273,7 +6366,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C34")
+					(reference "C43")
 					(unit 1)
 				)
 			)
@@ -6289,7 +6382,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4ce8ce43-fa40-484c-b200-9e1edd1610c4")
-		(property "Reference" "R19"
+		(property "Reference" "R26"
 			(at 87.63 80.01 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6402,7 +6495,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R19")
+					(reference "R26")
 					(unit 1)
 				)
 			)
@@ -6418,7 +6511,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "52248778-ee63-4dcd-a6ab-4e168f9430a6")
-		(property "Reference" "#PWR086"
+		(property "Reference" "#PWR0109"
 			(at 167.64 115.57 0)
 			(effects
 				(font
@@ -6469,7 +6562,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR086")
+					(reference "#PWR0109")
 					(unit 1)
 				)
 			)
@@ -6485,7 +6578,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "53e522fc-39d8-43eb-a83b-716cb2fba942")
-		(property "Reference" "#PWR081"
+		(property "Reference" "#PWR0104"
 			(at 86.36 73.66 0)
 			(effects
 				(font
@@ -6536,7 +6629,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR081")
+					(reference "#PWR0104")
 					(unit 1)
 				)
 			)
@@ -6552,7 +6645,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "53f9fe57-010c-4a78-8d1d-9ef666917aa8")
-		(property "Reference" "#PWR096"
+		(property "Reference" "#PWR0119"
 			(at 30.48 191.77 0)
 			(effects
 				(font
@@ -6603,7 +6696,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR096")
+					(reference "#PWR0119")
 					(unit 1)
 				)
 			)
@@ -6618,7 +6711,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5ee43111-0f9e-490c-b920-fc8c0019fa6b")
-		(property "Reference" "C36"
+		(property "Reference" "C45"
 			(at 228.6 83.185 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6729,7 +6822,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C36")
+					(reference "C45")
 					(unit 1)
 				)
 			)
@@ -6744,7 +6837,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "624fb06f-dbea-4929-8eb4-b8842f5147fe")
-		(property "Reference" "D3"
+		(property "Reference" "D7"
 			(at 212.09 78.74 0)
 			(do_not_autoplace yes)
 			(effects
@@ -6837,7 +6930,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "D3")
+					(reference "D7")
 					(unit 1)
 				)
 			)
@@ -6853,7 +6946,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "645154f4-12c4-4a89-8a07-faa8f2501c78")
-		(property "Reference" "#FLG014"
+		(property "Reference" "#FLG013"
 			(at 219.71 76.2 0)
 			(effects
 				(font
@@ -6904,7 +6997,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#FLG014")
+					(reference "#FLG013")
 					(unit 1)
 				)
 			)
@@ -6920,7 +7013,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "645ac6fe-e63c-4f94-8993-722f3e4c7864")
-		(property "Reference" "R29"
+		(property "Reference" "R36"
 			(at 101.6 127 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7032,7 +7125,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R29")
+					(reference "R36")
 					(unit 1)
 				)
 			)
@@ -7048,7 +7141,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6fb58ed8-f089-4f24-9275-d9cf8a3434aa")
-		(property "Reference" "#PWR092"
+		(property "Reference" "#PWR0115"
 			(at 157.48 137.16 0)
 			(effects
 				(font
@@ -7099,7 +7192,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR092")
+					(reference "#PWR0115")
 					(unit 1)
 				)
 			)
@@ -7115,7 +7208,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "750f6b96-50b6-4179-9a30-c4923d88cfa0")
-		(property "Reference" "C38"
+		(property "Reference" "C47"
 			(at 177.165 129.54 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7228,7 +7321,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C38")
+					(reference "C47")
 					(unit 1)
 				)
 			)
@@ -7244,7 +7337,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "783b1089-662e-4da6-986f-87bb3d383e6e")
-		(property "Reference" "#PWR082"
+		(property "Reference" "#PWR0105"
 			(at 156.21 83.82 0)
 			(effects
 				(font
@@ -7295,7 +7388,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR082")
+					(reference "#PWR0105")
 					(unit 1)
 				)
 			)
@@ -7311,7 +7404,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7f28e824-8665-446e-ba4b-991e22c09144")
-		(property "Reference" "R20"
+		(property "Reference" "R27"
 			(at 96.52 80.01 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7424,7 +7517,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R20")
+					(reference "R27")
 					(unit 1)
 				)
 			)
@@ -7440,7 +7533,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "842f7b72-15bb-4fa9-9e23-4d92e303741f")
-		(property "Reference" "#PWR084"
+		(property "Reference" "#PWR0107"
 			(at 199.39 87.63 0)
 			(effects
 				(font
@@ -7491,7 +7584,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR084")
+					(reference "#PWR0107")
 					(unit 1)
 				)
 			)
@@ -7506,7 +7599,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "87d8cdea-2510-44c2-8b64-9e753448b7ff")
-		(property "Reference" "C33"
+		(property "Reference" "C42"
 			(at 141.605 77.47 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7619,7 +7712,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C33")
+					(reference "C42")
 					(unit 1)
 				)
 			)
@@ -7867,7 +7960,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "90380f79-8d55-48b4-9c3c-d09b3d453022")
-		(property "Reference" "R27"
+		(property "Reference" "R34"
 			(at 93.98 111.76 0)
 			(do_not_autoplace yes)
 			(effects
@@ -7979,7 +8072,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R27")
+					(reference "R34")
 					(unit 1)
 				)
 			)
@@ -7995,7 +8088,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "90c68bd9-5717-439c-8833-19b9695d05cb")
-		(property "Reference" "R31"
+		(property "Reference" "R38"
 			(at 226.06 127 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8108,7 +8201,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R31")
+					(reference "R38")
 					(unit 1)
 				)
 			)
@@ -8219,7 +8312,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9a2535bd-4ae1-45ef-b023-de9de0d2ed27")
-		(property "Reference" "R21"
+		(property "Reference" "R28"
 			(at 105.41 80.01 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8332,7 +8425,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R21")
+					(reference "R28")
 					(unit 1)
 				)
 			)
@@ -8348,7 +8441,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9a3b577f-1cff-473b-bf55-1cdb2a48eefc")
-		(property "Reference" "R25"
+		(property "Reference" "R32"
 			(at 71.12 104.14 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8460,7 +8553,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R25")
+					(reference "R32")
 					(unit 1)
 				)
 			)
@@ -8476,7 +8569,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b430299-5bdf-46f4-b403-55637ad1c106")
-		(property "Reference" "#PWR095"
+		(property "Reference" "#PWR0118"
 			(at 185.42 137.16 0)
 			(effects
 				(font
@@ -8527,7 +8620,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR095")
+					(reference "#PWR0118")
 					(unit 1)
 				)
 			)
@@ -8638,7 +8731,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a7692f61-0b33-44a0-8cd6-9ed7aba32087")
-		(property "Reference" "C35"
+		(property "Reference" "C44"
 			(at 158.115 77.47 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8751,7 +8844,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C35")
+					(reference "C44")
 					(unit 1)
 				)
 			)
@@ -8767,7 +8860,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a77a0cbd-735c-4490-b976-928b57b17847")
-		(property "Reference" "#PWR094"
+		(property "Reference" "#PWR0117"
 			(at 175.26 137.16 0)
 			(effects
 				(font
@@ -8818,7 +8911,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR094")
+					(reference "#PWR0117")
 					(unit 1)
 				)
 			)
@@ -8834,7 +8927,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a845e3fe-4ff5-46ac-88a6-55be3ef967ba")
-		(property "Reference" "R15"
+		(property "Reference" "R22"
 			(at 168.91 78.74 0)
 			(do_not_autoplace yes)
 			(effects
@@ -8947,7 +9040,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R15")
+					(reference "R22")
 					(unit 1)
 				)
 			)
@@ -8963,7 +9056,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a90d17c9-9e2a-4faa-8673-1230053de1e8")
-		(property "Reference" "#PWR087"
+		(property "Reference" "#PWR0110"
 			(at 185.42 123.19 0)
 			(effects
 				(font
@@ -9014,7 +9107,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR087")
+					(reference "#PWR0110")
 					(unit 1)
 				)
 			)
@@ -9030,7 +9123,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ae8c42ca-961b-43ef-af9a-4b170cce79d4")
-		(property "Reference" "U4"
+		(property "Reference" "U5"
 			(at 139.7 86.36 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9128,6 +9221,7 @@
 		)
 		(pin "14"
 			(uuid "0c44b49b-70e6-49ce-a185-5726b1583c3c")
+			(alternate "REFCLKO")
 		)
 		(pin "20"
 			(uuid "9857eae8-4a45-4256-ad41-411e8b594e88")
@@ -9143,6 +9237,7 @@
 		)
 		(pin "5"
 			(uuid "36888ca6-9ea3-45b3-b1ef-140631291916")
+			(alternate "CLKIN")
 		)
 		(pin "9"
 			(uuid "16e5110e-da14-494d-82fc-95a5792cc24d")
@@ -9180,7 +9275,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "U4")
+					(reference "U5")
 					(unit 1)
 				)
 			)
@@ -9291,7 +9386,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b1d4df08-39c7-46d9-b4fb-9836549f9aa7")
-		(property "Reference" "C37"
+		(property "Reference" "C46"
 			(at 167.005 129.54 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9404,7 +9499,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C37")
+					(reference "C46")
 					(unit 1)
 				)
 			)
@@ -9420,7 +9515,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bc5afa60-b469-478f-b12c-c5a9915538fb")
-		(property "Reference" "C39"
+		(property "Reference" "C48"
 			(at 187.325 129.54 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9533,7 +9628,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "C39")
+					(reference "C48")
 					(unit 1)
 				)
 			)
@@ -9549,7 +9644,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cf5440bf-3cd9-495d-968f-f610d901370e")
-		(property "Reference" "#PWR093"
+		(property "Reference" "#PWR0116"
 			(at 165.1 137.16 0)
 			(effects
 				(font
@@ -9600,7 +9695,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR093")
+					(reference "#PWR0116")
 					(unit 1)
 				)
 			)
@@ -9616,7 +9711,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d072b6e2-34a8-4550-a303-9aec92630597")
-		(property "Reference" "R30"
+		(property "Reference" "R37"
 			(at 217.17 127 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9729,7 +9824,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R30")
+					(reference "R37")
 					(unit 1)
 				)
 			)
@@ -9745,7 +9840,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "df109c94-fb27-4620-bb1b-4ff369290ed4")
-		(property "Reference" "#PWR085"
+		(property "Reference" "#PWR0108"
 			(at 67.31 110.49 0)
 			(effects
 				(font
@@ -9796,7 +9891,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR085")
+					(reference "#PWR0108")
 					(unit 1)
 				)
 			)
@@ -9812,7 +9907,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e3d5b54e-28ff-4bb3-ad9e-046879d845a0")
-		(property "Reference" "R22"
+		(property "Reference" "R29"
 			(at 114.3 80.01 0)
 			(do_not_autoplace yes)
 			(effects
@@ -9925,7 +10020,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R22")
+					(reference "R29")
 					(unit 1)
 				)
 			)
@@ -9941,7 +10036,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e8cb0123-8243-4416-8ef8-6067f7768743")
-		(property "Reference" "#PWR083"
+		(property "Reference" "#PWR0106"
 			(at 233.68 86.36 0)
 			(effects
 				(font
@@ -9992,7 +10087,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR083")
+					(reference "#PWR0106")
 					(unit 1)
 				)
 			)
@@ -10008,7 +10103,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f3ea416c-f4d6-4dfe-ae6f-dfb7c9a36f41")
-		(property "Reference" "R28"
+		(property "Reference" "R35"
 			(at 160.02 111.76 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10120,7 +10215,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R28")
+					(reference "R35")
 					(unit 1)
 				)
 			)
@@ -10136,7 +10231,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa78bb69-11e1-42a4-b5d5-cd20b5d11d6c")
-		(property "Reference" "R26"
+		(property "Reference" "R33"
 			(at 71.12 109.22 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10248,7 +10343,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R26")
+					(reference "R33")
 					(unit 1)
 				)
 			)
@@ -10264,7 +10359,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa7af8e3-2d05-4738-9e93-8bdcc7154e78")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR0111"
 			(at 266.7 124.46 0)
 			(effects
 				(font
@@ -10315,7 +10410,7 @@
 		(instances
 			(project ""
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "#PWR088")
+					(reference "#PWR0111")
 					(unit 1)
 				)
 			)
@@ -10331,7 +10426,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fecf25ec-156e-4548-a41b-671ce4b84504")
-		(property "Reference" "R24"
+		(property "Reference" "R31"
 			(at 71.12 99.06 0)
 			(do_not_autoplace yes)
 			(effects
@@ -10443,7 +10538,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7b4a835f-742a-4147-9d08-db52b169b2a7"
-					(reference "R24")
+					(reference "R31")
 					(unit 1)
 				)
 			)

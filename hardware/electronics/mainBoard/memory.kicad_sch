@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Memory")
-		(date "2025-03-31")
+		(date "2025-04-08")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -1471,7 +1471,17 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "I2C Address: 0x50/0x58"
+	(text "microSD Card Socket"
+		(exclude_from_sim no)
+		(at 241.3 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0c48e093-71e0-4f2e-992c-aba72100fc30")
+	)
+	(text "I2C Addresses\nMemory Page: 0x50\nIdentification Page: 0x58"
 		(exclude_from_sim no)
 		(at 139.7 126.746 0)
 		(effects
@@ -1481,6 +1491,26 @@
 			)
 		)
 		(uuid "19a98230-6021-41a3-8739-f9aa053f9f12")
+	)
+	(text "128Mb QSPI Flash"
+		(exclude_from_sim no)
+		(at 63.5 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "611ef805-17a5-4172-b346-09bde9e3d11d")
+	)
+	(text "512kB I2C EEPROM"
+		(exclude_from_sim no)
+		(at 139.7 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "72c6a2e4-f387-48b1-bb00-901bc4c7bf0b")
 	)
 	(junction
 		(at 215.9 80.01)
@@ -2106,7 +2136,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 106.68) (xy 130.81 106.68)
+			(xy 115.57 106.68) (xy 130.81 106.68)
 		)
 		(stroke
 			(width 0)
@@ -2324,6 +2354,16 @@
 		)
 		(uuid "04ed624b-73d8-428a-be25-e8e9747d64ec")
 	)
+	(label "H7_EEPROM_~{WC}"
+		(at 115.57 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10aabfc8-18fb-4a7e-a21d-38391428b425")
+	)
 	(label "QSPI1.IO2"
 		(at 39.37 175.26 180)
 		(effects
@@ -2374,7 +2414,7 @@
 		)
 		(uuid "2fe600b0-467c-4c23-885e-3f5a8c6b75df")
 	)
-	(label "QSPI1.NCS"
+	(label "QSPI1.~{CS}"
 		(at 38.1 95.25 0)
 		(effects
 			(font
@@ -2484,17 +2524,7 @@
 		)
 		(uuid "9ef00e16-b71f-4233-aa3a-7a5aee164cbd")
 	)
-	(label "EEPROM_WC"
-		(at 118.11 106.68 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ae2eef27-09b3-4a06-9193-abda8d58ef9a")
-	)
-	(label "QSPI1.NCS"
+	(label "QSPI1.~{CS}"
 		(at 39.37 160.02 180)
 		(effects
 			(font
@@ -2555,18 +2585,18 @@
 		)
 		(uuid "372854ca-293b-4127-b2a8-eead28a8f372")
 	)
-	(hierarchical_label "EEPROM_WC"
+	(hierarchical_label "H7_EEPROM_~{WC}"
 		(shape input)
-		(at 118.11 106.68 180)
+		(at 115.57 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "8308d795-93f2-443e-8ca1-52f0e34de79b")
+		(uuid "79007841-8cd8-430e-b40e-be6d374f499a")
 	)
-	(hierarchical_label "QSPI1{IO[0..3] CLK NCS}"
+	(hierarchical_label "QSPI1{IO[0..3] CLK ~{CS}}"
 		(shape bidirectional)
 		(at 35.56 92.71 180)
 		(effects
