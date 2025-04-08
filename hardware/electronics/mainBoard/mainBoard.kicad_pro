@@ -541,9 +541,9 @@
       "DSE-Switches",
       "DSE-DCDC-Regulators",
       "DSE-Crystals-Oscillators-Resonators",
-      "lib_sch",
       "DSE-Power",
-      "lib_pwr"
+      "lib_pwr",
+      "lib_sch"
     ]
   },
   "meta": {
@@ -573,19 +573,25 @@
       {
         "name": "CANBus",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
         "name": "RF",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
+        "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
         "name": "RMII",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
+        "priority": 2,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
+        "name": "RMII_DIFF",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
@@ -598,7 +604,7 @@
         "microvia_drill": 0.3,
         "name": "USB",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 3,
+        "priority": 4,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.362,
         "via_diameter": 0.6,
@@ -616,6 +622,12 @@
       ],
       "/CANBus Transceivers/CANL": [
         "CANBus"
+      ],
+      "/EPS Controller/L0_USB.DN": [
+        "USB"
+      ],
+      "/EPS Controller/L0_USB.DP": [
+        "USB"
       ],
       "/EPS Controller/USB_FS.DN": [
         "USB"
@@ -650,6 +662,18 @@
       "/Ethernet/RMII.TX_EN": [
         "RMII"
       ],
+      "/Ethernet/RXN": [
+        "RMII_DIFF"
+      ],
+      "/Ethernet/RXP": [
+        "RMII_DIFF"
+      ],
+      "/Ethernet/TXN": [
+        "RMII_DIFF"
+      ],
+      "/Ethernet/TXP": [
+        "RMII_DIFF"
+      ],
       "/RF Interface/AUX_RF-IN": [
         "RF"
       ],
@@ -673,6 +697,51 @@
       ],
       "/RF Interface/RF-SPLIT_SUM": [
         "RF"
+      ],
+      "/STM32H745/H7_USB.DN": [
+        "USB"
+      ],
+      "/STM32H745/H7_USB.DP": [
+        "USB"
+      ],
+      "/STM32H745/RMII.CRS_DV": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.MDC": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.MDIO": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.REF_CLK": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.RXD0": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.RXD1": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.TXD0": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.TXD1": [
+        "RMII"
+      ],
+      "/STM32H745/RMII.TX_EN": [
+        "RMII"
+      ],
+      "/STM32H745/USB_FS_H7.DN": [
+        "USB"
+      ],
+      "/STM32H745/USB_FS_H7.DP": [
+        "USB"
+      ],
+      "/USB Hub/UP_USB_DN": [
+        "USB"
+      ],
+      "/USB Hub/UP_USB_DP": [
+        "USB"
       ]
     },
     "netclass_patterns": []
@@ -990,6 +1059,10 @@
     [
       "7c38f482-70e6-459c-b3af-acf1cdcfd3ea",
       "Clocks"
+    ],
+    [
+      "6c7769dd-a66e-4549-9d6a-78682acf15fa",
+      "USB Hub"
     ],
     [
       "7b4a835f-742a-4147-9d08-db52b169b2a7",
