@@ -13454,7 +13454,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "U"
-			(at 0 63.5 0)
+			(at 0 46.99 0)
 			(do_not_autoplace)
 			(effects
 				(font
@@ -13463,7 +13463,7 @@
 			)
 		)
 		(property "Value" "STM32H745ZIT6"
-			(at -0.508 60.96 0)
+			(at 0 44.45 0)
 			(do_not_autoplace)
 			(effects
 				(font
@@ -13579,6 +13579,11 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_CRS" output line)
+				(alternate "SDMMC2_CMD" output line)
+				(alternate "UART4_TX" output line)
+				(alternate "USART2_CTS" input line)
+				(alternate "USART2_~{SS}" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 38.1 0)
@@ -13597,6 +13602,12 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_REF_CLK" input clock)
+				(alternate "ETH_MII_RX_CLK" output clock)
+				(alternate "QUADSPI_BK1_IO3" bidirectional line)
+				(alternate "UART4_RX" input line)
+				(alternate "USART2_DE" input line)
+				(alternate "USART2_RTS" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 35.56 0)
@@ -13615,6 +13626,8 @@
 						)
 					)
 				)
+				(alternate "ETH_MDIO" bidirectional line)
+				(alternate "USART2_TX" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 33.02 0)
@@ -13633,6 +13646,9 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_COL" input line)
+				(alternate "OTG_HS_ULPI_D0" bidirectional line)
+				(alternate "USART2_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 30.48 0)
@@ -13651,6 +13667,11 @@
 						)
 					)
 				)
+				(alternate "OTG_HS_SOF" output line)
+				(alternate "SPI1_~{SS}" output line)
+				(alternate "SPI3_{~SS}" output line)
+				(alternate "SPI6_~{SS}" output line)
+				(alternate "USART2_CK" output clock)
 			)
 			(pin bidirectional line
 				(at -20.32 27.94 0)
@@ -13669,6 +13690,9 @@
 						)
 					)
 				)
+				(alternate "OTG_HS_ULPI_CK" output clock)
+				(alternate "SPI1_SCK" output clock)
+				(alternate "SPI6_SCK" output clock)
 			)
 			(pin bidirectional line
 				(at -20.32 25.4 0)
@@ -13687,6 +13711,8 @@
 						)
 					)
 				)
+				(alternate "SPI1_MISO" input line)
+				(alternate "SPI6_MISO" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 22.86 0)
@@ -13705,6 +13731,10 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_RX_DV" input line)
+				(alternate "ETH_RMII_CRS_DV" input line)
+				(alternate "SPI1_MOSI" output line)
+				(alternate "SPI6_MOSI" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 20.32 0)
@@ -13723,6 +13753,10 @@
 						)
 					)
 				)
+				(alternate "I2C3_SCL" output clock)
+				(alternate "OTG_FS_SOF" output line)
+				(alternate "UART7_RX" input line)
+				(alternate "USART1_CK" output clock)
 			)
 			(pin bidirectional line
 				(at -20.32 17.78 0)
@@ -13741,6 +13775,10 @@
 						)
 					)
 				)
+				(alternate "I2C3_SMBA" input line)
+				(alternate "LPUART1_TX" output line)
+				(alternate "SPI2_SCK" output clock)
+				(alternate "USART1_TX" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 15.24 0)
@@ -13759,6 +13797,9 @@
 						)
 					)
 				)
+				(alternate "LPUART1_RX" input line)
+				(alternate "OTG_FS_ID" input line)
+				(alternate "USART1_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 12.7 0)
@@ -13777,6 +13818,13 @@
 						)
 					)
 				)
+				(alternate "FDCAN1_RX" input line)
+				(alternate "LPUART1_CTS" output line)
+				(alternate "OTG_FS_DM" bidirectional inverted)
+				(alternate "SPI2_~{SS}" output line)
+				(alternate "UART4_RX" input line)
+				(alternate "USART1_CTS" output line)
+				(alternate "USART1_{SS}" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 10.16 0)
@@ -13795,6 +13843,14 @@
 						)
 					)
 				)
+				(alternate "FDCAN1_TX" output line)
+				(alternate "LPUART1_DE" input line)
+				(alternate "LPUART1_RTS" input line)
+				(alternate "OTG_FS_DP" bidirectional line)
+				(alternate "SPI2_SCK" output clock)
+				(alternate "UART4_TX" output line)
+				(alternate "USART1_DE" input line)
+				(alternate "USART1_RTS" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 7.62 0)
@@ -13813,6 +13869,8 @@
 						)
 					)
 				)
+				(alternate "JTMS" input line)
+				(alternate "SWDIO" bidirectional line)
 			)
 			(pin bidirectional line
 				(at -20.32 5.08 0)
@@ -13831,6 +13889,8 @@
 						)
 					)
 				)
+				(alternate "JTCK" input clock)
+				(alternate "SWCLK" input clock)
 			)
 			(pin bidirectional line
 				(at -20.32 2.54 0)
@@ -13849,6 +13909,13 @@
 						)
 					)
 				)
+				(alternate "JTDI" input line)
+				(alternate "SPI1_~{SS}" output line)
+				(alternate "SPI3_~{SS}" output line)
+				(alternate "SPI6_~{SS}" output line)
+				(alternate "UART4_DE" input line)
+				(alternate "UART4_RTS" input line)
+				(alternate "UART7_TX" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -2.54 0)
@@ -13867,6 +13934,9 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_RXD2" input line)
+				(alternate "OTG_HS_ULPI_D1" bidirectional line)
+				(alternate "UART4_CTS" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -5.08 0)
@@ -13885,6 +13955,8 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_RXD3" input line)
+				(alternate "OTG_HS_ULPI_D2" bidirectional line)
 			)
 			(pin bidirectional line
 				(at -20.32 -7.62 0)
@@ -13903,6 +13975,8 @@
 						)
 					)
 				)
+				(alternate "QUADSPI_CLK" output clock)
+				(alternate "SPI3_MOSI" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -10.16 0)
@@ -13921,6 +13995,13 @@
 						)
 					)
 				)
+				(alternate "JTDO" input line)
+				(alternate "SDMMC2_D2" bidirectional line)
+				(alternate "SPI1_SCK" output clock)
+				(alternate "SPI3_SCK" output clock)
+				(alternate "SPI6_SCK" output clock)
+				(alternate "TRACESWO" output line)
+				(alternate "UART7_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -12.7 0)
@@ -13939,6 +14020,13 @@
 						)
 					)
 				)
+				(alternate "SDMMC2_D3" bidirectional line)
+				(alternate "SPI1_MISO" input line)
+				(alternate "SPI2_~{SS}" output line)
+				(alternate "SPI3_MISO" input line)
+				(alternate "SPI6_MISO" input line)
+				(alternate "UART7_TX" output line)
+				(alternate "~{JTRST}" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -15.24 0)
@@ -13957,6 +14045,15 @@
 						)
 					)
 				)
+				(alternate "DSCAN2_RX" input line)
+				(alternate "ETH_PPS_OUT" output line)
+				(alternate "I2C1_SMBA" input line)
+				(alternate "I2C4_SMBA" input line)
+				(alternate "OTG_GS_ULPI_D7" bidirectional line)
+				(alternate "SPI1_MOSI" output line)
+				(alternate "SPI3_MOSI" output line)
+				(alternate "SPI6_MOSI" output line)
+				(alternate "UART5_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -17.78 0)
@@ -13975,6 +14072,13 @@
 						)
 					)
 				)
+				(alternate "FDCAN2_TX" output line)
+				(alternate "I2C1_SCL" output clock)
+				(alternate "I2C4_SCL" output clock)
+				(alternate "LPUART1_TX" output line)
+				(alternate "QUADSPI_BK1_~{CS}" output line)
+				(alternate "UART5_TX" output line)
+				(alternate "USART1_TX" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -20.32 0)
@@ -13993,6 +14097,10 @@
 						)
 					)
 				)
+				(alternate "I2C1_SDA" bidirectional line)
+				(alternate "I2C4_SDA" bidirectional line)
+				(alternate "LPUART1_RX" input line)
+				(alternate "USART1_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -22.86 0)
@@ -14011,6 +14119,12 @@
 						)
 					)
 				)
+				(alternate "FDCAN1_RX" input line)
+				(alternate "I2C1_SCL" output clock)
+				(alternate "I2C4_SCL" output clock)
+				(alternate "SDMMC1_CKIN" input clock)
+				(alternate "SDMMC1_D4" bidirectional line)
+				(alternate "UART4_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -25.4 0)
@@ -14029,6 +14143,15 @@
 						)
 					)
 				)
+				(alternate "FDCAN1_TX" output line)
+				(alternate "I2C1_SDA" bidirectional line)
+				(alternate "I2C4_SDA" bidirectional line)
+				(alternate "I2C4_SMBA" input line)
+				(alternate "SDMMC1_CDIR" output line)
+				(alternate "SDMMC1_D5" bidirectional line)
+				(alternate "SDMMC2_D5" bidirectional line)
+				(alternate "SPI2_~{SS}" output line)
+				(alternate "UART4_TX" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -27.94 0)
@@ -14047,6 +14170,12 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_RX_ER" input line)
+				(alternate "I2C2_SCL" output clock)
+				(alternate "OTG_HS_ULPI_D3" bidirectional line)
+				(alternate "QUADSPI_BK1_~{CS}" output line)
+				(alternate "SPI2_SCK" output clock)
+				(alternate "USART3_TX" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -30.48 0)
@@ -14065,6 +14194,11 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_TX_EN" input line)
+				(alternate "ETH_RMII_TX_EN" input line)
+				(alternate "I2C2_SDA" bidirectional line)
+				(alternate "OTG_HS_ULPI_D4" bidirectional line)
+				(alternate "USART3_RX" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -33.02 0)
@@ -14083,6 +14217,15 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_TXD0" output line)
+				(alternate "ETH_RMII_TXD0" output line)
+				(alternate "FDCAN2_RX" input line)
+				(alternate "I2C2_SMBA" input line)
+				(alternate "OTG_HS_ID" input line)
+				(alternate "OTG_HS_ULPI_D5" bidirectional line)
+				(alternate "SPI2_~{SS}" output line)
+				(alternate "UART5_RX" input line)
+				(alternate "USART3_CK" output clock)
 			)
 			(pin bidirectional line
 				(at -20.32 -35.56 0)
@@ -14101,6 +14244,14 @@
 						)
 					)
 				)
+				(alternate "ETH_MII_TXD" output line)
+				(alternate "ETH_RMII_TXD1" output line)
+				(alternate "FDCAN2_TX" output line)
+				(alternate "OTG_HS_ULPI_D6" bidirectional line)
+				(alternate "SPI2_SCK" output clock)
+				(alternate "UART5_TX" output line)
+				(alternate "USART3_CTS" output line)
+				(alternate "USART3_~{SS}" output line)
 			)
 			(pin bidirectional line
 				(at -20.32 -38.1 0)
@@ -14119,6 +14270,14 @@
 						)
 					)
 				)
+				(alternate "OTG_HS_DM" bidirectional inverted)
+				(alternate "SDMMC2_D0" bidirectional line)
+				(alternate "SPI2_MISO" input line)
+				(alternate "UART4_DE" input line)
+				(alternate "UART4_RTS" input line)
+				(alternate "USART1_TX" output line)
+				(alternate "USART3_DE" input line)
+				(alternate "USART3_RTS" input line)
 			)
 			(pin bidirectional line
 				(at -20.32 -40.64 0)
@@ -14137,6 +14296,11 @@
 						)
 					)
 				)
+				(alternate "OTG_HS_DP" bidirectional line)
+				(alternate "SDMMC2_D1" bidirectional line)
+				(alternate "SPI2_MOSI" output line)
+				(alternate "UART4_CTS" output line)
+				(alternate "USART1_RX" input line)
 			)
 			(pin bidirectional line
 				(at 20.32 40.64 180)
@@ -15414,8 +15578,8 @@
 		)
 		(symbol "STM32H745ZIT6_3_1"
 			(rectangle
-				(start -12.7 34.29)
-				(end 12.7 -34.29)
+				(start -12.7 40.64)
+				(end 12.7 -40.64)
 				(stroke
 					(width 0)
 					(type default)
@@ -15425,7 +15589,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 31.75 0)
+				(at -20.32 38.1 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15443,7 +15607,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 29.21 0)
+				(at -20.32 35.56 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15461,7 +15625,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 26.67 0)
+				(at -20.32 33.02 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15479,7 +15643,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 24.13 0)
+				(at -20.32 30.48 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15497,7 +15661,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 21.59 0)
+				(at -20.32 27.94 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15515,7 +15679,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 19.05 0)
+				(at -20.32 25.4 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15533,7 +15697,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 16.51 0)
+				(at -20.32 22.86 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15551,7 +15715,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 13.97 0)
+				(at -20.32 20.32 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15569,7 +15733,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 11.43 0)
+				(at -20.32 17.78 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15587,7 +15751,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 8.89 0)
+				(at -20.32 15.24 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15605,7 +15769,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 6.35 0)
+				(at -20.32 12.7 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15623,7 +15787,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 3.81 0)
+				(at -20.32 10.16 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15641,7 +15805,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 1.27 0)
+				(at -20.32 7.62 0)
 				(length 7.62)
 				(name "VDD"
 					(effects
@@ -15659,25 +15823,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 -3.81 0)
-				(length 7.62)
-				(name "VDDA"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "36"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at -20.32 -8.89 0)
+				(at -20.32 5.08 0)
 				(length 7.62)
 				(name "VDDLDO"
 					(effects
@@ -15695,7 +15841,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 -11.43 0)
+				(at -20.32 2.54 0)
 				(length 7.62)
 				(name "VDDLDO"
 					(effects
@@ -15713,7 +15859,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 -13.97 0)
+				(at -20.32 0 0)
 				(length 7.62)
 				(name "VDDLDO"
 					(effects
@@ -15731,25 +15877,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 -19.05 0)
-				(length 7.62)
-				(name "VDDSMPS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "16"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at -20.32 -24.13 0)
+				(at -20.32 -2.54 0)
 				(length 7.62)
 				(name "VDD33USB"
 					(effects
@@ -15767,7 +15895,7 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 -26.67 0)
+				(at -20.32 -5.08 0)
 				(length 7.62)
 				(name "VDD50USB"
 					(effects
@@ -15785,7 +15913,43 @@
 				)
 			)
 			(pin power_in line
-				(at -20.32 -31.75 0)
+				(at -20.32 -7.62 0)
+				(length 7.62)
+				(name "VDDSMPS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "16"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -20.32 -10.16 0)
+				(length 7.62)
+				(name "VDDA"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "36"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -20.32 -15.24 0)
 				(length 7.62)
 				(name "VREF+"
 					(effects
@@ -15803,313 +15967,7 @@
 				)
 			)
 			(pin power_in line
-				(at 20.32 31.75 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "6"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 29.21 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "12"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 26.67 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "18"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 24.13 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "33"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 21.59 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "41"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 19.05 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "55"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 16.51 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "69"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 13.97 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "80"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 11.43 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "89"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 8.89 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "104"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 6.35 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "118"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 3.81 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "128"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 1.27 180)
-				(length 7.62)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "141"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 -3.81 180)
-				(length 7.62)
-				(name "VSSA"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "34"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 -8.89 180)
-				(length 7.62)
-				(name "VSSSMPS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "14"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 -13.97 180)
-				(length 7.62)
-				(name "VFBSMPS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "17"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 -16.51 180)
-				(length 7.62)
-				(name "VLXSMPS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "15"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 20.32 -21.59 180)
+				(at -20.32 -20.32 0)
 				(length 7.62)
 				(name "VBAT"
 					(effects
@@ -16127,7 +15985,43 @@
 				)
 			)
 			(pin power_in line
-				(at 20.32 -26.67 180)
+				(at -20.32 -25.4 0)
+				(length 7.62)
+				(name "VFBSMPS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "17"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -20.32 -27.94 0)
+				(length 7.62)
+				(name "VLXSMPS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "15"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -20.32 -33.02 0)
 				(length 7.62)
 				(name "VCAP"
 					(effects
@@ -16145,7 +16039,7 @@
 				)
 			)
 			(pin power_in line
-				(at 20.32 -29.21 180)
+				(at -20.32 -35.56 0)
 				(length 7.62)
 				(name "VCAP"
 					(effects
@@ -16163,7 +16057,7 @@
 				)
 			)
 			(pin power_in line
-				(at 20.32 -31.75 180)
+				(at -20.32 -38.1 0)
 				(length 7.62)
 				(name "VCAP"
 					(effects
@@ -16180,98 +16074,10 @@
 					)
 				)
 			)
-		)
-		(embedded_fonts no)
-	)
-	(symbol "STM32L072KBUx"
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "U"
-			(at 0 25.4 0)
-			(do_not_autoplace)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "STM32L072KBUx"
-			(at 0 22.86 0)
-			(do_not_autoplace)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "STMicroelectronics"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_locked" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(symbol "STM32L072KBUx_1_0"
-			(pin bidirectional line
-				(at -15.24 19.05 0)
-				(length 2.54)
-				(name "PA0"
+			(pin power_in line
+				(at 20.32 -2.54 180)
+				(length 7.62)
+				(name "VSS"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -16285,112 +16091,11 @@
 						)
 					)
 				)
-				(alternate "USART2_CTS" output line)
-				(alternate "USART4_TX" output line)
 			)
-			(pin bidirectional line
-				(at -15.24 16.51 0)
-				(length 2.54)
-				(name "PA1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "7"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "USART2_RTS/DE" output line)
-				(alternate "USART4_RX" input line)
-			)
-			(pin bidirectional line
-				(at -15.24 13.97 0)
-				(length 2.54)
-				(name "PA2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "8"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "LPUART1_TX" output line)
-				(alternate "USART2_TX" output line)
-			)
-			(pin bidirectional line
-				(at -15.24 11.43 0)
-				(length 2.54)
-				(name "PA3"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "9"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "LPUART1_RX" input line)
-				(alternate "USART2_RX" input line)
-			)
-			(pin bidirectional line
-				(at -15.24 8.89 0)
-				(length 2.54)
-				(name "PA4"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "10"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "SPI_NSS" output line)
-				(alternate "USART2_CK" output clock)
-			)
-			(pin bidirectional line
-				(at -15.24 6.35 0)
-				(length 2.54)
-				(name "PA5"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "11"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "SPI1_SCK" output clock)
-			)
-			(pin bidirectional line
-				(at -15.24 3.81 0)
-				(length 2.54)
-				(name "PA6"
+			(pin power_in line
+				(at 20.32 -5.08 180)
+				(length 7.62)
+				(name "VSS"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -16404,32 +16109,11 @@
 						)
 					)
 				)
-				(alternate "LPUART1_CTS" output line)
-				(alternate "SPI1_MISO" input line)
 			)
-			(pin bidirectional line
-				(at -15.24 1.27 0)
-				(length 2.54)
-				(name "PA7"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "13"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "SPI1_MOSI" output line)
-			)
-			(pin bidirectional line
-				(at -15.24 -3.81 0)
-				(length 2.54)
-				(name "PA8"
+			(pin power_in line
+				(at 20.32 -7.62 180)
+				(length 7.62)
+				(name "VSS"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -16443,476 +16127,11 @@
 						)
 					)
 				)
-				(alternate "I2C3_SCL" output clock)
-				(alternate "USART1_CK" output clock)
-				(alternate "USB_CRS_SYNC" input line)
-			)
-			(pin bidirectional line
-				(at -15.24 -6.35 0)
-				(length 2.54)
-				(name "PA9"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "19"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "I2C1_SCL" output clock)
-				(alternate "I2C3_SMBA" output line)
-				(alternate "USART1_TX" output line)
-			)
-			(pin bidirectional line
-				(at -15.24 -8.89 0)
-				(length 2.54)
-				(name "PA10"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "20"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "I2C1_SDA" bidirectional line)
-				(alternate "USART1_RX" input line)
-			)
-			(pin bidirectional line
-				(at -15.24 -11.43 0)
-				(length 2.54)
-				(name "PA11"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "21"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "SPI1_MISO" input line)
-				(alternate "USART1_CTS" output line)
-				(alternate "USB_DM" bidirectional inverted)
-			)
-			(pin bidirectional line
-				(at -15.24 -13.97 0)
-				(length 2.54)
-				(name "PA12"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "22"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "SPI1_MOSI" output line)
-				(alternate "USART1_RTS/DE" output line)
-				(alternate "USB_DP" bidirectional line)
-			)
-			(pin bidirectional line
-				(at -15.24 -16.51 0)
-				(length 2.54)
-				(name "PA13"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "23"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "LPUART1_RX" input line)
-				(alternate "SWDIO" bidirectional line)
-			)
-			(pin bidirectional line
-				(at -15.24 -19.05 0)
-				(length 2.54)
-				(name "PA14"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "25"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "LPUART1_TX" output line)
-				(alternate "SWCLK" input clock)
-				(alternate "USART2_TX" output line)
-			)
-			(pin bidirectional line
-				(at 15.24 19.05 180)
-				(length 2.54)
-				(name "PB0"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "14"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin bidirectional line
-				(at 15.24 16.51 180)
-				(length 2.54)
-				(name "PB1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "15"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "LPUART1_RTS/DE" output line)
-			)
-			(pin bidirectional line
-				(at 15.24 13.97 180)
-				(length 2.54)
-				(name "PB4"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "26"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "I2C3_SDA" bidirectional line)
-				(alternate "SPI_MISO" input line)
-				(alternate "USART1_CTS" output line)
-				(alternate "USART5_RX" input line)
-			)
-			(pin bidirectional line
-				(at 15.24 11.43 180)
-				(length 2.54)
-				(name "PB5"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "27"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "I2C1_SMBA" output line)
-				(alternate "SPI1_MOSI" output line)
-				(alternate "USART1_CK" output clock)
-				(alternate "USART5_CK" output clock)
-				(alternate "USART5_RTS/DE" output line)
-			)
-			(pin bidirectional line
-				(at 15.24 8.89 180)
-				(length 2.54)
-				(name "PB6"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "28"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "I2C1_SCL" output clock)
-				(alternate "USART1_TX" output line)
-			)
-			(pin bidirectional line
-				(at 15.24 6.35 180)
-				(length 2.54)
-				(name "PB7"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "29"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "I2C1_SDA" bidirectional line)
-				(alternate "USART1_RX" input line)
-				(alternate "USART4_CTS" output line)
-			)
-			(pin bidirectional line
-				(at 15.24 -1.27 180)
-				(length 2.54)
-				(name "PC14"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "OSC32_IN" input clock)
-			)
-			(pin bidirectional line
-				(at 15.24 -3.81 180)
-				(length 2.54)
-				(name "PC15"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(alternate "OSC32_OUT" output clock)
-			)
-			(pin input line
-				(at 15.24 -13.97 180)
-				(length 2.54)
-				(name "nRST"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "3"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin bidirectional line
-				(at 15.24 -19.05 180)
-				(length 2.54)
-				(name "BOOT0"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "30"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-		)
-		(symbol "STM32L072KBUx_1_1"
-			(rectangle
-				(start -12.7 21.59)
-				(end 12.7 -21.59)
-				(stroke
-					(width 0)
-					(type solid)
-				)
-				(fill
-					(type background)
-				)
-			)
-		)
-		(symbol "STM32L072KBUx_2_0"
-			(pin power_in line
-				(at -12.7 3.81 0)
-				(length 2.54)
-				(name "VDD"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "17"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
 			)
 			(pin power_in line
-				(at -12.7 1.27 0)
-				(length 2.54)
-				(name "VDD"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "32"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at -12.7 -1.27 0)
-				(length 2.54)
-				(name "VDDA"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "5"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at -12.7 -3.81 0)
-				(length 2.54)
-				(name "VDD_USB"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "24"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 12.7 3.81 180)
-				(length 2.54)
+				(at 20.32 -10.16 180)
+				(length 7.62)
 				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "16"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 12.7 1.27 180)
-				(length 2.54)
-				(name "VSS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "31"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 12.7 -1.27 180)
-				(length 2.54)
-				(name "VSSA"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "4"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at 12.7 -3.81 180)
-				(length 2.54)
-				(name "GND_PAD"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -16927,17 +16146,202 @@
 					)
 				)
 			)
-		)
-		(symbol "STM32L072KBUx_2_1"
-			(rectangle
-				(start -10.16 6.35)
-				(end 10.16 -6.35)
-				(stroke
-					(width 0)
-					(type solid)
+			(pin power_in line
+				(at 20.32 -12.7 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
 				)
-				(fill
-					(type background)
+				(number "41"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -15.24 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "55"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -17.78 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "69"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -20.32 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "80"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -22.86 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "89"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -25.4 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "104"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -27.94 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "118"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -30.48 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "128"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -33.02 180)
+				(length 7.62)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "141"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -35.56 180)
+				(length 7.62)
+				(name "VSSSMPS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "14"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 -38.1 180)
+				(length 7.62)
+				(name "VSSA"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "34"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
 				)
 			)
 		)
