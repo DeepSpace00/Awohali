@@ -571,27 +571,39 @@
         "wire_width": 6
       },
       {
-        "name": "CANBus",
+        "name": "50R_Diff",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
+        "name": "50R_Single",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
-        "name": "RF",
+        "name": "CANBus",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
+        "name": "RF",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 5,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
         "name": "RMII",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
+        "priority": 4,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
         "name": "RMII_DIFF",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
@@ -604,7 +616,7 @@
         "microvia_drill": 0.3,
         "name": "USB",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 4,
+        "priority": 6,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.362,
         "via_diameter": 0.6,
@@ -622,6 +634,15 @@
       ],
       "/CANBus Transceivers/CANL": [
         "CANBus"
+      ],
+      "/Clocks/24MHz": [
+        "50R_Single"
+      ],
+      "/Clocks/25MHz": [
+        "50R_Single"
+      ],
+      "/Clocks/32768Hz": [
+        "50R_Single"
       ],
       "/EPS Controller/L0_USB.DN": [
         "USB"
@@ -673,6 +694,42 @@
       ],
       "/Ethernet/TXP": [
         "RMII_DIFF"
+      ],
+      "/Memory/QSPI1.CLK": [
+        "50R_Single"
+      ],
+      "/Memory/QSPI1.IO0": [
+        "50R_Single"
+      ],
+      "/Memory/QSPI1.IO1": [
+        "50R_Single"
+      ],
+      "/Memory/QSPI1.IO2": [
+        "50R_Single"
+      ],
+      "/Memory/QSPI1.IO3": [
+        "50R_Single"
+      ],
+      "/Memory/QSPI1.~{CS}": [
+        "50R_Single"
+      ],
+      "/Memory/SDMMC2.CLK": [
+        "50R_Single"
+      ],
+      "/Memory/SDMMC2.CMD": [
+        "50R_Single"
+      ],
+      "/Memory/SDMMC2.D0": [
+        "50R_Single"
+      ],
+      "/Memory/SDMMC2.D1": [
+        "50R_Single"
+      ],
+      "/Memory/SDMMC2.D2": [
+        "50R_Single"
+      ],
+      "/Memory/SDMMC2.D3": [
+        "50R_Single"
       ],
       "/RF Interface/AUX_RF-IN": [
         "RF"
@@ -742,6 +799,18 @@
       ],
       "/USB Hub/UP_USB_DP": [
         "USB"
+      ],
+      "Net-(J6-RX+)": [
+        "RMII_DIFF"
+      ],
+      "Net-(J6-RX-)": [
+        "RMII_DIFF"
+      ],
+      "Net-(J6-TX+)": [
+        "RMII_DIFF"
+      ],
+      "Net-(J6-TX-)": [
+        "RMII_DIFF"
       ]
     },
     "netclass_patterns": [
@@ -1259,7 +1328,7 @@
       "workbook_filename": ""
     },
     "page_layout_descr_file": "kicad-embed://ERAU_Drawing_Sheet_ANSI_B.kicad_wks",
-    "plot_directory": "manufacturing/assembly/sch_rev1.pdf",
+    "plot_directory": "manufacturing/assembly/sch_rev1_2025-04-14.pdf",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
