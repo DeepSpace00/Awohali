@@ -1139,12 +1139,12 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "lib_sch:W25Q128JVP"
+		(symbol "lib_sch:W25NxxxGVxIG/IT"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U?"
-				(at 0 19.05 0)
+			(property "Reference" "U"
+				(at 0 31.75 0)
 				(do_not_autoplace)
 				(effects
 					(font
@@ -1152,8 +1152,8 @@
 					)
 				)
 			)
-			(property "Value" "W25Q128JVP"
-				(at 0 16.51 0)
+			(property "Value" "W25NxxxGVxIG/IT"
+				(at 0 29.21 0)
 				(do_not_autoplace)
 				(effects
 					(font
@@ -1179,7 +1179,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "FLASH - NOR Memory IC 128Mbit SPI - Quad I/O, QPI 133 MHz 8-WSON (6x5)"
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -1215,29 +1215,11 @@
 					(hide yes)
 				)
 			)
-			(symbol "W25Q128JVP_1_0"
-				(pin input line
-					(at -15.24 12.7 0)
-					(length 5.08)
-					(name "~{CS}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
+			(symbol "W25NxxxGVxIG/IT_0_0"
 				(pin input clock
-					(at -15.24 7.62 0)
+					(at -15.24 20.32 0)
 					(length 5.08)
-					(name "SCK"
+					(name "CLK"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1252,85 +1234,8 @@
 						)
 					)
 				)
-				(pin input line
-					(at -15.24 2.54 0)
-					(length 5.08)
-					(name "DI"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "IO0" bidirectional line)
-				)
-				(pin output line
-					(at -15.24 -2.54 0)
-					(length 5.08)
-					(name "DO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "IO1" bidirectional line)
-				)
-				(pin input line
-					(at -15.24 -7.62 0)
-					(length 5.08)
-					(name "~{WP}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "IO2" bidirectional line)
-				)
-				(pin input line
-					(at -15.24 -12.7 0)
-					(length 5.08)
-					(name "~{HOLD}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "IO3" bidirectional line)
-					(alternate "~{RESET}" input line)
-				)
 				(pin power_in line
-					(at 15.24 12.7 180)
+					(at 15.24 25.4 180)
 					(length 5.08)
 					(name "VCC"
 						(effects
@@ -1348,7 +1253,7 @@
 					)
 				)
 				(pin power_in line
-					(at 15.24 -10.16 180)
+					(at 15.24 2.54 180)
 					(length 5.08)
 					(name "GND"
 						(effects
@@ -1366,7 +1271,7 @@
 					)
 				)
 				(pin power_in line
-					(at 15.24 -12.7 180)
+					(at 15.24 0 180)
 					(length 5.08)
 					(name "GND_PAD"
 						(effects
@@ -1384,10 +1289,106 @@
 					)
 				)
 			)
-			(symbol "W25Q128JVP_1_1"
+			(symbol "W25NxxxGVxIG/IT_1_0"
+				(pin input line
+					(at -15.24 25.4 0)
+					(length 5.08)
+					(name "~{CS}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -15.24 15.24 0)
+					(length 5.08)
+					(name "IO0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "DI" input line)
+				)
+				(pin bidirectional line
+					(at -15.24 10.16 0)
+					(length 5.08)
+					(name "IO1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "DO" output line)
+				)
+				(pin bidirectional line
+					(at -15.24 5.08 0)
+					(length 5.08)
+					(name "IO2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "~{WP}" input line)
+				)
+				(pin bidirectional line
+					(at -15.24 0 0)
+					(length 5.08)
+					(name "IO3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "~{HOLD}" input line)
+				)
+			)
+			(symbol "W25NxxxGVxIG/IT_1_1"
 				(rectangle
-					(start -10.16 15.24)
-					(end 10.16 -15.24)
+					(start -10.16 27.94)
+					(end 10.16 -2.54)
 					(stroke
 						(width 0)
 						(type solid)
@@ -1954,7 +1955,7 @@
 		(uuid "7c7aff22-2063-4733-b364-7328ff4b4523")
 	)
 	(junction
-		(at 129.54 127)
+		(at 127 127)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "952fe87e-7670-4874-9701-0478bb1ab9e4")
@@ -2157,7 +2158,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 127) (xy 129.54 129.54)
+			(xy 127 127) (xy 127 129.54)
 		)
 		(stroke
 			(width 0)
@@ -2277,7 +2278,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 134.62) (xy 129.54 135.89)
+			(xy 127 134.62) (xy 127 135.89)
 		)
 		(stroke
 			(width 0)
@@ -2297,7 +2298,7 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 127) (xy 129.54 127)
+			(xy 116.84 127) (xy 127 127)
 		)
 		(stroke
 			(width 0)
@@ -3271,7 +3272,7 @@
 			(fill
 				(type none)
 			)
-			(uuid 8347b97a-d0df-48c2-ae66-0b42f271a6a1)
+			(uuid 9279ae28-e1d0-4a26-b935-804b8d223962)
 		)
 	)
 	(rule_area
@@ -3286,7 +3287,7 @@
 			(fill
 				(type none)
 			)
-			(uuid a64c5266-ac4f-45fb-b089-c14a7af7e8d1)
+			(uuid ba5a210b-1113-4051-a0ce-f897f2d97f74)
 		)
 	)
 	(netclass_flag ""
@@ -3353,7 +3354,7 @@
 	)
 	(symbol
 		(lib_id "lib_pwr:+3V3")
-		(at 129.54 127 0)
+		(at 127 127 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3362,7 +3363,7 @@
 		(fields_autoplaced yes)
 		(uuid "07a41867-3453-4266-bf00-362c5b6a74fa")
 		(property "Reference" "#PWR063"
-			(at 129.54 127 0)
+			(at 127 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3371,7 +3372,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 129.54 123.444 0)
+			(at 127 123.444 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3380,7 +3381,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 127 0)
+			(at 127 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3389,7 +3390,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 127 0)
+			(at 127 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3398,7 +3399,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.54 127 0)
+			(at 127 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3480,6 +3481,124 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
 					(reference "#PWR062")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:W25NxxxGVxIG/IT")
+		(at 101.6 152.4 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0d81264d-d95b-4b6e-ac5f-255b0e91a3fc")
+		(property "Reference" "U2"
+			(at 101.6 120.65 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "W25N512GVEIG"
+			(at 101.6 123.19 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_ICs:WSON127P800X600X75-8"
+			(at 101.6 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Windbond-W25N512GV.pdf"
+			(at 101.6 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "IC FLASH 512MBIT SPI/QUAD 8WSON"
+			(at 101.6 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Winbond Electronics"
+			(at 101.6 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "W25N512GVEIG"
+			(at 101.6 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "256-W25N512GVEIG-ND"
+			(at 101.6 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "d39f6103-0759-4ff6-b418-58611bbf6df9")
+		)
+		(pin "6"
+			(uuid "8f62795b-2cbb-4af8-a0f2-c4a4381cb88d")
+		)
+		(pin "1"
+			(uuid "3cd10337-3faf-4f99-b46a-c40d3996a2e3")
+		)
+		(pin "8"
+			(uuid "a0e1a049-a389-4a31-8b29-0e86f06f0f9c")
+		)
+		(pin "9"
+			(uuid "0ae4d9fa-479b-45a0-a6d2-f89c936d0c3f")
+		)
+		(pin "3"
+			(uuid "031bf0ed-50e7-4ff1-8218-6a79ad31ea0e")
+		)
+		(pin "4"
+			(uuid "5f9ab616-8123-4622-ba42-008946ec079c")
+		)
+		(pin "5"
+			(uuid "fe317f7d-671d-49b2-8014-7e35c2f4ba83")
+		)
+		(pin "2"
+			(uuid "3e3786ea-30f4-425d-ab92-9d5b587b4c58")
+		)
+		(instances
+			(project ""
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -4707,7 +4826,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:C")
-		(at 129.54 132.08 0)
+		(at 127 132.08 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4716,7 +4835,7 @@
 		(fields_autoplaced yes)
 		(uuid "77acbd64-9fa0-4d79-bb8a-5f85d2f8b4c8")
 		(property "Reference" "C35"
-			(at 131.445 129.54 0)
+			(at 128.905 129.54 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4726,7 +4845,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 131.445 130.81 0)
+			(at 128.905 130.81 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4736,7 +4855,7 @@
 			)
 		)
 		(property "Footprint" "lib_passives:GCM0402"
-			(at 129.54 130.175 0)
+			(at 127 130.175 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4745,7 +4864,7 @@
 			)
 		)
 		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
-			(at 129.54 130.175 0)
+			(at 127 130.175 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4754,7 +4873,7 @@
 			)
 		)
 		(property "Description" "CAP CER 0.1UF 50V X7R 0402"
-			(at 129.54 132.08 0)
+			(at 127 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4763,7 +4882,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata Electronics"
-			(at 129.54 130.175 0)
+			(at 127 130.175 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4772,7 +4891,7 @@
 			)
 		)
 		(property "MPN" "GRT155R71H104KE01D"
-			(at 129.54 130.175 0)
+			(at 127 130.175 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4781,7 +4900,7 @@
 			)
 		)
 		(property "DKPN" "490-GRT155R71H104KE01DCT-ND"
-			(at 129.54 132.08 0)
+			(at 127 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4790,7 +4909,7 @@
 			)
 		)
 		(property "Tolerance" "10%"
-			(at 131.445 133.35 0)
+			(at 128.905 133.35 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4800,7 +4919,7 @@
 			)
 		)
 		(property "Voltage Rating" "50V"
-			(at 131.445 132.08 0)
+			(at 128.905 132.08 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4810,7 +4929,7 @@
 			)
 		)
 		(property "Package" "0402"
-			(at 131.445 134.62 0)
+			(at 128.905 134.62 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4930,130 +5049,8 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:W25Q128JVP")
-		(at 101.6 139.7 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "81633a88-ea8b-4836-8ef2-fc8a17186423")
-		(property "Reference" "U2"
-			(at 101.6 120.65 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "W25Q128JVP"
-			(at 101.6 123.19 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_ICs:WFDFN8P127_600X500X75L60X40N"
-			(at 101.6 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Windbond-W25Q128JV.pdf"
-			(at 101.6 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "FLASH - NOR Memory IC 128Mbit SPI - Quad I/O, QPI 133 MHz 8-WSON (6x5)"
-			(at 101.6 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Winbond Electronics"
-			(at 101.6 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "W25Q128JVPIQ"
-			(at 101.6 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "W25Q128JVPIQ-ND"
-			(at 101.6 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "51a2a8cd-df41-46bc-b727-e94737e17237")
-		)
-		(pin "6"
-			(uuid "6231dfbc-85b4-47d7-be3a-908feaac1cac")
-		)
-		(pin "7"
-			(uuid "b605945d-1401-4182-962b-cd8ec8042596")
-			(alternate "IO3")
-		)
-		(pin "9"
-			(uuid "210a17b7-6901-4702-b8d2-bdc94bca4edb")
-		)
-		(pin "5"
-			(uuid "f5d77d00-60e1-4c56-9c6b-d4794d00fa39")
-			(alternate "IO0")
-		)
-		(pin "4"
-			(uuid "6a583720-d198-42fe-af43-db51fd662d58")
-		)
-		(pin "2"
-			(uuid "cdf2989b-6814-4b1f-b5d2-4ca7831d2f6d")
-			(alternate "IO1")
-		)
-		(pin "8"
-			(uuid "94362e3f-a0bc-4bab-8b59-7184e2405a69")
-		)
-		(pin "3"
-			(uuid "cb37891c-2c20-4565-8604-7a4640405f75")
-			(alternate "IO2")
-		)
-		(instances
-			(project ""
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/bf9ac865-aa9a-42a1-8ada-6ec99a5fbf41"
-					(reference "U2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "lib_pwr:VSS")
-		(at 129.54 135.89 0)
+		(at 127 135.89 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5062,7 +5059,7 @@
 		(fields_autoplaced yes)
 		(uuid "8d606ff2-445f-405d-89bb-b9f8897a2c93")
 		(property "Reference" "#PWR065"
-			(at 129.54 135.89 0)
+			(at 127 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5071,7 +5068,7 @@
 			)
 		)
 		(property "Value" "VSS"
-			(at 129.54 139.7 0)
+			(at 127 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5080,7 +5077,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 135.89 0)
+			(at 127 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5089,7 +5086,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 135.89 0)
+			(at 127 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5098,7 +5095,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.54 135.89 0)
+			(at 127 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
