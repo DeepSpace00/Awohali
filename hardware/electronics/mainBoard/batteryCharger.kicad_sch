@@ -3061,12 +3061,12 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "lib_sch:M8AS-02PFFR-SF8001"
+		(symbol "lib_sch:M8S-04PFFR-SF8001"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "J?"
-				(at 0 11.43 0)
+				(at 0 16.51 0)
 				(do_not_autoplace)
 				(effects
 					(font
@@ -3074,8 +3074,8 @@
 					)
 				)
 			)
-			(property "Value" "M8AS-02PFFR-SF8001"
-				(at 0 8.89 0)
+			(property "Value" "M8S-04PFFR-SF8001"
+				(at 0 13.97 0)
 				(do_not_autoplace)
 				(effects
 					(font
@@ -3137,25 +3137,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "M8AS-02PFFR-SF8001_0_0"
-				(pin passive line
-					(at 10.16 -5.08 180)
-					(length 5.08)
-					(name "SHIELD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "S1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
+			(symbol "M8S-04PFFR-SF8001_0_0"
 				(pin passive line
 					(at 10.16 -7.62 180)
 					(length 5.08)
@@ -3174,12 +3156,30 @@
 						)
 					)
 				)
-			)
-			(symbol "M8AS-02PFFR-SF8001_1_0"
-				(pin power_out line
-					(at 10.16 5.08 180)
+				(pin passive line
+					(at 10.16 -10.16 180)
 					(length 5.08)
-					(name "VDD"
+					(name "SHIELD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "M8S-04PFFR-SF8001_1_0"
+				(pin passive line
+					(at 10.16 10.16 180)
+					(length 5.08)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3194,10 +3194,10 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 10.16 0 180)
+				(pin passive line
+					(at 10.16 5.08 180)
 					(length 5.08)
-					(name "VSS"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3212,11 +3212,47 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 10.16 2.54 180)
+					(length 5.08)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -2.54 180)
+					(length 5.08)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
-			(symbol "M8AS-02PFFR-SF8001_1_1"
+			(symbol "M8S-04PFFR-SF8001_1_1"
 				(rectangle
-					(start -5.08 7.62)
-					(end 5.08 -10.16)
+					(start -5.08 12.7)
+					(end 5.08 -12.7)
 					(stroke
 						(width 0)
 						(type solid)
@@ -4503,7 +4539,7 @@
 	)
 	(text "Pv Panel Jack"
 		(exclude_from_sim no)
-		(at 99.06 55.88 0)
+		(at 99.06 48.26 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4515,7 +4551,7 @@
 	)
 	(text "VIN: 12V"
 		(exclude_from_sim no)
-		(at 99.06 58.42 0)
+		(at 99.06 50.8 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4564,6 +4600,16 @@
 			)
 		)
 		(uuid "aced9a24-8eb7-490f-acaa-2e95388793f4")
+	)
+	(text "Current Limit: 8A (4A per pin)"
+		(exclude_from_sim no)
+		(at 99.06 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "b127584e-8523-4193-a7fa-6a28886c7623")
 	)
 	(text "Charge enable"
 		(exclude_from_sim no)
@@ -4651,16 +4697,16 @@
 		(uuid "f2128f7e-46dd-4191-9477-77c5b25ee024")
 	)
 	(junction
+		(at 111.76 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "014ce226-83b8-417c-919e-8dfdf1ca89c5")
+	)
+	(junction
 		(at 269.24 133.35)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0446ed96-b66a-4d5f-9865-f4fc4d66060d")
-	)
-	(junction
-		(at 111.76 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "046bb145-6fab-4858-87f8-c550f6e373dc")
 	)
 	(junction
 		(at 243.84 148.59)
@@ -4699,6 +4745,12 @@
 		(uuid "32416271-2c00-4991-8e5e-dbead1ba630b")
 	)
 	(junction
+		(at 111.76 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "37516f67-a4a4-4214-a469-088278ddf0d4")
+	)
+	(junction
 		(at 269.24 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4709,6 +4761,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3cf57644-1641-4603-b60c-aec2035dc4c6")
+	)
+	(junction
+		(at 114.3 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4015db2d-881e-4b51-92ea-ead3a3a2b863")
 	)
 	(junction
 		(at 175.26 76.2)
@@ -4733,12 +4791,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "47ab4b06-1cad-42ab-90fa-3f8e9fc177fc")
-	)
-	(junction
-		(at 111.76 78.74)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4840c2ee-c965-4b6c-8893-fbfc098121d8")
 	)
 	(junction
 		(at 276.86 143.51)
@@ -4927,6 +4979,12 @@
 		(uuid "da7856bf-d8e1-48d5-8d18-b28cc9276ad9")
 	)
 	(junction
+		(at 111.76 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e28b135e-6226-4de3-ba97-50befd682779")
+	)
+	(junction
 		(at 276.86 133.35)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5023,6 +5081,16 @@
 			(type default)
 		)
 		(uuid "05e27c9c-1392-4bbe-9657-c92da720f804")
+	)
+	(wire
+		(pts
+			(xy 114.3 68.58) (xy 116.84 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0925b78b-5218-45ec-bc91-675df53bf0f4")
 	)
 	(wire
 		(pts
@@ -5266,6 +5334,16 @@
 	)
 	(wire
 		(pts
+			(xy 109.22 83.82) (xy 111.76 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2591b0da-981e-409c-9ace-92096429f294")
+	)
+	(wire
+		(pts
 			(xy 363.22 132.08) (xy 363.22 133.35)
 		)
 		(stroke
@@ -5376,16 +5454,6 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 82.55) (xy 111.76 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "37d5b01d-d042-493a-aa24-efb50258ee23")
-	)
-	(wire
-		(pts
 			(xy 185.42 132.08) (xy 185.42 133.35)
 		)
 		(stroke
@@ -5466,16 +5534,6 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 78.74) (xy 111.76 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "414638ad-6844-4260-961e-efb7930f3bbf")
-	)
-	(wire
-		(pts
 			(xy 153.67 118.11) (xy 161.29 118.11)
 		)
 		(stroke
@@ -5493,6 +5551,16 @@
 			(type default)
 		)
 		(uuid "4344133a-7fa8-4585-b2d3-752fef6d8280")
+	)
+	(wire
+		(pts
+			(xy 111.76 71.12) (xy 111.76 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46bc8867-bccb-41c9-82ac-a5c0cc43058d")
 	)
 	(wire
 		(pts
@@ -5836,7 +5904,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 68.58) (xy 116.84 68.58)
+			(xy 109.22 68.58) (xy 114.3 68.58)
 		)
 		(stroke
 			(width 0)
@@ -5883,16 +5951,6 @@
 			(type default)
 		)
 		(uuid "6c0802e1-1e39-49f5-b8a3-55ef5f2a216a")
-	)
-	(wire
-		(pts
-			(xy 111.76 81.28) (xy 111.76 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6cadc3eb-4f6c-4c80-b437-1ca64c8720a6")
 	)
 	(wire
 		(pts
@@ -5963,6 +6021,16 @@
 			(type default)
 		)
 		(uuid "7423b625-9394-46ae-b277-2dd1a2ba1eab")
+	)
+	(wire
+		(pts
+			(xy 109.22 71.12) (xy 111.76 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75c2287a-0595-445f-90e6-5272c84281ae")
 	)
 	(wire
 		(pts
@@ -6086,13 +6154,13 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 73.66) (xy 111.76 73.66)
+			(xy 109.22 81.28) (xy 111.76 81.28)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "84ac58e0-1810-4263-afd5-16547d5835ef")
+		(uuid "8413a415-74ef-4dad-9948-0ff4fae1b663")
 	)
 	(wire
 		(pts
@@ -6103,6 +6171,16 @@
 			(type default)
 		)
 		(uuid "8596d655-ab93-4478-abac-cbefd5861d85")
+	)
+	(wire
+		(pts
+			(xy 111.76 63.5) (xy 111.76 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85d335d0-596c-48c3-826b-6e103faeb9c1")
 	)
 	(wire
 		(pts
@@ -6176,6 +6254,16 @@
 	)
 	(wire
 		(pts
+			(xy 111.76 85.09) (xy 111.76 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8bd3f66b-96f8-491e-9b60-361c2f6dbcd6")
+	)
+	(wire
+		(pts
 			(xy 186.69 118.11) (xy 198.12 118.11)
 		)
 		(stroke
@@ -6183,16 +6271,6 @@
 			(type default)
 		)
 		(uuid "8e8c8f2c-a2d1-4d45-87a7-d4c4b4c67903")
-	)
-	(wire
-		(pts
-			(xy 111.76 78.74) (xy 111.76 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ec3eb74-0999-4496-8755-3092c0ad0ef3")
 	)
 	(wire
 		(pts
@@ -6546,6 +6624,16 @@
 	)
 	(wire
 		(pts
+			(xy 109.22 76.2) (xy 114.3 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2fe8cde-beb6-4e45-a792-b0adfca5b656")
+	)
+	(wire
+		(pts
 			(xy 130.81 77.47) (xy 130.81 80.01)
 		)
 		(stroke
@@ -6696,6 +6784,26 @@
 	)
 	(wire
 		(pts
+			(xy 109.22 63.5) (xy 111.76 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d63384ca-7608-4d8b-911f-1456cc89297d")
+	)
+	(wire
+		(pts
+			(xy 111.76 83.82) (xy 111.76 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7bfc3cd-e632-460c-9cff-2b906d34f5bf")
+	)
+	(wire
+		(pts
 			(xy 246.38 160.02) (xy 246.38 158.75)
 		)
 		(stroke
@@ -6826,6 +6934,16 @@
 	)
 	(wire
 		(pts
+			(xy 114.3 76.2) (xy 114.3 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea7706a4-662e-496a-a699-535f129d6c0d")
+	)
+	(wire
+		(pts
 			(xy 189.23 107.95) (xy 195.58 107.95)
 		)
 		(stroke
@@ -6893,16 +7011,6 @@
 			(type default)
 		)
 		(uuid "f34808bd-ecb3-4517-8b11-6a7b971fc645")
-	)
-	(wire
-		(pts
-			(xy 109.22 81.28) (xy 111.76 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f365cda8-c048-4b2b-8259-09a596a2ba7c")
 	)
 	(wire
 		(pts
@@ -8069,7 +8177,7 @@
 	)
 	(symbol
 		(lib_id "lib_pwr:GND")
-		(at 111.76 82.55 0)
+		(at 111.76 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8078,7 +8186,7 @@
 		(fields_autoplaced yes)
 		(uuid "10a016c3-86ce-461e-90cb-bad7cda02f0e")
 		(property "Reference" "#PWR0248"
-			(at 111.76 82.55 0)
+			(at 111.76 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8087,7 +8195,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 111.76 86.36 0)
+			(at 111.76 88.9 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8096,7 +8204,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 111.76 82.55 0)
+			(at 111.76 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8105,7 +8213,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 82.55 0)
+			(at 111.76 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8114,7 +8222,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 111.76 82.55 0)
+			(at 111.76 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14834,6 +14942,115 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:M8S-04PFFR-SF8001")
+		(at 99.06 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c93ea3f2-1de1-4543-bd92-7fa67bdd2b99")
+		(property "Reference" "J26"
+			(at 99.06 57.15 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "M8S-04PFFR-SF8001"
+			(at 99.06 59.69 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_connectors:M8S-04PFFR-SF8001"
+			(at 99.06 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "datasheets/Amphenol-M8S-04PFFR-SF8001.pdf"
+			(at 99.06 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CONN RCPT FMALE 4POS GOLD SOLDER"
+			(at 99.06 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Amphenol LTW"
+			(at 99.06 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "M8S-04PFFR-SF8001"
+			(at 99.06 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "1754-1451-ND"
+			(at 99.06 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S1"
+			(uuid "735255f9-f854-4510-a8f8-e457eb40646c")
+		)
+		(pin "2"
+			(uuid "880bb826-4e24-43fe-b119-6c4b44522433")
+		)
+		(pin "1"
+			(uuid "2e40b2a1-0265-406c-99a7-3413969be80f")
+		)
+		(pin "S2"
+			(uuid "8fac00fc-0bc2-4ab5-9ca2-ae3144c549c2")
+		)
+		(pin "4"
+			(uuid "f48a8afe-7e34-4758-b683-5c5064fb9361")
+		)
+		(pin "3"
+			(uuid "75c0b002-d8fc-40b3-ab1d-fdd442dab8ef")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/e4a7374c-b8e2-4805-9d19-02e8c1eab01e"
+					(reference "J26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_pwr:CHG+")
 		(at 375.92 200.66 0)
 		(unit 1)
@@ -15576,109 +15793,6 @@
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/e4a7374c-b8e2-4805-9d19-02e8c1eab01e"
 					(reference "R84")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "lib_sch:M8AS-02PFFR-SF8001")
-		(at 99.06 73.66 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "eb04023e-cbe2-4808-92a4-fbe7a1fe247c")
-		(property "Reference" "J26"
-			(at 99.06 62.23 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "M8AS-02PFFR-SF8001"
-			(at 99.06 64.77 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_connectors:M8AS-02PFFR-SF8001"
-			(at 99.06 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "datasheets/Amphenol-M8AS-04PFFR-SF8001.pdf"
-			(at 99.06 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "M8 PANEL 90 PCB CONN"
-			(at 99.06 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Amphenol LTW"
-			(at 99.06 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "M8AS-02PFFR-SF8001"
-			(at 99.06 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" "M8AS-02PFFR-SF8001-ND"
-			(at 99.06 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "S1"
-			(uuid "d2d90ed5-7fcc-48b6-bd57-3cb6a4e2f594")
-		)
-		(pin "1"
-			(uuid "34374ceb-00c5-4d67-af5c-3458dee7b81f")
-		)
-		(pin "2"
-			(uuid "c8d89e52-3af6-4122-904b-b1f33270bda1")
-		)
-		(pin "S2"
-			(uuid "52334097-eb71-46fc-afd0-056c3c0e7ae9")
-		)
-		(instances
-			(project "mainBoard"
-				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/33ed3f59-5a0e-4fda-9238-d9f0ec67772d/e4a7374c-b8e2-4805-9d19-02e8c1eab01e"
-					(reference "J26")
 					(unit 1)
 				)
 			)
