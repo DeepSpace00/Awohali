@@ -373,17 +373,19 @@
 		(layer "F.Fab")
 		(uuid "7b022892-678f-49b3-a5cc-18325772b5aa")
 	)
-	(fp_text user "${REFERENCE}"
-		(at 0 0 0)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "58210749-f688-4a49-a19d-8e22828178aa")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.05)
-			)
-		)
+	(pad "" smd roundrect
+		(at -2.8 -1.2)
+		(size 1.2 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.208333)
+		(uuid "5cb043bf-fb71-4f5f-a9b4-86ce446c8810")
+	)
+	(pad "" smd roundrect
+		(at 2.8 -1.2)
+		(size 1.2 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.208333)
+		(uuid "85d1c021-cf8e-48e1-b3fd-12b4fd5ee04d")
 	)
 	(pad "1" smd roundrect
 		(at -1.5 1.325)
@@ -412,20 +414,6 @@
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "1b25e95c-d109-42e5-9539-1798bf87920b")
-	)
-	(pad "MP1" smd roundrect
-		(at -2.8 -1.2)
-		(size 1.2 1.8)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(roundrect_rratio 0.208333)
-		(uuid "5cb043bf-fb71-4f5f-a9b4-86ce446c8810")
-	)
-	(pad "MP2" smd roundrect
-		(at 2.8 -1.2)
-		(size 1.2 1.8)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(roundrect_rratio 0.208333)
-		(uuid "85d1c021-cf8e-48e1-b3fd-12b4fd5ee04d")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/libraries/lib_3d/BM04B-SRSS-TB.STEP"
