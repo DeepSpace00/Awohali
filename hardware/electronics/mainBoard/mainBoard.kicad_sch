@@ -6,7 +6,7 @@
 	(paper "B")
 	(title_block
 		(title "Awohali - System Diagram")
-		(date "2025-04-30")
+		(date "2025-05-02")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -423,10 +423,6 @@
 		(uuid "b3ac9c0c-4b01-421e-a59d-129d73093fcf")
 	)
 	(no_connect
-		(at 194.31 127)
-		(uuid "1faebfc2-ba69-44d9-a0ad-97868b8e9f79")
-	)
-	(no_connect
 		(at 69.85 257.81)
 		(uuid "41cd4893-9855-4909-b7a1-5904fc62e0e3")
 	)
@@ -681,16 +677,6 @@
 			(type default)
 		)
 		(uuid "7359f48e-44b3-4079-a3a6-76330e65eff6")
-	)
-	(bus
-		(pts
-			(xy 194.31 127) (xy 196.85 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "74b2eb84-30f7-4f48-8f30-e042ae5a8cec")
 	)
 	(wire
 		(pts
@@ -1897,16 +1883,6 @@
 				(justify left)
 			)
 		)
-		(pin "UART5{RX TX}" bidirectional
-			(at 234.95 125.73 0)
-			(uuid "2bedc0e9-af84-4e2f-b8da-49cf6c385a15")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "I2C4{SCL SDA}" bidirectional
 			(at 234.95 158.75 0)
 			(uuid "27502fd8-8d8d-42a8-beed-7bb3055ed716")
@@ -2178,13 +2154,13 @@
 			)
 		)
 		(pin "UART4{RX TX}" bidirectional
-			(at 196.85 127 180)
+			(at 234.95 125.73 0)
 			(uuid "aac1610d-7075-468a-9190-ad583119fc49")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "LNA_CTRL1" output
@@ -2783,9 +2759,9 @@
 				(justify left)
 			)
 		)
-		(pin "UART5{RX TX}" bidirectional
-			(at 254 125.73 180)
-			(uuid "88101e5a-7867-47da-8c8b-4a7b9c06109d")
+		(pin "{GNSS}" bidirectional
+			(at 254 128.27 180)
+			(uuid "f6bd74b4-e117-4ad2-a0a4-547adf546c0e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2793,9 +2769,9 @@
 				(justify left)
 			)
 		)
-		(pin "{GNSS}" bidirectional
-			(at 254 128.27 180)
-			(uuid "f6bd74b4-e117-4ad2-a0a4-547adf546c0e")
+		(pin "UART4{RX TX}" bidirectional
+			(at 254 125.73 180)
+			(uuid "12765af2-b8bf-4672-af44-c2f0346e966f")
 			(effects
 				(font
 					(size 1.27 1.27)
