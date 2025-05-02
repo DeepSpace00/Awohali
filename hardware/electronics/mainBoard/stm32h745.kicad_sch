@@ -6,6104 +6,12 @@
 	(paper "B")
 	(title_block
 		(title "Awohali - STM32H745")
-		(date "2025-04-15")
+		(date "2025-04-30")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
 	)
 	(lib_symbols
-		(symbol "STM32H745ZIT6_1"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 46.99 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "STM32H745ZIT6"
-				(at 0 44.45 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -0.254 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at -30.48 40.64 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "MPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "STM32H745ZIT6"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "LQFP-144 LQFP-144-M LQFP-144-L"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "STM32H745ZIT6_1_1_1"
-				(rectangle
-					(start -19.05 43.18)
-					(end 19.05 -43.18)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 40.64 0)
-					(length 7.62)
-					(name "PA0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "37"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_CRS" output line)
-					(alternate "SDMMC2_CMD" output line)
-					(alternate "UART4_TX" output line)
-					(alternate "USART2_CTS" input line)
-					(alternate "USART2_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 38.1 0)
-					(length 7.62)
-					(name "PA1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "38"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_REF_CLK" input clock)
-					(alternate "ETH_MII_RX_CLK" output clock)
-					(alternate "QUADSPI_BK1_IO3" bidirectional line)
-					(alternate "UART4_RX" input line)
-					(alternate "USART2_DE" input line)
-					(alternate "USART2_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 35.56 0)
-					(length 7.62)
-					(name "PA2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "39"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MDIO" bidirectional line)
-					(alternate "USART2_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 33.02 0)
-					(length 7.62)
-					(name "PA3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "40"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_COL" input line)
-					(alternate "OTG_HS_ULPI_D0" bidirectional line)
-					(alternate "USART2_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 30.48 0)
-					(length 7.62)
-					(name "PA4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "43"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_SOF" output line)
-					(alternate "SPI1_~{SS}" output line)
-					(alternate "SPI3_{~SS}" output line)
-					(alternate "SPI6_~{SS}" output line)
-					(alternate "USART2_CK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 27.94 0)
-					(length 7.62)
-					(name "PA5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "44"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_CK" output clock)
-					(alternate "SPI1_SCK" output clock)
-					(alternate "SPI6_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 25.4 0)
-					(length 7.62)
-					(name "PA6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "45"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI1_MISO" input line)
-					(alternate "SPI6_MISO" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 22.86 0)
-					(length 7.62)
-					(name "PA7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "46"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RX_DV" input line)
-					(alternate "ETH_RMII_CRS_DV" input line)
-					(alternate "SPI1_MOSI" output line)
-					(alternate "SPI6_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 20.32 0)
-					(length 7.62)
-					(name "PA8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "97"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C3_SCL" output clock)
-					(alternate "OTG_FS_SOF" output line)
-					(alternate "UART7_RX" input line)
-					(alternate "USART1_CK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 17.78 0)
-					(length 7.62)
-					(name "PA9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "98"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C3_SMBA" input line)
-					(alternate "LPUART1_TX" output line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "USART1_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 15.24 0)
-					(length 7.62)
-					(name "PA10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "99"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "LPUART1_RX" input line)
-					(alternate "OTG_FS_ID" input line)
-					(alternate "USART1_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 12.7 0)
-					(length 7.62)
-					(name "PA11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "100"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_RX" input line)
-					(alternate "LPUART1_CTS" output line)
-					(alternate "OTG_FS_DM" bidirectional inverted)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "UART4_RX" input line)
-					(alternate "USART1_CTS" output line)
-					(alternate "USART1_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 10.16 0)
-					(length 7.62)
-					(name "PA12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "101"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_TX" output line)
-					(alternate "LPUART1_DE" input line)
-					(alternate "LPUART1_RTS" input line)
-					(alternate "OTG_FS_DP" bidirectional line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "UART4_TX" output line)
-					(alternate "USART1_DE" input line)
-					(alternate "USART1_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 7.62 0)
-					(length 7.62)
-					(name "PA13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "102"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTMS" input line)
-					(alternate "SWDIO" bidirectional line)
-				)
-				(pin bidirectional line
-					(at -26.67 5.08 0)
-					(length 7.62)
-					(name "PA14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "107"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTCK" input clock)
-					(alternate "SWCLK" input clock)
-				)
-				(pin bidirectional line
-					(at -26.67 2.54 0)
-					(length 7.62)
-					(name "PA15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "108"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTDI" input line)
-					(alternate "SPI1_~{SS}" output line)
-					(alternate "SPI3_~{SS}" output line)
-					(alternate "SPI6_~{SS}" output line)
-					(alternate "UART4_DE" input line)
-					(alternate "UART4_RTS" input line)
-					(alternate "UART7_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -2.54 0)
-					(length 7.62)
-					(name "PB0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "49"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD2" input line)
-					(alternate "OTG_HS_ULPI_D1" bidirectional line)
-					(alternate "UART4_CTS" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -5.08 0)
-					(length 7.62)
-					(name "PB1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "50"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD3" input line)
-					(alternate "OTG_HS_ULPI_D2" bidirectional line)
-				)
-				(pin bidirectional line
-					(at -26.67 -7.62 0)
-					(length 7.62)
-					(name "PB2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "51"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_CLK" output clock)
-					(alternate "SPI3_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -10.16 0)
-					(length 7.62)
-					(name "PB3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "130"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTDO" input line)
-					(alternate "SDMMC2_D2" bidirectional line)
-					(alternate "SPI1_SCK" output clock)
-					(alternate "SPI3_SCK" output clock)
-					(alternate "SPI6_SCK" output clock)
-					(alternate "TRACESWO" output line)
-					(alternate "UART7_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -12.7 0)
-					(length 7.62)
-					(name "PB4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "131"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC2_D3" bidirectional line)
-					(alternate "SPI1_MISO" input line)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "SPI3_MISO" input line)
-					(alternate "SPI6_MISO" input line)
-					(alternate "UART7_TX" output line)
-					(alternate "~{JTRST}" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -15.24 0)
-					(length 7.62)
-					(name "PB5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "132"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "DSCAN2_RX" input line)
-					(alternate "ETH_PPS_OUT" output line)
-					(alternate "I2C1_SMBA" input line)
-					(alternate "I2C4_SMBA" input line)
-					(alternate "OTG_GS_ULPI_D7" bidirectional line)
-					(alternate "SPI1_MOSI" output line)
-					(alternate "SPI3_MOSI" output line)
-					(alternate "SPI6_MOSI" output line)
-					(alternate "UART5_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -17.78 0)
-					(length 7.62)
-					(name "PB6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "133"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN2_TX" output line)
-					(alternate "I2C1_SCL" output clock)
-					(alternate "I2C4_SCL" output clock)
-					(alternate "LPUART1_TX" output line)
-					(alternate "QUADSPI_BK1_~{CS}" output line)
-					(alternate "UART5_TX" output line)
-					(alternate "USART1_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -20.32 0)
-					(length 7.62)
-					(name "PB7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "134"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C1_SDA" bidirectional line)
-					(alternate "I2C4_SDA" bidirectional line)
-					(alternate "LPUART1_RX" input line)
-					(alternate "USART1_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -22.86 0)
-					(length 7.62)
-					(name "PB8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "136"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_RX" input line)
-					(alternate "I2C1_SCL" output clock)
-					(alternate "I2C4_SCL" output clock)
-					(alternate "SDMMC1_CKIN" input clock)
-					(alternate "SDMMC1_D4" bidirectional line)
-					(alternate "UART4_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -25.4 0)
-					(length 7.62)
-					(name "PB9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "137"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_TX" output line)
-					(alternate "I2C1_SDA" bidirectional line)
-					(alternate "I2C4_SDA" bidirectional line)
-					(alternate "I2C4_SMBA" input line)
-					(alternate "SDMMC1_CDIR" output line)
-					(alternate "SDMMC1_D5" bidirectional line)
-					(alternate "SDMMC2_D5" bidirectional line)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "UART4_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -27.94 0)
-					(length 7.62)
-					(name "PB10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "66"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RX_ER" input line)
-					(alternate "I2C2_SCL" output clock)
-					(alternate "OTG_HS_ULPI_D3" bidirectional line)
-					(alternate "QUADSPI_BK1_~{CS}" output line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "USART3_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -30.48 0)
-					(length 7.62)
-					(name "PB11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "67"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TX_EN" input line)
-					(alternate "ETH_RMII_TX_EN" input line)
-					(alternate "I2C2_SDA" bidirectional line)
-					(alternate "OTG_HS_ULPI_D4" bidirectional line)
-					(alternate "USART3_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -33.02 0)
-					(length 7.62)
-					(name "PB12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "72"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD0" output line)
-					(alternate "ETH_RMII_TXD0" output line)
-					(alternate "FDCAN2_RX" input line)
-					(alternate "I2C2_SMBA" input line)
-					(alternate "OTG_HS_ID" input line)
-					(alternate "OTG_HS_ULPI_D5" bidirectional line)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "UART5_RX" input line)
-					(alternate "USART3_CK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -35.56 0)
-					(length 7.62)
-					(name "PB13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "73"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD" output line)
-					(alternate "ETH_RMII_TXD1" output line)
-					(alternate "FDCAN2_TX" output line)
-					(alternate "OTG_HS_ULPI_D6" bidirectional line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "UART5_TX" output line)
-					(alternate "USART3_CTS" output line)
-					(alternate "USART3_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -38.1 0)
-					(length 7.62)
-					(name "PB14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "74"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_DM" bidirectional inverted)
-					(alternate "SDMMC2_D0" bidirectional line)
-					(alternate "SPI2_MISO" input line)
-					(alternate "UART4_DE" input line)
-					(alternate "UART4_RTS" input line)
-					(alternate "USART1_TX" output line)
-					(alternate "USART3_DE" input line)
-					(alternate "USART3_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -40.64 0)
-					(length 7.62)
-					(name "PB15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "75"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_DP" bidirectional line)
-					(alternate "SDMMC2_D1" bidirectional line)
-					(alternate "SPI2_MOSI" output line)
-					(alternate "UART4_CTS" output line)
-					(alternate "USART1_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 40.64 180)
-					(length 7.62)
-					(name "PC0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "28"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_STP" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 38.1 180)
-					(length 7.62)
-					(name "PC1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "29"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MDC" output clock)
-					(alternate "SDMMC2_CK" output clock)
-					(alternate "SPI2_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 35.56 180)
-					(length 7.62)
-					(name "PC2_C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "30"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_DIR" output line)
-					(alternate "SPI2_MISO" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 33.02 180)
-					(length 7.62)
-					(name "PC3_C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "31"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_NXT" output line)
-					(alternate "SPI2_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 30.48 180)
-					(length 7.62)
-					(name "PC4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "47"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD0" input line)
-					(alternate "ETH_RMII_RXD0" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 27.94 180)
-					(length 7.62)
-					(name "PC5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "48"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD1" input line)
-					(alternate "ETH_RMII_RXD1" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 25.4 180)
-					(length 7.62)
-					(name "PC6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "93"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_D0DIR" output line)
-					(alternate "SDMMC1_D6" bidirectional line)
-					(alternate "SDMMC2_D6" bidirectional line)
-					(alternate "USART6_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 22.86 180)
-					(length 7.62)
-					(name "PC7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "94"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_D123DIR" output line)
-					(alternate "SDMMC1_D7" bidirectional line)
-					(alternate "SDMMC2_D7" bidirectional line)
-					(alternate "USART6_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 20.32 180)
-					(length 7.62)
-					(name "PC8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "95"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_D0" bidirectional line)
-					(alternate "UART5_DE" input line)
-					(alternate "UART5_RTS" input line)
-					(alternate "USART6_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 17.78 180)
-					(length 7.62)
-					(name "PC9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "96"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C3_SDA" bidirectional line)
-					(alternate "QUADSPI_BK1_IO0" bidirectional line)
-					(alternate "SDMMC1_D1" bidirectional line)
-					(alternate "UART5_CTS" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 15.24 180)
-					(length 7.62)
-					(name "PC10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "109"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO1" bidirectional line)
-					(alternate "SDMMC1_D2" bidirectional line)
-					(alternate "SPI3_SCK" output clock)
-					(alternate "UART4_TX" output line)
-					(alternate "USART3_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 12.7 180)
-					(length 7.62)
-					(name "PC11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "110"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_~{CS}" output line)
-					(alternate "SPI3_MISO" input line)
-					(alternate "UART4_RX" input line)
-					(alternate "USART3_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 10.16 180)
-					(length 7.62)
-					(name "PC12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "111"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_CK" output clock)
-					(alternate "SPI3_MOSI" output line)
-					(alternate "UART5_TX" output line)
-					(alternate "USART3_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 7.62 180)
-					(length 7.62)
-					(name "PC13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 26.67 5.08 180)
-					(length 7.62)
-					(name "PC14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC32_IN" input clock)
-				)
-				(pin bidirectional line
-					(at 26.67 2.54 180)
-					(length 7.62)
-					(name "PC15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC32_OUT" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 -2.54 180)
-					(length 7.62)
-					(name "PD0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "112"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_RX" input line)
-					(alternate "UART4_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -5.08 180)
-					(length 7.62)
-					(name "PD1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "113"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_TX" output line)
-					(alternate "UART4_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -7.62 180)
-					(length 7.62)
-					(name "PD2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "114"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_CMD" output line)
-					(alternate "UART5_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -10.16 180)
-					(length 7.62)
-					(name "PD3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "115"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "USART2_CTS" output line)
-					(alternate "USART2_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -12.7 180)
-					(length 7.62)
-					(name "PD4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "116"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART2_DE" input line)
-					(alternate "USART2_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -15.24 180)
-					(length 7.62)
-					(name "PD5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "117"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART2_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -17.78 180)
-					(length 7.62)
-					(name "PD6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "120"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC2_CK" output clock)
-					(alternate "SPI3_MOSI" output line)
-					(alternate "USART2_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -20.32 180)
-					(length 7.62)
-					(name "PD7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "121"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC2_CMD" output line)
-					(alternate "SPI1_MOSI" output line)
-					(alternate "USART2_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 -22.86 180)
-					(length 7.62)
-					(name "PD8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "76"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART3_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -25.4 180)
-					(length 7.62)
-					(name "PD9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "77"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART3_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -27.94 180)
-					(length 7.62)
-					(name "PD10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "78"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART3_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 -30.48 180)
-					(length 7.62)
-					(name "PD11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "81"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SMBA" input line)
-					(alternate "QUADSPI_BK1_IO0" bidirectional line)
-					(alternate "USART3_CTS" output line)
-					(alternate "USART3_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -33.02 180)
-					(length 7.62)
-					(name "PD12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "82"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SCL" output clock)
-					(alternate "QUADSPI_BK1_IO1" bidirectional line)
-					(alternate "USART3_DE" input line)
-					(alternate "USART3_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -35.56 180)
-					(length 7.62)
-					(name "PD13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "83"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SDA" bidirectional line)
-					(alternate "QUADSPI_BK1_IO3" bidirectional line)
-				)
-				(pin bidirectional line
-					(at 26.67 -38.1 180)
-					(length 7.62)
-					(name "PD14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "84"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_CTS" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -40.64 180)
-					(length 7.62)
-					(name "PD15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "85"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_DE" input line)
-					(alternate "UART8_RTS" input line)
-				)
-			)
-			(symbol "STM32H745ZIT6_1_2_1"
-				(rectangle
-					(start -19.05 33.02)
-					(end 19.05 -33.02)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 30.48 0)
-					(length 7.62)
-					(name "PE0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "138"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 27.94 0)
-					(length 7.62)
-					(name "PE1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "139"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 25.4 0)
-					(length 7.62)
-					(name "PE2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD3" output line)
-					(alternate "QUADSPI_BK1_IO2" bidirectional line)
-					(alternate "SPI4_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 22.86 0)
-					(length 7.62)
-					(name "PE3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 20.32 0)
-					(length 7.62)
-					(name "PE4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 17.78 0)
-					(length 7.62)
-					(name "PE5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_MISO" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 15.24 0)
-					(length 7.62)
-					(name "PE6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 12.7 0)
-					(length 7.62)
-					(name "PE7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "57"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO0" bidirectional line)
-					(alternate "UART7_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 10.16 0)
-					(length 7.62)
-					(name "PE8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "58"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO1" bidirectional line)
-					(alternate "UART7_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 7.62 0)
-					(length 7.62)
-					(name "PE9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "59"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO2" bidirectional line)
-					(alternate "UART7_DE" input line)
-					(alternate "UART7_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 5.08 0)
-					(length 7.62)
-					(name "PE10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "60"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO3" bidirectional line)
-					(alternate "UART7_CTS" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 2.54 0)
-					(length 7.62)
-					(name "PE11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "61"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 0 0)
-					(length 7.62)
-					(name "PE12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "62"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -2.54 0)
-					(length 7.62)
-					(name "PE13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "63"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_MISO" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -5.08 0)
-					(length 7.62)
-					(name "PE14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "64"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -7.62 0)
-					(length 7.62)
-					(name "PE15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "65"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 -12.7 0)
-					(length 7.62)
-					(name "PF6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "20"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO3" bidirectional line)
-					(alternate "SPI5_~{SS}" output line)
-					(alternate "UART7_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -15.24 0)
-					(length 7.62)
-					(name "PF7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "21"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO2" bidirectional line)
-					(alternate "SPI5_SCK" output clock)
-					(alternate "UART7_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -17.78 0)
-					(length 7.62)
-					(name "PF8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "22"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO0" bidirectional line)
-					(alternate "SPI5_MISO" input line)
-					(alternate "UART7_DE" input line)
-					(alternate "UART7_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -20.32 0)
-					(length 7.62)
-					(name "PF9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "23"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO1" bidirectional line)
-					(alternate "SPI5_MOSI" output line)
-					(alternate "UART7_CTS" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -22.86 0)
-					(length 7.62)
-					(name "PF10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "24"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_CLK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -25.4 0)
-					(length 7.62)
-					(name "PF11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "52"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI5_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -27.94 0)
-					(length 7.62)
-					(name "PF14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "53"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SCL" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -30.48 0)
-					(length 7.62)
-					(name "PF15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "54"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SDA" bidirectional line)
-				)
-				(pin bidirectional line
-					(at 26.67 30.48 180)
-					(length 7.62)
-					(name "PG6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "86"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_~{CS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 27.94 180)
-					(length 7.62)
-					(name "PG7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "87"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART6_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 25.4 180)
-					(length 7.62)
-					(name "PG8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "88"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_PPS_OUT" output line)
-					(alternate "SPI6_~{SS}" output line)
-					(alternate "USART6_DE" input line)
-					(alternate "USART6_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 22.86 180)
-					(length 7.62)
-					(name "PG9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "122"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO2" bidirectional line)
-					(alternate "SPI1_MISO" input line)
-					(alternate "USART6_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 20.32 180)
-					(length 7.62)
-					(name "PG10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "123"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI1_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 17.78 180)
-					(length 7.62)
-					(name "PG11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "124"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TX_EN" output line)
-					(alternate "ETH_RMMI_TX_EN" output line)
-					(alternate "SDMMC2_D2" bidirectional line)
-					(alternate "SPI1_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 15.24 180)
-					(length 7.62)
-					(name "PG12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "125"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD1" output line)
-					(alternate "ETH_RMII_TXD1" output line)
-					(alternate "SPI6_MISO" input line)
-					(alternate "USART6_DE" input line)
-					(alternate "USART6_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 12.7 180)
-					(length 7.62)
-					(name "PG13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "126"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD0" output line)
-					(alternate "ETH_RMII_TXD0" output line)
-					(alternate "SPI6_SCK" output clock)
-					(alternate "USART6_CTS" output line)
-					(alternate "USART6_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 10.16 180)
-					(length 7.62)
-					(name "PG14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "127"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD1" output line)
-					(alternate "ETH_RMII_TXD1" output line)
-					(alternate "QUADSPI_BK2_IO3" bidirectional line)
-					(alternate "SPI6_MOSI" output line)
-					(alternate "USART6_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 5.08 180)
-					(length 7.62)
-					(name "PH0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "25"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC_IN" input clock)
-				)
-				(pin bidirectional line
-					(at 26.67 2.54 180)
-					(length 7.62)
-					(name "PH1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "26"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC_OUT" output clock)
-				)
-				(pin input line
-					(at 26.67 -20.32 180)
-					(length 7.62)
-					(name "~{RESET}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "27"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 26.67 -25.4 180)
-					(length 7.62)
-					(name "BOOT0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "135"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 26.67 -30.48 180)
-					(length 7.62)
-					(name "PDR_ON"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "142"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "STM32H745ZIT6_1_3_1"
-				(rectangle
-					(start -19.05 40.64)
-					(end 19.05 -40.64)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin power_in line
-					(at -26.67 38.1 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 35.56 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 33.02 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "19"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 30.48 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "32"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 27.94 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "42"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 25.4 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "56"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 22.86 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "71"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 20.32 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "79"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 17.78 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "92"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 15.24 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "106"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 12.7 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "119"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 10.16 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "129"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 7.62 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "144"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 5.08 0)
-					(length 7.62)
-					(name "VDDLDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "70"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 2.54 0)
-					(length 7.62)
-					(name "VDDLDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "105"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 0 0)
-					(length 7.62)
-					(name "VDDLDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "143"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -2.54 0)
-					(length 7.62)
-					(name "VDD33USB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "91"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -5.08 0)
-					(length 7.62)
-					(name "VDD50USB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "90"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -7.62 0)
-					(length 7.62)
-					(name "VDDSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -10.16 0)
-					(length 7.62)
-					(name "VDDA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "36"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -15.24 0)
-					(length 7.62)
-					(name "VREF+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "35"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -20.32 0)
-					(length 7.62)
-					(name "VBAT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -25.4 0)
-					(length 7.62)
-					(name "VFBSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "17"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -27.94 0)
-					(length 7.62)
-					(name "VLXSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -33.02 0)
-					(length 7.62)
-					(name "VCAP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "68"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -35.56 0)
-					(length 7.62)
-					(name "VCAP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "103"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -38.1 0)
-					(length 7.62)
-					(name "VCAP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "140"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -2.54 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -5.08 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -7.62 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "18"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -10.16 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "33"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -12.7 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "41"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -15.24 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "55"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -17.78 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "69"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -20.32 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "80"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -22.86 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "89"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -25.4 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "104"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -27.94 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "118"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -30.48 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "128"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -33.02 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "141"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -35.56 180)
-					(length 7.62)
-					(name "VSSSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -38.1 180)
-					(length 7.62)
-					(name "VSSA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "34"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "STM32H745ZIT6_2"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 46.99 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "STM32H745ZIT6"
-				(at 0 44.45 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -0.254 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at -30.48 40.64 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "MPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "DKPN" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "STM32H745ZIT6"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "LQFP-144 LQFP-144-M LQFP-144-L"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "STM32H745ZIT6_2_1_1"
-				(rectangle
-					(start -19.05 43.18)
-					(end 19.05 -43.18)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 40.64 0)
-					(length 7.62)
-					(name "PA0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "37"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_CRS" output line)
-					(alternate "SDMMC2_CMD" output line)
-					(alternate "UART4_TX" output line)
-					(alternate "USART2_CTS" input line)
-					(alternate "USART2_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 38.1 0)
-					(length 7.62)
-					(name "PA1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "38"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_REF_CLK" input clock)
-					(alternate "ETH_MII_RX_CLK" output clock)
-					(alternate "QUADSPI_BK1_IO3" bidirectional line)
-					(alternate "UART4_RX" input line)
-					(alternate "USART2_DE" input line)
-					(alternate "USART2_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 35.56 0)
-					(length 7.62)
-					(name "PA2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "39"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MDIO" bidirectional line)
-					(alternate "USART2_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 33.02 0)
-					(length 7.62)
-					(name "PA3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "40"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_COL" input line)
-					(alternate "OTG_HS_ULPI_D0" bidirectional line)
-					(alternate "USART2_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 30.48 0)
-					(length 7.62)
-					(name "PA4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "43"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_SOF" output line)
-					(alternate "SPI1_~{SS}" output line)
-					(alternate "SPI3_{~SS}" output line)
-					(alternate "SPI6_~{SS}" output line)
-					(alternate "USART2_CK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 27.94 0)
-					(length 7.62)
-					(name "PA5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "44"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_CK" output clock)
-					(alternate "SPI1_SCK" output clock)
-					(alternate "SPI6_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 25.4 0)
-					(length 7.62)
-					(name "PA6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "45"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI1_MISO" input line)
-					(alternate "SPI6_MISO" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 22.86 0)
-					(length 7.62)
-					(name "PA7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "46"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RX_DV" input line)
-					(alternate "ETH_RMII_CRS_DV" input line)
-					(alternate "SPI1_MOSI" output line)
-					(alternate "SPI6_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 20.32 0)
-					(length 7.62)
-					(name "PA8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "97"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C3_SCL" output clock)
-					(alternate "OTG_FS_SOF" output line)
-					(alternate "UART7_RX" input line)
-					(alternate "USART1_CK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 17.78 0)
-					(length 7.62)
-					(name "PA9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "98"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C3_SMBA" input line)
-					(alternate "LPUART1_TX" output line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "USART1_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 15.24 0)
-					(length 7.62)
-					(name "PA10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "99"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "LPUART1_RX" input line)
-					(alternate "OTG_FS_ID" input line)
-					(alternate "USART1_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 12.7 0)
-					(length 7.62)
-					(name "PA11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "100"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_RX" input line)
-					(alternate "LPUART1_CTS" output line)
-					(alternate "OTG_FS_DM" bidirectional inverted)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "UART4_RX" input line)
-					(alternate "USART1_CTS" output line)
-					(alternate "USART1_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 10.16 0)
-					(length 7.62)
-					(name "PA12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "101"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_TX" output line)
-					(alternate "LPUART1_DE" input line)
-					(alternate "LPUART1_RTS" input line)
-					(alternate "OTG_FS_DP" bidirectional line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "UART4_TX" output line)
-					(alternate "USART1_DE" input line)
-					(alternate "USART1_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 7.62 0)
-					(length 7.62)
-					(name "PA13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "102"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTMS" input line)
-					(alternate "SWDIO" bidirectional line)
-				)
-				(pin bidirectional line
-					(at -26.67 5.08 0)
-					(length 7.62)
-					(name "PA14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "107"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTCK" input clock)
-					(alternate "SWCLK" input clock)
-				)
-				(pin bidirectional line
-					(at -26.67 2.54 0)
-					(length 7.62)
-					(name "PA15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "108"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTDI" input line)
-					(alternate "SPI1_~{SS}" output line)
-					(alternate "SPI3_~{SS}" output line)
-					(alternate "SPI6_~{SS}" output line)
-					(alternate "UART4_DE" input line)
-					(alternate "UART4_RTS" input line)
-					(alternate "UART7_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -2.54 0)
-					(length 7.62)
-					(name "PB0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "49"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD2" input line)
-					(alternate "OTG_HS_ULPI_D1" bidirectional line)
-					(alternate "UART4_CTS" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -5.08 0)
-					(length 7.62)
-					(name "PB1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "50"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD3" input line)
-					(alternate "OTG_HS_ULPI_D2" bidirectional line)
-				)
-				(pin bidirectional line
-					(at -26.67 -7.62 0)
-					(length 7.62)
-					(name "PB2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "51"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_CLK" output clock)
-					(alternate "SPI3_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -10.16 0)
-					(length 7.62)
-					(name "PB3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "130"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "JTDO" input line)
-					(alternate "SDMMC2_D2" bidirectional line)
-					(alternate "SPI1_SCK" output clock)
-					(alternate "SPI3_SCK" output clock)
-					(alternate "SPI6_SCK" output clock)
-					(alternate "TRACESWO" output line)
-					(alternate "UART7_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -12.7 0)
-					(length 7.62)
-					(name "PB4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "131"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC2_D3" bidirectional line)
-					(alternate "SPI1_MISO" input line)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "SPI3_MISO" input line)
-					(alternate "SPI6_MISO" input line)
-					(alternate "UART7_TX" output line)
-					(alternate "~{JTRST}" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -15.24 0)
-					(length 7.62)
-					(name "PB5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "132"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "DSCAN2_RX" input line)
-					(alternate "ETH_PPS_OUT" output line)
-					(alternate "I2C1_SMBA" input line)
-					(alternate "I2C4_SMBA" input line)
-					(alternate "OTG_GS_ULPI_D7" bidirectional line)
-					(alternate "SPI1_MOSI" output line)
-					(alternate "SPI3_MOSI" output line)
-					(alternate "SPI6_MOSI" output line)
-					(alternate "UART5_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -17.78 0)
-					(length 7.62)
-					(name "PB6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "133"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN2_TX" output line)
-					(alternate "I2C1_SCL" output clock)
-					(alternate "I2C4_SCL" output clock)
-					(alternate "LPUART1_TX" output line)
-					(alternate "QUADSPI_BK1_~{CS}" output line)
-					(alternate "UART5_TX" output line)
-					(alternate "USART1_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -20.32 0)
-					(length 7.62)
-					(name "PB7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "134"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C1_SDA" bidirectional line)
-					(alternate "I2C4_SDA" bidirectional line)
-					(alternate "LPUART1_RX" input line)
-					(alternate "USART1_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -22.86 0)
-					(length 7.62)
-					(name "PB8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "136"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_RX" input line)
-					(alternate "I2C1_SCL" output clock)
-					(alternate "I2C4_SCL" output clock)
-					(alternate "SDMMC1_CKIN" input clock)
-					(alternate "SDMMC1_D4" bidirectional line)
-					(alternate "UART4_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -25.4 0)
-					(length 7.62)
-					(name "PB9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "137"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_TX" output line)
-					(alternate "I2C1_SDA" bidirectional line)
-					(alternate "I2C4_SDA" bidirectional line)
-					(alternate "I2C4_SMBA" input line)
-					(alternate "SDMMC1_CDIR" output line)
-					(alternate "SDMMC1_D5" bidirectional line)
-					(alternate "SDMMC2_D5" bidirectional line)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "UART4_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -27.94 0)
-					(length 7.62)
-					(name "PB10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "66"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RX_ER" input line)
-					(alternate "I2C2_SCL" output clock)
-					(alternate "OTG_HS_ULPI_D3" bidirectional line)
-					(alternate "QUADSPI_BK1_~{CS}" output line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "USART3_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -30.48 0)
-					(length 7.62)
-					(name "PB11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "67"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TX_EN" input line)
-					(alternate "ETH_RMII_TX_EN" input line)
-					(alternate "I2C2_SDA" bidirectional line)
-					(alternate "OTG_HS_ULPI_D4" bidirectional line)
-					(alternate "USART3_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -33.02 0)
-					(length 7.62)
-					(name "PB12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "72"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD0" output line)
-					(alternate "ETH_RMII_TXD0" output line)
-					(alternate "FDCAN2_RX" input line)
-					(alternate "I2C2_SMBA" input line)
-					(alternate "OTG_HS_ID" input line)
-					(alternate "OTG_HS_ULPI_D5" bidirectional line)
-					(alternate "SPI2_~{SS}" output line)
-					(alternate "UART5_RX" input line)
-					(alternate "USART3_CK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -35.56 0)
-					(length 7.62)
-					(name "PB13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "73"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD" output line)
-					(alternate "ETH_RMII_TXD1" output line)
-					(alternate "FDCAN2_TX" output line)
-					(alternate "OTG_HS_ULPI_D6" bidirectional line)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "UART5_TX" output line)
-					(alternate "USART3_CTS" output line)
-					(alternate "USART3_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -38.1 0)
-					(length 7.62)
-					(name "PB14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "74"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_DM" bidirectional inverted)
-					(alternate "SDMMC2_D0" bidirectional line)
-					(alternate "SPI2_MISO" input line)
-					(alternate "UART4_DE" input line)
-					(alternate "UART4_RTS" input line)
-					(alternate "USART1_TX" output line)
-					(alternate "USART3_DE" input line)
-					(alternate "USART3_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -40.64 0)
-					(length 7.62)
-					(name "PB15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "75"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_DP" bidirectional line)
-					(alternate "SDMMC2_D1" bidirectional line)
-					(alternate "SPI2_MOSI" output line)
-					(alternate "UART4_CTS" output line)
-					(alternate "USART1_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 40.64 180)
-					(length 7.62)
-					(name "PC0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "28"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_STP" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 38.1 180)
-					(length 7.62)
-					(name "PC1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "29"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MDC" output clock)
-					(alternate "SDMMC2_CK" output clock)
-					(alternate "SPI2_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 35.56 180)
-					(length 7.62)
-					(name "PC2_C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "30"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_DIR" output line)
-					(alternate "SPI2_MISO" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 33.02 180)
-					(length 7.62)
-					(name "PC3_C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "31"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OTG_HS_ULPI_NXT" output line)
-					(alternate "SPI2_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 30.48 180)
-					(length 7.62)
-					(name "PC4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "47"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD0" input line)
-					(alternate "ETH_RMII_RXD0" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 27.94 180)
-					(length 7.62)
-					(name "PC5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "48"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_RXD1" input line)
-					(alternate "ETH_RMII_RXD1" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 25.4 180)
-					(length 7.62)
-					(name "PC6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "93"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_D0DIR" output line)
-					(alternate "SDMMC1_D6" bidirectional line)
-					(alternate "SDMMC2_D6" bidirectional line)
-					(alternate "USART6_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 22.86 180)
-					(length 7.62)
-					(name "PC7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "94"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_D123DIR" output line)
-					(alternate "SDMMC1_D7" bidirectional line)
-					(alternate "SDMMC2_D7" bidirectional line)
-					(alternate "USART6_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 20.32 180)
-					(length 7.62)
-					(name "PC8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "95"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_D0" bidirectional line)
-					(alternate "UART5_DE" input line)
-					(alternate "UART5_RTS" input line)
-					(alternate "USART6_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 17.78 180)
-					(length 7.62)
-					(name "PC9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "96"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C3_SDA" bidirectional line)
-					(alternate "QUADSPI_BK1_IO0" bidirectional line)
-					(alternate "SDMMC1_D1" bidirectional line)
-					(alternate "UART5_CTS" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 15.24 180)
-					(length 7.62)
-					(name "PC10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "109"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO1" bidirectional line)
-					(alternate "SDMMC1_D2" bidirectional line)
-					(alternate "SPI3_SCK" output clock)
-					(alternate "UART4_TX" output line)
-					(alternate "USART3_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 12.7 180)
-					(length 7.62)
-					(name "PC11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "110"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_~{CS}" output line)
-					(alternate "SPI3_MISO" input line)
-					(alternate "UART4_RX" input line)
-					(alternate "USART3_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 10.16 180)
-					(length 7.62)
-					(name "PC12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "111"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_CK" output clock)
-					(alternate "SPI3_MOSI" output line)
-					(alternate "UART5_TX" output line)
-					(alternate "USART3_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 7.62 180)
-					(length 7.62)
-					(name "PC13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 26.67 5.08 180)
-					(length 7.62)
-					(name "PC14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC32_IN" input clock)
-				)
-				(pin bidirectional line
-					(at 26.67 2.54 180)
-					(length 7.62)
-					(name "PC15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC32_OUT" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 -2.54 180)
-					(length 7.62)
-					(name "PD0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "112"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_RX" input line)
-					(alternate "UART4_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -5.08 180)
-					(length 7.62)
-					(name "PD1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "113"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "FDCAN1_TX" output line)
-					(alternate "UART4_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -7.62 180)
-					(length 7.62)
-					(name "PD2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "114"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC1_CMD" output line)
-					(alternate "UART5_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -10.16 180)
-					(length 7.62)
-					(name "PD3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "115"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI2_SCK" output clock)
-					(alternate "USART2_CTS" output line)
-					(alternate "USART2_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -12.7 180)
-					(length 7.62)
-					(name "PD4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "116"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART2_DE" input line)
-					(alternate "USART2_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -15.24 180)
-					(length 7.62)
-					(name "PD5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "117"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART2_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -17.78 180)
-					(length 7.62)
-					(name "PD6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "120"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC2_CK" output clock)
-					(alternate "SPI3_MOSI" output line)
-					(alternate "USART2_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -20.32 180)
-					(length 7.62)
-					(name "PD7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "121"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SDMMC2_CMD" output line)
-					(alternate "SPI1_MOSI" output line)
-					(alternate "USART2_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 -22.86 180)
-					(length 7.62)
-					(name "PD8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "76"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART3_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -25.4 180)
-					(length 7.62)
-					(name "PD9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "77"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART3_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -27.94 180)
-					(length 7.62)
-					(name "PD10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "78"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART3_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 -30.48 180)
-					(length 7.62)
-					(name "PD11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "81"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SMBA" input line)
-					(alternate "QUADSPI_BK1_IO0" bidirectional line)
-					(alternate "USART3_CTS" output line)
-					(alternate "USART3_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -33.02 180)
-					(length 7.62)
-					(name "PD12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "82"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SCL" output clock)
-					(alternate "QUADSPI_BK1_IO1" bidirectional line)
-					(alternate "USART3_DE" input line)
-					(alternate "USART3_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 -35.56 180)
-					(length 7.62)
-					(name "PD13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "83"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SDA" bidirectional line)
-					(alternate "QUADSPI_BK1_IO3" bidirectional line)
-				)
-				(pin bidirectional line
-					(at 26.67 -38.1 180)
-					(length 7.62)
-					(name "PD14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "84"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_CTS" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 -40.64 180)
-					(length 7.62)
-					(name "PD15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "85"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_DE" input line)
-					(alternate "UART8_RTS" input line)
-				)
-			)
-			(symbol "STM32H745ZIT6_2_2_1"
-				(rectangle
-					(start -19.05 33.02)
-					(end 19.05 -33.02)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 30.48 0)
-					(length 7.62)
-					(name "PE0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "138"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 27.94 0)
-					(length 7.62)
-					(name "PE1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "139"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "UART8_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 25.4 0)
-					(length 7.62)
-					(name "PE2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD3" output line)
-					(alternate "QUADSPI_BK1_IO2" bidirectional line)
-					(alternate "SPI4_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 22.86 0)
-					(length 7.62)
-					(name "PE3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 20.32 0)
-					(length 7.62)
-					(name "PE4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 17.78 0)
-					(length 7.62)
-					(name "PE5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_MISO" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 15.24 0)
-					(length 7.62)
-					(name "PE6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 12.7 0)
-					(length 7.62)
-					(name "PE7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "57"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO0" bidirectional line)
-					(alternate "UART7_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 10.16 0)
-					(length 7.62)
-					(name "PE8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "58"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO1" bidirectional line)
-					(alternate "UART7_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 7.62 0)
-					(length 7.62)
-					(name "PE9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "59"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO2" bidirectional line)
-					(alternate "UART7_DE" input line)
-					(alternate "UART7_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 5.08 0)
-					(length 7.62)
-					(name "PE10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "60"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO3" bidirectional line)
-					(alternate "UART7_CTS" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 2.54 0)
-					(length 7.62)
-					(name "PE11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "61"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 0 0)
-					(length 7.62)
-					(name "PE12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "62"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -2.54 0)
-					(length 7.62)
-					(name "PE13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "63"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_MISO" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -5.08 0)
-					(length 7.62)
-					(name "PE14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "64"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI4_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -7.62 0)
-					(length 7.62)
-					(name "PE15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "65"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -26.67 -12.7 0)
-					(length 7.62)
-					(name "PF6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "20"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO3" bidirectional line)
-					(alternate "SPI5_~{SS}" output line)
-					(alternate "UART7_RX" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -15.24 0)
-					(length 7.62)
-					(name "PF7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "21"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO2" bidirectional line)
-					(alternate "SPI5_SCK" output clock)
-					(alternate "UART7_TX" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -17.78 0)
-					(length 7.62)
-					(name "PF8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "22"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO0" bidirectional line)
-					(alternate "SPI5_MISO" input line)
-					(alternate "UART7_DE" input line)
-					(alternate "UART7_RTS" input line)
-				)
-				(pin bidirectional line
-					(at -26.67 -20.32 0)
-					(length 7.62)
-					(name "PF9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "23"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_IO1" bidirectional line)
-					(alternate "SPI5_MOSI" output line)
-					(alternate "UART7_CTS" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -22.86 0)
-					(length 7.62)
-					(name "PF10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "24"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_CLK" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -25.4 0)
-					(length 7.62)
-					(name "PF11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "52"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI5_MOSI" output line)
-				)
-				(pin bidirectional line
-					(at -26.67 -27.94 0)
-					(length 7.62)
-					(name "PF14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "53"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SCL" output clock)
-				)
-				(pin bidirectional line
-					(at -26.67 -30.48 0)
-					(length 7.62)
-					(name "PF15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "54"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "I2C4_SDA" bidirectional line)
-				)
-				(pin bidirectional line
-					(at 26.67 30.48 180)
-					(length 7.62)
-					(name "PG6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "86"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK1_~{CS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 27.94 180)
-					(length 7.62)
-					(name "PG7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "87"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "USART6_CK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 25.4 180)
-					(length 7.62)
-					(name "PG8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "88"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_PPS_OUT" output line)
-					(alternate "SPI6_~{SS}" output line)
-					(alternate "USART6_DE" input line)
-					(alternate "USART6_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 22.86 180)
-					(length 7.62)
-					(name "PG9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "122"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "QUADSPI_BK2_IO2" bidirectional line)
-					(alternate "SPI1_MISO" input line)
-					(alternate "USART6_RX" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 20.32 180)
-					(length 7.62)
-					(name "PG10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "123"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "SPI1_{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 17.78 180)
-					(length 7.62)
-					(name "PG11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "124"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TX_EN" output line)
-					(alternate "ETH_RMMI_TX_EN" output line)
-					(alternate "SDMMC2_D2" bidirectional line)
-					(alternate "SPI1_SCK" output clock)
-				)
-				(pin bidirectional line
-					(at 26.67 15.24 180)
-					(length 7.62)
-					(name "PG12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "125"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD1" output line)
-					(alternate "ETH_RMII_TXD1" output line)
-					(alternate "SPI6_MISO" input line)
-					(alternate "USART6_DE" input line)
-					(alternate "USART6_RTS" input line)
-				)
-				(pin bidirectional line
-					(at 26.67 12.7 180)
-					(length 7.62)
-					(name "PG13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "126"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD0" output line)
-					(alternate "ETH_RMII_TXD0" output line)
-					(alternate "SPI6_SCK" output clock)
-					(alternate "USART6_CTS" output line)
-					(alternate "USART6_~{SS}" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 10.16 180)
-					(length 7.62)
-					(name "PG14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "127"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "ETH_MII_TXD1" output line)
-					(alternate "ETH_RMII_TXD1" output line)
-					(alternate "QUADSPI_BK2_IO3" bidirectional line)
-					(alternate "SPI6_MOSI" output line)
-					(alternate "USART6_TX" output line)
-				)
-				(pin bidirectional line
-					(at 26.67 5.08 180)
-					(length 7.62)
-					(name "PH0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "25"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC_IN" input clock)
-				)
-				(pin bidirectional line
-					(at 26.67 2.54 180)
-					(length 7.62)
-					(name "PH1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "26"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(alternate "OSC_OUT" output clock)
-				)
-				(pin input line
-					(at 26.67 -20.32 180)
-					(length 7.62)
-					(name "~{RESET}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "27"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 26.67 -25.4 180)
-					(length 7.62)
-					(name "BOOT0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "135"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 26.67 -30.48 180)
-					(length 7.62)
-					(name "PDR_ON"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "142"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "STM32H745ZIT6_2_3_1"
-				(rectangle
-					(start -19.05 40.64)
-					(end 19.05 -40.64)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin power_in line
-					(at -26.67 38.1 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 35.56 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 33.02 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "19"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 30.48 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "32"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 27.94 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "42"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 25.4 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "56"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 22.86 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "71"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 20.32 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "79"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 17.78 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "92"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 15.24 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "106"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 12.7 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "119"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 10.16 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "129"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 7.62 0)
-					(length 7.62)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "144"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 5.08 0)
-					(length 7.62)
-					(name "VDDLDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "70"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 2.54 0)
-					(length 7.62)
-					(name "VDDLDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "105"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 0 0)
-					(length 7.62)
-					(name "VDDLDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "143"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -2.54 0)
-					(length 7.62)
-					(name "VDD33USB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "91"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -5.08 0)
-					(length 7.62)
-					(name "VDD50USB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "90"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -7.62 0)
-					(length 7.62)
-					(name "VDDSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -10.16 0)
-					(length 7.62)
-					(name "VDDA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "36"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -15.24 0)
-					(length 7.62)
-					(name "VREF+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "35"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -20.32 0)
-					(length 7.62)
-					(name "VBAT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -25.4 0)
-					(length 7.62)
-					(name "VFBSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "17"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -27.94 0)
-					(length 7.62)
-					(name "VLXSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -33.02 0)
-					(length 7.62)
-					(name "VCAP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "68"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -35.56 0)
-					(length 7.62)
-					(name "VCAP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "103"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -26.67 -38.1 0)
-					(length 7.62)
-					(name "VCAP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "140"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -2.54 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -5.08 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -7.62 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "18"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -10.16 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "33"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -12.7 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "41"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -15.24 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "55"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -17.78 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "69"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -20.32 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "80"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -22.86 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "89"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -25.4 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "104"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -27.94 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "118"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -30.48 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "128"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -33.02 180)
-					(length 7.62)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "141"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -35.56 180)
-					(length 7.62)
-					(name "VSSSMPS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 26.67 -38.1 180)
-					(length 7.62)
-					(name "VSSA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "34"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "lib_pwr:+3V3"
 			(power)
 			(pin_numbers
@@ -9535,6 +3443,171 @@
 								(size 1.016 1.016)
 							)
 						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lib_sch:STEMMA-QT"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 8.636 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "STEMMA-QT"
+				(at 0 -8.89 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -5.08 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at -5.08 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "JST Sales America Inc."
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "STEMMA-QT_1_0"
+				(pin power_in line
+					(at -10.16 5.08 0)
+					(length 5.08)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -10.16 1.27 0)
+					(length 5.08)
+					(name "SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional clock
+					(at -10.16 -1.27 0)
+					(length 5.08)
+					(name "SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -10.16 -5.08 0)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "STEMMA-QT_1_1"
+				(rectangle
+					(start -5.08 7.62)
+					(end 5.08 -7.62)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
 					)
 				)
 			)
@@ -13039,6 +7112,12 @@
 		(uuid "34bfd932-3d3d-4d18-bb3f-94e7e790c6ea")
 	)
 	(junction
+		(at 283.21 26.67)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3b11ca67-de0b-484a-8d64-cb614bf21042")
+	)
+	(junction
 		(at 287.02 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -13433,12 +7512,20 @@
 		(uuid "1e45687b-ad75-4688-87b2-2dc4e71b7876")
 	)
 	(no_connect
+		(at 140.97 63.5)
+		(uuid "229c5645-f06e-4ec4-bc99-de49bcc5f214")
+	)
+	(no_connect
 		(at 74.93 91.44)
 		(uuid "36ccd710-b494-4d96-becd-7f0ac4560b1e")
 	)
 	(no_connect
 		(at 201.93 81.28)
 		(uuid "38f30cdb-ca12-4636-8c4b-cb2398716b5d")
+	)
+	(no_connect
+		(at 140.97 60.96)
+		(uuid "50e32185-437e-4bb7-950c-9e0e46f9d272")
 	)
 	(no_connect
 		(at 128.27 73.66)
@@ -15617,6 +9704,16 @@
 	)
 	(wire
 		(pts
+			(xy 288.29 50.8) (xy 285.75 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fbca9da-5b05-4136-b914-5c690f08d305")
+	)
+	(wire
+		(pts
 			(xy 339.09 149.86) (xy 353.06 149.86)
 		)
 		(stroke
@@ -16497,6 +10594,16 @@
 	)
 	(wire
 		(pts
+			(xy 285.75 62.23) (xy 285.75 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e05a676-53a5-4969-8ab6-bb45af00712e")
+	)
+	(wire
+		(pts
 			(xy 82.55 172.72) (xy 82.55 173.99)
 		)
 		(stroke
@@ -16634,6 +10741,16 @@
 			(type default)
 		)
 		(uuid "84cfdfe6-8ac4-47d2-8608-b0d4a52ea5fd")
+	)
+	(wire
+		(pts
+			(xy 285.75 60.96) (xy 288.29 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "855b040a-3b1a-4aac-b686-52626d31158b")
 	)
 	(wire
 		(pts
@@ -18177,6 +12294,16 @@
 	)
 	(wire
 		(pts
+			(xy 279.4 57.15) (xy 288.29 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e235310d-71a6-48e4-9aac-7784837ae2b5")
+	)
+	(wire
+		(pts
 			(xy 193.04 91.44) (xy 201.93 91.44)
 		)
 		(stroke
@@ -18454,6 +12581,16 @@
 			(type default)
 		)
 		(uuid "f53057dd-951a-4c7c-b882-f71ae53e7b33")
+	)
+	(wire
+		(pts
+			(xy 279.4 54.61) (xy 288.29 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f54622b6-033a-487b-8cd6-5538daaf30c5")
 	)
 	(wire
 		(pts
@@ -19215,6 +13352,16 @@
 		)
 		(uuid "6082f105-0fda-4105-b191-5d2d036ba15e")
 	)
+	(label "I2C1.SCL"
+		(at 279.4 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "60b76a0d-5584-4048-a086-5533478193c4")
+	)
 	(label "RMII.REF_CLK"
 		(at 364.49 45.72 0)
 		(effects
@@ -19545,6 +13692,16 @@
 		)
 		(uuid "8bb71b17-b3a8-4e21-9d87-e31a4e61a207")
 	)
+	(label "I2C1.SDA"
+		(at 279.4 54.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8decfc84-ade2-4499-8ab2-04ff74482e99")
+	)
 	(label "SPI1.~{SS}_H7"
 		(at 62.23 45.72 0)
 		(effects
@@ -19665,7 +13822,7 @@
 		)
 		(uuid "9de29678-0f48-4167-9dbe-df1c0c4d5a59")
 	)
-	(label "SPI1.~{SS}_LO"
+	(label "SPI1.~{SS}_L0"
 		(at 381 96.52 0)
 		(effects
 			(font
@@ -20569,7 +14726,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "01e03457-fbfa-4b97-9b3e-2c57b7e227b8")
-		(property "Reference" "#PWR018"
+		(property "Reference" "#PWR020"
 			(at 270.51 113.03 0)
 			(effects
 				(font
@@ -20620,7 +14777,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR018")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -20665,7 +14822,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 90.17 168.275 0)
 			(effects
 				(font
@@ -20793,7 +14950,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 29.21 120.65 90)
 			(effects
 				(font
@@ -20922,7 +15079,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 128.27 168.275 0)
 			(effects
 				(font
@@ -21123,7 +15280,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 33.02 81.28 0)
 			(effects
 				(font
@@ -21252,7 +15409,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 120.65 168.275 0)
 			(effects
 				(font
@@ -21352,7 +15509,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "177d6fd1-b9e4-422e-b227-da19b209fc4d")
-		(property "Reference" "#PWR020"
+		(property "Reference" "#PWR022"
 			(at 44.45 129.54 0)
 			(effects
 				(font
@@ -21403,7 +15560,7 @@
 		(instances
 			(project ""
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR020")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -21515,7 +15672,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 297.18 104.14 0)
 			(effects
 				(font
@@ -21606,7 +15763,6 @@
 		)
 	)
 	(symbol
-		(lib_name "STM32H745ZIT6_2")
 		(lib_id "lib_sch:STM32H745ZIT6")
 		(at 228.6 76.2 0)
 		(unit 2)
@@ -21644,7 +15800,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/ST-STM32H745ZI.pdf"
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/stm32h745zi.pdf"
 			(at 228.6 76.2 0)
 			(effects
 				(font
@@ -22340,7 +16496,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 153.67 193.675 0)
 			(effects
 				(font
@@ -22440,7 +16596,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21251d10-0f5d-4c0d-829d-f87323090371")
-		(property "Reference" "#PWR044"
+		(property "Reference" "#PWR046"
 			(at 120.65 199.39 0)
 			(effects
 				(font
@@ -22491,7 +16647,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR044")
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -22507,7 +16663,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "227c006d-7f55-45c0-a9cf-1262e0e4a536")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR09"
 			(at 12.7 81.28 0)
 			(effects
 				(font
@@ -22558,6 +16714,74 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:VSS")
+		(at 285.75 62.23 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "24eff6fb-f064-4d9c-bc06-0456861aad74")
+		(property "Reference" "#PWR07"
+			(at 285.75 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 285.75 66.04 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 285.75 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 285.75 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 285.75 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6176858a-b336-4d0f-b9ea-c447e6717e06")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
 					(reference "#PWR07")
 					(unit 1)
 				)
@@ -22574,7 +16798,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "25f71c35-ca6c-4a30-a5e1-cf47500c31f2")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR017"
 			(at 270.51 106.68 0)
 			(effects
 				(font
@@ -22625,7 +16849,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR015")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -22641,7 +16865,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "25ff4ac8-55f4-497a-9835-fb8749250a13")
-		(property "Reference" "#PWR026"
+		(property "Reference" "#PWR028"
 			(at 105.41 173.99 0)
 			(effects
 				(font
@@ -22692,7 +16916,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR026")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -22708,7 +16932,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "26a4edb8-7691-45be-9118-a75359f425af")
-		(property "Reference" "#PWR055"
+		(property "Reference" "#PWR057"
 			(at 257.81 242.57 0)
 			(effects
 				(font
@@ -22759,7 +16983,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR055")
+					(reference "#PWR057")
 					(unit 1)
 				)
 			)
@@ -22871,7 +17095,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 153.67 48.26 0)
 			(effects
 				(font
@@ -23038,7 +17262,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2eb13739-7457-4c0c-b3eb-a8cf03c09d94")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR010"
 			(at 22.86 81.28 0)
 			(effects
 				(font
@@ -23089,7 +17313,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR08")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -23105,7 +17329,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2fed9713-664b-4842-ae45-925433e39bb7")
-		(property "Reference" "#PWR049"
+		(property "Reference" "#PWR051"
 			(at 180.34 199.39 0)
 			(effects
 				(font
@@ -23156,7 +17380,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR049")
+					(reference "#PWR051")
 					(unit 1)
 				)
 			)
@@ -23268,7 +17492,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H221KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H221KE01-01A.pdf"
 			(at 152.4 234.315 0)
 			(effects
 				(font
@@ -23397,7 +17621,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 128.27 193.675 0)
 			(effects
 				(font
@@ -23526,7 +17750,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 171.45 193.675 0)
 			(effects
 				(font
@@ -23655,7 +17879,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 166.37 168.275 0)
 			(effects
 				(font
@@ -23755,7 +17979,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3cbdcad0-b0ac-40c2-9571-1e0252f07f2d")
-		(property "Reference" "#PWR039"
+		(property "Reference" "#PWR041"
 			(at 146.05 190.5 0)
 			(effects
 				(font
@@ -23806,7 +18030,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR039")
+					(reference "#PWR041")
 					(unit 1)
 				)
 			)
@@ -23823,7 +18047,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3d2aba34-78c3-4ab7-a94c-e75de387edc6")
-		(property "Reference" "#PWR019"
+		(property "Reference" "#PWR021"
 			(at 90.17 128.27 0)
 			(effects
 				(font
@@ -23874,7 +18098,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR019")
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -23919,7 +18143,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT21BR71C475KE13.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT21BR71C475KE13-01A.pdf"
 			(at 120.65 193.675 0)
 			(effects
 				(font
@@ -24048,7 +18272,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GCM21BR71A106KE22.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GCM21BR71A106KE22-01A.pdf"
 			(at 82.55 193.675 0)
 			(effects
 				(font
@@ -24244,7 +18468,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 12.7 81.28 0)
 			(effects
 				(font
@@ -24344,7 +18568,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "467f4b54-9a88-47aa-a0f8-ec76b98faaec")
-		(property "Reference" "#PWR022"
+		(property "Reference" "#PWR024"
 			(at 74.93 173.99 0)
 			(effects
 				(font
@@ -24395,7 +18619,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR022")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -24411,7 +18635,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "469ae707-e9d2-4609-94f4-2736b346d330")
-		(property "Reference" "#PWR040"
+		(property "Reference" "#PWR042"
 			(at 171.45 190.5 0)
 			(effects
 				(font
@@ -24462,7 +18686,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR040")
+					(reference "#PWR042")
 					(unit 1)
 				)
 			)
@@ -24478,7 +18702,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "46ec4b09-4fe2-4fef-b303-806c15ed4539")
-		(property "Reference" "#PWR021"
+		(property "Reference" "#PWR023"
 			(at 74.93 165.1 0)
 			(effects
 				(font
@@ -24529,7 +18753,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR021")
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -24639,7 +18863,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 279.4 97.155 0)
 			(effects
 				(font
@@ -24738,7 +18962,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "51be4a01-2a6b-444f-9204-3f727a0b88f1")
-		(property "Reference" "#PWR017"
+		(property "Reference" "#PWR019"
 			(at 44.45 113.03 0)
 			(effects
 				(font
@@ -24789,7 +19013,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR017")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -24805,7 +19029,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "56806ff1-664f-4754-bbdc-0d15e28629f3")
-		(property "Reference" "#PWR024"
+		(property "Reference" "#PWR026"
 			(at 90.17 173.99 0)
 			(effects
 				(font
@@ -24856,7 +19080,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR024")
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -24901,7 +19125,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 184.15 92.71 0)
 			(effects
 				(font
@@ -25030,7 +19254,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 180.34 193.675 0)
 			(effects
 				(font
@@ -25130,7 +19354,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5c714364-453f-4c67-a1da-14456c6374a0")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR012"
 			(at 43.18 81.28 0)
 			(effects
 				(font
@@ -25181,7 +19405,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR010")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -25197,7 +19421,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5dcf5d89-8e9e-438c-8055-a1bd6c8083e5")
-		(property "Reference" "#PWR054"
+		(property "Reference" "#PWR056"
 			(at 152.4 241.3 0)
 			(effects
 				(font
@@ -25248,7 +19472,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR054")
+					(reference "#PWR056")
 					(unit 1)
 				)
 			)
@@ -25264,7 +19488,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "60206f88-6766-45c2-ae63-9e80de44d0ee")
-		(property "Reference" "#PWR058"
+		(property "Reference" "#PWR060"
 			(at 184.15 250.19 0)
 			(effects
 				(font
@@ -25315,7 +19539,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR058")
+					(reference "#PWR060")
 					(unit 1)
 				)
 			)
@@ -25331,7 +19555,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "61b10237-d64d-41aa-abf1-a028df3276be")
-		(property "Reference" "#PWR047"
+		(property "Reference" "#PWR049"
 			(at 153.67 199.39 0)
 			(effects
 				(font
@@ -25382,7 +19606,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR047")
+					(reference "#PWR049")
 					(unit 1)
 				)
 			)
@@ -25398,7 +19622,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "62a854bf-67b7-411a-b31c-23f4fc2f4df8")
-		(property "Reference" "#PWR025"
+		(property "Reference" "#PWR027"
 			(at 97.79 173.99 0)
 			(effects
 				(font
@@ -25449,7 +19673,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR025")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -25465,7 +19689,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "67c88a5b-7b1e-4d91-a078-c89bb6f4c04a")
-		(property "Reference" "#PWR048"
+		(property "Reference" "#PWR050"
 			(at 171.45 199.39 0)
 			(effects
 				(font
@@ -25516,7 +19740,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR048")
+					(reference "#PWR050")
 					(unit 1)
 				)
 			)
@@ -25532,7 +19756,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "68627d4e-8589-415d-8dd0-6ae2685b98d9")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR018"
 			(at 297.18 110.49 0)
 			(effects
 				(font
@@ -25583,7 +19807,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR016")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -25628,7 +19852,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 143.51 168.275 0)
 			(effects
 				(font
@@ -25758,7 +19982,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Diodes-Incorporated-BSS138.pdf"
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/BSS138.pdf"
 			(at 154.94 86.36 90)
 			(effects
 				(font
@@ -25901,7 +20125,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GCM21BR71A106KE22.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GCM21BR71A106KE22-01A.pdf"
 			(at 139.7 234.315 0)
 			(effects
 				(font
@@ -26001,7 +20225,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "723717e3-b924-46b1-8436-dcb9dedac206")
-		(property "Reference" "#PWR059"
+		(property "Reference" "#PWR061"
 			(at 191.77 250.19 0)
 			(effects
 				(font
@@ -26052,7 +20276,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR059")
+					(reference "#PWR061")
 					(unit 1)
 				)
 			)
@@ -26068,7 +20292,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7f5ac2fe-23bc-48d0-a75a-7912ffc1f7b5")
-		(property "Reference" "#PWR053"
+		(property "Reference" "#PWR055"
 			(at 139.7 241.3 0)
 			(effects
 				(font
@@ -26119,7 +20343,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR053")
+					(reference "#PWR055")
 					(unit 1)
 				)
 			)
@@ -26162,7 +20386,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/ST-STM32H745ZI.pdf"
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/stm32h745zi.pdf"
 			(at 228.6 203.2 0)
 			(effects
 				(font
@@ -26736,7 +20960,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Lite-On-LTST-C191KRKT.pdf"
+		(property "Datasheet" "https://optoelectronics.liteon.com/upload/download/DS22-2000-223/LTST-C191KRKT.PDF"
 			(at 85.09 127 0)
 			(effects
 				(font
@@ -26826,7 +21050,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "865919ff-f872-48ea-88db-6faba17f3d5c")
-		(property "Reference" "#PWR032"
+		(property "Reference" "#PWR034"
 			(at 151.13 173.99 0)
 			(effects
 				(font
@@ -26877,7 +21101,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR032")
+					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -26921,7 +21145,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 262.89 106.68 90)
 			(effects
 				(font
@@ -27012,7 +21236,6 @@
 		)
 	)
 	(symbol
-		(lib_name "STM32H745ZIT6_1")
 		(lib_id "lib_sch:STM32H745ZIT6")
 		(at 101.6 76.2 0)
 		(unit 1)
@@ -27050,7 +21273,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/ST-STM32H745ZI.pdf"
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/stm32h745zi.pdf"
 			(at 101.6 76.2 0)
 			(effects
 				(font
@@ -27597,7 +21820,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8959350b-1c26-4a10-8bd2-c7b5ff047473")
-		(property "Reference" "#PWR033"
+		(property "Reference" "#PWR035"
 			(at 158.75 173.99 0)
 			(effects
 				(font
@@ -27648,7 +21871,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR033")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -27691,7 +21914,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/EATON-EXLA1328.pdf"
+		(property "Datasheet" "https://www.eaton.com/content/dam/eaton/products/electronic-components/resources/data-sheet/eaton-mfba3v1608-automotive-multilayer-ferrite-chip-bead-data-sheet-elx1328-en.pdf"
 			(at 87.63 190.5 0)
 			(effects
 				(font
@@ -27830,7 +22053,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 173.99 92.71 0)
 			(effects
 				(font
@@ -27959,7 +22182,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 97.79 168.275 0)
 			(effects
 				(font
@@ -28059,7 +22282,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8f4081c9-6f34-4311-9e4c-9dd626aa49d2")
-		(property "Reference" "#PWR06"
+		(property "Reference" "#PWR08"
 			(at 312.42 72.39 0)
 			(effects
 				(font
@@ -28110,7 +22333,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR06")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -28222,7 +22445,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 102.87 193.675 0)
 			(effects
 				(font
@@ -28322,7 +22545,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "994c0d8d-fca1-4d07-b57e-7786e68166d0")
-		(property "Reference" "#PWR056"
+		(property "Reference" "#PWR058"
 			(at 165.1 250.19 0)
 			(effects
 				(font
@@ -28373,7 +22596,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR056")
+					(reference "#PWR058")
 					(unit 1)
 				)
 			)
@@ -28389,7 +22612,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "998e8782-f1af-40bb-b338-2b04f3b28258")
-		(property "Reference" "#PWR030"
+		(property "Reference" "#PWR032"
 			(at 135.89 173.99 0)
 			(effects
 				(font
@@ -28440,7 +22663,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR030")
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -28456,7 +22679,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9a5e20cd-8eb6-4deb-9994-926266d18381")
-		(property "Reference" "#PWR028"
+		(property "Reference" "#PWR030"
 			(at 120.65 173.99 0)
 			(effects
 				(font
@@ -28507,7 +22730,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR028")
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -28551,7 +22774,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 262.89 111.76 90)
 			(effects
 				(font
@@ -28718,7 +22941,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9d52aaec-9165-4bc5-8876-72107423a666")
-		(property "Reference" "#PWR051"
+		(property "Reference" "#PWR053"
 			(at 95.25 224.79 0)
 			(effects
 				(font
@@ -28769,7 +22992,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR051")
+					(reference "#PWR053")
 					(unit 1)
 				)
 			)
@@ -28814,7 +23037,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 191.77 244.475 0)
 			(effects
 				(font
@@ -28943,7 +23166,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT21BR71E225KE13.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT21BR71E225KE13-01A.pdf"
 			(at 165.1 244.475 0)
 			(effects
 				(font
@@ -29072,7 +23295,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 173.99 168.275 0)
 			(effects
 				(font
@@ -29172,7 +23395,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a2911a42-8361-4786-bd12-c0b35fd09376")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR013"
 			(at 157.48 92.71 0)
 			(effects
 				(font
@@ -29223,7 +23446,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR011")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -29239,7 +23462,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a2963946-f548-4919-bcf2-5d6f30d0f74d")
-		(property "Reference" "#PWR050"
+		(property "Reference" "#PWR052"
 			(at 95.25 215.9 0)
 			(effects
 				(font
@@ -29290,7 +23513,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR050")
+					(reference "#PWR052")
 					(unit 1)
 				)
 			)
@@ -29374,7 +23597,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a97f2851-cc1e-426c-b14e-9cfbe5bbd1ba")
-		(property "Reference" "#PWR046"
+		(property "Reference" "#PWR048"
 			(at 146.05 199.39 0)
 			(effects
 				(font
@@ -29425,7 +23648,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR046")
+					(reference "#PWR048")
 					(unit 1)
 				)
 			)
@@ -29470,7 +23693,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 82.55 168.275 0)
 			(effects
 				(font
@@ -29570,7 +23793,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ac27c16f-d559-418e-96cc-34f2a89ed107")
-		(property "Reference" "#PWR052"
+		(property "Reference" "#PWR054"
 			(at 127 224.79 0)
 			(effects
 				(font
@@ -29621,7 +23844,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR052")
+					(reference "#PWR054")
 					(unit 1)
 				)
 			)
@@ -29666,7 +23889,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 95.25 219.075 0)
 			(effects
 				(font
@@ -29794,7 +24017,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GCM21BR71A106KE22.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GCM21BR71A106KE22-01A.pdf"
 			(at 95.25 193.675 0)
 			(effects
 				(font
@@ -29894,7 +24117,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b24429a1-04e2-4281-8326-ed6f2acc6051")
-		(property "Reference" "#PWR041"
+		(property "Reference" "#PWR043"
 			(at 82.55 199.39 0)
 			(effects
 				(font
@@ -29945,7 +24168,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR041")
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -29990,7 +24213,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 113.03 168.275 0)
 			(effects
 				(font
@@ -30117,7 +24340,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Wurth-Elektronik-74439324022.pdf"
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/74439324022.pdf"
 			(at 144.78 231.14 0)
 			(effects
 				(font
@@ -30256,7 +24479,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 158.75 168.275 0)
 			(effects
 				(font
@@ -30383,7 +24606,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 304.8 97.155 0)
 			(effects
 				(font
@@ -30510,7 +24733,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/C&K-PTS810.pdf"
+		(property "Datasheet" "https://www.ckswitches.com/media/1476/pts810.pdf"
 			(at 279.4 81.28 0)
 			(effects
 				(font
@@ -30588,7 +24811,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b5d9fee9-9bbd-4003-85f8-4f46c7098984")
-		(property "Reference" "#PWR035"
+		(property "Reference" "#PWR037"
 			(at 173.99 173.99 0)
 			(effects
 				(font
@@ -30639,7 +24862,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR035")
+					(reference "#PWR037")
 					(unit 1)
 				)
 			)
@@ -30655,7 +24878,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ba50331e-cfc4-4022-bcc9-27a20fd4c1b4")
-		(property "Reference" "#PWR031"
+		(property "Reference" "#PWR033"
 			(at 143.51 173.99 0)
 			(effects
 				(font
@@ -30706,7 +24929,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR031")
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -30818,7 +25041,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT188R71E105KE13.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT188R71E105KE13-01A.pdf"
 			(at 146.05 193.675 0)
 			(effects
 				(font
@@ -30918,7 +25141,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "beb96a15-c092-4d05-95f1-4f4c7d18df57")
-		(property "Reference" "#PWR038"
+		(property "Reference" "#PWR040"
 			(at 120.65 190.5 0)
 			(effects
 				(font
@@ -30969,7 +25192,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR038")
+					(reference "#PWR040")
 					(unit 1)
 				)
 			)
@@ -31014,7 +25237,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 135.89 168.275 0)
 			(effects
 				(font
@@ -31106,6 +25329,74 @@
 	)
 	(symbol
 		(lib_id "lib_pwr:+3V3")
+		(at 285.75 50.8 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c42c80f0-3567-42b3-a213-589d91f2735a")
+		(property "Reference" "#PWR06"
+			(at 285.75 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 285.75 47.244 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 285.75 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 285.75 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 285.75 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "07d9aaaa-03cf-4d1d-a36d-43c064fba7e8")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_pwr:+3V3")
 		(at 33.02 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31114,7 +25405,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c8767d39-735c-4441-8504-b01eb266049c")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR011"
 			(at 33.02 81.28 0)
 			(effects
 				(font
@@ -31165,7 +25456,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR09")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -31208,7 +25499,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 73.66 127 90)
 			(effects
 				(font
@@ -31299,6 +25590,108 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_sch:STEMMA-QT")
+		(at 298.45 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cbca4e37-8333-4720-a31c-fb14f67d502d")
+		(property "Reference" "J3"
+			(at 298.45 46.99 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "STEMMA-QT"
+			(at 298.45 64.77 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_connectors:JST_SH_BM04B-SRSS-TB"
+			(at 293.37 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf"
+			(at 293.37 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CONN HEADER SMD 4POS 1MM"
+			(at 298.45 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "JST Sales America Inc."
+			(at 298.45 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "BM04B-SRSS-TB"
+			(at 298.45 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "455-BM04B-SRSS-TBCT-ND"
+			(at 298.45 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b622bb4b-1f68-48b7-a016-8f8050ff36b0")
+		)
+		(pin "2"
+			(uuid "e83bcb2c-fc2e-4ffd-9da3-1924ffa23c76")
+		)
+		(pin "3"
+			(uuid "c7b2a080-dd28-4f40-b487-1b33d709cc68")
+		)
+		(pin "4"
+			(uuid "0ba76e81-f596-42e0-b07d-be83654962e6")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
+					(reference "J3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_sch:R")
 		(at 31.75 45.72 0)
 		(unit 1)
@@ -31337,7 +25730,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 31.75 43.18 0)
 			(effects
 				(font
@@ -31437,7 +25830,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc997036-6be9-4767-b919-f53d0eae7b38")
-		(property "Reference" "#PWR034"
+		(property "Reference" "#PWR036"
 			(at 166.37 173.99 0)
 			(effects
 				(font
@@ -31488,7 +25881,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR034")
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -31533,7 +25926,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT21BR71E225KE13.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT21BR71E225KE13-01A.pdf"
 			(at 172.72 244.475 0)
 			(effects
 				(font
@@ -31633,7 +26026,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cd3f4271-0312-44be-94a5-5d41f71f68a0")
-		(property "Reference" "#PWR037"
+		(property "Reference" "#PWR039"
 			(at 95.25 190.5 0)
 			(effects
 				(font
@@ -31684,7 +26077,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR037")
+					(reference "#PWR039")
 					(unit 1)
 				)
 			)
@@ -31767,7 +26160,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4d01201-750b-4e8e-9a4f-6675c7e7beac")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR014"
 			(at 173.99 92.71 0)
 			(effects
 				(font
@@ -31818,7 +26211,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR012")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -31834,7 +26227,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d852cb8e-99cb-41d8-8a04-54f0cb416a7e")
-		(property "Reference" "#PWR027"
+		(property "Reference" "#PWR029"
 			(at 113.03 173.99 0)
 			(effects
 				(font
@@ -31885,7 +26278,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR027")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -31930,7 +26323,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 105.41 168.275 0)
 			(effects
 				(font
@@ -32059,7 +26452,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Diodes-Incorporated-D1213A-01LP4.pdf"
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/D1213A-01LP4.pdf"
 			(at 280.035 84.455 0)
 			(effects
 				(font
@@ -32189,7 +26582,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 43.18 81.28 0)
 			(effects
 				(font
@@ -32280,6 +26673,73 @@
 		)
 	)
 	(symbol
+		(lib_id "lib_pwr:PWR_FLAG")
+		(at 283.21 26.67 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e26880e2-1589-4631-afa8-92d8b20fcdb3")
+		(property "Reference" "#FLG024"
+			(at 283.21 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 280.162 26.67 90)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 283.21 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 283.21 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 283.21 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "938c1169-99fe-4634-849b-6891d8357851")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
+					(reference "#FLG024")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "lib_pwr:VSS")
 		(at 287.02 92.71 0)
 		(unit 1)
@@ -32289,7 +26749,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e88c362d-4458-4fd4-858b-80582ad5f5d9")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR016"
 			(at 287.02 92.71 0)
 			(effects
 				(font
@@ -32340,7 +26800,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR014")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -32385,7 +26845,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT21BR71C475KE13.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT21BR71C475KE13-01A.pdf"
 			(at 74.93 168.275 0)
 			(effects
 				(font
@@ -32485,7 +26945,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e92dbe42-e21d-4647-9c2b-d78c804d65e8")
-		(property "Reference" "#PWR023"
+		(property "Reference" "#PWR025"
 			(at 82.55 173.99 0)
 			(effects
 				(font
@@ -32536,7 +26996,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR023")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -32552,7 +27012,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e94f6cfa-f839-4e31-b898-dd390936773c")
-		(property "Reference" "#PWR013"
+		(property "Reference" "#PWR015"
 			(at 184.15 92.71 0)
 			(effects
 				(font
@@ -32603,7 +27063,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR013")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -32649,7 +27109,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Inolux-PI15TAT.pdf"
+		(property "Datasheet" "https://www.inolux-corp.com/datasheet/SMDLED/Addressable%20LED/IN-PI15TAT5R5G5B_v1.1.pdf"
 			(at 46.99 130.175 0)
 			(effects
 				(font
@@ -32755,7 +27215,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 312.42 72.39 0)
 			(effects
 				(font
@@ -32884,7 +27344,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 151.13 168.275 0)
 			(effects
 				(font
@@ -32984,7 +27444,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "efb4bbb3-5340-4c93-ab08-6567a0bbaf21")
-		(property "Reference" "#PWR045"
+		(property "Reference" "#PWR047"
 			(at 128.27 199.39 0)
 			(effects
 				(font
@@ -33035,7 +27495,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR045")
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -33079,7 +27539,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/C&K-PTS810.pdf"
+		(property "Datasheet" "https://www.ckswitches.com/media/1476/pts810.pdf"
 			(at 304.8 81.28 0)
 			(effects
 				(font
@@ -33185,7 +27645,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 194.31 218.44 90)
 			(effects
 				(font
@@ -33285,7 +27745,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f723d973-a445-474a-8ba7-6f9e9ff802f6")
-		(property "Reference" "#PWR042"
+		(property "Reference" "#PWR044"
 			(at 95.25 199.39 0)
 			(effects
 				(font
@@ -33336,7 +27796,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR042")
+					(reference "#PWR044")
 					(unit 1)
 				)
 			)
@@ -33352,7 +27812,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f837d418-82cd-4522-8c55-888f94a90d3a")
-		(property "Reference" "#PWR036"
+		(property "Reference" "#PWR038"
 			(at 82.55 190.5 0)
 			(effects
 				(font
@@ -33403,7 +27863,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR036")
+					(reference "#PWR038")
 					(unit 1)
 				)
 			)
@@ -33419,7 +27879,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f8b11dab-7915-4d26-8b1e-519acb582890")
-		(property "Reference" "#PWR029"
+		(property "Reference" "#PWR031"
 			(at 128.27 173.99 0)
 			(effects
 				(font
@@ -33470,7 +27930,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR029")
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
@@ -33486,7 +27946,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f8c24ff9-5b87-47a7-ab79-eb3f77e3d916")
-		(property "Reference" "#PWR057"
+		(property "Reference" "#PWR059"
 			(at 172.72 250.19 0)
 			(effects
 				(font
@@ -33537,7 +27997,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR057")
+					(reference "#PWR059")
 					(unit 1)
 				)
 			)
@@ -33582,7 +28042,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Murata-Electronics-GRT155R71H104KE01.pdf"
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRT155R71H104KE01-01A.pdf"
 			(at 184.15 244.475 0)
 			(effects
 				(font
@@ -33682,7 +28142,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fb779067-17f2-45e8-8501-5dd54faed3cc")
-		(property "Reference" "#PWR043"
+		(property "Reference" "#PWR045"
 			(at 102.87 199.39 0)
 			(effects
 				(font
@@ -33733,7 +28193,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/4e5c1533-14c1-4d03-9f71-2a8f0c579906"
-					(reference "#PWR043")
+					(reference "#PWR045")
 					(unit 1)
 				)
 			)
@@ -33778,7 +28238,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "datasheets/Vishay-Dale-DCRCWe3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 22.86 81.28 0)
 			(effects
 				(font
