@@ -6,7 +6,7 @@
 	(descr "Resistor, Chip; 1.55 mm L X 0.85 mm W X 0.45 mm H body")
 	(tags "0603; 1608")
 	(property "Reference" "REF**"
-		(at 0 -1.2 0)
+		(at 0 -1.25 0)
 		(layer "F.SilkS")
 		(uuid "f949718b-ea97-401f-b3b1-9ad7df5f9ffe")
 		(effects
@@ -19,7 +19,7 @@
 	)
 	(property "Value" "Val**"
 		(at 0 0 0)
-		(layer "User.1")
+		(layer "F.Fab")
 		(hide yes)
 		(uuid "260400d5-4942-4f1a-8360-5c2f4d278620")
 		(effects
@@ -55,8 +55,8 @@
 	)
 	(attr smd)
 	(fp_line
-		(start -1.345 -0.645)
-		(end -0.448 -0.645)
+		(start -1.3 -0.675)
+		(end -0.5 -0.675)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -65,8 +65,8 @@
 		(uuid "08150fa8-3f40-4955-b4b3-f0160e8d2370")
 	)
 	(fp_line
-		(start -1.345 0.645)
-		(end -1.345 -0.645)
+		(start -1.3 0.675)
+		(end -1.3 -0.675)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -75,8 +75,8 @@
 		(uuid "93756030-01b1-4710-8cb0-a6941a73dfec")
 	)
 	(fp_line
-		(start -0.448 0.645)
-		(end -1.345 0.645)
+		(start -0.5 0.675)
+		(end -1.3 0.675)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -85,8 +85,8 @@
 		(uuid "30e34235-a3d6-408b-876e-a3d4615985dc")
 	)
 	(fp_line
-		(start 0.448 0.645)
-		(end 1.345 0.645)
+		(start 0.5 0.675)
+		(end 1.3 0.675)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -95,8 +95,8 @@
 		(uuid "b15f8d55-e339-4861-af5f-cd925b54f873")
 	)
 	(fp_line
-		(start 1.345 -0.645)
-		(end 0.448 -0.645)
+		(start 1.3 -0.675)
+		(end 0.5 -0.675)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -105,8 +105,8 @@
 		(uuid "483f37fc-d187-4adf-a6e5-50b8e89d4091")
 	)
 	(fp_line
-		(start 1.345 0.645)
-		(end 1.345 -0.645)
+		(start 1.3 0.675)
+		(end 1.3 -0.675)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -234,45 +234,16 @@
 		(layer "Dwgs.User")
 		(uuid "05d787d4-5cce-4469-8c10-7ae3eb147331")
 	)
-	(fp_line
-		(start -1.405 -0.704)
-		(end 1.405 -0.704)
+	(fp_rect
+		(start -1.4375 -0.8125)
+		(end 1.4375 0.8125)
 		(stroke
 			(width 0.05)
 			(type solid)
 		)
+		(fill no)
 		(layer "F.CrtYd")
-		(uuid "a19f191e-22a2-4406-94b4-e23db52ba85f")
-	)
-	(fp_line
-		(start -1.405 0.704)
-		(end -1.405 -0.704)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "65785093-24ea-4cf1-b3f7-df3301fec1d8")
-	)
-	(fp_line
-		(start 1.405 -0.704)
-		(end 1.405 0.704)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "eb31b69b-83d1-4c6e-81ee-da06dc277b68")
-	)
-	(fp_line
-		(start 1.405 0.704)
-		(end -1.405 0.704)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "e654a938-871b-41cc-a07a-99c4ce075fd5")
+		(uuid "31f229d8-0ab5-4333-b30c-819cee89415a")
 	)
 	(fp_line
 		(start -0.85 -0.45)

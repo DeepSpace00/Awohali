@@ -5,13 +5,14 @@
 	(layer "F.Cu")
 	(descr "Inductor, Chip; 2.00 mm L X 1.25 mm W X 1.40 mm H body")
 	(property "Reference" "REF**"
-		(at 0 -1.15 0)
+		(at 0 -1.25 0)
 		(layer "F.SilkS")
 		(uuid "42117ccf-f3e5-4217-90c8-8361019dea42")
 		(effects
 			(font
 				(size 0.75 0.75)
-				(thickness 0.12)
+				(thickness 0.15)
+				(bold yes)
 			)
 		)
 	)
@@ -56,7 +57,7 @@
 		(start -1.365 0.665)
 		(end -1.365 -0.665)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
@@ -66,7 +67,7 @@
 		(start 0.455 0.665)
 		(end 1.365 0.665)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
@@ -76,7 +77,7 @@
 		(start 1.365 -0.665)
 		(end 0.455 -0.665)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
@@ -86,7 +87,7 @@
 		(start 1.365 0.665)
 		(end 1.365 -0.665)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
@@ -152,45 +153,16 @@
 		(layer "Dwgs.User")
 		(uuid "78ae73cc-b238-4e56-996e-bf6d51e20e1e")
 	)
-	(fp_line
-		(start -1 -0.6)
-		(end 1 -0.6)
+	(fp_rect
+		(start -1.5 -0.8125)
+		(end 1.5 0.8125)
 		(stroke
 			(width 0.05)
 			(type solid)
 		)
+		(fill no)
 		(layer "F.CrtYd")
-		(uuid "13cde3e3-1615-42d2-87ad-baabf53fd115")
-	)
-	(fp_line
-		(start -1 0.6)
-		(end -1 -0.6)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "e1ca4a75-749b-4238-8def-90f69d2752ad")
-	)
-	(fp_line
-		(start 1 -0.6)
-		(end 1 0.6)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "74af0178-f9a4-457a-ba43-187cb619a912")
-	)
-	(fp_line
-		(start 1 0.6)
-		(end -1 0.6)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "b8608e8d-03d5-4b71-a6e8-07b9d0faf620")
+		(uuid "5662fe6e-d865-4406-bbad-88eab8135b24")
 	)
 	(fp_line
 		(start -0.875 -0.475)
@@ -262,18 +234,6 @@
 		(fill no)
 		(layer "F.Fab")
 		(uuid "5b59113a-dfbf-49ec-b1f6-85553b27884e")
-	)
-	(fp_text user "${REFERENCE}"
-		(at 0 0 0)
-		(layer "User.1")
-		(hide yes)
-		(uuid "2a93f833-ee3b-473d-81c4-3f255bf6f8fb")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.05)
-			)
-		)
 	)
 	(pad "1" smd roundrect
 		(at -0.8 0)
