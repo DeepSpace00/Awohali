@@ -1,9 +1,9 @@
-(footprint "NetTie-2_SMD_Pad2.0mm"
+(footprint "NetTie-2_SMD_Pad1.5mm"
 	(version 20241229)
 	(generator "pcbnew")
 	(generator_version "9.0")
 	(layer "F.Cu")
-	(descr "Net tie, 2 pin, 2.0mm square SMD pads")
+	(descr "Net tie, 2 pin, 1.5mm square SMD pads")
 	(tags "net tie")
 	(property "Reference" "REF**"
 		(at 0 -2 0)
@@ -17,7 +17,7 @@
 			)
 		)
 	)
-	(property "Value" "NetTie-2_SMD_Pad2.0mm"
+	(property "Value" "NetTie-2_SMD_Pad1.5mm"
 		(at 0 2 0)
 		(layer "F.Fab")
 		(hide yes)
@@ -57,7 +57,7 @@
 	(net_tie_pad_groups "1, 2")
 	(fp_poly
 		(pts
-			(xy -2 -1) (xy 2 -1) (xy 2 1) (xy -2 1)
+			(xy -1.5 -0.75) (xy 1.5 -0.75) (xy 1.5 0.75) (xy -1.5 0.75)
 		)
 		(stroke
 			(width 0)
@@ -68,25 +68,25 @@
 		(uuid "7a483531-f182-468c-9bed-fea883990a9a")
 	)
 	(fp_rect
-		(start -3.2 -1.2)
-		(end 3.2 1.2)
+		(start -2.35 -0.85)
+		(end 2.35 0.85)
 		(stroke
 			(width 0.05)
-			(type solid)
+			(type default)
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "81cdde11-8321-48ef-85a9-f69f1f626a22")
+		(uuid "cd6bf24c-6b61-454b-96ec-2f15db2e816c")
 	)
 	(pad "1" smd circle
-		(at -2 0)
-		(size 2 2)
+		(at -1.5 0)
+		(size 1.5 1.5)
 		(layers "F.Cu")
 		(uuid "7db4a783-76c4-4ef8-b1cc-672a6f0a6f3a")
 	)
 	(pad "2" smd circle
-		(at 2 0)
-		(size 2 2)
+		(at 1.5 0)
+		(size 1.5 1.5)
 		(layers "F.Cu")
 		(uuid "ae8db8fd-8000-4eb0-be6b-483994247d44")
 	)

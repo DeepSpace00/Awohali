@@ -53,7 +53,7 @@
 			)
 		)
 	)
-	(attr exclude_from_pos_files exclude_from_bom)
+	(attr exclude_from_pos_files exclude_from_bom allow_missing_courtyard)
 	(net_tie_pad_groups "1, 2")
 	(fp_poly
 		(pts
@@ -67,16 +67,27 @@
 		(layer "F.Cu")
 		(uuid "18116ccc-7d28-4d71-9818-4ef12b024f79")
 	)
+	(fp_rect
+		(start -0.925 -0.425)
+		(end 0.925 0.425)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "91f13d8d-bba7-4099-8295-8fec188cc410")
+	)
 	(pad "1" smd circle
 		(at -0.5 0)
 		(size 0.75 0.75)
-		(layers "F.Cu" "F.Mask" "F.Paste")
+		(layers "F.Cu")
 		(uuid "ad42c266-0910-41dd-acf8-33b01257e8f7")
 	)
 	(pad "2" smd circle
 		(at 0.5 0)
 		(size 0.75 0.75)
-		(layers "F.Cu" "F.Mask" "F.Paste")
+		(layers "F.Cu")
 		(uuid "77287fb9-a925-4729-8267-15d508042eb4")
 	)
 	(embedded_fonts no)

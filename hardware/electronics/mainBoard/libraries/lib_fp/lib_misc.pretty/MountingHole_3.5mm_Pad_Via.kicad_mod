@@ -94,7 +94,91 @@
 			)
 		)
 	)
-	(attr exclude_from_pos_files exclude_from_bom dnp)
+	(attr smd)
+	(fp_poly
+		(pts
+			(arc
+				(start -3.25 -0.25)
+				(mid -2.300808 -2.308957)
+				(end -0.25 -3.25)
+			)
+			(arc
+				(start -0.25 -2.119722)
+				(mid -1.51521 -1.503283)
+				(end -2.119722 -0.25)
+			)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.Paste")
+		(uuid "cf2092ae-8da1-4c67-aba5-ab27192747f8")
+	)
+	(fp_poly
+		(pts
+			(arc
+				(start -3.25 0.25)
+				(mid -2.300808 2.308957)
+				(end -0.25 3.25)
+			)
+			(arc
+				(start -0.25 2.119722)
+				(mid -1.51521 1.503283)
+				(end -2.119722 0.25)
+			)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.Paste")
+		(uuid "7753a392-7529-42b2-b05d-ecad728921a8")
+	)
+	(fp_poly
+		(pts
+			(arc
+				(start 0.25 3.25)
+				(mid 2.308957 2.300808)
+				(end 3.25 0.25)
+			)
+			(arc
+				(start 2.119722 0.25)
+				(mid 1.503283 1.51521)
+				(end 0.25 2.119722)
+			)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.Paste")
+		(uuid "f37cbfdf-ab7f-45d3-bf0c-4edfc3e02d2c")
+	)
+	(fp_poly
+		(pts
+			(arc
+				(start 3.25 -0.25)
+				(mid 2.300808 -2.308957)
+				(end 0.25 -3.25)
+			)
+			(arc
+				(start 0.25 -2.119722)
+				(mid 1.51521 -1.503283)
+				(end 2.119722 -0.25)
+			)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.Paste")
+		(uuid "38129197-072c-47ad-b8f1-b39600c0cfd6")
+	)
 	(fp_circle
 		(center 0 0)
 		(end 3.25 0)
@@ -117,23 +201,11 @@
 		(layer "F.CrtYd")
 		(uuid "7441fb5f-e0c7-4c49-af9d-75bc6d33e02a")
 	)
-	(fp_text user "${REFERENCE}"
-		(at 0 0 0)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "f31a3ba0-c510-4a63-a7b4-ac322f952621")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-		)
-	)
 	(pad "1" thru_hole circle
 		(at 0 0)
 		(size 6.5 6.5)
 		(drill 4.2)
-		(layers "*.Cu" "*.Mask" "F.Paste")
+		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(zone_connect 2)
 		(uuid "7e82c27f-c2ce-4a6c-99cf-f13641789cba")

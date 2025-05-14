@@ -55,7 +55,7 @@
 			)
 		)
 	)
-	(attr smd)
+	(attr through_hole)
 	(fp_line
 		(start -3.55 -1.25)
 		(end -3.55 1.25)
@@ -105,6 +105,86 @@
 		)
 		(layer "Cmts.User")
 		(uuid "972d90f6-2ce6-4594-8825-4389d86a2ca5")
+	)
+	(fp_line
+		(start -5.7 -5.5)
+		(end -5.7 -3.3)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "daea77b2-1380-418b-a0d7-073c56b74c8e")
+	)
+	(fp_line
+		(start -5.7 -3.3)
+		(end -4 -3.3)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "986605a4-a424-443e-905b-e824b2ceb3bb")
+	)
+	(fp_line
+		(start -4 -3.3)
+		(end -4 4)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "6c0ba205-a6c5-4153-9600-15c7ac271fff")
+	)
+	(fp_line
+		(start -4 4)
+		(end 4 4)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "6cd867f2-cf80-4546-8482-f94ffc8dfecf")
+	)
+	(fp_line
+		(start 4 -3.3)
+		(end 5.7 -3.3)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "0ec34a02-47d3-4ce7-a0be-9f4d0a501753")
+	)
+	(fp_line
+		(start 4 4)
+		(end 4 -3.3)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "8db44187-a09f-49ee-8668-5caed3db115c")
+	)
+	(fp_line
+		(start 5.7 -5.5)
+		(end -5.7 -5.5)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "cee1e316-ae59-4c10-806f-03f8e12bb9d0")
+	)
+	(fp_line
+		(start 5.7 -3.3)
+		(end 5.7 -5.5)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "77c92b1d-2797-4973-8f17-3911110cebc5")
 	)
 	(fp_rect
 		(start -5.5 -5.5)
@@ -168,7 +248,7 @@
 		(remove_unused_layers no)
 		(uuid "5ca557d8-762b-4766-aaca-6c152f853749")
 	)
-	(pad "2" thru_hole circle
+	(pad "3" thru_hole circle
 		(at -2.54 2.54)
 		(size 2.5 2.5)
 		(drill 1.7)
@@ -176,21 +256,21 @@
 		(remove_unused_layers no)
 		(uuid "4dcb3971-6ef7-402c-9d4c-7a977af9886a")
 	)
-	(pad "2" thru_hole circle
-		(at 2.54 -2.54)
-		(size 2.5 2.5)
-		(drill 1.7)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-		(uuid "781de18e-6a06-4cef-85ad-ebaffd052a4b")
-	)
-	(pad "2" thru_hole circle
+	(pad "4" thru_hole circle
 		(at 2.54 2.54)
 		(size 2.5 2.5)
 		(drill 1.7)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "4a861039-e421-4eb8-bce5-8f6ca4ca70c4")
+	)
+	(pad "5" thru_hole circle
+		(at 2.54 -2.54)
+		(size 2.5 2.5)
+		(drill 1.7)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "781de18e-6a06-4cef-85ad-ebaffd052a4b")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/libraries/lib_3d/RFPC-SMA14-FN-A.step"
