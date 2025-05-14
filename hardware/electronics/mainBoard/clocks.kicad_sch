@@ -6,7 +6,7 @@
 	(paper "B")
 	(title_block
 		(title "Awohali - Clocks")
-		(date "2025-05-02")
+		(date "2025-05-13")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
@@ -771,7 +771,7 @@
 		)
 		(uuid "7bfb9a93-55ad-4983-8ae2-7edd5fa24b16")
 	)
-	(text "STM32H7 / STM32L0 32.768kHz Clock"
+	(text "STM32H7 / STM32L4 32.768kHz Clock"
 		(exclude_from_sim no)
 		(at 215.9 127 0)
 		(effects
@@ -879,13 +879,23 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 137.16) (xy 156.21 137.16)
+			(xy 147.32 137.16) (xy 158.75 137.16)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "0091b2ab-835b-469d-b355-b28adf2b16ae")
+	)
+	(wire
+		(pts
+			(xy 231.14 137.16) (xy 226.06 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "193246a8-9171-4158-9542-d229d1d00826")
 	)
 	(wire
 		(pts
@@ -949,6 +959,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 137.16) (xy 142.24 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaa4e2c2-343e-403f-942a-ee1cd7193b08")
+	)
+	(wire
+		(pts
 			(xy 289.56 137.16) (xy 294.64 137.16)
 		)
 		(stroke
@@ -969,7 +989,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 137.16) (xy 242.57 137.16)
+			(xy 236.22 137.16) (xy 247.65 137.16)
 		)
 		(stroke
 			(width 0)
@@ -979,13 +999,13 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 137.16) (xy 139.7 137.16)
+			(xy 320.04 137.16) (xy 314.96 137.16)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ee1f2b8c-8e22-456c-a30a-8354a674a2a7")
+		(uuid "df1eef3f-8fc1-4a27-8ce8-0b2a832ecd9c")
 	)
 	(wire
 		(pts
@@ -999,7 +1019,7 @@
 	)
 	(wire
 		(pts
-			(xy 320.04 137.16) (xy 330.2 137.16)
+			(xy 325.12 137.16) (xy 335.28 137.16)
 		)
 		(stroke
 			(width 0)
@@ -1008,7 +1028,7 @@
 		(uuid "fa26f899-5f67-4ce4-b83e-da31501fd317")
 	)
 	(label "32768Hz"
-		(at 238.76 137.16 180)
+		(at 243.84 137.16 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1018,7 +1038,7 @@
 		(uuid "2617eee6-2cd4-42d6-8ce4-318faec552d1")
 	)
 	(label "24MHz"
-		(at 326.39 137.16 180)
+		(at 331.47 137.16 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1028,7 +1048,7 @@
 		(uuid "6a2874f2-efb9-4180-b6a1-584a72516071")
 	)
 	(label "25MHz"
-		(at 151.13 137.16 180)
+		(at 153.67 137.16 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1039,7 +1059,7 @@
 	)
 	(hierarchical_label "24MHz"
 		(shape output)
-		(at 330.2 137.16 0)
+		(at 335.28 137.16 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1050,7 +1070,7 @@
 	)
 	(hierarchical_label "32768Hz"
 		(shape output)
-		(at 242.57 137.16 0)
+		(at 247.65 137.16 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1061,7 +1081,7 @@
 	)
 	(hierarchical_label "25MHz"
 		(shape output)
-		(at 156.21 137.16 0)
+		(at 158.75 137.16 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1073,7 +1093,7 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 327.66 137.16 0)
+		(at 332.74 137.16 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1083,7 +1103,7 @@
 		)
 		(uuid "0f5d4aa7-36c6-46d0-bb0a-9ca7e30e7337")
 		(property "Netclass" "50R_Single"
-			(at 328.3585 134.62 0)
+			(at 333.4385 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1092,7 +1112,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at 130.81 12.7 0)
+			(at 135.89 12.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1104,7 +1124,38 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 240.03 137.16 0)
+		(at 139.7 137.16 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2c6be1a8-4600-4e8c-bd68-a232b8f20730")
+		(property "Netclass" "50R_Single"
+			(at 140.3985 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -57.15 12.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 245.11 137.16 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1114,7 +1165,7 @@
 		)
 		(uuid "64ae0a2d-2f76-4bdd-be2c-e57b47a879d1")
 		(property "Netclass" "50R_Single"
-			(at 240.7285 134.62 0)
+			(at 245.8085 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1123,7 +1174,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at 43.18 12.7 0)
+			(at 48.26 12.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1135,7 +1186,38 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 153.67 137.16 0)
+		(at 317.5 137.16 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "69e17aec-0861-4c17-956f-237abfdf02e4")
+		(property "Netclass" "50R_Single"
+			(at 318.1985 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 120.65 12.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 156.21 137.16 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1145,7 +1227,7 @@
 		)
 		(uuid "94903e88-209e-4f97-8d07-d07807ba857d")
 		(property "Netclass" "50R_Single"
-			(at 154.3685 134.62 0)
+			(at 156.9085 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1154,7 +1236,38 @@
 			)
 		)
 		(property "Component Class" ""
-			(at -43.18 12.7 0)
+			(at -40.64 12.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 228.6 137.16 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bdb5f1cc-5dea-4a70-8c1c-41a514e9a47b")
+		(property "Netclass" "50R_Single"
+			(at 229.2985 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 31.75 12.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1165,7 +1278,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R_horizontal")
-		(at 317.5 137.16 0)
+		(at 322.58 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1174,7 +1287,7 @@
 		(fields_autoplaced yes)
 		(uuid "0ed5538f-f8eb-402d-91df-bb83170230fd")
 		(property "Reference" "R24"
-			(at 317.5 135.89 0)
+			(at 322.58 135.89 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1183,7 +1296,7 @@
 			)
 		)
 		(property "Value" "22R"
-			(at 317.5 138.43 0)
+			(at 322.58 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1193,7 +1306,7 @@
 			)
 		)
 		(property "Footprint" "lib_passives:CRCW0402"
-			(at 314.96 137.16 90)
+			(at 320.04 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1202,7 +1315,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 314.96 137.16 90)
+			(at 320.04 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1211,7 +1324,7 @@
 			)
 		)
 		(property "Description" "RES SMD 22 OHM 1% 1/16W 0402"
-			(at 317.5 137.16 0)
+			(at 322.58 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1220,7 +1333,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 314.96 137.16 90)
+			(at 320.04 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1229,7 +1342,7 @@
 			)
 		)
 		(property "MPN" "CRCW040222R0FKED"
-			(at 314.96 137.16 90)
+			(at 320.04 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1238,7 +1351,7 @@
 			)
 		)
 		(property "DKPN" "541-22.0LCT-ND"
-			(at 317.5 137.16 0)
+			(at 322.58 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1247,7 +1360,7 @@
 			)
 		)
 		(property "Tolerance" "5%"
-			(at 317.5 139.7 0)
+			(at 322.58 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1257,7 +1370,7 @@
 			)
 		)
 		(property "Power Rating" "62m5W"
-			(at 317.5 138.43 0)
+			(at 322.58 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1267,7 +1380,7 @@
 			)
 		)
 		(property "Package" "0402"
-			(at 317.5 139.7 0)
+			(at 322.58 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1757,7 +1870,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R_horizontal")
-		(at 142.24 137.16 0)
+		(at 144.78 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1766,7 +1879,7 @@
 		(fields_autoplaced yes)
 		(uuid "9ad055fb-4914-476a-93c3-b0bdb1b2d292")
 		(property "Reference" "R22"
-			(at 142.24 135.89 0)
+			(at 144.78 135.89 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1775,7 +1888,7 @@
 			)
 		)
 		(property "Value" "22R"
-			(at 142.24 138.43 0)
+			(at 144.78 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1785,7 +1898,7 @@
 			)
 		)
 		(property "Footprint" "lib_passives:CRCW0402"
-			(at 139.7 137.16 90)
+			(at 142.24 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1794,7 +1907,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 139.7 137.16 90)
+			(at 142.24 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1803,7 +1916,7 @@
 			)
 		)
 		(property "Description" "RES SMD 22 OHM 1% 1/16W 0402"
-			(at 142.24 137.16 0)
+			(at 144.78 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1812,7 +1925,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 139.7 137.16 90)
+			(at 142.24 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1821,7 +1934,7 @@
 			)
 		)
 		(property "MPN" "CRCW040222R0FKED"
-			(at 139.7 137.16 90)
+			(at 142.24 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1830,7 +1943,7 @@
 			)
 		)
 		(property "DKPN" "541-22.0LCT-ND"
-			(at 142.24 137.16 0)
+			(at 144.78 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1839,7 +1952,7 @@
 			)
 		)
 		(property "Tolerance" "5%"
-			(at 142.24 139.7 0)
+			(at 144.78 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1849,7 +1962,7 @@
 			)
 		)
 		(property "Power Rating" "62m5W"
-			(at 142.24 138.43 0)
+			(at 144.78 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1859,7 +1972,7 @@
 			)
 		)
 		(property "Package" "0402"
-			(at 142.24 139.7 0)
+			(at 144.78 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1996,7 +2109,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c699a885-388c-4c22-bbb7-b5439252ebd8")
-		(property "Reference" "#PWR081"
+		(property "Reference" "#PWR084"
 			(at 289.56 137.16 0)
 			(effects
 				(font
@@ -2047,7 +2160,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7c38f482-70e6-459c-b3af-acf1cdcfd3ea"
-					(reference "#PWR081")
+					(reference "#PWR084")
 					(unit 1)
 				)
 			)
@@ -2063,7 +2176,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "de88edc4-3404-4fcb-9eae-e84906508745")
-		(property "Reference" "#PWR080"
+		(property "Reference" "#PWR083"
 			(at 200.66 137.16 0)
 			(effects
 				(font
@@ -2114,7 +2227,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7c38f482-70e6-459c-b3af-acf1cdcfd3ea"
-					(reference "#PWR080")
+					(reference "#PWR083")
 					(unit 1)
 				)
 			)
@@ -2122,7 +2235,7 @@
 	)
 	(symbol
 		(lib_id "lib_sch:R_horizontal")
-		(at 228.6 137.16 0)
+		(at 233.68 137.16 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2131,7 +2244,7 @@
 		(fields_autoplaced yes)
 		(uuid "e1f7ac1c-ea22-4ecd-853f-e0057e6d890c")
 		(property "Reference" "R23"
-			(at 228.6 135.89 0)
+			(at 233.68 135.89 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2140,7 +2253,7 @@
 			)
 		)
 		(property "Value" "22R"
-			(at 228.6 138.43 0)
+			(at 233.68 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2150,7 +2263,7 @@
 			)
 		)
 		(property "Footprint" "lib_passives:CRCW0402"
-			(at 226.06 137.16 90)
+			(at 231.14 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2159,7 +2272,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 226.06 137.16 90)
+			(at 231.14 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2168,7 +2281,7 @@
 			)
 		)
 		(property "Description" "RES SMD 22 OHM 1% 1/16W 0402"
-			(at 228.6 137.16 0)
+			(at 233.68 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2177,7 +2290,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 226.06 137.16 90)
+			(at 231.14 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2186,7 +2299,7 @@
 			)
 		)
 		(property "MPN" "CRCW040222R0FKED"
-			(at 226.06 137.16 90)
+			(at 231.14 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2195,7 +2308,7 @@
 			)
 		)
 		(property "DKPN" "541-22.0LCT-ND"
-			(at 228.6 137.16 0)
+			(at 233.68 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2204,7 +2317,7 @@
 			)
 		)
 		(property "Tolerance" "5%"
-			(at 228.6 139.7 0)
+			(at 233.68 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2214,7 +2327,7 @@
 			)
 		)
 		(property "Power Rating" "62m5W"
-			(at 228.6 138.43 0)
+			(at 233.68 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2224,7 +2337,7 @@
 			)
 		)
 		(property "Package" "0402"
-			(at 228.6 139.7 0)
+			(at 233.68 139.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -2387,7 +2500,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e9bdda0f-487e-4754-b3e7-c1b20469c97e")
-		(property "Reference" "#PWR083"
+		(property "Reference" "#PWR086"
 			(at 200.66 143.51 0)
 			(effects
 				(font
@@ -2438,7 +2551,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7c38f482-70e6-459c-b3af-acf1cdcfd3ea"
-					(reference "#PWR083")
+					(reference "#PWR086")
 					(unit 1)
 				)
 			)
@@ -2454,7 +2567,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f34dd67d-1a8c-41d7-83f3-aabb7642862d")
-		(property "Reference" "#PWR082"
+		(property "Reference" "#PWR085"
 			(at 111.76 143.51 0)
 			(effects
 				(font
@@ -2505,7 +2618,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7c38f482-70e6-459c-b3af-acf1cdcfd3ea"
-					(reference "#PWR082")
+					(reference "#PWR085")
 					(unit 1)
 				)
 			)
@@ -2521,7 +2634,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fc420498-09f1-4472-a811-b2b93651c016")
-		(property "Reference" "#PWR084"
+		(property "Reference" "#PWR087"
 			(at 289.56 143.51 0)
 			(effects
 				(font
@@ -2572,7 +2685,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7c38f482-70e6-459c-b3af-acf1cdcfd3ea"
-					(reference "#PWR084")
+					(reference "#PWR087")
 					(unit 1)
 				)
 			)
@@ -2588,7 +2701,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fef1769f-de1e-4ff9-a06b-bd2fc4488ad4")
-		(property "Reference" "#PWR079"
+		(property "Reference" "#PWR082"
 			(at 111.76 137.16 0)
 			(effects
 				(font
@@ -2639,7 +2752,7 @@
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0/7c38f482-70e6-459c-b3af-acf1cdcfd3ea"
-					(reference "#PWR079")
+					(reference "#PWR082")
 					(unit 1)
 				)
 			)

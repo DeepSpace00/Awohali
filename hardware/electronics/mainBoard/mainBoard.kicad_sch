@@ -6,13 +6,13 @@
 	(paper "B")
 	(title_block
 		(title "Awohali - System Diagram")
-		(date "2025-05-02")
+		(date "2025-05-13")
 		(rev "1")
 		(comment 2 "PROTOTYPE")
 		(comment 3 "2025")
 	)
 	(lib_symbols
-		(symbol "lib_pwr:GND"
+		(symbol "DS-Power:CGND"
 			(power)
 			(pin_numbers
 				(hide yes)
@@ -78,10 +78,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "GND_0_1"
+			(symbol "CGND_0_1"
 				(polyline
 					(pts
-						(xy -1.27 -1.27) (xy -1.27 -1.27)
+						(xy -1.27 -1.27) (xy -1.905 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -93,7 +93,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.635 -1.905) (xy 0.635 -1.905)
+						(xy -1.27 -1.27) (xy -1.27 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -117,7 +117,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.254 -2.54) (xy 0.254 -2.54)
+						(xy 0 0) (xy 0 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -129,7 +129,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 -1.27)
+						(xy 0 -1.27) (xy -0.635 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -151,12 +151,138 @@
 						(type none)
 					)
 				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 0.635 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 			)
-			(symbol "GND_1_1"
+			(symbol "CGND_1_1"
 				(pin power_in line
 					(at 0 0 270)
 					(length 0)
 					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Mounting-Terminal_1"
+			(pin_numbers
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J39"
+				(at 0 5.08 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "S1761-46R"
+				(at 0 2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://cdn.harwin.com/pdfs/S1761-XXR.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "RFI SHD FINGER SS TIN SLD 2000RL"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "Harwin Inc."
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "S1761-46R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "DKPN" "952-2152-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Mounting-Terminal_1_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Mounting-Terminal_1_1_1"
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.54)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -288,7 +414,112 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "lib_sch:Mounting-Hole"
+		(symbol "lib_pwr:VSS"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "VSS"
+				(at 0 -3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VSS_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "VSS_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lib_sch:Mounting-Terminal"
+			(pin_numbers
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -362,7 +593,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "Mounting-Hole_0_1"
+			(symbol "Mounting-Terminal_0_1"
 				(circle
 					(center 0 0)
 					(radius 1.27)
@@ -375,7 +606,7 @@
 					)
 				)
 			)
-			(symbol "Mounting-Hole_1_1"
+			(symbol "Mounting-Terminal_1_1"
 				(pin passive line
 					(at 0 -3.81 90)
 					(length 2.54)
@@ -387,6 +618,191 @@
 						)
 					)
 					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.54)
+					(hide yes)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.54)
+					(hide yes)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.54)
+					(hide yes)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lib_sch:NetTie"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "NT"
+				(at 0 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "NetTie"
+				(at 0 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Net tie, 2 pins"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "net tie short"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Net*Tie*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NetTie_0_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NetTie_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -421,22 +837,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b3ac9c0c-4b01-421e-a59d-129d73093fcf")
-	)
-	(no_connect
-		(at 69.85 257.81)
-		(uuid "41cd4893-9855-4909-b7a1-5904fc62e0e3")
-	)
-	(no_connect
-		(at 50.8 245.11)
-		(uuid "6e63f6d3-d9c5-4d64-ad33-a74397a8374f")
-	)
-	(no_connect
-		(at 69.85 245.11)
-		(uuid "c0b9590b-be3a-445e-8894-0cd4a3aafa81")
-	)
-	(no_connect
-		(at 50.8 257.81)
-		(uuid "fce94968-9c1c-40db-92ed-200fef78ed3c")
 	)
 	(wire
 		(pts
@@ -588,6 +988,26 @@
 		)
 		(uuid "2f7d1ca6-35fb-4ca1-b60c-355eabdcfe10")
 	)
+	(wire
+		(pts
+			(xy 50.8 245.11) (xy 50.8 247.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3317aebf-f86e-42dd-8e8d-e5dcac3473c4")
+	)
+	(wire
+		(pts
+			(xy 76.2 245.11) (xy 76.2 247.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "38559ba2-26fa-4b90-a853-45f4a07f5969")
+	)
 	(bus
 		(pts
 			(xy 234.95 163.83) (xy 254 163.83)
@@ -597,6 +1017,16 @@
 			(type default)
 		)
 		(uuid "3a1de9bc-67ff-4590-93ac-e53de4d44e8f")
+	)
+	(wire
+		(pts
+			(xy 35.56 246.38) (xy 33.02 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3bea7aea-3624-4d4a-922b-a9543ea61660")
 	)
 	(bus
 		(pts
@@ -630,6 +1060,16 @@
 	)
 	(wire
 		(pts
+			(xy 35.56 247.65) (xy 35.56 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47a8b7fd-0107-4f76-95b9-ba80bc20ff0a")
+	)
+	(wire
+		(pts
 			(xy 181.61 160.02) (xy 184.15 160.02)
 		)
 		(stroke
@@ -647,6 +1087,16 @@
 			(type default)
 		)
 		(uuid "531890f0-f091-4733-a080-03fe18bcbffd")
+	)
+	(wire
+		(pts
+			(xy 63.5 245.11) (xy 63.5 247.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e69b38e-2078-481d-b1b0-4613b0c0e4a0")
 	)
 	(bus
 		(pts
@@ -890,6 +1340,16 @@
 	)
 	(wire
 		(pts
+			(xy 88.9 245.11) (xy 88.9 247.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3592888-ac24-4086-8469-cb755d35d4e1")
+	)
+	(wire
+		(pts
 			(xy 280.67 105.41) (xy 292.1 105.41)
 		)
 		(stroke
@@ -927,6 +1387,16 @@
 			(type default)
 		)
 		(uuid "defee140-d771-43a3-9c51-d597a816638a")
+	)
+	(wire
+		(pts
+			(xy 27.94 246.38) (xy 25.4 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e03087a5-5445-46e3-a287-8ccd39e5c081")
 	)
 	(wire
 		(pts
@@ -998,7 +1468,7 @@
 		)
 		(uuid "f9e3ca27-11a6-4762-8ead-a1ef9c4857ae")
 	)
-	(label "L0_CAN_TX"
+	(label "L4_CAN_TX"
 		(at 137.16 104.14 0)
 		(effects
 			(font
@@ -1008,7 +1478,7 @@
 		)
 		(uuid "06d1c416-678f-4f11-b66d-0736f432599d")
 	)
-	(label "L0_CAN_STB"
+	(label "L4_CAN_STB"
 		(at 137.16 109.22 0)
 		(effects
 			(font
@@ -1018,7 +1488,7 @@
 		)
 		(uuid "08f01bc0-9fbb-4da1-b176-300fd018f259")
 	)
-	(label "L0_CAN_STB"
+	(label "L4_CAN_STB"
 		(at 292.1 110.49 180)
 		(effects
 			(font
@@ -1028,7 +1498,7 @@
 		)
 		(uuid "19f1e9a4-72d3-4cca-9e12-e512a2e1c6a0")
 	)
-	(label "L0_CAN_RX"
+	(label "L4_CAN_RX"
 		(at 137.16 106.68 0)
 		(effects
 			(font
@@ -1058,7 +1528,7 @@
 		)
 		(uuid "b78bb3d8-3691-4d6d-b56c-90193505c6b1")
 	)
-	(label "L0_CAN_RX"
+	(label "L4_CAN_RX"
 		(at 292.1 107.95 180)
 		(effects
 			(font
@@ -1068,7 +1538,7 @@
 		)
 		(uuid "c4bb9c91-80c4-4d05-965e-515380c9d0e6")
 	)
-	(label "L0_CAN_TX"
+	(label "L4_CAN_TX"
 		(at 292.1 105.41 180)
 		(effects
 			(font
@@ -1089,16 +1559,17 @@
 		(uuid "ed97a978-1ba2-49fe-9415-aa4daea50292")
 	)
 	(symbol
-		(lib_id "lib_sch:Mounting-Hole")
-		(at 25.4 241.3 0)
+		(lib_name "Mounting-Terminal_1")
+		(lib_id "lib_sch:Mounting-Terminal")
+		(at 63.5 241.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4d47bca8-48e1-4c75-853b-5ddedcce3fe8")
-		(property "Reference" "J1"
-			(at 25.4 236.22 0)
+		(uuid "1a271257-a5fb-4fcd-b4af-23df257710f5")
+		(property "Reference" "J3"
+			(at 63.5 236.22 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1106,8 +1577,8 @@
 				)
 			)
 		)
-		(property "Value" "Chassis Ground Strap"
-			(at 25.4 238.76 0)
+		(property "Value" "S1761-46R"
+			(at 63.5 238.76 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1115,8 +1586,8 @@
 				)
 			)
 		)
-		(property "Footprint" "lib_misc:M4.5-MH"
-			(at 25.4 241.3 0)
+		(property "Footprint" "lib_misc:S1961-46R_Horizontal"
+			(at 63.5 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1124,8 +1595,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.parker.com/content/dam/Parker-com/Literature/Chomerics/Parker-Chomerics-CHO-STRAP.pdf"
-			(at 25.4 241.3 0)
+		(property "Datasheet" "https://cdn.harwin.com/pdfs/S1761-XXR.pdf"
+			(at 63.5 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1133,8 +1604,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "GROUND BRAID FLAT 0.5\" X 0.3'"
-			(at 25.4 241.3 0)
+		(property "Description" "RFI SHD FINGER SS TIN SLD 2000RL"
+			(at 63.5 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1142,8 +1613,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "Parker Chomerics"
-			(at 25.4 241.3 0)
+		(property "Manufacturer" "Harwin Inc."
+			(at 63.5 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1151,8 +1622,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "L-1011-3"
-			(at 25.4 241.3 0)
+		(property "MPN" "S1761-46R"
+			(at 63.5 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1160,8 +1631,8 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" "1944-L-1011-3-ND"
-			(at 25.4 241.3 0)
+		(property "DKPN" "952-2152-1-ND"
+			(at 63.5 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1170,19 +1641,341 @@
 			)
 		)
 		(pin "1"
-			(uuid "15b0057d-7a12-4c7c-8290-5a98eef59505")
+			(uuid "5f864e31-7253-481c-a79f-6f6af67bd1e6")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
-					(reference "J1")
+					(reference "J3")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_pwr:GND")
+		(lib_id "DS-Power:CGND")
+		(at 50.8 247.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1bbfc317-251d-42bb-9454-002e139342d1")
+		(property "Reference" "#PWR03"
+			(at 50.8 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 50.8 251.46 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 50.8 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 50.8 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 50.8 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "850370a1-5e1f-4132-b78f-27c53288a4b2")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Power:CGND")
+		(at 63.5 247.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "38e03ced-f401-4437-8a47-5d317a3010ac")
+		(property "Reference" "#PWR04"
+			(at 63.5 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 63.5 251.46 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 63.5 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 63.5 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9ac727db-83c5-4b95-b89c-a5cf2254e797")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "Mounting-Terminal_1")
+		(lib_id "lib_sch:Mounting-Terminal")
+		(at 50.8 241.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3cf07570-905b-4d2c-b9c3-4aa11405eeca")
+		(property "Reference" "J2"
+			(at 50.8 236.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "S1761-46R"
+			(at 50.8 238.76 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_misc:S1961-46R_Horizontal"
+			(at 50.8 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn.harwin.com/pdfs/S1761-XXR.pdf"
+			(at 50.8 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RFI SHD FINGER SS TIN SLD 2000RL"
+			(at 50.8 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Harwin Inc."
+			(at 50.8 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "S1761-46R"
+			(at 50.8 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "952-2152-1-ND"
+			(at 50.8 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7b473921-6c93-4125-8a6a-6a3da2253f63")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "Mounting-Terminal_1")
+		(lib_id "lib_sch:Mounting-Terminal")
+		(at 88.9 241.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4e04eb41-3319-4e21-805b-d89145e70dbd")
+		(property "Reference" "J5"
+			(at 88.9 236.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "S1761-46R"
+			(at 88.9 238.76 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_misc:S1961-46R_Horizontal_Mirrored"
+			(at 88.9 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn.harwin.com/pdfs/S1761-XXR.pdf"
+			(at 88.9 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RFI SHD FINGER SS TIN SLD 2000RL"
+			(at 88.9 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Harwin Inc."
+			(at 88.9 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "S1761-46R"
+			(at 88.9 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "952-2152-1-ND"
+			(at 88.9 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8f676970-bdc1-4325-bba8-ef7064d174bc")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DS-Power:CGND")
 		(at 25.4 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1190,7 +1983,7 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "50d4aa73-c167-4f8d-a87a-ad329369e14e")
+		(uuid "5687c3f9-973f-4970-8297-9968553598ac")
 		(property "Reference" "#PWR01"
 			(at 25.4 247.65 0)
 			(effects
@@ -1237,10 +2030,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "cce285fa-7ce3-4898-96dc-f90db0c1feb4")
+			(uuid "c6dfad58-ee88-40d0-9753-e6f65f0c901e")
 		)
 		(instances
-			(project ""
+			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
 					(reference "#PWR01")
 					(unit 1)
@@ -1249,16 +2042,26 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:Mounting-Hole")
-		(at 69.85 241.3 0)
+		(lib_id "DS-Power:CGND")
+		(at 76.2 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "829aa898-4df5-41e5-b1a2-59559f3ce2e2")
-		(property "Reference" "MH2"
-			(at 69.85 236.22 0)
+		(fields_autoplaced yes)
+		(uuid "7fb97d7b-9b67-4f7c-9151-bcdd75234461")
+		(property "Reference" "#PWR05"
+			(at 76.2 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 76.2 251.46 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1266,17 +2069,8 @@
 				)
 			)
 		)
-		(property "Value" "M3 Mounting Hole"
-			(at 69.85 238.76 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_misc:M3_NPTH"
-			(at 69.85 241.3 0)
+		(property "Footprint" ""
+			(at 76.2 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1285,7 +2079,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 241.3 0)
+			(at 76.2 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1293,35 +2087,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "M3 mounting hole"
-			(at 69.85 241.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 69.85 241.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 69.85 241.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 69.85 241.3 0)
+		(property "Description" ""
+			(at 76.2 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1330,28 +2097,38 @@
 			)
 		)
 		(pin "1"
-			(uuid "a26c15f5-03bd-4d06-8272-2ae0de8c3086")
+			(uuid "414e3a70-8397-48d4-b09d-addb3c8da8e8")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
-					(reference "MH2")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:Mounting-Hole")
-		(at 50.8 254 0)
+		(lib_id "DS-Power:CGND")
+		(at 88.9 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8404ee22-a023-42b8-a993-e83d9f22ce41")
-		(property "Reference" "MH3"
-			(at 50.8 248.92 0)
+		(fields_autoplaced yes)
+		(uuid "9403656e-af84-4eb9-b4cc-7c2ddb67e199")
+		(property "Reference" "#PWR06"
+			(at 88.9 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 88.9 251.46 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1359,17 +2136,8 @@
 				)
 			)
 		)
-		(property "Value" "M3 Mounting Hole"
-			(at 50.8 251.46 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_misc:M3_NPTH"
-			(at 50.8 254 0)
+		(property "Footprint" ""
+			(at 88.9 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1378,7 +2146,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 50.8 254 0)
+			(at 88.9 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1386,35 +2154,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "M3 mounting hole"
-			(at 50.8 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 50.8 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 50.8 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 50.8 254 0)
+		(property "Description" ""
+			(at 88.9 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1423,12 +2164,175 @@
 			)
 		)
 		(pin "1"
-			(uuid "1ee6f435-0adc-4cdd-b952-1582a9ba4e54")
+			(uuid "a45c48c6-0ab9-469f-b4a8-def8e27c0281")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
-					(reference "MH3")
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "Mounting-Terminal_1")
+		(lib_id "lib_sch:Mounting-Terminal")
+		(at 76.2 241.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9541f68b-6333-4829-a1cf-f5421dbdcde9")
+		(property "Reference" "J4"
+			(at 76.2 236.22 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "S1761-46R"
+			(at 76.2 238.76 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_misc:S1961-46R_Horizontal_Mirrored"
+			(at 76.2 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn.harwin.com/pdfs/S1761-XXR.pdf"
+			(at 76.2 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RFI SHD FINGER SS TIN SLD 2000RL"
+			(at 76.2 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Harwin Inc."
+			(at 76.2 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "S1761-46R"
+			(at 76.2 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DKPN" "952-2152-1-ND"
+			(at 76.2 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "06cf8433-b531-40d4-b18a-7d90f785117e")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lib_sch:NetTie")
+		(at 30.48 246.38 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "aa971609-d9de-4b51-ac51-f835939a4470")
+		(property "Reference" "NT1"
+			(at 30.48 245.11 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "NetTie"
+			(at 30.48 247.65 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib_misc:NetTie-2_SMD_Pad1.5mm"
+			(at 30.48 246.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 30.48 246.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Net tie, 2 pins"
+			(at 30.48 246.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "804baad1-cc36-4cf4-a9aa-7687b77390d2")
+		)
+		(pin "1"
+			(uuid "9c003cfa-e84e-4e76-911d-cf84d6daebaf")
+		)
+		(instances
+			(project "mainBoard"
+				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
+					(reference "NT1")
 					(unit 1)
 				)
 			)
@@ -1502,16 +2406,16 @@
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:Mounting-Hole")
-		(at 69.85 254 0)
+		(lib_id "lib_sch:Mounting-Terminal")
+		(at 25.4 241.3 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b9ff913d-1180-4c0b-b867-3cf6bb3e6994")
-		(property "Reference" "MH4"
-			(at 69.85 248.92 0)
+		(uuid "cb2da589-d73c-4e01-8b03-b21f46f84bab")
+		(property "Reference" "J1"
+			(at 25.4 236.22 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1519,8 +2423,8 @@
 				)
 			)
 		)
-		(property "Value" "M3 Mounting Hole"
-			(at 69.85 251.46 0)
+		(property "Value" "7793"
+			(at 25.4 238.76 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1528,8 +2432,8 @@
 				)
 			)
 		)
-		(property "Footprint" "lib_misc:M3_NPTH"
-			(at 69.85 254 0)
+		(property "Footprint" "lib_misc:7793"
+			(at 25.4 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1537,8 +2441,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 69.85 254 0)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p69.pdf"
+			(at 25.4 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1546,8 +2450,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "M3 mounting hole"
-			(at 69.85 254 0)
+		(property "Description" "TERM SCREW M4 4 PIN PCB RA"
+			(at 25.4 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1555,8 +2459,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
-			(at 69.85 254 0)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 25.4 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1564,8 +2468,8 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 69.85 254 0)
+		(property "MPN" "7793"
+			(at 25.4 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1573,38 +2477,57 @@
 				(hide yes)
 			)
 		)
-		(property "DKPN" ""
-			(at 69.85 254 0)
+		(property "DKPN" "36-7793-ND"
+			(at 25.4 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
+		)
+		(pin "2"
+			(uuid "dd977f52-258d-4041-9b4b-dd830653f0d7")
+		)
+		(pin "4"
+			(uuid "11743c9f-7e3e-4daf-bbdf-8f82d5306df3")
+		)
+		(pin "3"
+			(uuid "39169acd-435b-4ec5-9861-19d65c41d2f6")
 		)
 		(pin "1"
-			(uuid "cd37e4f0-dc05-4714-8c82-3558de8f81f1")
+			(uuid "8b47dbeb-6226-4b6b-84b5-09a64f9d6e6d")
 		)
 		(instances
-			(project "mainBoard"
+			(project ""
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
-					(reference "MH4")
+					(reference "J1")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "lib_sch:Mounting-Hole")
-		(at 50.8 241.3 0)
+		(lib_id "lib_pwr:VSS")
+		(at 35.56 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ca9cc672-065f-4f21-9010-a1ad3797f4c8")
-		(property "Reference" "MH1"
-			(at 50.8 236.22 0)
+		(fields_autoplaced yes)
+		(uuid "fa6c6b7f-1d0f-4bfe-9164-5ff43254f4c0")
+		(property "Reference" "#PWR02"
+			(at 35.56 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VSS"
+			(at 35.56 251.46 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -1612,17 +2535,8 @@
 				)
 			)
 		)
-		(property "Value" "M3 Mounting Hole"
-			(at 50.8 238.76 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib_misc:M3_NPTH"
-			(at 50.8 241.3 0)
+		(property "Footprint" ""
+			(at 35.56 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1631,7 +2545,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 50.8 241.3 0)
+			(at 35.56 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1639,35 +2553,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "M3 mounting hole"
-			(at 50.8 241.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 50.8 241.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 50.8 241.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "DKPN" ""
-			(at 50.8 241.3 0)
+		(property "Description" ""
+			(at 35.56 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1676,12 +2563,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "aad15752-f281-49f4-92f7-20690ba545f1")
+			(uuid "17bf8f1c-3114-43a5-b178-0d0479231bbe")
 		)
 		(instances
 			(project "mainBoard"
 				(path "/be16e32f-2ccf-4272-9ec7-94d5fe7a55e0"
-					(reference "MH1")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -1731,56 +2618,6 @@
 				(justify left)
 			)
 		)
-		(pin "L0_32768Hz" output
-			(at 181.61 111.76 0)
-			(uuid "c4ea3f1a-0fbf-4410-877a-c9bf33e570cd")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "BOOT0_L0" input
-			(at 181.61 104.14 0)
-			(uuid "a9163dbe-db33-4fda-93d4-1df283cd1ca2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "L0_CAN_TX" output
-			(at 149.86 104.14 180)
-			(uuid "cc9f0bfb-b75d-455f-9fbc-b40b09edaa56")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "~{RESET}_L0" input
-			(at 181.61 106.68 0)
-			(uuid "6118a6ab-ee64-41c6-a038-cf112e6aa371")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "L0_CAN_RX" input
-			(at 149.86 106.68 180)
-			(uuid "dd4c5f70-5199-4379-b452-503e2cc4b13a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "~{RESET}_H7" output
 			(at 181.61 119.38 0)
 			(uuid "14dab0b8-486e-4a86-9e01-5ac9051212d6")
@@ -1801,29 +2638,79 @@
 				(justify right)
 			)
 		)
-		(pin "L0_USB{DP DN}" bidirectional
-			(at 149.86 119.38 180)
-			(uuid "d15c660b-b0f0-4cc9-9f26-1fc210ed61b9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "HUB_L0_INT" input
-			(at 149.86 114.3 180)
-			(uuid "8ec7e818-0a40-45b8-96bc-a4e4f09a7201")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "{SPI1}" bidirectional
 			(at 181.61 124.46 0)
 			(uuid "d0224025-6922-4030-bb56-d95483a3edc8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "BOOT0_L4" input
+			(at 181.61 104.14 0)
+			(uuid "78b0e270-5776-401e-baa2-74d1693eeed0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "L4_CAN_RX" input
+			(at 149.86 106.68 180)
+			(uuid "71cd08f5-0a6d-4d27-a6b4-086ac71a3f89")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "L4_CAN_TX" output
+			(at 149.86 104.14 180)
+			(uuid "d5e77f1a-7dcc-475c-be68-449cba76b513")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "HUB_L4_INT" input
+			(at 149.86 114.3 180)
+			(uuid "b54704df-0ef6-4113-a9d8-e4410e96bd6f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "L4_USB{DP DN}" bidirectional
+			(at 149.86 119.38 180)
+			(uuid "aa56fe9b-9fad-4f6f-b132-8a524cf2d545")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "32768Hz" output
+			(at 181.61 111.76 0)
+			(uuid "0d625e4c-b2e0-4456-944a-55ea1804e109")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{RESET}_L4" input
+			(at 181.61 106.68 0)
+			(uuid "9e293d4e-4638-46d8-8175-1f7eaf6e8e1c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1993,16 +2880,6 @@
 				(justify right)
 			)
 		)
-		(pin "~{RESET}_L0" output
-			(at 196.85 106.68 180)
-			(uuid "39371e8e-3b38-4904-af56-e5f76d188b23")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "QSPI1{IO[0..3] CLK ~{CS}}" bidirectional
 			(at 196.85 78.74 180)
 			(uuid "7ec71b48-be3a-46cf-ac71-9e6cd208ade0")
@@ -2066,16 +2943,6 @@
 		(pin "HUB_SUSPEND" output
 			(at 196.85 177.8 180)
 			(uuid "439eb47f-6ee8-4ae3-a62a-09f9535dea39")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "BOOT0_L0" output
-			(at 196.85 104.14 180)
-			(uuid "304468ff-7356-450a-b328-bb13add5bb88")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2181,6 +3048,26 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+		(pin "~{RESET}_L4" output
+			(at 196.85 106.68 180)
+			(uuid "60d5b3f2-7115-4993-b273-ee560b74ee6b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "BOOT0_L4" output
+			(at 196.85 104.14 180)
+			(uuid "f3fcea53-ad6f-43e1-960f-2067ecfca4ab")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
@@ -2359,16 +3246,6 @@
 				(justify right)
 			)
 		)
-		(pin "L0_USB{DP DN}" bidirectional
-			(at 149.86 180.34 180)
-			(uuid "c4d727ba-c254-416f-aa84-2185abb539f3")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "H7_USB{DP DN}" bidirectional
 			(at 181.61 185.42 0)
 			(uuid "e8219c76-fc7e-4919-8eb0-37bac3fa48b9")
@@ -2409,16 +3286,6 @@
 				(justify right)
 			)
 		)
-		(pin "HUB_L0_INT" output
-			(at 149.86 185.42 180)
-			(uuid "ff0778ab-b454-4070-b3cc-84577c7870b8")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "HUB_H7_INT" output
 			(at 181.61 180.34 0)
 			(uuid "fcd36414-5692-4cbc-8f0b-0f256d6b2c68")
@@ -2427,6 +3294,26 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+		(pin "L4_USB{DP DN}" bidirectional
+			(at 149.86 180.34 180)
+			(uuid "83503edb-c430-42e8-b51b-7d8901511a63")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "HUB_L4_INT" output
+			(at 149.86 185.42 180)
+			(uuid "d19d4dc0-6be8-4973-a59a-ffcae5f9997b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
@@ -2913,16 +3800,6 @@
 				(justify left)
 			)
 		)
-		(pin "L0_CAN_TX" input
-			(at 280.67 105.41 0)
-			(uuid "431ca61d-655a-4125-9587-7b19b2187b74")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "H7_CAN_RX" output
 			(at 254 107.95 180)
 			(uuid "54d9ebf6-69a1-4637-bbbd-18ae0f51485c")
@@ -2933,26 +3810,6 @@
 				(justify left)
 			)
 		)
-		(pin "L0_CAN_RX" output
-			(at 280.67 107.95 0)
-			(uuid "53e4421a-236b-4be7-b5b9-655debd767d7")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "L0_CAN_STB" input
-			(at 280.67 110.49 0)
-			(uuid "7631bf46-1a2b-440b-852f-09e101b932b5")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "H7_CAN_TX" input
 			(at 254 105.41 180)
 			(uuid "e8dca587-caa4-4600-8278-bd6dcbbe33cc")
@@ -2961,6 +3818,36 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+			)
+		)
+		(pin "L4_CAN_TX" input
+			(at 280.67 105.41 0)
+			(uuid "d4991b5f-486c-4f3e-828e-2f70f2e61b99")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "L4_CAN_RX" output
+			(at 280.67 107.95 0)
+			(uuid "814e026f-ebdf-416c-b745-84c0b89f164c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "L4_CAN_STB" input
+			(at 280.67 110.49 0)
+			(uuid "52a6d3e8-0db9-4993-9911-4a652e8d01ca")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
