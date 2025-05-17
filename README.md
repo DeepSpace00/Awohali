@@ -8,7 +8,7 @@ A master's thesis project within Embry-Riddle Aeronautical University's Physical
 
 ⚠️ WARNING This project is currently under development ⚠️
 
-![mainboard](/hardware/electronics/mainBoard/mainBoard.png)
+![](/hardware/electronics/mainBoard/mainBoard.png)
 
 ## Docs
 
