@@ -1,4 +1,4 @@
-Copyright Madison Gleydura 2024.
+Copyright Madison Gleydura 2025.
 
 This source describes Open Hardware and is licensed under the CERN-OHL-P v2
 
