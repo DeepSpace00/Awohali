@@ -3,9 +3,9 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "9.0.1"
+      "Version": "9.0.2"
     },
-    "CreationDate": "2025-05-06T19:36:42-04:00"
+    "CreationDate": "2025-05-19T09:58:25-04:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -17,8 +17,8 @@
       "X": 160.05,
       "Y": 100.05
     },
-    "LayerNumber": 4,
-    "BoardThickness": 1.5422,
+    "LayerNumber": 6,
+    "BoardThickness": 1.6,
     "Finish": "ENIG"
   },
   "DesignRules": [
@@ -26,19 +26,19 @@
       "Layers": "Outer",
       "PadToPad": 0.127,
       "PadToTrack": 0.127,
-      "TrackToTrack": 0.2,
-      "MinLineWidth": 0.175,
-      "TrackToRegion": 0.2,
-      "RegionToRegion": 0.2
+      "TrackToTrack": 0.1778,
+      "MinLineWidth": 0.141,
+      "TrackToRegion": 0.1778,
+      "RegionToRegion": 0.1778
     },
     {
       "Layers": "Inner",
       "PadToPad": 0.127,
       "PadToTrack": 0.127,
-      "TrackToTrack": 0.2,
-      "MinLineWidth": 0.5,
-      "TrackToRegion": 0.2,
-      "RegionToRegion": 0.2
+      "TrackToTrack": 0.1778,
+      "MinLineWidth": 0.2,
+      "TrackToRegion": 0.1778,
+      "RegionToRegion": 0.1778
     }
   ],
   "FilesAttributes": [
@@ -62,7 +62,7 @@
     {
       "Type": "Legend",
       "Color": "White",
-      "Material": "Liquid Photo",
+      "Material": "Taiyo-SS White",
       "Name": "Top Silk Screen"
     },
     {
@@ -73,58 +73,100 @@
       "Type": "SolderMask",
       "Color": "R80G0B80",
       "Thickness": 0.0152,
-      "Material": "Liquid Ink",
+      "Material": "Taiyo-SM - OshPark Purple",
       "Name": "Top Solder Mask"
     },
     {
       "Type": "Copper",
-      "Thickness": 0.0432,
+      "Thickness": 0.0457,
       "Name": "F.Cu"
     },
     {
       "Type": "Dielectric",
       "Color": "R109G116B75",
-      "Thickness": 0.1999,
-      "Material": "FR408HR 2113",
+      "Thickness": 0.1,
+      "Material": "FR408HR - 2x106_75%",
       "Name": "F.Cu/In1.Cu",
       "Notes": "Type: dielectric layer 1 (from F.Cu to In1.Cu)"
     },
     {
       "Type": "Copper",
-      "Thickness": 0.0175,
+      "Thickness": 0.0152,
       "Name": "In1.Cu"
     },
     {
       "Type": "Dielectric",
       "Color": "R109G116B75",
-      "Thickness": 0.9906,
-      "Material": "FR408HR",
+      "Thickness": 0.1908,
+      "Material": "FR408HR - 4.0mils",
       "Name": "In1.Cu/In2.Cu",
       "Notes": "Type: dielectric layer 2 (from In1.Cu to In2.Cu)"
     },
     {
       "Type": "Copper",
-      "Thickness": 0.0175,
+      "Thickness": 0.0152,
       "Name": "In2.Cu"
     },
     {
       "Type": "Dielectric",
       "Color": "R109G116B75",
-      "Thickness": 0.1999,
-      "Material": "FR408HR 2113",
-      "Name": "In2.Cu/B.Cu",
-      "Notes": "Type: dielectric layer 3 (from In2.Cu to B.Cu)"
+      "Thickness": 0.1,
+      "Material": "FR408HR - 2x2113_57%",
+      "Name": "In2.Cu/In3.Cu (1/3)",
+      "Notes": "Type: dielectric layer 3 - 1/3 (from In2.Cu to In3.Cu)"
+    },
+    {
+      "Type": "Dielectric",
+      "Color": "R109G116B75",
+      "Thickness": 0.5334,
+      "Material": "FR408HR - 21.0mils",
+      "Name": "In2.Cu/In3.Cu (2/3)",
+      "Notes": "Type: dielectric layer 3 - 2/3 (from In2.Cu to In3.Cu)"
+    },
+    {
+      "Type": "Dielectric",
+      "Color": "R109G116B75",
+      "Thickness": 0.2022,
+      "Material": "FR408HR - 2x2113_57%",
+      "Name": "In2.Cu/In3.Cu (3/3)",
+      "Notes": "Type: dielectric layer 3 - 3/3 (from In2.Cu to In3.Cu)"
     },
     {
       "Type": "Copper",
-      "Thickness": 0.0432,
+      "Thickness": 0.0152,
+      "Name": "In3.Cu"
+    },
+    {
+      "Type": "Dielectric",
+      "Color": "R109G116B75",
+      "Thickness": 0.1908,
+      "Material": "FR408HR - 4.0mils",
+      "Name": "In3.Cu/In4.Cu",
+      "Notes": "Type: dielectric layer 4 (from In3.Cu to In4.Cu)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.0152,
+      "Name": "In4.Cu"
+    },
+    {
+      "Type": "Dielectric",
+      "Color": "R109G116B75",
+      "Thickness": 0.1,
+      "Material": "FR408HR - 2x106_75%",
+      "Name": "In4.Cu/B.Cu",
+      "Notes": "Type: dielectric layer 5 (from In4.Cu to B.Cu)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.0457,
       "Name": "B.Cu"
     },
     {
       "Type": "SolderMask",
       "Color": "R80G0B80",
       "Thickness": 0.0152,
-      "Material": "Liquid Ink",
+      "Material": "Taiyo-SM - OshPark Purple",
       "Name": "Bottom Solder Mask"
     },
     {
@@ -134,7 +176,7 @@
     {
       "Type": "Legend",
       "Color": "White",
-      "Material": "Liquid Photo",
+      "Material": "Taiyo-SS White",
       "Name": "Bottom Silk Screen"
     }
   ]
