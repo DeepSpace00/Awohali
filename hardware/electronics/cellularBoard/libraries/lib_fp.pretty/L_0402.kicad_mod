@@ -1,7 +1,7 @@
 (footprint "L_0402"
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(layer "F.Cu")
 	(descr "Inductor, Chip; 2.00 mm L X 1.25 mm W X 1.40 mm H body")
 	(property "Reference" "REF**"
@@ -25,18 +25,6 @@
 			(font
 				(size 0.5 0.5)
 				(thickness 0.05)
-			)
-		)
-	)
-	(property "Footprint" "lib_fp:L_0402"
-		(at 0 0 0)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "798cc7ac-576f-4885-b715-9c63611add0d")
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.15)
 			)
 		)
 	)
@@ -383,45 +371,34 @@
 			(width 0.025)
 			(type solid)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "0fd62726-6724-4a8a-b4c3-25c36ceb875f")
-	)
-	(fp_text user "${REFERENCE}"
-		(at 0 0 0)
-		(layer "User.1")
-		(hide yes)
-		(uuid "d2d5f0d2-0c45-4955-90fc-119f3761d80d")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.05)
-			)
-		)
 	)
 	(pad "1" smd roundrect
 		(at -0.4125 0)
 		(size 0.375 0.65)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "e71ed5ed-7f4a-4968-a642-18fa9a2c034d")
 	)
 	(pad "2" smd roundrect
 		(at 0.4125 0)
 		(size 0.375 0.65)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "372bfae4-85f7-40b6-9f84-174151a3ca4a")
 	)
-	(model "${KIPRJMOD}/libraries/3d_models/WE-KI_0402A.STEP"
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/libraries/3d_models/LQW15AN6N8G8ZD.STEP"
 		(offset
-			(xyz 0 0 0.3)
+			(xyz 0 0 0)
 		)
 		(scale
 			(xyz 1 1 1)
 		)
 		(rotate
-			(xyz 180 0 -90)
+			(xyz -90 -0 -0)
 		)
 	)
 )
