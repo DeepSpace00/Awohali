@@ -1,0 +1,14 @@
+<component name="DebugServers">
+  <generic-debug-target name="Black Magic Probe" uniqueID="db8aada8-c583-49b4-80b3-ba80596eb025" selected="true">
+    <debugger version="1">
+      <debugger kind="GDB" isBundled="true" />
+      <env />
+    </debugger>
+    <gdbserver>
+      <env />
+    </gdbserver>
+    <console enabled="true" port="4444" />
+    <target reset-before="false" />
+    <connection custom-script="echo Connecting to target...\n&#10;$GDBTargetCommand$&#10;echo Connected to target!\n" warmup-ms="500" />
+  </generic-debug-target>
+</component>
