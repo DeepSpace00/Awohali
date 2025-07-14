@@ -1,53 +1,128 @@
+/*!
+ * @file sht4x.h
+ * @brief SHT4x Temperature and Humidity Sensor Driver
+ * @author Madison Gleydura (DeepSpace00)
+ * @date 2025-07-12
+ * 
+ * This driver supports the SHT40, SHT41, SHT45 sensors from Sensirion
+ */
+
 #ifndef SHT4X_H
 #define SHT4X_H
-
-#include <stdint.h>
-#include "sht4x_platform.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define SHT4X_I2C_ADDR  0x44
+#include <stdbool.h>
+#include <stdint.h>
 
-// Register Addresses
-#define SHT4X_REG_MEASURE_HPM       0xFD
-#define SHT4X_REG_MEASURE_MPM       0xF6
-#define SHT4X_REG_MEASURE_LPM       0xE0
-#define SHT4X_REG_HIGH_HEAT_1000MS  0x39
-#define SHT4X_REG_HIGH_HEAT_100MS   0x32
-#define SHT4X_REG_MED_HEAT_1000MS   0x2F
-#define SHT4X_REG_MED_HEAT_100MS    0x24
-#define SHT4X_REG_LOW_HEAT_1000MS   0x1E
-#define SHT4X_REG_LOW_HEAT_100MS    0x15
+#define SHT4X_I2C_ADDR 0x44
 
-#define SHT4X_REG_READ_SERIAL       0x89
-#define SHT4X_REG_SOFT_RESET        0x94
-
+/**
+ * @brief SHT4x sensor driver return status codes.
+ */
 typedef enum {
-    SHT4X_HIGH_PRECISION,
-    SHT4X_MED_PRECISION,
-    SHT4X_LOW_PRECISION
-} sht4x_precision_t;
+    SHT4X_OK = 0,
+    SHT4X_ERR_I2C = -1,
+    SHT4X_ERR_TIMEOUT = -2,
+    SHT4X_ERR_NULL = -3,
+    SHT4X_ERR_CRC = -4,
+    SHT4X_ERR_INVALID_ARG = -5
+} sht4x_status_t;
 
+/**
+ * @brief Human-readable description of an SHT4x status code.
+ *
+ * @param status The status code to translate.
+ * @return A string describing the error.
+ */
+const char* sht4x_stat_error(sht4x_status_t status);
+
+/**
+ * @brief Heater configuration options for the SHT4x sensor.
+ */
 typedef enum {
-    SHT4X_NO_HEATER,
-    SHT4X_HIGH_HEATER_1S,
-    SHT4X_HIGH_HEATER_100MS,
-    SHT4X_MED_HEATER_1S,
-    SHT4X_MED_HEATER_100MS,
-    SHT4X_LOW_HEATER_1S,
-    SHT4X_LOW_HEATER_100MS
+    SHT4X_HEATER_20MW_100MS,
+    SHT4X_HEATER_20MW_1S,
+    SHT4X_HEATER_110MW_100MS,
+    SHT4X_HEATER_110MW_1S,
+    SHT4X_HEATER_200MW_100MS,
+    SHT4X_HEATER_200MW_1S
 } sht4x_heater_t;
 
+/**
+ * @brief Platform interface abstraction for SHT4x driver.
+ *
+ * The user must provide these functions to enable hardware-specific I2C and timing.
+ */
+typedef struct {
+    int (*i2c_write)(uint8_t dev_addr, const uint8_t *data, uint16_t len);
+    int (*i2c_read)(uint8_t dev_addr, uint8_t *data, uint16_t len);
+    void (*delay_ms)(uint32_t ms);
+} sht4x_interface_t;
+
+/**
+ * @brief SHT4x driver instance.
+ */
+typedef struct {
+    uint8_t i2c_address;
+    uint32_t serial_number;
+    sht4x_interface_t io;
+    bool initialized;
+} sht4x_t;
+
+/**
+ * @brief Humidity and Temperature measurements from the SHT4x sensors
+ */
 typedef struct {
     float temperature_c;
     float humidity_rh;
-} SHT4X_Result;
+} sht4x_measurement_t;
 
-// High-Level API
-SHT4X_Status sht4x_init(void);
-SHT4X_Status sht4x_read(SHT4X_Result *result);
+
+// Public function prototypes
+/**
+ * @brief Initialize the SHT4x driver
+ * @param dev Pointer to driver handle
+ * @param pvt_data Pointer to PVT data structure
+ * @return zedf9p_error_t Error code
+ */
+sht4x_status_t sht4x_init(sht4x_t *dev, uint8_t address, sht4x_interface_t io);
+
+/**
+ * @brief Perform a soft reset of the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @return SHT4X_OK on success, or an error code.
+ */
+sht4x_status_t sht4x_soft_reset(sht4x_t *dev);
+
+/**
+ * @brief Read and store the serial number of the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @return SHT4X_OK on success, or an error code.
+ */
+sht4x_status_t sht4x_read_serial_number(sht4x_t *dev);
+
+/**
+ * @brief Pulse the heater on the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param level The desired heater setting.
+ * @return SHT4X_OK on success, or an error code.
+ */
+sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, sht4x_heater_t level);
+
+/**
+ * @brief Read temperature and humidity from the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param measurement Output pointer for temperature in degrees Celsius & relative humidity in %RH.
+ * @return SHT4X_OK on success, or an error code.
+ */
+sht4x_status_t sht4x_read_measurement(sht4x_t *dev, sht4x_measurement_t *measurement);
 
 #ifdef __cplusplus
 }
