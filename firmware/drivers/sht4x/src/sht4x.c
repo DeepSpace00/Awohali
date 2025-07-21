@@ -22,11 +22,6 @@
 
 // Implementation of functions
 
-/**
- * @brief  Adafruit Unified Sensor interface for the humidity sensor component
- * of SHT4x
- *
- */
 static uint16_t sht4x_crc(uint8_t *data, uint8_t len) {
     uint8_t crc = 0xFF; // Initialize the CRC variable
     for (uint8_t i = 0; i < len; i++) {
