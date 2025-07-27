@@ -1,4 +1,4 @@
-/*!
+/**
  * @file bq25798_platform.h
  * @brief Platform abstraction layer for BQ25798 I2C driver
  * @author Madison Gleydura (DeepSpace00)
