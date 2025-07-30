@@ -2,7 +2,7 @@
  * @file bq76905.h
  * @brief BQ76905 Battery Monitor and Protector Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-22
+ * @date 2025-07-30
  *
  * This driver supports the BQ76905 IC from Texas Instruments
  */
@@ -17,14 +17,16 @@
 // extern "C" {
 #endif
 
-#define BQ76905_I2C_DEFAULT_ADDRESS 0x10    // Default I2C address
+#define BQ76905_I2C_DEFAULT_ADDRESS 0x10        // Default I2C address
+#define BQ76905_I2C_COMMAND_ADDRESS 0x3E        // I2C command address
+#define BQ76905_I2C_DATA_BUFFER_ADDRESS 0x40    // I2C data buffer address
 
 /**
  * @brief BQ76905 IC driver return status codes.
  */
 typedef enum {
     BQ76905_OK = 0,
-    BQ76905_ERROR = -1,
+    BQ76905_ERR_I2C = -1,
     BQ76905_ERR_TIMEOUT = -2,
     BQ76905_ERR_NULL = -3,
     BQ76905_ERR_INVALID_ARG = -4,
@@ -60,6 +62,28 @@ typedef enum {
     BQ76905_REGOUT_DIS_DLY_1S = 0x02,       ///< 1s delay
     BQ76905_REGOUT_DIS_DLY_4S = 0x03,       ///< 4s delay
 } bq76905_regout_disable_delay_t;
+
+/**
+ * @brief BQ76905 Alarms
+ */
+typedef enum {
+    BQ76905_ALARM_SSA = 15,     ///< Safety Status A() alarm
+    BQ76905_ALARM_SSB = 14,     ///< Safety Status B() alarm
+    BQ76905_ALARM_SAA = 13,     ///< Safety Alert A() alarm
+    BQ76905_ALARM_SAB = 12,     ///< Safety Alert B() alarm
+    BQ76905_ALARM_XCHG = 11,    ///< Charge driver alarm
+    BQ76905_ALARM_XDSG = 10,    ///< Discharge driver alarm
+    BQ76905_ALARM_SHUTV = 9,    ///< Shutdown Voltage alarm
+    BQ76905_ALARM_CB = 8,       ///< Cell balancing active alarm
+    BQ76905_ALARM_FULLSCAN = 7, ///< Full scan complete alarm
+    BQ76905_ALARM_ADSCAN = 6,   ///< ADC measurement scan complete alarm
+    BQ76905_ALARM_WAKE = 5,     ///< Device wakened alarm
+    BQ76905_ALARM_SLEEP = 4,    ///< Device in SLEEP alarm
+    BQ76905_ALARM_TIMER = 3,    ///< Programmable timer expired alarm
+    BQ76905_ALARM_INITCOMP = 2, ///< Startup measurements complete alarm
+    BQ76905_ALARM_CDTOGGLE = 1, ///< Debounced CHG Detector signal alarm
+    BQ76905_ALARM_POR = 0,      ///< POR in Battery Status asserted alarm
+} bq76905_alarms_t;
 
 /**
  * @brief Platform interface abstraction for BQ76905 driver.
@@ -268,6 +292,9 @@ typedef struct {
     int16_t cc1_current;        ///< 16-bit CC1 current measurement (mA)
 } bq76905_measurements_t;
 
+/**
+ * @brief BQ76905 settings
+ */
 typedef struct {
     bool fet_en;                ///< Toggle FET_EN bit in Battery Status(). FET_EN=0 means manual FET control. FET_EN=1 means autonomous device FET control
     uint16_t device_number;     ///< Device number
@@ -281,6 +308,9 @@ typedef struct {
     uint8_t prot_recovery;      ///< Enabled the host to allow recovery of selected protection faults
 } bq76905_settings_t;
 
+/**
+ * @brief BQ76905 active cells
+ */
 typedef struct {
     bool cell_1;    ///< First active cell (connected between VC1 and VC0)
     bool cell_2;    ///< Second active cell
@@ -289,12 +319,29 @@ typedef struct {
     bool cell_5;    ///< Fifth active cell
 } bq76905_active_cells_t;
 
+/**
+ * @brief BQ76905 timer settings
+ */
 typedef struct {
     bool regout_alarm_wake;                 ///< Control to determine if REGOUT is wakened when an Alarm Status() bit asserts
     bq76905_regout_disable_delay_t delay;   ///< REGOUT disable delay
     bool regout_disabled;                   ///< Is REGOUT disabled
-    uint16_t prog_timer;                     ///< Timer value programmable from 250ms to 243s
+    uint16_t prog_timer;                    ///< Timer value programmable from 250ms to 243s
 } bq76905_prog_timer_t;
+
+typedef struct {
+    uint16_t cell_1_gain;       ///< Cell 1 Gain
+    uint16_t stack_gain;        ///< Battery Stack Gain
+    int8_t cell_2_gain;         ///< Cell 2 Gain Delta
+    int8_t cell_3_gain;         ///< Cell 3 Gain Delta
+    int8_t cell_4_gain;         ///< Cell 4 Gain Delta
+    int8_t cell_5_gain;         ///< Cell 5 Gain Delta
+    uint16_t current_gain;      ///< Current Gain
+    uint16_t current_offset;    ///< Current Offset
+    int16_t ts_offset;          ///< TS Offset
+    uint16_t int_temp_gain;     ///< Internal Temperature Gain
+    int16_t int_temp_offset;    ///< Internal Temperature Offset
+} bq76905_calibration_data_t;
 
 /**
  * @brief Human-readable description of an BQ25798 status code.
@@ -342,145 +389,27 @@ bq76905_status_t bq76905_get_current(bq76905_t *dev, int16_t *current);
 
 bq76905_status_t bq76905_get_cc1_current(bq76905_t *dev, int16_t *cc1_current);
 
-bq76905_status_t bq76905_get_ssa_alarm(bq76905_t *dev, bool *ssa);
-bq76905_status_t bq76905_clear_ssa_alarm(bq76905_t *dev, bool *ssa);
+bq76905_status_t bq76905_get_latched_alarms(bq76905_t *dev, bq76905_alarm_status_t *alarm_status);
 
-bq76905_status_t bq76905_get_ssb_alarm(bq76905_t *dev, bool *ssb);
-bq76905_status_t bq76905_clear_ssb_alarm(bq76905_t *dev, bool *ssb);
+bq76905_status_t bq76905_clear_alarm(bq76905_t *dev, bq76905_alarms_t alarm);
 
-bq76905_status_t bq76905_get_saa_alarm(bq76905_t *dev, bool *saa);
-bq76905_status_t bq76905_clear_saa_alarm(bq76905_t *dev, bool *saa);
+bq76905_status_t bq76905_check_alarms(bq76905_t *dev, bq76905_alarm_status_t *alarm_status);
 
-bq76905_status_t bq76905_get_sab_alarm(bq76905_t *dev, bool *sab);
-bq76905_status_t bq76905_clear_sab_alarm(bq76905_t *dev, bool *sab);
+bq76905_status_t bq76905_get_enabled_alarms(bq76905_t *dev, bq76905_alarm_enable_t *alarm);
+bq76905_status_t bq76905_enable_alarm(bq76905_t *dev, bq76905_alarms_t alarm);
+bq76905_status_t bq76905_disable_alarm(bq76905_t *dev, bq76905_alarms_t alarm);
 
-bq76905_status_t bq76905_get_xchg_alarm(bq76905_t *dev, bool *xchg);
-bq76905_status_t bq76905_clear_xchg_alarm(bq76905_t *dev, bool *xchg);
+//bq76905_status_t bq76905_get_chg_off(bq76905_t *dev, bool *chg_off);
+//bq76905_status_t bq76905_set_chg_off(bq76905_t *dev, bool chg_off);
 
-bq76905_status_t bq76905_get_xdsg_alarm(bq76905_t *dev, bool *xdsg);
-bq76905_status_t bq76905_clear_xdsg_alarm(bq76905_t *dev, bool *xdsg);
+//bq76905_status_t bq76905_get_dsg_off(bq76905_t *dev, bool *dsg_off);
+//bq76905_status_t bq76905_set_dsg_off(bq76905_t *dev, bool dsg_off);
 
-bq76905_status_t bq76905_get_shutv_alarm(bq76905_t *dev, bool *shutv);
-bq76905_status_t bq76905_clear_shutv_alarm(bq76905_t *dev, bool *shutv);
+//bq76905_status_t bq76905_get_chg_on(bq76905_t *dev, bool *chg_on);
+//bq76905_status_t bq76905_set_chg_on(bq76905_t *dev, bool chg_on);
 
-bq76905_status_t bq76905_get_cb_alarm(bq76905_t *dev, bool *cb);
-bq76905_status_t bq76905_clear_cb_alarm(bq76905_t *dev, bool *cb);
-
-bq76905_status_t bq76905_get_fullscan_alarm(bq76905_t *dev, bool *fullscan);
-bq76905_status_t bq76905_clear_fullscan_alarm(bq76905_t *dev, bool *fullscan);
-
-bq76905_status_t bq76905_get_adscan_alarm(bq76905_t *dev, bool *adscan);
-bq76905_status_t bq76905_clear_adscan_alarm(bq76905_t *dev, bool *adscan);
-
-bq76905_status_t bq76905_get_wake_alarm(bq76905_t *dev, bool *wake);
-bq76905_status_t bq76905_clear_wake_alarm(bq76905_t *dev, bool *wake);
-
-bq76905_status_t bq76905_get_sleep_alarm(bq76905_t *dev, bool *sleep);
-bq76905_status_t bq76905_clear_sleep_alarm(bq76905_t *dev, bool *sleep);
-
-bq76905_status_t bq76905_get_timer_alarm(bq76905_t *dev, bool *timer);
-bq76905_status_t bq76905_clear_timer_alarm(bq76905_t *dev, bool *timer);
-
-bq76905_status_t bq76905_get_init_comp_alarm(bq76905_t *dev, bool *init_comp);
-bq76905_status_t bq76905_clear_init_comp_alarm(bq76905_t *dev, bool *init_comp);
-
-bq76905_status_t bq76905_get_cd_toggle_alarm(bq76905_t *dev, bool *cd_toggle);
-bq76905_status_t bq76905_clear_cd_alarm(bq76905_t *dev, bool *cd_toggle);
-
-bq76905_status_t bq76905_get_por_alarm(bq76905_t *dev, bool *por);
-bq76905_status_t bq76905_clear_por_alarm(bq76905_t *dev, bool *por);
-
-bq76905_status_t bq76905_check_ssa_alarm(bq76905_t *dev, bool *ssa);
-
-bq76905_status_t bq76905_check_ssb_alarm(bq76905_t *dev, bool *ssb);
-
-bq76905_status_t bq76905_check_saa_alarm(bq76905_t *dev, bool *saa);
-
-bq76905_status_t bq76905_check_sab_alarm(bq76905_t *dev, bool *sab);
-
-bq76905_status_t bq76905_check_xchg_alarm(bq76905_t *dev, bool *xchg);
-
-bq76905_status_t bq76905_check_xdsg_alarm(bq76905_t *dev, bool *xdsg);
-
-bq76905_status_t bq76905_check_shutv_alarm(bq76905_t *dev, bool *shutv);
-
-bq76905_status_t bq76905_check_cb_alarm(bq76905_t *dev, bool *cb);
-
-bq76905_status_t bq76905_check_fullscan_alarm(bq76905_t *dev, bool *fullscan);
-
-bq76905_status_t bq76905_check_adscan_alarm(bq76905_t *dev, bool *adscan);
-
-bq76905_status_t bq76905_check_wake_alarm(bq76905_t *dev, bool *wake);
-
-bq76905_status_t bq76905_check_sleep_alarm(bq76905_t *dev, bool *sleep);
-
-bq76905_status_t bq76905_check_timer_alarm(bq76905_t *dev, bool *timer);
-
-bq76905_status_t bq76905_check_init_comp_alarm(bq76905_t *dev, bool *init_comp);
-
-bq76905_status_t bq76905_check_cd_alarm(bq76905_t *dev, bool *cd_toggle);
-
-bq76905_status_t bq76905_check_por_alarm(bq76905_t *dev, bool *por);
-
-bq76905_status_t bq76905_is_ssa_alarm_enabled(bq76905_t *dev, bool *ssa);
-bq76905_status_t bq76905_enable_ssa_alarm(bq76905_t *dev, bool ssa);
-
-bq76905_status_t bq76905_is_ssb_alarm_enabled(bq76905_t *dev, bool *ssb);
-bq76905_status_t bq76905_enable_ssb_alarm(bq76905_t *dev, bool ssb);
-
-bq76905_status_t bq76905_is_saa_alarm_enabled(bq76905_t *dev, bool *saa);
-bq76905_status_t bq76905_enable_saa_alarm(bq76905_t *dev, bool saa);
-
-bq76905_status_t bq76905_is_sab_alarm_enabled(bq76905_t *dev, bool *sab);
-bq76905_status_t bq76905_enable_sab_alarm(bq76905_t *dev, bool sab);
-
-bq76905_status_t bq76905_is_xchg_alarm_enabled(bq76905_t *dev, bool *xchg);
-bq76905_status_t bq76905_enable_xchg_alarm(bq76905_t *dev, bool xchg);
-
-bq76905_status_t bq76905_is_xdsg_alarm_enabled(bq76905_t *dev, bool *xdsg);
-bq76905_status_t bq76905_enable_xdsg_alarm(bq76905_t *dev, bool xdsg);
-
-bq76905_status_t bq76905_is_shutv_alarm_enabled(bq76905_t *dev, bool *shutv);
-bq76905_status_t bq76905_enable_shutv_alarm(bq76905_t *dev, bool shutv);
-
-bq76905_status_t bq76905_is_cb_alarm_enabled(bq76905_t *dev, bool *cb);
-bq76905_status_t bq76905_enable_cb_alarm(bq76905_t *dev, bool cb);
-
-bq76905_status_t bq76905_is_fullscan_alarm_enabled(bq76905_t *dev, bool *fullscan);
-bq76905_status_t bq76905_enable_fullscan_alarm(bq76905_t *dev, bool fullscan);
-
-bq76905_status_t bq76905_is_adscan_alarm_enabled(bq76905_t *dev, bool *adscan);
-bq76905_status_t bq76905_enable_adscan_alarm(bq76905_t *dev, bool adscan);
-
-bq76905_status_t bq76905_is_wake_alarm_enabled(bq76905_t *dev, bool *wake);
-bq76905_status_t bq76905_enable_wake_alarm(bq76905_t *dev, bool wake);
-
-bq76905_status_t bq76905_is_sleep_alarm_enabled(bq76905_t *dev, bool *sleep);
-bq76905_status_t bq76905_enable_sleep_alarm(bq76905_t *dev, bool sleep);
-
-bq76905_status_t bq76905_is_timer_alarm_enabled(bq76905_t *dev, bool *timer);
-bq76905_status_t bq76905_enable_timer_alarm(bq76905_t *dev, bool timer);
-
-bq76905_status_t bq76905_is_init_comp_alarm_enabled(bq76905_t *dev, bool *init_comp);
-bq76905_status_t bq76905_enable_init_comp_alarm(bq76905_t *dev, bool init_comp);
-
-bq76905_status_t bq76905_is_cd_alarm_enabled(bq76905_t *dev, bool *cd_toggle);
-bq76905_status_t bq76905_enable_cd_alarm(bq76905_t *dev, bool cd_toggle);
-
-bq76905_status_t bq76905_is_por_alarm_enabled(bq76905_t *dev, bool *por);
-bq76905_status_t bq76905_enable_por_alarm(bq76905_t *dev, bool por);
-
-bq76905_status_t bq76905_get_chg_off(bq76905_t *dev, bool *chg_off);
-bq76905_status_t bq76905_set_chg_off(bq76905_t *dev, bool chg_off);
-
-bq76905_status_t bq76905_get_dsg_off(bq76905_t *dev, bool *dsg_off);
-bq76905_status_t bq76905_set_dsg_off(bq76905_t *dev, bool dsg_off);
-
-bq76905_status_t bq76905_get_chg_on(bq76905_t *dev, bool *chg_on);
-bq76905_status_t bq76905_set_chg_on(bq76905_t *dev, bool chg_on);
-
-bq76905_status_t bq76905_get_dsg_on(bq76905_t *dev, bool *dsg_on);
-bq76905_status_t bq76905_set_dsg_on(bq76905_t *dev, bool dsg_on);
+//bq76905_status_t bq76905_get_dsg_on(bq76905_t *dev, bool *dsg_on);
+//bq76905_status_t bq76905_set_dsg_on(bq76905_t *dev, bool dsg_on);
 
 bq76905_status_t bq76905_get_ts_on(bq76905_t *dev, bool *ts_on);
 bq76905_status_t bq76905_set_ts_on(bq76905_t *dev, bool ts_on);
