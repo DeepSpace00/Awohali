@@ -1,137 +1,173 @@
+/*!
+ * @file main.cpp
+ * @brief NeoPixel test for Adafruit STM32F405 Feather (168MHz)
+ * @author Madison Gleydura (DeepSpace00)
+ * @date 2025-08-04
+ *
+ * STM32F405 runs at 168MHz, not 16MHz like Arduino Uno!
+ * Timing needs to be completely different.
+ */
+
 #include <Arduino.h>
-#include <neopixel.h>
-#include <neopixel_platform.h>
 
-#define LED_PIN     6      // GPIO pin connected to NeoPixel data input
-#define LED_COUNT   60     // Number of NeoPixels in strip
-#define BRIGHTNESS  128    // Set brightness (0-255)
+#define LED_PIN 8  // Pin 8 on STM32F405 Feather
 
-// NeoPixel driver instance
-neopixel_t strip;
+// STM32F405 @ 168MHz timing
+// Each NOP is ~6ns at 168MHz (vs 62.5ns on Arduino Uno)
+// We need MANY more NOPs for the same timing
 
-void colorWipe(uint32_t color, int wait);
-void rainbowCycle(uint8_t wait);
-void theaterChase(uint32_t color, int wait);
-uint32_t wheel(uint8_t wheelPos);
+void sendBit_STM32(bool bit) {
+    if (bit) {
+        // Send '1': ~850ns high, ~400ns low
+        digitalWrite(LED_PIN, HIGH);
+        // 850ns @ 168MHz ≈ 142 NOPs (850ns / 6ns)
+        for(volatile int i = 0; i < 35; i++) {
+            __asm__("nop\nnop\nnop\nnop\n");
+        }
+        digitalWrite(LED_PIN, LOW);
+        // 400ns @ 168MHz ≈ 67 NOPs (400ns / 6ns)
+        for(volatile int i = 0; i < 17; i++) {
+            __asm__("nop\nnop\nnop\nnop\n");
+        }
+    } else {
+        // Send '0': ~400ns high, ~850ns low
+        digitalWrite(LED_PIN, HIGH);
+        // 400ns @ 168MHz ≈ 67 NOPs
+        for(volatile int i = 0; i < 17; i++) {
+            __asm__("nop\nnop\nnop\nnop\n");
+        }
+        digitalWrite(LED_PIN, LOW);
+        // 850ns @ 168MHz ≈ 142 NOPs
+        for(volatile int i = 0; i < 35; i++) {
+            __asm__("nop\nnop\nnop\nnop\n");
+        }
+    }
+}
+
+// Alternative: Use cycle-accurate timing with DWT
+void sendBit_DWT(bool bit) {
+    // Enable DWT if not already enabled
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+
+    uint32_t start = DWT->CYCCNT;
+
+    if (bit) {
+        // Send '1': ~850ns high, ~400ns low
+        digitalWrite(LED_PIN, HIGH);
+        while((DWT->CYCCNT - start) < (168 * 850 / 1000)); // 850ns in cycles
+
+        start = DWT->CYCCNT;
+        digitalWrite(LED_PIN, LOW);
+        while((DWT->CYCCNT - start) < (168 * 400 / 1000)); // 400ns in cycles
+    } else {
+        // Send '0': ~400ns high, ~850ns low
+        digitalWrite(LED_PIN, HIGH);
+        while((DWT->CYCCNT - start) < (168 * 400 / 1000)); // 400ns in cycles
+
+        start = DWT->CYCCNT;
+        digitalWrite(LED_PIN, LOW);
+        while((DWT->CYCCNT - start) < (168 * 850 / 1000)); // 850ns in cycles
+    }
+}
+
+void sendByte(uint8_t byte) {
+    for (int i = 7; i >= 0; i--) {
+        sendBit_DWT(byte & (1 << i));  // Use DWT timing
+    }
+}
+
+void sendPixel_GRB(uint8_t r, uint8_t g, uint8_t b) {
+    sendByte(g);
+    sendByte(r);
+    sendByte(b);
+}
+
+void endFrame() {
+    digitalWrite(LED_PIN, LOW);
+    delayMicroseconds(500);  // Latch time
+}
 
 void setup() {
     Serial.begin(115200);
-    while (!Serial) delay(10);
+    while (!Serial && millis() < 3000);
 
-    Serial.println("NeoPixel Driver Test");
+    Serial.println("=== STM32F405 Feather NeoPixel Test ===");
+    Serial.print("System Clock: ");
+    Serial.print(SystemCoreClock);
+    Serial.println(" Hz");
+    Serial.print("Pin: ");
+    Serial.println(LED_PIN);
 
-    // Set up GPIO pin
     pinMode(LED_PIN, OUTPUT);
     digitalWrite(LED_PIN, LOW);
 
-    // Configure platform interface
-    constexpr neopixel_interface_t interface = {
-        .gpio_set_high = platform_gpio_set_high,
-        .gpio_set_low = platform_gpio_set_low,
-        .delay_us = platform_delay_us,
-        .get_us_tick = platform_get_us_tick,
-        .disable_interrupts = platform_disable_interrupts,
-        .enable_interrupts = platform_enable_interrupts
-    };
+    // Enable DWT for cycle-accurate timing
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CYCCNT = 0;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 
-    // Initialize NeoPixel strip
-    const neopixel_status_t status = neopixel_init(&strip, LED_PIN, LED_COUNT,
-                                            NEO_GRB + NEO_KHZ800, interface);
-    if (status != NEOPIXEL_OK) {
-        Serial.print("Failed to initialize NeoPixel: ");
-        Serial.println(neopixel_status_str(status));
-        while (true) delay(100);
-    }
+    Serial.println("DWT cycle counter enabled");
+    Serial.println("Starting test in 2 seconds...");
 
-    // Set brightness
-    neopixel_set_brightness(&strip, BRIGHTNESS);
-
-    Serial.println("NeoPixel initialized successfully!");
-    Serial.print("Strip has ");
-    Serial.print(LED_COUNT);
-    Serial.println(" LEDs");
-
-    // Clear all pixels
-    neopixel_clear(&strip);
-    neopixel_show(&strip);
-}
-
-void loop() {
-    // Demo 1: Color wipe
-    Serial.println("Color wipe demo...");
-    colorWipe(neopixel_color_rgb(255, 0, 0), 50);    // Red
-    colorWipe(neopixel_color_rgb(0, 255, 0), 50);    // Green
-    colorWipe(neopixel_color_rgb(0, 0, 255), 50);    // Blue
-    colorWipe(neopixel_color_rgb(0, 0, 0), 50);      // Off
-
-    // Demo 2: Rainbow
-    Serial.println("Rainbow demo...");
-    neopixel_rainbow(&strip, 0, 1, 255, 255);
-    neopixel_show(&strip);
-    delay(1000);
-
-    // Demo 3: Rainbow cycle
-    Serial.println("Rainbow cycle demo...");
-    for (int i = 0; i < 256; i++) {
-        rainbowCycle(i);
-        delay(20);
-    }
-
-    // Demo 4: Theater chase
-    Serial.println("Theater chase demo...");
-    theaterChase(neopixel_color_rgb(127, 127, 127), 50); // White
-    theaterChase(neopixel_color_rgb(127, 0, 0), 50);     // Red
-    theaterChase(neopixel_color_rgb(0, 0, 127), 50);     // Blue
-
+    endFrame();
     delay(2000);
 }
 
-// Fill strip pixels one after another with a color
-void colorWipe(const uint32_t color, const int wait) {
-    for (int i = 0; i < LED_COUNT; i++) {
-        neopixel_set_pixel_color_packed(&strip, i, color);
-        neopixel_show(&strip);
-        delay(wait);
-    }
-}
+void loop() {
+    Serial.println("RED ON (GRB order)");
+    noInterrupts();
+    sendPixel_GRB(100, 0, 0);  // Red
+    interrupts();
+    endFrame();
+    delay(2000);
 
-// Input a value 0 to 255 to get a color value.
-// Colors transition r - g - b - back to r.
-uint32_t wheel(uint8_t wheelPos) {
-    wheelPos = 255 - wheelPos;
-    if (wheelPos < 85) {
-        return neopixel_color_rgb(255 - wheelPos * 3, 0, wheelPos * 3);
-    }
-    if (wheelPos < 170) {
-        wheelPos -= 85;
-        return neopixel_color_rgb(0, wheelPos * 3, 255 - wheelPos * 3);
-    }
-    wheelPos -= 170;
-    return neopixel_color_rgb(wheelPos * 3, 255 - wheelPos * 3, 0);
-}
+    Serial.println("RED OFF");
+    noInterrupts();
+    sendPixel_GRB(0, 0, 0);  // Off
+    interrupts();
+    endFrame();
+    delay(2000);
 
-// Slightly different, this makes the rainbow equally distributed throughout
-void rainbowCycle(const uint8_t wait) {
-    for (uint16_t j = 0; j < 256; j++) {
-        for (uint16_t i = 0; i < LED_COUNT; i++) {
-            const uint32_t color = wheel(((i * 256 / LED_COUNT) + j) & 255);
-            neopixel_set_pixel_color_packed(&strip, i, color);
-        }
-        neopixel_show(&strip);
-        delay(wait);
-    }
-}
+    Serial.println("GREEN ON (GRB order)");
+    noInterrupts();
+    sendPixel_GRB(0, 100, 0);  // Green
+    interrupts();
+    endFrame();
+    delay(2000);
 
-// Theater-style crawling lights
-void theaterChase(const uint32_t color, const int wait) {
-    for (int a = 0; a < 10; a++) {  // Repeat 10 times
-        for (int b = 0; b < 3; b++) { // 'b' counts from 0 to 2
-            neopixel_clear(&strip);   // Turn all pixels off
-            for (int c = b; c < LED_COUNT; c += 3) {
-                neopixel_set_pixel_color_packed(&strip, c, color); // Turn every third pixel on
-            }
-            neopixel_show(&strip);
-            delay(wait);
-        }
-    }
+    Serial.println("GREEN OFF");
+    noInterrupts();
+    sendPixel_GRB(0, 0, 0);  // Off
+    interrupts();
+    endFrame();
+    delay(2000);
+
+    Serial.println("BLUE ON (GRB order)");
+    noInterrupts();
+    sendPixel_GRB(0, 0, 100);  // Blue
+    interrupts();
+    endFrame();
+    delay(2000);
+
+    Serial.println("BLUE OFF");
+    noInterrupts();
+    sendPixel_GRB(0, 0, 0);  // Off
+    interrupts();
+    endFrame();
+    delay(2000);
+
+    Serial.println("WHITE ON (all colors)");
+    noInterrupts();
+    sendPixel_GRB(50, 50, 50);  // White
+    interrupts();
+    endFrame();
+    delay(2000);
+
+    Serial.println("WHITE OFF");
+    noInterrupts();
+    sendPixel_GRB(0, 0, 0);  // Off
+    interrupts();
+    endFrame();
+    delay(3000);
 }

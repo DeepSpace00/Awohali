@@ -145,7 +145,6 @@ neopixel_status_t neopixel_show(neopixel_t *dev);
  * @brief Set a pixel color using separate R,G,B components
  * @param dev Pointer to initialized driver struct
  * @param pixel_index Pixel index (0 = first pixel)
- * @param color Pointer to color struct
  * @param r Red brightness (0-255)
  * @param g Green brightness (0-255)
  * @param b Blue brightness (0-255)
@@ -158,7 +157,6 @@ neopixel_status_t neopixel_set_pixel_color_rgb(neopixel_t *dev, uint16_t pixel_i
  * @brief Set a pixel color using separate R,G,B,W components
  * @param dev Pointer to initialized driver struct
  * @param pixel_index Pixel index (0 = first pixel)
- * @param color Pointer to color struct
  * @param r Red brightness (0-255)
  * @param g Green brightness (0-255)
  * @param b Blue brightness (0-255)

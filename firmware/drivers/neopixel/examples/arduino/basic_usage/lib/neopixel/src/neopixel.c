@@ -1,8 +1,8 @@
 /*!
  * @file neopixel.c
- * @brief Platform-agnostic NeoPixel (WS2812/WS2811) LED Strip Driver Implementation
+ * @brief Platform-agnostic NeoPixel Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-08-04
+ * @date 2025-08-05
  */
 
 #include "neopixel.h"
@@ -45,7 +45,7 @@ const char* neopixel_status_str(const neopixel_status_t status) {
 
 neopixel_status_t neopixel_init(neopixel_t *dev, const uint32_t pin, const uint16_t num_leds,
                                const neopixel_type_t type, const neopixel_interface_t io) {
-    if (!dev || !io.gpio_set_high || !io.gpio_set_low || !io.delay_us || 
+    if (!dev || !io.gpio_set_high || !io.gpio_set_low || !io.delay_us ||
         !io.get_us_tick || !io.disable_interrupts || !io.enable_interrupts) {
         return NEOPIXEL_ERR_NULL;
     }
@@ -66,7 +66,7 @@ neopixel_status_t neopixel_init(neopixel_t *dev, const uint32_t pin, const uint1
     dev->pin = pin;
     dev->num_leds = num_leds;
     dev->num_bytes = num_leds * (dev->is_rgbw ? 4 : 3);
-    dev->brightness = 255; // No brightness scaling initially
+    dev->brightness = 0; // No brightness scaling initially (0 means full brightness)
     dev->initialized = false;
     dev->end_time = 0;
     dev->io = io;
@@ -84,71 +84,16 @@ neopixel_status_t neopixel_init(neopixel_t *dev, const uint32_t pin, const uint1
     return NEOPIXEL_OK;
 }
 
-static void neopixel_send_bit(neopixel_t *dev, const uint8_t bit) {
-    if (dev->is_800khz) {
-        if (bit) {
-            // Send '1' bit: ~800ns high, ~450ns low
-            dev->io.gpio_set_high(dev->pin);
-            dev->io.delay_us(1);  // Platform should implement sub-microsecond delay for precise timing
-            dev->io.gpio_set_low(dev->pin);
-            dev->io.delay_us(1);
-        } else {
-            // Send '0' bit: ~400ns high, ~850ns low
-            dev->io.gpio_set_high(dev->pin);
-            dev->io.delay_us(1);  // Platform should implement sub-microsecond delay
-            dev->io.gpio_set_low(dev->pin);
-            dev->io.delay_us(1);
-        }
-    } else {
-        // 400 KHz timing
-        if (bit) {
-            // Send '1' bit: ~1.2us high, ~1.3us low
-            dev->io.gpio_set_high(dev->pin);
-            dev->io.delay_us(1);
-            dev->io.gpio_set_low(dev->pin);
-            dev->io.delay_us(1);
-        } else {
-            // Send '0' bit: ~0.5us high, ~2.0us low
-            dev->io.gpio_set_high(dev->pin);
-            dev->io.delay_us(1);
-            dev->io.gpio_set_low(dev->pin);
-            dev->io.delay_us(2);
-        }
-    }
-}
-
+// Platform-optimized show function - implemented in platform-specific files
 neopixel_status_t neopixel_show(neopixel_t *dev) {
     if (!dev || !dev->initialized) {
         return NEOPIXEL_ERR_NOT_INITIALIZED;
     }
 
-    // Wait for latch time from previous transmission
-    bool ready;
-    neopixel_status_t status = neopixel_can_show(dev, &ready);
-    if (status != NEOPIXEL_OK) return status;
-    while (!ready) {
-        status = neopixel_can_show(dev, &ready);
-        if (status != NEOPIXEL_OK) return status;
-    }
-
-    // Disable interrupts for precise timing
-    dev->io.disable_interrupts();
-
-    // Send pixel data
-    for (uint16_t i = 0; i < dev->num_bytes; i++) {
-        const uint8_t byte = dev->pixels[i];
-        for (uint8_t bit = 0x80; bit; bit >>= 1) {
-            neopixel_send_bit(dev, byte & bit);
-        }
-    }
-
-    // Re-enable interrupts
-    dev->io.enable_interrupts();
-
-    // Record end time for latch timing
-    dev->end_time = dev->io.get_us_tick();
-
-    return NEOPIXEL_OK;
+    // Call platform-specific optimized implementation
+    // This will be implemented in neopixel_platform_*.cpp
+    extern neopixel_status_t platform_neopixel_show_optimized;
+    return platform_neopixel_show_optimized(dev);
 }
 
 neopixel_status_t neopixel_set_pixel_color_rgbw(neopixel_t *dev, const uint16_t pixel_index,
@@ -161,8 +106,8 @@ neopixel_status_t neopixel_set_pixel_color_rgbw(neopixel_t *dev, const uint16_t 
         return NEOPIXEL_ERR_INVALID_ARG;
     }
 
-    // Apply brightness scaling
-    if (dev->brightness != 255) {
+    // Apply brightness scaling if set
+    if (dev->brightness) {
         r = (r * dev->brightness) >> 8;
         g = (g * dev->brightness) >> 8;
         b = (b * dev->brightness) >> 8;
@@ -170,26 +115,72 @@ neopixel_status_t neopixel_set_pixel_color_rgbw(neopixel_t *dev, const uint16_t 
     }
 
     uint8_t *p;
-    
     if (dev->is_rgbw) {
         p = &dev->pixels[pixel_index * 4];
-        w = p[dev->w_offset];
+        p[dev->w_offset] = w;
     } else {
         p = &dev->pixels[pixel_index * 3];
-        w = 0;
+        // Ignore white component for RGB strips
     }
 
-    r = p[dev->r_offset];
-    g = p[dev->g_offset];
-    b = p[dev->b_offset];
+    p[dev->r_offset] = r;
+    p[dev->g_offset] = g;
+    p[dev->b_offset] = b;
+
+    return NEOPIXEL_OK;
+}
+
+neopixel_status_t neopixel_set_pixel_color_rgb(neopixel_t *dev, const uint16_t pixel_index,
+                                               const uint8_t r, const uint8_t g, const uint8_t b) {
+    return neopixel_set_pixel_color_rgbw(dev, pixel_index, r, g, b, 0);
+}
+
+neopixel_status_t neopixel_set_pixel_color_packed(neopixel_t *dev, const uint16_t pixel_index,
+                                                  const uint32_t color) {
+    const uint8_t r = (uint8_t)(color >> 16);
+    const uint8_t g = (uint8_t)(color >> 8);
+    const uint8_t b = (uint8_t)color;
+    const uint8_t w = (uint8_t)(color >> 24);
+
+    return neopixel_set_pixel_color_rgbw(dev, pixel_index, r, g, b, w);
+}
+
+neopixel_status_t neopixel_set_pixel_color(neopixel_t *dev, const uint16_t pixel_index,
+                                           const neopixel_color_t color) {
+    return neopixel_set_pixel_color_rgbw(dev, pixel_index, color.r, color.g, color.b, color.w);
+}
+
+neopixel_status_t neopixel_get_pixel_color(neopixel_t *dev, const uint16_t pixel_index,
+                                           neopixel_color_t *color) {
+    if (!dev || !dev->initialized || !color) {
+        return NEOPIXEL_ERR_NULL;
+    }
+
+    if (pixel_index >= dev->num_leds) {
+        return NEOPIXEL_ERR_INVALID_ARG;
+    }
+
+    uint8_t *p;
+
+    if (dev->is_rgbw) {
+        p = &dev->pixels[pixel_index * 4];
+        color->w = p[dev->w_offset];
+    } else {
+        p = &dev->pixels[pixel_index * 3];
+        color->w = 0;
+    }
+
+    color->r = p[dev->r_offset];
+    color->g = p[dev->g_offset];
+    color->b = p[dev->b_offset];
 
     // If brightness scaling was applied, attempt to scale back
-    if (dev->brightness != 255) {
-        r = (r << 8) / dev->brightness;
-        g = (g << 8) / dev->brightness;
-        b = (b << 8) / dev->brightness;
+    if (dev->brightness) {
+        color->r = (color->r << 8) / dev->brightness;
+        color->g = (color->g << 8) / dev->brightness;
+        color->b = (color->b << 8) / dev->brightness;
         if (dev->is_rgbw) {
-            w = (w << 8) / dev->brightness;
+            color->w = (color->w << 8) / dev->brightness;
         }
     }
 
@@ -227,7 +218,7 @@ neopixel_status_t neopixel_fill_packed(neopixel_t *dev, const uint32_t packed_co
         .b = (uint8_t)packed_color,
         .w = (uint8_t)(packed_color >> 24)
     };
-    
+
     return neopixel_fill(dev, color, first, count);
 }
 
@@ -248,9 +239,9 @@ neopixel_status_t neopixel_set_brightness(neopixel_t *dev, const uint8_t brightn
     const uint8_t new_brightness = brightness + 1; // Internal storage is +1
     if (new_brightness != dev->brightness) {
         // Re-scale existing data in RAM
-        const uint8_t old_brightness = dev->brightness - 1;
+        const uint8_t old_brightness = dev->brightness ? dev->brightness - 1 : 255;
         uint16_t scale;
-        
+
         if (old_brightness == 0) {
             scale = 0; // Avoid division by zero
         } else if (brightness == 255) {
@@ -263,7 +254,7 @@ neopixel_status_t neopixel_set_brightness(neopixel_t *dev, const uint8_t brightn
             const uint8_t c = dev->pixels[i];
             dev->pixels[i] = (c * scale) >> 8;
         }
-        
+
         dev->brightness = new_brightness;
     }
 
@@ -275,7 +266,7 @@ neopixel_status_t neopixel_get_brightness(neopixel_t *dev, uint8_t *brightness) 
         return NEOPIXEL_ERR_NULL;
     }
 
-    *brightness = dev->brightness - 1; // Convert back from internal storage
+    *brightness = dev->brightness ? dev->brightness - 1 : 255;
     return NEOPIXEL_OK;
 }
 
@@ -285,12 +276,12 @@ neopixel_status_t neopixel_can_show(neopixel_t *dev, bool *ready) {
     }
 
     const uint32_t now = dev->io.get_us_tick();
-    
+
     // Handle timer rollover
     if (dev->end_time > now) {
         dev->end_time = now;
     }
-    
+
     // NeoPixels need ~300us latch time
     *ready = (now - dev->end_time) >= 300;
     return NEOPIXEL_OK;
@@ -367,7 +358,7 @@ uint32_t neopixel_color_hsv(uint16_t hue, const uint8_t sat, const uint8_t val) 
     const uint32_t v1 = 1 + val;  // 1 to 256
     const uint16_t s1 = 1 + sat;  // 1 to 256
     const uint8_t s2 = 255 - sat; // 255 to 0
-    
+
     return ((((((r * s1) >> 8) + s2) * v1) & 0xff00) << 8) |
            (((((g * s1) >> 8) + s2) * v1) & 0xff00) |
            (((((b * s1) >> 8) + s2) * v1) >> 8);
@@ -390,77 +381,20 @@ neopixel_type_t neopixel_str_to_type(const char *order_str) {
 
     int8_t r = 0, g = 0, b = 0, w = -1;
     char c;
-    
-    for (uint8_t i = 0; (c = tolower(order_str[i])) != '\0'; i++) {
+
+    for (int8_t i = 0; (c = tolower(order_str[i])) != '\0'; i++) {
         if (c == 'r') r = i;
         else if (c == 'g') g = i;
         else if (c == 'b') b = i;
         else if (c == 'w') w = i;
     }
-    
+
     r &= 3;
     g &= 3;
     b &= 3;
-    
+
     if (w < 0) w = r; // If 'w' not specified, duplicate r bits
     w &= 3;
-    
+
     return (w << 6) | (r << 4) | (g << 2) | b;
-}
-
-neopixel_status_t neopixel_set_pixel_color_rgb(neopixel_t *dev, const uint16_t pixel_index,
-                                               const uint8_t r, const uint8_t g, const uint8_t b) {
-    return neopixel_set_pixel_color_rgbw(dev, pixel_index, r, g, b, 0);
-}
-
-neopixel_status_t neopixel_set_pixel_color_packed(neopixel_t *dev, const uint16_t pixel_index,
-                                                  const uint32_t color) {
-    const uint8_t r = (uint8_t)(color >> 16);
-    const uint8_t g = (uint8_t)(color >> 8);
-    const uint8_t b = (uint8_t)color;
-    const uint8_t w = (uint8_t)(color >> 24);
-    
-    return neopixel_set_pixel_color_rgbw(dev, pixel_index, r, g, b, w);
-}
-
-neopixel_status_t neopixel_set_pixel_color(neopixel_t *dev, const uint16_t pixel_index,
-                                           const neopixel_color_t color) {
-    return neopixel_set_pixel_color_rgbw(dev, pixel_index, color.r, color.g, color.b, color.w);
-}
-
-neopixel_status_t neopixel_get_pixel_color(neopixel_t *dev, const uint16_t pixel_index,
-                                           neopixel_color_t *color) {
-    if (!dev || !dev->initialized || !color) {
-        return NEOPIXEL_ERR_NULL;
-    }
-
-    if (pixel_index >= dev->num_leds) {
-        return NEOPIXEL_ERR_INVALID_ARG;
-    }
-
-    uint8_t *p;
-
-    if (dev->is_rgbw) {
-        p = &dev->pixels[pixel_index * 4];
-        color->w = p[dev->w_offset];
-    } else {
-        p = &dev->pixels[pixel_index * 3];
-        color->w = 0;
-    }
-
-    color->r = p[dev->r_offset];
-    color->g = p[dev->g_offset];
-    color->b = p[dev->b_offset];
-
-    // If brightness scaling was applied, attempt to scale back
-    if (dev->brightness != 255) {
-        color->r = (color->r << 8) / dev->brightness;
-        color->g = (color->g << 8) / dev->brightness;
-        color->b = (color->b << 8) / dev->brightness;
-        if (dev->is_rgbw) {
-            color->w = (color->w << 8) / dev->brightness;
-        }
-    }
-
-    return NEOPIXEL_OK;
 }
