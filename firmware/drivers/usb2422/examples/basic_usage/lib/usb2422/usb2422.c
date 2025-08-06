@@ -5,7 +5,6 @@
  * @date 2025-08-06
  */
 
-#include <math.h>
 #include <stdbool.h>
 #include "usb2422.h"
 
