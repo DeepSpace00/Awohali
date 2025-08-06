@@ -68,9 +68,9 @@ typedef struct {
  * @param status The status code to translate.
  * @return A string describing the error.
  */
-const char* cd2dxx_stat_error(cc2dxx_status_t status);
+const char* ccd2dxx_stat_error(cc2dxx_status_t status);
 
-cc2dxx_status_t cd2dxx_init(cc2dxx_t *dev, uint8_t address, cc2dxx_interface_t io);
+cc2dxx_status_t cc2dxx_init(cc2dxx_t *dev, uint8_t address, cc2dxx_interface_t io);
 
 cc2dxx_status_t cc2dxx_get_status(cc2dxx_t *dev, cc2dxx_measurements_t *measurements);
 

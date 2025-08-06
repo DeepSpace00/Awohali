@@ -100,7 +100,7 @@ static cc2dxx_status_t cc2dxx_register_bits(uint8_t *reg, const size_t reg_len, 
  * @param status Status to be converted to a string
  * @return String from status
  */
-const char* cc2dxx_stat_error(const cc2dxx_t status) {
+const char* cc2dxx_stat_error(const cc2dxx_status_t status) {
     switch (status) {
         case CC2DXX_OK:                return "OK";
         case CC2DXX_ERR_I2C:           return "I2C communication failed";
