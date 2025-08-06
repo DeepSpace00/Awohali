@@ -1,4 +1,4 @@
-/*!
+/**
  * @file usb2422.c
  * @brief USB2422 USB Hub Controller Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
