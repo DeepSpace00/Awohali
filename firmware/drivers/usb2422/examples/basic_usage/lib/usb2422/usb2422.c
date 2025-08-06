@@ -491,7 +491,7 @@ usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, usb2422_powe
 
     uint8_t val;
 
-    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_MAXPS, &val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_MAXPS, &val);
     if (status != USB2422_OK) return status;
 
     power_settings->max_curr_bus_powered = val * 2;
@@ -504,9 +504,9 @@ usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, usb2422_powe
 
     if (max_curr_self_powered > 100) return USB2422_ERR_INVALID_ARG; // Max 100mA (50 * 2mA increments)
 
-    const uint8_t val = round(max_curr_self_powered / 2);
+    const uint8_t val = (max_curr_self_powered + 1) / 2;
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MAXPS, val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MAXPS, val);
     if (status != USB2422_OK) return status;
 
     power_settings->max_curr_self_powered = max_curr_self_powered;
@@ -519,7 +519,7 @@ usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, usb2422_power
 
     uint8_t val;
 
-    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_MAXPB, &val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_MAXPB, &val);
     if (status != USB2422_OK) return status;
 
     power_settings->max_curr_bus_powered = val * 2;
@@ -530,9 +530,9 @@ usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, usb2422_power
 usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t max_curr_bus_powered) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    const uint8_t val = round(max_curr_bus_powered / 2);
+    const uint8_t val = (max_curr_bus_powered + 1) / 2;
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MAXPB, val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MAXPB, val);
     if (status != USB2422_OK) return status;
 
     power_settings->max_curr_bus_powered = max_curr_bus_powered;
@@ -545,7 +545,7 @@ usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *
 
     uint8_t val;
 
-    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_HCMCS, &val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_HCMCS, &val);
     if (status != USB2422_OK) return status;
 
     power_settings->hub_max_curr_self_powered = val * 2;
@@ -558,9 +558,9 @@ usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *
 
     if (hub_max_curr_self_powered > 100) return USB2422_ERR_INVALID_ARG; // Max 100mA (50 * 2mA increments)
 
-    const uint8_t val = round(hub_max_curr_self_powered / 2);
+    const uint8_t val = (hub_max_curr_self_powered + 1) / 2;
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_HCMCS, val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_HCMCS, val);
     if (status != USB2422_OK) return status;
 
     power_settings->hub_max_curr_self_powered = hub_max_curr_self_powered;
@@ -573,7 +573,7 @@ usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *d
 
     uint8_t val;
 
-    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_HCMCB, &val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_HCMCB, &val);
     if (status != USB2422_OK) return status;
 
     power_settings->hub_max_curr_bus_powered = val * 2;
@@ -584,9 +584,9 @@ usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *d
 usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t hub_max_curr_bus_powered) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    const uint8_t val = round(hub_max_curr_bus_powered / 2);
+    const uint8_t val = (hub_max_curr_bus_powered + 1) / 2;
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_HCMCB, val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_HCMCB, val);
     if (status != USB2422_OK) return status;
 
     power_settings->hub_max_curr_bus_powered = hub_max_curr_bus_powered;
@@ -599,7 +599,7 @@ usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, usb2422_power_setting
 
     uint8_t val;
 
-    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PWRT, &val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PWRT, &val);
     if (status != USB2422_OK) return status;
 
     power_settings->power_on_time = val * 2;
@@ -610,9 +610,9 @@ usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, usb2422_power_setting
 usb2422_status_t usb2422_set_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t power_on_time) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    const uint8_t val = round(power_on_time / 2);
+    const uint8_t val = (power_on_time + 1) / 2;
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PWRT, val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PWRT, val);
     if (status != USB2422_OK) return status;
 
     power_settings->power_on_time = power_on_time;
@@ -661,7 +661,7 @@ usb2422_status_t usb2422_set_manufacturer_string_length(usb2422_t *dev, usb2422_
 
     if (manufacturer_name_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MFRSL, manufacturer_name_len);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MFRSL, manufacturer_name_len);
     if (status != USB2422_OK) return status;
 
     hub_settings->manufacturer_name_len = manufacturer_name_len;
@@ -680,7 +680,7 @@ usb2422_status_t usb2422_set_product_string_length(usb2422_t *dev, usb2422_hub_s
 
     if (product_name_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PRDSL, product_name_len);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PRDSL, product_name_len);
     if (status != USB2422_OK) return status;
 
     hub_settings->product_name_len = product_name_len;
@@ -699,7 +699,7 @@ usb2422_status_t usb2422_set_serial_string_length(usb2422_t *dev, usb2422_hub_se
 
     if (serial_number_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
 
-    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_SERSL, serial_number_len);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_SERSL, serial_number_len);
     if (status != USB2422_OK) return status;
 
     hub_settings->serial_number_len = serial_number_len;
