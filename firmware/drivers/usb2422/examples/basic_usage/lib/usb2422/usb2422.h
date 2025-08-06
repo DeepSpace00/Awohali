@@ -2,7 +2,7 @@
  * @file usb2422.h
  * @brief USB2422 USB Hub Controller Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-31
+ * @date 2025-08-06
  *
  * This driver supports the USB2422 USB hub controller from Microchip Technology
  */
