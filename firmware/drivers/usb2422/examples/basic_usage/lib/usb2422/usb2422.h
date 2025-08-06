@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #ifdef __cplusplus
-// extern "C" {
+extern "C" {
 #endif
 
 #define USB2422_SMBUS_ADDRESS 0x2C      // Default SMBus/I2C address
