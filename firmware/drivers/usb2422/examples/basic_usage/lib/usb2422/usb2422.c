@@ -6,6 +6,7 @@
  */
 
 #include <math.h>
+#include <stdbool.h>
 #include "usb2422.h"
 
 // Register Addresses
