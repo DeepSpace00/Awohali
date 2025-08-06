@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include "usb2422.h"
 
-// Register Addresses
+///> @section Register Addresses
 #define USB2422_REG_VID_LSB         0x00    // Vendor ID Least Significant Bit
 #define USB2422_REG_VID_MSB         0x01    // Vendor ID Most Significant Bit
 #define USB2422_REG_PID_LSB         0x02    // Product ID Least Significant Bit
@@ -41,7 +41,8 @@
 #define USB2422_REG_PRTR12          0xFB    // Port 1/2 Remap
 #define USB2422_REG_STCD            0xFF    // Status/Command
 
-// CFG1 Register Bit Masks
+///< @section Register Bit Masks
+///< @subsection CFG1 Register Bit Masks
 #define USB2422_CFG1_SELF_BUS_PWR   (1 << 7)
 #define USB2422_CFG1_HS_DISABLE     (1 << 5)
 #define USB2422_CFG1_MTT_ENABLE     (1 << 4)
@@ -49,52 +50,52 @@
 #define USB2422_CFG1_CURRENT_SNS_MASK   (0x03 << 1)
 #define USB2422_CFG1_PORT_PWR       (1 << 0)
 
-// CFG2 Register Bit Masks
+///< @subsection CFG2 Register Bit Masks
 #define USB2422_CFG2_DYNAMIC        (1 << 7)
 #define USB2422_CFG2_OC_TIMER_MASK  (0x03 << 4)
 #define USB2422_CFG2_COMPOUND       (1 << 3)
 
-// CFG3 Register Bit Masks
+///< @subsection CFG3 Register Bit Masks
 #define USB2422_CFG3_PRTMAP_EN      (1 << 3)
 #define USB2422_CFG3_STRING_EN      (1 << 0)
 
-// NRD Register Bit Masks
+///< @subsection NRD Register Bit Masks
 #define USB2422_NRD_PORT2_NR        (1 << 2)
 #define USB2422_NRD_PORT1_NR        (1 << 1)
 
-// PDS/PDB Register Bit Masks
+///< @subsection PDS/PDB Register Bit Masks
 #define USB2422_PDS_PORT2_DIS       (1 << 2)
 #define USB2422_PDS_PORT1_DIS       (1 << 1)
 
-// BC_EN Register Bit Masks
+///< @subsection BC_EN Register Bit Masks
 #define USB2422_BC_EN_PORT2         (1 << 2)
 #define USB2422_BC_EN_PORT1         (1 << 1)
 
-// BOOST40 Register Bit Masks
+///< @subsection BOOST40 Register Bit Masks
 #define USB2422_BOOST40_PORT2_MASK  (0x03 << 2)
 #define USB2422_BOOST40_PORT1_MASK  (0x03 << 0)
 
-// PRTSP Register Bit Masks
+///< @subsection PRTSP Register Bit Masks
 #define USB2422_PRTSP_PORT2_SWAP    (1 << 2)
 #define USB2422_PRTSP_PORT1_SWAP    (1 << 1)
 #define USB2422_PRTSP_UPSTREAM_SWAP (1 << 0)
 
-// PRTR12 Register Bit Masks
+///< @subsection PRTR12 Register Bit Masks
 #define USB2422_PRTR12_PORT2_MASK   (0x0F << 4)
 #define USB2422_PRTR12_PORT1_MASK   (0x0F << 0)
 
-// STCD Register Bit Masks
+///< @subsection STCD Register Bit Masks
 #define USB2422_STCD_INTF_PW_DN     (1 << 2)
 #define USB2422_STCD_RESET          (1 << 1)
 #define USB2422_STCD_USB_ATTACH     (1 << 0)
 
-// Private helper functions
+///< @section Private helper functions
 /**
  * @brief Helper function to write to a register
  * @param dev Pointer to driver handle
  * @param reg Target register
  * @param value Value to write to a register
- * @return
+ * @return usb2422_status_t Status code
  */
 static usb2422_status_t usb2422_write_register(const usb2422_t *dev, const uint8_t reg, const uint8_t value) {
     const uint8_t data[2] = {reg, value};
@@ -106,13 +107,19 @@ static usb2422_status_t usb2422_write_register(const usb2422_t *dev, const uint8
  * @param dev Pointer to driver handle
  * @param reg Target register
  * @param value Pointer to data variable
- * @return
+ * @return usb2422_status_t Status code
  */
 static usb2422_status_t usb2422_read_register(const usb2422_t *dev, const uint8_t reg, uint8_t *value) {
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return USB2422_ERR_I2C;
     return dev->io.i2c_read(dev->i2c_address, value, 1) == 0 ? USB2422_OK : USB2422_ERR_I2C;
 }
 
+/**
+ * @brief Read configuration data from cfg registers
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg registers structure
+ * @return usb2422_status_t Status code
+ */
 static usb2422_status_t usb2422_read_cfg_registers(const usb2422_t *dev, usb2422_cfg_regs_t *regs) {
     uint8_t cfg1_val, cfg2_val, cfg3_val;
 
@@ -145,6 +152,12 @@ static usb2422_status_t usb2422_read_cfg_registers(const usb2422_t *dev, usb2422
     return USB2422_OK;
 }
 
+/**
+ * @brief Write configuration data to cfg registers
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg registers structure
+ * @return usb2422_status_t Status code
+ */
 static usb2422_status_t usb2422_write_cfg_registers(const usb2422_t *dev, const usb2422_cfg_regs_t *regs) {
     uint8_t cfg1_val = 0, cfg2_val = 0, cfg3_val = 0;
 
@@ -174,8 +187,12 @@ static usb2422_status_t usb2422_write_cfg_registers(const usb2422_t *dev, const 
     return usb2422_write_register(dev, USB2422_REG_CFG3, cfg3_val);
 }
 
-// Public function implementations (in order of .h file)
-
+///< @section Public function implementations
+/**
+ * @brief Convert status error messages to human-readable strings
+ * @param status Status to be converted to a string
+ * @return String from status
+ */
 const char* usb2422_stat_error(const usb2422_status_t status) {
     switch (status) {
         case USB2422_OK:              return "OK";
@@ -187,6 +204,13 @@ const char* usb2422_stat_error(const usb2422_status_t status) {
     }
 }
 
+/**
+ * @brief Initializes the USB2422 driver
+ * @param dev Pointer to driver handle
+ * @param address I2C address (0 to use default)
+ * @param io Interface structure with platform-specific functions
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_init(usb2422_t *dev, const uint8_t address, const usb2422_interface_t io) {
     if (!dev || !io.i2c_write || !io.i2c_read || !io.delay_ms) return USB2422_ERR_NULL;
 
@@ -203,6 +227,12 @@ usb2422_status_t usb2422_init(usb2422_t *dev, const uint8_t address, const usb24
     return USB2422_OK;
 }
 
+/**
+ * @brief Get the vendor of the user device
+ * @param dev Pointer to driver handle
+ * @param hub_settings Pointer to hub_settings struct
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_vendor_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
     if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
@@ -219,6 +249,12 @@ usb2422_status_t usb2422_get_vendor_id(usb2422_t *dev, usb2422_hub_settings_t *h
     return USB2422_OK;
 }
 
+/**
+ * @brief Set the vendor ID for the user device
+ * @param dev Pointer to driver handle
+ * @param vendor_id 16-bit value that uniquely identifies the Vendor of the user device (assigned by the USB-Interface Forum)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_vendor_id(usb2422_t *dev, const uint16_t vendor_id) {
     if (!dev) return USB2422_ERR_NULL;
 
@@ -228,6 +264,12 @@ usb2422_status_t usb2422_set_vendor_id(usb2422_t *dev, const uint16_t vendor_id)
     return usb2422_write_register(dev, USB2422_REG_VID_MSB, (vendor_id >> 8) & 0xFF);
 }
 
+/**
+ * @brief Get the product identifier for this device
+ * @param dev Pointer to driver handle
+ * @param hub_settings Pointer to hub_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_product_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
     if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
@@ -244,6 +286,12 @@ usb2422_status_t usb2422_get_product_id(usb2422_t *dev, usb2422_hub_settings_t *
     return USB2422_OK;
 }
 
+/**
+ * @brief Set the product identifier for this device
+ * @param dev Pointer to driver handle
+ * @param product_id 16-bit value that the Vendor can assign that uniquely identifies this particular product
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_product_id(usb2422_t *dev, const uint16_t product_id) {
     if (!dev) return USB2422_ERR_NULL;
 
@@ -253,6 +301,12 @@ usb2422_status_t usb2422_set_product_id(usb2422_t *dev, const uint16_t product_i
     return usb2422_write_register(dev, USB2422_REG_PID_MSB, (product_id >> 8) & 0xFF);
 }
 
+/**
+ * @brief Get the release number for this device
+ * @param dev Pointer to driver handle
+ * @param hub_settings Pointer to hub_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_device_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
     if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
@@ -269,6 +323,12 @@ usb2422_status_t usb2422_get_device_id(usb2422_t *dev, usb2422_hub_settings_t *h
     return USB2422_OK;
 }
 
+/**
+ * @brief Set the release number for this device
+ * @param dev Pointer to the driver handle
+ * @param device_id 16-bit device release number in BCD format
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_device_id(usb2422_t *dev, const uint16_t device_id) {
     if (!dev) return USB2422_ERR_NULL;
 
@@ -278,12 +338,26 @@ usb2422_status_t usb2422_set_device_id(usb2422_t *dev, const uint16_t device_id)
     return usb2422_write_register(dev, USB2422_REG_DID_MSB, (device_id >> 8) & 0xFF);
 }
 
+/**
+ * @brief Update the config settings structures
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_config_registers(usb2422_t *dev, usb2422_cfg_regs_t *regs) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
     return usb2422_read_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set power switching on all ports simultaneously or individually
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value 0 = Ganged switching (all ports together)
+ * @param value 1 = Individual port-by-port switching
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -294,6 +368,15 @@ usb2422_status_t usb2422_set_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, 
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @breif Set current sensing on a port-by-port basis, all ports ganged, or none
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value USB2422_CURRENT_SNS_GANGED = Ganged sensing (all ports together)
+ * @param value USB2422_CURRENT_SNS_INDIVIDUAL = Individual port-by-port
+ * @param value USB2422_CURRENT_SNS_OC_NOT_SUP = Over current sensing not supported (Must only be used with Bus-Powered configurations)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, const usb2422_config_current_sns_value_t value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
     if (value > USB2422_CURRENT_SNS_OC_NOT_SUP) return USB2422_ERR_INVALID_ARG;
@@ -305,6 +388,14 @@ usb2422_status_t usb2422_set_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *reg
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set EOP generation of EOF1 when in Full-Speed mode
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value 0 = An EOP is generated at the EOF1 point if no traffic is detected
+ * @param value 1 = EOP generation at EOF1 is disabled (normal USB operation)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -315,6 +406,14 @@ usb2422_status_t usb2422_set_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *reg
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set transaction translator for ports
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs struct
+ * @param value 0 = Single TT for all ports. Default to STT if MTT still exists
+ * @param value 1 = One TT per port (multiple TT's supported)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -325,6 +424,14 @@ usb2422_status_t usb2422_set_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set the capability to attach as either a High/Full- speed device, and forces attachment as Full-speed only
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value 0 = High-/Full-Speed
+ * @param value 1 = Full-Speed-Only (High-Speed disabled)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -335,6 +442,14 @@ usb2422_status_t usb2422_set_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set the Hub to either be Self-Powered or Bus-Powered by VBUS
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value 0 = Bus-Powered
+ * @param value 1 = Self-Powered
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -345,6 +460,14 @@ usb2422_status_t usb2422_set_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *re
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set the Hub as part of a compound device (ports must be defined as non-removable)
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value 0 = No
+ * @param value 1 = Yes, Hub is part of a compound device
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -355,6 +478,16 @@ usb2422_status_t usb2422_set_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, 
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set over current timer delay
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value USB2422_OC_TIMER_100US = 0.1ms
+ * @param value USB2422_OC_TIMER_4MS = 4ms
+ * @param value USB2422_OC_TIMER_8MS = 8ms
+ * @param value USB2422_OC_TIMER_16MS = 16ms
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, const usb2422_config_oc_timer_value_t value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
     if (value > USB2422_OC_TIMER_16MS) return USB2422_ERR_INVALID_ARG;
@@ -366,6 +499,15 @@ usb2422_status_t usb2422_set_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, 
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set the ability to automatically change from Self-Powered to Bus-Powered if local power source is removed or is unavailable
+ * @details 0 = No dynamic auto-switching
+ * @details 1 = Dynamic auto-switching capable
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value Dynamic power enable
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -376,6 +518,15 @@ usb2422_status_t usb2422_set_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, c
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set string descriptor support
+ * @details 0 = String support disabled
+ * @details 1 = String support enabled
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs structure
+ * @param value Port remapping enable
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -386,6 +537,15 @@ usb2422_status_t usb2422_set_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs,
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Set the method used by the Hub to assign port numbers and disable ports
+ * @details 0 = Standard Mode
+ * @details 1 = Port Re-Map Mode
+ * @param dev Pointer to driver handle
+ * @param regs Pointer to cfg regs struct
+ * @param value Method to assign port numbers and disable ports
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
@@ -396,6 +556,12 @@ usb2422_status_t usb2422_set_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs,
     return usb2422_write_cfg_registers(dev, regs);
 }
 
+/**
+ * @brief Get which ports are set as non-removable devices
+ * @param dev Pointer to driver handle
+ * @param downstream_port_settings Pointer to downstream_port_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_non_removable_device(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings) {
     if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
@@ -409,6 +575,16 @@ usb2422_status_t usb2422_get_non_removable_device(usb2422_t *dev, usb2422_downst
     return USB2422_OK;
 }
 
+/**
+ * @brief Set which ports are non-removable devices
+ * @details 0 = port is removable
+ * @details 1 = port is non-removable
+ * @param dev Pointer to driver handle
+ * @param downstream_port_settings Pointer to downstream_port_settings structure
+ * @param port_1_non_removable Set port 1 as non-removable
+ * @param port_2_non_removable Set port 2 as non-removable
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_non_removable_device(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, const bool port_1_non_removable, const bool port_2_non_removable) {
     if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
@@ -426,6 +602,12 @@ usb2422_status_t usb2422_set_non_removable_device(usb2422_t *dev, usb2422_downst
     return USB2422_OK;
 }
 
+/**
+ * @brief Get which ports are permanently disabled during Self-Powered operation
+ * @param dev Pointer to driver handle
+ * @param downstream_port_settings Pointer to downstream_port_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_port_disable_self_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings) {
     if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
@@ -439,6 +621,16 @@ usb2422_status_t usb2422_get_port_disable_self_powered(usb2422_t *dev, usb2422_d
     return USB2422_OK;
 }
 
+/**
+ * @brief Select the ports which will be permanently disabled during Self-Powered operation (when PRTMAP_EN = 0)
+ * @details 0 = Port is available
+ * @details 1 = Port is disabled
+ * @param dev Pointer to driver handle
+ * @param downstream_port_settings Pointer to downstream_port_settings structure
+ * @param port_1_disable_self_powered Port 1 Disable
+ * @param port_2_disable_self_powered Port 2 Disable
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_port_disable_self_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, const bool port_1_disable_self_powered, const bool port_2_disable_self_powered) {
     if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
@@ -456,6 +648,12 @@ usb2422_status_t usb2422_set_port_disable_self_powered(usb2422_t *dev, usb2422_d
     return USB2422_OK;
 }
 
+/**
+ * @brief Get which ports are permanently disabled during Bus-Powered operation
+ * @param dev Pointer to driver handle
+ * @param downstream_port_settings Pointer to downstream_port_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_port_disable_bus_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings) {
     if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
@@ -469,6 +667,16 @@ usb2422_status_t usb2422_get_port_disable_bus_powered(usb2422_t *dev, usb2422_do
     return USB2422_OK;
 }
 
+/**
+ * @brief Selects the ports which will be permanently disabled during Bus-Powered operation (when PRTMAP_EN = 0)
+ * @details 0 = Port is available
+ * @details 1 = Port is disabled
+ * @param dev Pointer to driver handle
+ * @param downstream_port_settings Pointer to downstream_port_settings structure
+ * @param port_1_disable_bus_powered Port 1 Disable
+ * @param port_2_disable_bus_powered Port 2 Disable
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_port_disable_bus_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, const bool port_1_disable_bus_powered, const bool port_2_disable_bus_powered) {
     if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
@@ -486,6 +694,12 @@ usb2422_status_t usb2422_set_port_disable_bus_powered(usb2422_t *dev, usb2422_do
     return USB2422_OK;
 }
 
+/**
+ * @brief Get how much current the Hub can consume from an upstream port (VBUS) when operating as a self-powered hub
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -499,6 +713,13 @@ usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, usb2422_powe
     return USB2422_OK;
 }
 
+/**
+ * @brief Set how much current the Hub can consume from an upstream port (VBUS) when operating as a self-powered hub
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @param max_curr_self_powered hub current in 2mA increments (max 100mA)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t max_curr_self_powered) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -514,6 +735,12 @@ usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, usb2422_powe
     return USB2422_OK;
 }
 
+/**
+ * @brief Get how much current the Hub can consume from an upstream port (VBUS) when operating as a bus-powered hub
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -527,6 +754,13 @@ usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, usb2422_power
     return USB2422_OK;
 }
 
+/**
+ * @brief Set how much current the Hub can consume from an upstream port (VBUS) when operating as a bus-powered hub
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @param max_curr_bus_powered hub current in 2mA increments
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t max_curr_bus_powered) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -540,6 +774,12 @@ usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, usb2422_power
     return USB2422_OK;
 }
 
+/**
+ * @brief Get how much current the Hub can consume from an upstream port (VBUS) when operating as a self-powered hub (hub only)
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -553,6 +793,13 @@ usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *
     return USB2422_OK;
 }
 
+/**
+ * @brief Set how much current the Hub can consume from an upstream port (VBUS) when operating as a self-powered hub (hub only)
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @param hub_max_curr_self_powered hub current in 2mA increments (max 100mA)
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t hub_max_curr_self_powered) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -568,6 +815,12 @@ usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *
     return USB2422_OK;
 }
 
+/**
+ * @brief Get how much current the Hub can consume from an upstream port (VBUS) when operating as a bus-powered hub (hub only)
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -581,6 +834,13 @@ usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *d
     return USB2422_OK;
 }
 
+/**
+ * @brief Set how much current the Hub can consume from an upstream port (VBUS) when operating as a bus-powered hub (hub only)
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @param hub_max_curr_bus_powered hub current in 2mA increments
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t hub_max_curr_bus_powered) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -594,6 +854,12 @@ usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *d
     return USB2422_OK;
 }
 
+/**
+ * @brief Get the length of time it takes to initiate power-on for a port
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @return usb2422_status_t Status code
+ */
 usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
@@ -607,6 +873,13 @@ usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, usb2422_power_setting
     return USB2422_OK;
 }
 
+/**
+ * @brief Set the length of time it takes to initiate power-on for a port
+ * @param dev Pointer to driver handle
+ * @param power_settings Pointer to power_settings structure
+ * @param power_on_time power on time in 2ms increments
+ * @return
+ */
 usb2422_status_t usb2422_set_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t power_on_time) {
     if (!dev || !power_settings) return USB2422_ERR_NULL;
 
