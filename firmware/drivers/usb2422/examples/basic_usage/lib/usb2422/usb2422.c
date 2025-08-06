@@ -2,7 +2,7 @@
  * @file usb2422.c
  * @brief USB2422 USB Hub Controller Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-31
+ * @date 2025-08-06
  */
 
 #include <math.h>
