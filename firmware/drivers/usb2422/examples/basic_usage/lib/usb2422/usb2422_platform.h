@@ -1,0 +1,8 @@
+//
+// Created by madis on 2025-08-06.
+//
+
+#ifndef BASIC_USAGE_USB2422_PLATFORM_H
+#define BASIC_USAGE_USB2422_PLATFORM_H
+
+#endif //BASIC_USAGE_USB2422_PLATFORM_H
