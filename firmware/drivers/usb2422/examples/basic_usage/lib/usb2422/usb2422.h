@@ -282,7 +282,7 @@ usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, usb2422_hub_settings_
 usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[32]);
 
 #ifdef __cplusplus
-// }
+}
 #endif
 
 #endif //USB2422_H
