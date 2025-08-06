@@ -10,7 +10,6 @@
 #ifndef USB2422_H
 #define USB2422_H
 
-#include <stdbool.h>
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -48,12 +47,14 @@ typedef enum {
     USB2422_CURRENT_SNS_GANGED = 0x00,
     USB2422_CURRENT_SNS_INDIVIDUAL = 0x01,
     USB2422_CURRENT_SNS_OC_NOT_SUP = 0x02,
+} usb2422_config_current_sns_value_t;
 
+typedef enum {
     USB2422_OC_TIMER_100US = 0x00,
     USB2422_OC_TIMER_4MS = 0x01,
     USB2422_OC_TIMER_8MS = 0x02,
     USB2422_OC_TIMER_16MS = 0x03
-} usb2422_config_enum_values_t;
+} usb2422_config_oc_timer_value_t;
 
 typedef enum {
     USB2422_BOOST_PORT_1_NORMAL = 0x00,     ///< Normal electrical drive strength
@@ -202,92 +203,83 @@ const char* usb2422_stat_error(usb2422_status_t status);
 
 usb2422_status_t usb2422_init(usb2422_t *dev, uint8_t address, usb2422_interface_t io);
 
-usb2422_status_t usb2422_get_vendor_id(usb2422_t *dev, usb2422_hub_settings_t *vendor_id);
-usb2422_status_t usb2422_set_vendor_id(usb2422_t *dev, usb2422_hub_settings_t vendor_id);
+usb2422_status_t usb2422_get_vendor_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_vendor_id(usb2422_t *dev, uint16_t vendor_id);
 
-usb2422_status_t usb2422_get_product_id(usb2422_t *dev, usb2422_hub_settings_t *product_id);
-usb2422_status_t usb2422_set_product_id(usb2422_t *dev, usb2422_hub_settings_t product_id);
+usb2422_status_t usb2422_get_product_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_product_id(usb2422_t *dev, uint16_t product_id);
 
-usb2422_status_t usb2422_get_device_id(usb2422_t *dev, usb2422_hub_settings_t *device_id);
-usb2422_status_t usb2422_set_device_id(usb2422_t *dev, usb2422_hub_settings_t device_id);
+usb2422_status_t usb2422_get_device_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_device_id(usb2422_t *dev, uint16_t device_id);
 
-usb2422_status_t usb2422_get_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
+usb2422_status_t usb2422_get_config_registers(usb2422_t *dev, usb2422_cfg_regs_t *regs);
+
 usb2422_status_t usb2422_set_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t *value);
-usb2422_status_t usb2422_set_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t value);
+usb2422_status_t usb2422_set_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_current_sns_value_t value);
 
-usb2422_status_t usb2422_get_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t *value);
-usb2422_status_t usb2422_set_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t value);
+usb2422_status_t usb2422_set_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_oc_timer_value_t value);
 
-usb2422_status_t usb2422_get_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value);
 usb2422_status_t usb2422_set_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value);
 
-usb2422_status_t usb2422_get_non_removable_device(usb2422_t *dev, bool *port_1_disable, bool *port_2_disable);
-usb2422_status_t usb2422_set_non_removable_device(usb2422_t *dev, bool port_1_disable, bool port_2_disable);
+usb2422_status_t usb2422_get_non_removable_device(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings);
+usb2422_status_t usb2422_set_non_removable_device(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, bool port_1_non_removable, bool port_2_non_removable);
 
-usb2422_status_t usb2422_get_port_disable_self_powered(usb2422_t *dev, bool *port_1_disable_self_powered, bool *port_2_disable_self_powered);
-usb2422_status_t usb2422_set_port_disable_self_powered(usb2422_t *dev, bool port_1_disable_self_powered, bool port_2_disable_self_powered);
+usb2422_status_t usb2422_get_port_disable_self_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings);
+usb2422_status_t usb2422_set_port_disable_self_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, bool port_1_disable_self_powered, bool port_2_disable_self_powered);
 
-usb2422_status_t usb2422_get_port_disable_bus_powered(usb2422_t *dev, bool *port_1_disable_bus_powered, bool *port_2_disable_bus_powered);
-usb2422_status_t usb2422_set_port_disable_bus_powered(usb2422_t *dev, bool port_1_disable_bus_powered, bool port_2_disable_bus_powered);
+usb2422_status_t usb2422_get_port_disable_bus_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings);
+usb2422_status_t usb2422_set_port_disable_bus_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, bool port_1_disable_bus_powered, bool port_2_disable_bus_powered);
 
-usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, uint8_t *max_curr_self_powered);
-usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, uint8_t max_curr_self_powered);
+usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings);
+usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, uint8_t max_curr_self_powered);
 
-usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, uint8_t *max_curr_bus_powered);
-usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, uint8_t max_curr_bus_powered);
+usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings);
+usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, uint8_t max_curr_bus_powered);
 
-usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *dev, uint8_t *hub_max_curr_self_powered);
-usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *dev, uint8_t hub_max_curr_self_powered);
+usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings);
+usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, uint8_t hub_max_curr_self_powered);
 
-usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *dev, uint8_t *hub_max_curr_bus_powered);
-usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *dev, uint8_t hub_max_curr_bus_powered);
+usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings);
+usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, uint8_t hub_max_curr_bus_powered);
 
-usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, uint8_t *power_on_time);
-usb2422_status_t usb2422_set_power_on_time(usb2422_t *dev, uint8_t power_on_time);
+usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings);
+usb2422_status_t usb2422_set_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings, uint8_t power_on_time);
 
-usb2422_status_t usb2422_get_language_id(usb2422_t *dev, uint16_t *language_id);
-usb2422_status_t usb2422_set_language_id(usb2422_t *dev, uint16_t language_id);
+usb2422_status_t usb2422_get_language_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_language_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, uint16_t language_id);
 
-usb2422_status_t usb2422_get_manufacturer_string_length(usb2422_t *dev, uint8_t *manufacturer_name_len);
-usb2422_status_t usb2422_set_manufacturer_string_length(usb2422_t *dev, uint8_t manufacturer_name_len);
+usb2422_status_t usb2422_get_manufacturer_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_manufacturer_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, uint8_t manufacturer_name_len);
 
-usb2422_status_t usb2422_get_product_string_length(usb2422_t *dev, uint8_t *product_name_len);
-usb2422_status_t usb2422_set_product_string_length(usb2422_t *dev, uint8_t product_name_len);
+usb2422_status_t usb2422_get_product_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_product_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, uint8_t product_name_len);
 
-usb2422_status_t usb2422_get_serial_string_length(usb2422_t *dev, uint8_t *serial_number_len);
-usb2422_status_t usb2422_set_serial_string_length(usb2422_t *dev, uint8_t serial_number_len);
+usb2422_status_t usb2422_get_serial_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_serial_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, uint8_t serial_number_len);
 
-usb2422_status_t usb2422_get_manufacturer_name(usb2422_t *dev, char *manufacturer_name[32]);
-usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, char manufacturer_name[32]);
+usb2422_status_t usb2422_get_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char manufacturer_name[32]);
 
-usb2422_status_t usb2422_get_product_name(usb2422_t *dev, char *product_name[32]);
-usb2422_status_t usb2422_set_product_name(usb2422_t *dev, char product_name[32]);
+usb2422_status_t usb2422_get_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char product_name[32]);
 
-usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, char *serial_number[32]);
-usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, char serial_number[32]);
+usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[32]);
 
 #ifdef __cplusplus
 // }

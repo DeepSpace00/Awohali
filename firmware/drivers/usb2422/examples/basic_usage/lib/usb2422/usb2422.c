@@ -5,6 +5,7 @@
  * @date 2025-07-31
  */
 
+#include <math.h>
 #include "usb2422.h"
 
 // Register Addresses
@@ -88,28 +89,34 @@
 #define USB2422_STCD_USB_ATTACH     (1 << 0)
 
 // Private helper functions
-// Private helper functions
-static usb2422_status_t usb2422_write_register(usb2422_t *dev, uint8_t reg, uint8_t value) {
-    if (!dev || !dev->initialized) return USB2422_ERR_NULL;
-
-    uint8_t data[2] = {reg, value};
+/**
+ * @brief Helper function to write to a register
+ * @param dev Pointer to driver handle
+ * @param reg Target register
+ * @param value Value to write to a register
+ * @return
+ */
+static usb2422_status_t usb2422_write_register(const usb2422_t *dev, const uint8_t reg, const uint8_t value) {
+    const uint8_t data[2] = {reg, value};
     return dev->io.i2c_write(dev->i2c_address, data, 2) == 0 ? USB2422_OK : USB2422_ERR_I2C;
 }
 
-static usb2422_status_t usb2422_read_register(usb2422_t *dev, uint8_t reg, uint8_t *value) {
-    if (!dev || !dev->initialized || !value) return USB2422_ERR_NULL;
-
+/**
+ * @brief Helper function to read data from a register
+ * @param dev Pointer to driver handle
+ * @param reg Target register
+ * @param value Pointer to data variable
+ * @return
+ */
+static usb2422_status_t usb2422_read_register(const usb2422_t *dev, const uint8_t reg, uint8_t *value) {
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return USB2422_ERR_I2C;
     return dev->io.i2c_read(dev->i2c_address, value, 1) == 0 ? USB2422_OK : USB2422_ERR_I2C;
 }
 
-static usb2422_status_t usb2422_read_cfg_registers(usb2422_t *dev, usb2422_cfg_regs_t *regs) {
-    if (!dev || !regs) return USB2422_ERR_NULL;
-
+static usb2422_status_t usb2422_read_cfg_registers(const usb2422_t *dev, usb2422_cfg_regs_t *regs) {
     uint8_t cfg1_val, cfg2_val, cfg3_val;
-    usb2422_status_t status;
 
-    status = usb2422_read_register(dev, USB2422_REG_CFG1, &cfg1_val);
+    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_CFG1, &cfg1_val);
     if (status != USB2422_OK) return status;
 
     status = usb2422_read_register(dev, USB2422_REG_CFG2, &cfg2_val);
@@ -138,11 +145,8 @@ static usb2422_status_t usb2422_read_cfg_registers(usb2422_t *dev, usb2422_cfg_r
     return USB2422_OK;
 }
 
-static usb2422_status_t usb2422_write_cfg_registers(usb2422_t *dev, const usb2422_cfg_regs_t *regs) {
-    if (!dev || !regs) return USB2422_ERR_NULL;
-
+static usb2422_status_t usb2422_write_cfg_registers(const usb2422_t *dev, const usb2422_cfg_regs_t *regs) {
     uint8_t cfg1_val = 0, cfg2_val = 0, cfg3_val = 0;
-    usb2422_status_t status;
 
     // Build CFG1
     if (regs->cfg1.self_bus_pwr) cfg1_val |= USB2422_CFG1_SELF_BUS_PWR;
@@ -161,7 +165,7 @@ static usb2422_status_t usb2422_write_cfg_registers(usb2422_t *dev, const usb242
     if (regs->cfg3.prtmap_en) cfg3_val |= USB2422_CFG3_PRTMAP_EN;
     if (regs->cfg3.string_en) cfg3_val |= USB2422_CFG3_STRING_EN;
 
-    status = usb2422_write_register(dev, USB2422_REG_CFG1, cfg1_val);
+    usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_CFG1, cfg1_val);
     if (status != USB2422_OK) return status;
 
     status = usb2422_write_register(dev, USB2422_REG_CFG2, cfg2_val);
@@ -172,7 +176,7 @@ static usb2422_status_t usb2422_write_cfg_registers(usb2422_t *dev, const usb242
 
 // Public function implementations (in order of .h file)
 
-const char* usb2422_stat_error(usb2422_status_t status) {
+const char* usb2422_stat_error(const usb2422_status_t status) {
     switch (status) {
         case USB2422_OK:              return "OK";
         case USB2422_ERR_I2C:         return "I2C communication failed";
@@ -183,7 +187,7 @@ const char* usb2422_stat_error(usb2422_status_t status) {
     }
 }
 
-usb2422_status_t usb2422_init(usb2422_t *dev, uint8_t address, usb2422_interface_t io) {
+usb2422_status_t usb2422_init(usb2422_t *dev, const uint8_t address, const usb2422_interface_t io) {
     if (!dev || !io.i2c_write || !io.i2c_read || !io.delay_ms) return USB2422_ERR_NULL;
 
     dev->i2c_address = address ? address : USB2422_SMBUS_ADDRESS;
@@ -192,546 +196,546 @@ usb2422_status_t usb2422_init(usb2422_t *dev, uint8_t address, usb2422_interface
 
     // Test communication by reading a register
     uint8_t test_val;
-    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_VID_LSB, &test_val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_VID_LSB, &test_val);
     if (status != USB2422_OK) return status;
 
     dev->initialized = true;
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_vendor_id(usb2422_t *dev, usb2422_hub_settings_t *vendor_id) {
-    if (!dev || !vendor_id) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_vendor_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
     uint8_t lsb, msb;
-    usb2422_status_t status;
 
-    status = usb2422_read_register(dev, USB2422_REG_VID_LSB, &lsb);
+    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_VID_LSB, &lsb);
     if (status != USB2422_OK) return status;
 
     status = usb2422_read_register(dev, USB2422_REG_VID_MSB, &msb);
     if (status != USB2422_OK) return status;
 
-    vendor_id->vendor_id = (uint16_t)msb << 8 | lsb;
+    hub_settings->vendor_id = (uint16_t)msb << 8 | lsb;
+
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_vendor_id(usb2422_t *dev, usb2422_hub_settings_t vendor_id) {
+usb2422_status_t usb2422_set_vendor_id(usb2422_t *dev, const uint16_t vendor_id) {
     if (!dev) return USB2422_ERR_NULL;
 
-    usb2422_status_t status;
-
-    status = usb2422_write_register(dev, USB2422_REG_VID_LSB, vendor_id.vendor_id & 0xFF);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_VID_LSB, vendor_id & 0xFF);
     if (status != USB2422_OK) return status;
 
-    return usb2422_write_register(dev, USB2422_REG_VID_MSB, (vendor_id.vendor_id >> 8) & 0xFF);
+    return usb2422_write_register(dev, USB2422_REG_VID_MSB, (vendor_id >> 8) & 0xFF);
 }
 
-usb2422_status_t usb2422_get_product_id(usb2422_t *dev, usb2422_hub_settings_t *product_id) {
-    if (!dev || !product_id) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_product_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
     uint8_t lsb, msb;
-    usb2422_status_t status;
 
-    status = usb2422_read_register(dev, USB2422_REG_PID_LSB, &lsb);
+    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PID_LSB, &lsb);
     if (status != USB2422_OK) return status;
 
     status = usb2422_read_register(dev, USB2422_REG_PID_MSB, &msb);
     if (status != USB2422_OK) return status;
 
-    product_id->product_id = (uint16_t)msb << 8 | lsb;
+    hub_settings->product_id = (uint16_t)msb << 8 | lsb;
+
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_product_id(usb2422_t *dev, usb2422_hub_settings_t product_id) {
+usb2422_status_t usb2422_set_product_id(usb2422_t *dev, const uint16_t product_id) {
     if (!dev) return USB2422_ERR_NULL;
 
-    usb2422_status_t status;
-
-    status = usb2422_write_register(dev, USB2422_REG_PID_LSB, product_id.product_id & 0xFF);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PID_LSB, product_id & 0xFF);
     if (status != USB2422_OK) return status;
 
-    return usb2422_write_register(dev, USB2422_REG_PID_MSB, (product_id.product_id >> 8) & 0xFF);
+    return usb2422_write_register(dev, USB2422_REG_PID_MSB, (product_id >> 8) & 0xFF);
 }
 
-usb2422_status_t usb2422_get_device_id(usb2422_t *dev, usb2422_hub_settings_t *device_id) {
-    if (!dev || !device_id) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_device_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
     uint8_t lsb, msb;
-    usb2422_status_t status;
 
-    status = usb2422_read_register(dev, USB2422_REG_DID_LSB, &lsb);
+    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_DID_LSB, &lsb);
     if (status != USB2422_OK) return status;
 
     status = usb2422_read_register(dev, USB2422_REG_DID_MSB, &msb);
     if (status != USB2422_OK) return status;
 
-    device_id->device_id = (uint16_t)msb << 8 | lsb;
+    hub_settings->device_id = (uint16_t)msb << 8 | lsb;
+
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_device_id(usb2422_t *dev, usb2422_hub_settings_t device_id) {
+usb2422_status_t usb2422_set_device_id(usb2422_t *dev, const uint16_t device_id) {
     if (!dev) return USB2422_ERR_NULL;
 
-    usb2422_status_t status;
-
-    status = usb2422_write_register(dev, USB2422_REG_DID_LSB, device_id.device_id & 0xFF);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_DID_LSB, device_id & 0xFF);
     if (status != USB2422_OK) return status;
 
-    return usb2422_write_register(dev, USB2422_REG_DID_MSB, (device_id.device_id >> 8) & 0xFF);
+    return usb2422_write_register(dev, USB2422_REG_DID_MSB, (device_id >> 8) & 0xFF);
 }
 
-usb2422_status_t usb2422_get_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg1.port_pwr;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_get_config_registers(usb2422_t *dev, usb2422_cfg_regs_t *regs) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    return usb2422_read_cfg_registers(dev, regs);
+}
+
+usb2422_status_t usb2422_set_port_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
+    if (!dev || !regs) return USB2422_ERR_NULL;
+
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg1.port_pwr = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = (usb2422_config_enum_values_t)regs->cfg1.current_sns;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t value) {
+usb2422_status_t usb2422_set_current_sns(usb2422_t *dev, usb2422_cfg_regs_t *regs, const usb2422_config_current_sns_value_t value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
     if (value > USB2422_CURRENT_SNS_OC_NOT_SUP) return USB2422_ERR_INVALID_ARG;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg1.current_sns = (uint8_t)value;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg1.eop_disable;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_eop_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg1.eop_disable = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg1.mtt_enable;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_mtt_enable(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg1.mtt_enable = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg1.hs_disable;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_hs_disable(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg1.hs_disable = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg1.self_bus_pwr;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_self_bus_pwr(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg1.self_bus_pwr = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg2.compound;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_compound(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg2.compound = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = (usb2422_config_enum_values_t)regs->cfg2.oc_timer;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, usb2422_config_enum_values_t value) {
+usb2422_status_t usb2422_set_oc_timer(usb2422_t *dev, usb2422_cfg_regs_t *regs, const usb2422_config_oc_timer_value_t value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
     if (value > USB2422_OC_TIMER_16MS) return USB2422_ERR_INVALID_ARG;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg2.oc_timer = (uint8_t)value;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg2.dynamic;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg2.dynamic = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg3.string_en;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_string_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg3.string_en = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-static usb2422_status_t usb2422_get_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool *value) {
-    if (!dev || !regs || !value) return USB2422_ERR_NULL;
-
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
-    if (status != USB2422_OK) return status;
-
-    *value = regs->cfg3.prtmap_en;
-    return USB2422_OK;
-}
-
-usb2422_status_t usb2422_set_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, bool value) {
+usb2422_status_t usb2422_set_prtmap_en(usb2422_t *dev, usb2422_cfg_regs_t *regs, const bool value) {
     if (!dev || !regs) return USB2422_ERR_NULL;
 
-    usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
+    const usb2422_status_t status = usb2422_read_cfg_registers(dev, regs);
     if (status != USB2422_OK) return status;
 
     regs->cfg3.prtmap_en = value ? 1 : 0;
     return usb2422_write_cfg_registers(dev, regs);
 }
 
-usb2422_status_t usb2422_get_non_removable_device(usb2422_t *dev, bool *port_1_disable, bool *port_2_disable) {
-    if (!dev || !port_1_disable || !port_2_disable) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_non_removable_device(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings) {
+    if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
     uint8_t nrd_val;
-    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_NRD, &nrd_val);
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_NRD, &nrd_val);
     if (status != USB2422_OK) return status;
 
-    *port_1_disable = (nrd_val & USB2422_NRD_PORT1_NR) ? true : false;
-    *port_2_disable = (nrd_val & USB2422_NRD_PORT2_NR) ? true : false;
+    downstream_port_settings->port_1_non_removable = (nrd_val & USB2422_NRD_PORT1_NR) ? true : false;
+    downstream_port_settings->port_2_non_removable = (nrd_val & USB2422_NRD_PORT2_NR) ? true : false;
 
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_non_removable_device(usb2422_t *dev, bool port_1_disable, bool port_2_disable) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_non_removable_device(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, const bool port_1_non_removable, const bool port_2_non_removable) {
+    if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
     uint8_t nrd_val = 0;
 
-    if (port_1_disable) nrd_val |= USB2422_NRD_PORT1_NR;
-    if (port_2_disable) nrd_val |= USB2422_NRD_PORT2_NR;
+    if (port_1_non_removable) nrd_val |= USB2422_NRD_PORT1_NR;
+    if (port_2_non_removable) nrd_val |= USB2422_NRD_PORT2_NR;
 
-    return usb2422_write_register(dev, USB2422_REG_NRD, nrd_val);
-}
-
-usb2422_status_t usb2422_get_port_disable_self_powered(usb2422_t *dev, bool *port_1_disable_self_powered, bool *port_2_disable_self_powered) {
-    if (!dev || !port_1_disable_self_powered || !port_2_disable_self_powered) return USB2422_ERR_NULL;
-
-    uint8_t pds_val;
-    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PDS, &pds_val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_NRD, nrd_val);
     if (status != USB2422_OK) return status;
 
-    *port_1_disable_self_powered = (pds_val & USB2422_PDS_PORT1_DIS) ? true : false;
-    *port_2_disable_self_powered = (pds_val & USB2422_PDS_PORT2_DIS) ? true : false;
+    downstream_port_settings->port_1_non_removable = port_1_non_removable ? 1 : 0;
+    downstream_port_settings->port_2_non_removable = port_2_non_removable ? 1 : 0;
 
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_port_disable_self_powered(usb2422_t *dev, bool port_1_disable_self_powered, bool port_2_disable_self_powered) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_port_disable_self_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings) {
+    if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
+
+    uint8_t pds_val;
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PDS, &pds_val);
+    if (status != USB2422_OK) return status;
+
+    downstream_port_settings->port_1_disable_self_powered = (pds_val & USB2422_PDS_PORT1_DIS) ? true : false;
+    downstream_port_settings->port_2_disable_self_powered = (pds_val & USB2422_PDS_PORT2_DIS) ? true : false;
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_set_port_disable_self_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, const bool port_1_disable_self_powered, const bool port_2_disable_self_powered) {
+    if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
     uint8_t pds_val = 0;
 
     if (port_1_disable_self_powered) pds_val |= USB2422_PDS_PORT1_DIS;
     if (port_2_disable_self_powered) pds_val |= USB2422_PDS_PORT2_DIS;
 
-    return usb2422_write_register(dev, USB2422_REG_PDS, pds_val);
-}
-
-usb2422_status_t usb2422_get_port_disable_bus_powered(usb2422_t *dev, bool *port_1_disable_bus_powered, bool *port_2_disable_bus_powered) {
-    if (!dev || !port_1_disable_bus_powered || !port_2_disable_bus_powered) return USB2422_ERR_NULL;
-
-    uint8_t pdb_val;
-    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PDB, &pdb_val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PDS, pds_val);
     if (status != USB2422_OK) return status;
 
-    *port_1_disable_bus_powered = (pdb_val & USB2422_PDS_PORT1_DIS) ? true : false;
-    *port_2_disable_bus_powered = (pdb_val & USB2422_PDS_PORT2_DIS) ? true : false;
+    downstream_port_settings->port_1_disable_self_powered = port_1_disable_self_powered ? 1 : 0;
+    downstream_port_settings->port_2_disable_self_powered = port_2_disable_self_powered ? 1 : 0;
 
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_port_disable_bus_powered(usb2422_t *dev, bool port_1_disable_bus_powered, bool port_2_disable_bus_powered) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_port_disable_bus_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings) {
+    if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
+
+    uint8_t pdb_val;
+    const usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PDB, &pdb_val);
+    if (status != USB2422_OK) return status;
+
+    downstream_port_settings->port_1_disable_bus_powered = (pdb_val & USB2422_PDS_PORT1_DIS) ? true : false;
+    downstream_port_settings->port_2_disable_bus_powered = (pdb_val & USB2422_PDS_PORT2_DIS) ? true : false;
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_set_port_disable_bus_powered(usb2422_t *dev, usb2422_downstream_port_settings_t *downstream_port_settings, const bool port_1_disable_bus_powered, const bool port_2_disable_bus_powered) {
+    if (!dev || !downstream_port_settings) return USB2422_ERR_NULL;
 
     uint8_t pdb_val = 0;
 
     if (port_1_disable_bus_powered) pdb_val |= USB2422_PDS_PORT1_DIS;
     if (port_2_disable_bus_powered) pdb_val |= USB2422_PDS_PORT2_DIS;
 
-    return usb2422_write_register(dev, USB2422_REG_PDB, pdb_val);
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PDB, pdb_val);
+    if (status != USB2422_OK) return status;
+
+    downstream_port_settings->port_1_disable_bus_powered = port_1_disable_bus_powered ? 1 : 0;
+    downstream_port_settings->port_2_disable_bus_powered = port_2_disable_bus_powered ? 1 : 0;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, uint8_t *max_curr_self_powered) {
-    if (!dev || !max_curr_self_powered) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_max_power_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_read_register(dev, USB2422_REG_MAXPS, max_curr_self_powered);
+    uint8_t val;
+
+    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_MAXPS, &val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->max_curr_bus_powered = val * 2;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, uint8_t max_curr_self_powered) {
-    if (!dev) return USB2422_ERR_NULL;
-    if (max_curr_self_powered > 50) return USB2422_ERR_INVALID_ARG; // Max 100mA (50 * 2mA increments)
+usb2422_status_t usb2422_set_max_power_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t max_curr_self_powered) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_write_register(dev, USB2422_REG_MAXPS, max_curr_self_powered);
+    if (max_curr_self_powered > 100) return USB2422_ERR_INVALID_ARG; // Max 100mA (50 * 2mA increments)
+
+    const uint8_t val = round(max_curr_self_powered / 2);
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MAXPS, val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->max_curr_self_powered = max_curr_self_powered;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, uint8_t *max_curr_bus_powered) {
-    if (!dev || !max_curr_bus_powered) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_read_register(dev, USB2422_REG_MAXPB, max_curr_bus_powered);
+    uint8_t val;
+
+    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_MAXPB, &val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->max_curr_bus_powered = val * 2;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, uint8_t max_curr_bus_powered) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_max_power_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t max_curr_bus_powered) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_write_register(dev, USB2422_REG_MAXPB, max_curr_bus_powered);
+    const uint8_t val = round(max_curr_bus_powered / 2);
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MAXPB, val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->max_curr_bus_powered = max_curr_bus_powered;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *dev, uint8_t *hub_max_curr_self_powered) {
-    if (!dev || !hub_max_curr_self_powered) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_hub_controller_max_current_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_read_register(dev, USB2422_REG_HCMCS, hub_max_curr_self_powered);
+    uint8_t val;
+
+    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_HCMCS, &val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->hub_max_curr_self_powered = val * 2;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *dev, uint8_t hub_max_curr_self_powered) {
-    if (!dev) return USB2422_ERR_NULL;
-    if (hub_max_curr_self_powered > 50) return USB2422_ERR_INVALID_ARG; // Max 100mA (50 * 2mA increments)
+usb2422_status_t usb2422_set_hub_controller_max_current_self_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t hub_max_curr_self_powered) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_write_register(dev, USB2422_REG_HCMCS, hub_max_curr_self_powered);
+    if (hub_max_curr_self_powered > 100) return USB2422_ERR_INVALID_ARG; // Max 100mA (50 * 2mA increments)
+
+    const uint8_t val = round(hub_max_curr_self_powered / 2);
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_HCMCS, val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->hub_max_curr_self_powered = hub_max_curr_self_powered;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *dev, uint8_t *hub_max_curr_bus_powered) {
-    if (!dev || !hub_max_curr_bus_powered) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_read_register(dev, USB2422_REG_HCMCB, hub_max_curr_bus_powered);
+    uint8_t val;
+
+    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_HCMCB, &val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->hub_max_curr_bus_powered = val * 2;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *dev, uint8_t hub_max_curr_bus_powered) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_hub_controller_max_current_bus_powered(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t hub_max_curr_bus_powered) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_write_register(dev, USB2422_REG_HCMCB, hub_max_curr_bus_powered);
+    const uint8_t val = round(hub_max_curr_bus_powered / 2);
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_HCMCB, val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->hub_max_curr_bus_powered = hub_max_curr_bus_powered;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, uint8_t *power_on_time) {
-    if (!dev || !power_on_time) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_read_register(dev, USB2422_REG_PWRT, power_on_time);
+    uint8_t val;
+
+    static usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_PWRT, &val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->power_on_time = val * 2;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_power_on_time(usb2422_t *dev, uint8_t power_on_time) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_power_on_time(usb2422_t *dev, usb2422_power_settings_t *power_settings, const uint8_t power_on_time) {
+    if (!dev || !power_settings) return USB2422_ERR_NULL;
 
-    return usb2422_write_register(dev, USB2422_REG_PWRT, power_on_time);
+    const uint8_t val = round(power_on_time / 2);
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PWRT, val);
+    if (status != USB2422_OK) return status;
+
+    power_settings->power_on_time = power_on_time;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_language_id(usb2422_t *dev, uint16_t *language_id) {
-    if (!dev || !language_id) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_language_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
     uint8_t lsb, msb;
-    usb2422_status_t status;
 
-    status = usb2422_read_register(dev, USB2422_REG_LANGIDL, &lsb);
+    usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_LANGIDL, &lsb);
     if (status != USB2422_OK) return status;
 
     status = usb2422_read_register(dev, USB2422_REG_LANGIDH, &msb);
     if (status != USB2422_OK) return status;
 
-    *language_id = (uint16_t)msb << 8 | lsb;
+    hub_settings->language_id = (uint16_t)msb << 8 | lsb;
+
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_language_id(usb2422_t *dev, uint16_t language_id) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_language_id(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, const uint16_t language_id) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
-    usb2422_status_t status;
-
-    status = usb2422_write_register(dev, USB2422_REG_LANGIDL, language_id & 0xFF);
+    usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_LANGIDL, language_id & 0xFF);
     if (status != USB2422_OK) return status;
 
-    return usb2422_write_register(dev, USB2422_REG_LANGIDH, (language_id >> 8) & 0xFF);
+    status = usb2422_write_register(dev, USB2422_REG_LANGIDH, (language_id >> 8) & 0xFF);
+    if (status != USB2422_OK) return status;
+
+    hub_settings->language_id = (uint16_t)language_id & 0xFF;
+
+    return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_manufacturer_string_length(usb2422_t *dev, uint8_t *manufacturer_name_len) {
-    if (!dev || !manufacturer_name_len) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_manufacturer_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
-    return usb2422_read_register(dev, USB2422_REG_MFRSL, manufacturer_name_len);
+    return usb2422_read_register(dev, USB2422_REG_MFRSL, &hub_settings->manufacturer_name_len);
 }
 
-usb2422_status_t usb2422_set_manufacturer_string_length(usb2422_t *dev, uint8_t manufacturer_name_len) {
-    if (!dev) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_manufacturer_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, const uint8_t manufacturer_name_len) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
     if (manufacturer_name_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
 
-    return usb2422_write_register(dev, USB2422_REG_MFRSL, manufacturer_name_len);
-}
-
-usb2422_status_t usb2422_get_product_string_length(usb2422_t *dev, uint8_t *product_name_len) {
-    if (!dev || !product_name_len) return USB2422_ERR_NULL;
-
-    return usb2422_read_register(dev, USB2422_REG_PRDSL, product_name_len);
-}
-
-usb2422_status_t usb2422_set_product_string_length(usb2422_t *dev, uint8_t product_name_len) {
-    if (!dev) return USB2422_ERR_NULL;
-    if (product_name_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
-
-    return usb2422_write_register(dev, USB2422_REG_PRDSL, product_name_len);
-}
-
-usb2422_status_t usb2422_get_serial_string_length(usb2422_t *dev, uint8_t *serial_number_len) {
-    if (!dev || !serial_number_len) return USB2422_ERR_NULL;
-
-    return usb2422_read_register(dev, USB2422_REG_SERSL, serial_number_len);
-}
-
-usb2422_status_t usb2422_set_serial_string_length(usb2422_t *dev, uint8_t serial_number_len) {
-    if (!dev) return USB2422_ERR_NULL;
-    if (serial_number_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
-
-    return usb2422_write_register(dev, USB2422_REG_SERSL, serial_number_len);
-}
-
-usb2422_status_t usb2422_get_manufacturer_name(usb2422_t *dev, char *manufacturer_name[32]) {
-    if (!dev || !manufacturer_name) return USB2422_ERR_NULL;
-
-    uint8_t length;
-    usb2422_status_t status = usb2422_get_manufacturer_string_length(dev, &length);
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_MFRSL, manufacturer_name_len);
     if (status != USB2422_OK) return status;
 
-    if (length == 0) {
-        (*manufacturer_name)[0] = '\0';
+    hub_settings->manufacturer_name_len = manufacturer_name_len;
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_get_product_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    return usb2422_read_register(dev, USB2422_REG_PRDSL, &hub_settings->product_name_len);
+}
+
+usb2422_status_t usb2422_set_product_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, const uint8_t product_name_len) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    if (product_name_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_PRDSL, product_name_len);
+    if (status != USB2422_OK) return status;
+
+    hub_settings->product_name_len = product_name_len;
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_get_serial_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    return usb2422_read_register(dev, USB2422_REG_SERSL, &hub_settings->serial_number_len);
+}
+
+usb2422_status_t usb2422_set_serial_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, const uint8_t serial_number_len) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    if (serial_number_len > 31) return USB2422_ERR_INVALID_ARG; // Max 31 characters
+
+    static usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_SERSL, serial_number_len);
+    if (status != USB2422_OK) return status;
+
+    hub_settings->serial_number_len = serial_number_len;
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_get_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    usb2422_status_t status = usb2422_get_manufacturer_string_length(dev, hub_settings);
+    if (status != USB2422_OK) return status;
+
+    if (hub_settings->manufacturer_name_len == 0) {
+        (hub_settings->manufacturer_name)[0] = '\0';
         return USB2422_OK;
     }
 
     // Read UTF-16LE string data (2 bytes per character)
     uint8_t utf16_data[62]; // Max 31 characters * 2 bytes
-    for (uint8_t i = 0; i < length * 2; i++) {
+    for (uint8_t i = 0; i < hub_settings->manufacturer_name_len * 2; i++) {
         status = usb2422_read_register(dev, USB2422_REG_MANSTR_START + i, &utf16_data[i]);
         if (status != USB2422_OK) return status;
     }
 
     // Convert UTF-16LE to ASCII (simple conversion, ignoring high byte)
-    for (uint8_t i = 0; i < length && i < 31; i++) {
-        (*manufacturer_name)[i] = (char)utf16_data[i * 2]; // Take LSB only
+    for (uint8_t i = 0; i < hub_settings->manufacturer_name_len && i < 31; i++) {
+        (hub_settings->manufacturer_name)[i] = (char)utf16_data[i * 2]; // Take LSB only
     }
-    (*manufacturer_name)[length] = '\0';
+    (hub_settings->manufacturer_name)[hub_settings->manufacturer_name_len] = '\0';
 
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, char manufacturer_name[32]) {
-    if (!dev || !manufacturer_name) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char manufacturer_name[32]) {
+    if (!dev || !hub_settings || !manufacturer_name) return USB2422_ERR_NULL;
 
     uint8_t length = 0;
     while (manufacturer_name[length] != '\0' && length < 31) {
@@ -739,7 +743,7 @@ usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, char manufacturer
     }
 
     // Set string length first
-    usb2422_status_t status = usb2422_set_manufacturer_string_length(dev, length);
+    usb2422_status_t status = usb2422_set_manufacturer_string_length(dev, hub_settings, length);
     if (status != USB2422_OK) return status;
 
     // Write UTF-16LE string data (ASCII to UTF-16LE conversion)
@@ -747,6 +751,7 @@ usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, char manufacturer
         // Write LSB (ASCII character)
         status = usb2422_write_register(dev, USB2422_REG_MANSTR_START + (i * 2), (uint8_t)manufacturer_name[i]);
         if (status != USB2422_OK) return status;
+        hub_settings->manufacturer_name[i] = manufacturer_name[i];
 
         // Write MSB (0 for ASCII)
         status = usb2422_write_register(dev, USB2422_REG_MANSTR_START + (i * 2) + 1, 0x00);
@@ -756,36 +761,35 @@ usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, char manufacturer
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_product_name(usb2422_t *dev, char *product_name[32]) {
-    if (!dev || !product_name) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
-    uint8_t length;
-    usb2422_status_t status = usb2422_get_product_string_length(dev, &length);
+    usb2422_status_t status = usb2422_get_product_string_length(dev, hub_settings);
     if (status != USB2422_OK) return status;
 
-    if (length == 0) {
-        (*product_name)[0] = '\0';
+    if (hub_settings->product_name_len == 0) {
+        (hub_settings->product_name)[0] = '\0';
         return USB2422_OK;
     }
 
     // Read UTF-16LE string data (2 bytes per character)
     uint8_t utf16_data[62]; // Max 31 characters * 2 bytes
-    for (uint8_t i = 0; i < length * 2; i++) {
+    for (uint8_t i = 0; i < hub_settings->product_name_len * 2; i++) {
         status = usb2422_read_register(dev, USB2422_REG_PRDSTR_START + i, &utf16_data[i]);
         if (status != USB2422_OK) return status;
     }
 
     // Convert UTF-16LE to ASCII (simple conversion, ignoring high byte)
-    for (uint8_t i = 0; i < length && i < 31; i++) {
-        (*product_name)[i] = (char)utf16_data[i * 2]; // Take LSB only
+    for (uint8_t i = 0; i < hub_settings->product_name_len && i < 31; i++) {
+        (hub_settings->product_name)[i] = (char)utf16_data[i * 2]; // Take LSB only
     }
-    (*product_name)[length] = '\0';
+    (hub_settings->product_name)[hub_settings->product_name_len] = '\0';
 
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_product_name(usb2422_t *dev, char product_name[32]) {
-    if (!dev || !product_name) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char product_name[32]) {
+    if (!dev || !hub_settings || !product_name) return USB2422_ERR_NULL;
 
     uint8_t length = 0;
     while (product_name[length] != '\0' && length < 31) {
@@ -793,7 +797,7 @@ usb2422_status_t usb2422_set_product_name(usb2422_t *dev, char product_name[32])
     }
 
     // Set string length first
-    usb2422_status_t status = usb2422_set_product_string_length(dev, length);
+    usb2422_status_t status = usb2422_set_product_string_length(dev, hub_settings, length);
     if (status != USB2422_OK) return status;
 
     // Write UTF-16LE string data (ASCII to UTF-16LE conversion)
@@ -801,6 +805,7 @@ usb2422_status_t usb2422_set_product_name(usb2422_t *dev, char product_name[32])
         // Write LSB (ASCII character)
         status = usb2422_write_register(dev, USB2422_REG_PRDSTR_START + (i * 2), (uint8_t)product_name[i]);
         if (status != USB2422_OK) return status;
+        hub_settings->product_name[i] = product_name[i];
 
         // Write MSB (0 for ASCII)
         status = usb2422_write_register(dev, USB2422_REG_PRDSTR_START + (i * 2) + 1, 0x00);
@@ -810,36 +815,35 @@ usb2422_status_t usb2422_set_product_name(usb2422_t *dev, char product_name[32])
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, char *serial_number[32]) {
-    if (!dev || !serial_number) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
 
-    uint8_t length;
-    usb2422_status_t status = usb2422_get_serial_string_length(dev, &length);
+    usb2422_status_t status = usb2422_get_serial_string_length(dev, hub_settings);
     if (status != USB2422_OK) return status;
 
-    if (length == 0) {
-        (*serial_number)[0] = '\0';
+    if (hub_settings->serial_number_len == 0) {
+        (hub_settings->serial_number)[0] = '\0';
         return USB2422_OK;
     }
 
     // Read UTF-16LE string data (2 bytes per character)
     uint8_t utf16_data[62]; // Max 31 characters * 2 bytes
-    for (uint8_t i = 0; i < length * 2; i++) {
+    for (uint8_t i = 0; i < hub_settings->serial_number_len * 2; i++) {
         status = usb2422_read_register(dev, USB2422_REG_SERSTR_START + i, &utf16_data[i]);
         if (status != USB2422_OK) return status;
     }
 
     // Convert UTF-16LE to ASCII (simple conversion, ignoring high byte)
-    for (uint8_t i = 0; i < length && i < 31; i++) {
-        (*serial_number)[i] = (char)utf16_data[i * 2]; // Take LSB only
+    for (uint8_t i = 0; i < hub_settings->serial_number_len && i < 31; i++) {
+        (hub_settings->serial_number)[i] = (char)utf16_data[i * 2]; // Take LSB only
     }
-    (*serial_number)[length] = '\0';
+    (hub_settings->serial_number)[hub_settings->serial_number_len] = '\0';
 
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, char serial_number[32]) {
-    if (!dev || !serial_number) return USB2422_ERR_NULL;
+usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[32]) {
+    if (!dev || !hub_settings || !serial_number) return USB2422_ERR_NULL;
 
     uint8_t length = 0;
     while (serial_number[length] != '\0' && length < 31) {
@@ -847,7 +851,7 @@ usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, char serial_number[32
     }
 
     // Set string length first
-    usb2422_status_t status = usb2422_set_serial_string_length(dev, length);
+    usb2422_status_t status = usb2422_set_serial_string_length(dev, hub_settings, length);
     if (status != USB2422_OK) return status;
 
     // Write UTF-16LE string data (ASCII to UTF-16LE conversion)
@@ -855,6 +859,7 @@ usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, char serial_number[32
         // Write LSB (ASCII character)
         status = usb2422_write_register(dev, USB2422_REG_SERSTR_START + (i * 2), (uint8_t)serial_number[i]);
         if (status != USB2422_OK) return status;
+        hub_settings->serial_number[i] = serial_number[i];
 
         // Write MSB (0 for ASCII)
         status = usb2422_write_register(dev, USB2422_REG_SERSTR_START + (i * 2) + 1, 0x00);
