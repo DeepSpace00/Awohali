@@ -94,7 +94,7 @@ usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev) {
         return status;
     }
 
-    status = usb2422_set_hs_disable(dev, &config_registers, false);  // High-speed enabled
+    status = usb2422_set_hs_disable(dev, &config_registers, true);  // High-speed disabled
     if (status != USB2422_OK) {
         Serial.print("Failed to configure high-speed: ");
         Serial.println(usb2422_stat_error(status));
@@ -108,7 +108,7 @@ usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev) {
         return status;
     }
 
-    status = usb2422_set_compound(dev, &config_registers, false);  // Not a compound device
+    status = usb2422_set_compound(dev, &config_registers, true);  // hub is part of a compound device
     if (status != USB2422_OK) {
         Serial.print("Failed to set compound mode: ");
         Serial.println(usb2422_stat_error(status));
