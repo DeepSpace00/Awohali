@@ -138,7 +138,7 @@ Error_Handler();
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_GPIO_WritePin(L4_RESET_GPIO_Port, L4_RESET_Pin, GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -218,11 +218,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
-  /*Configure GPIO pins : L4_RESET_Pin L4_BOOT0_Pin */
-  GPIO_InitStruct.Pin = L4_RESET_Pin|L4_BOOT0_Pin;
+  /*Configure GPIO pin : L4_RESET_Pin */
+  GPIO_InitStruct.Pin = L4_RESET_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(L4_RESET_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : L4_BOOT_Pin */
+  GPIO_InitStruct.Pin = L4_BOOT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+  HAL_GPIO_Init(L4_BOOT_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

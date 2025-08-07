@@ -60,8 +60,8 @@ all: main-build
 main-build: 02_set_pins.elf secondary-outputs
 
 # Tool invocations
-02_set_pins.elf 02_set_pins.map: $(OBJS) $(USER_OBJS) C:\Users\madis\Documents\Repositories\DeepSpace00\Awohali\firmware\tests\stm32l433\02_set_pins\STM32L433CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "02_set_pins.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\madis\Documents\Repositories\DeepSpace00\Awohali\firmware\tests\stm32l433\02_set_pins\STM32L433CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="02_set_pins.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+02_set_pins.elf 02_set_pins.map: $(OBJS) $(USER_OBJS) /home/deepspace/Documents/Repositories/DeepSpace00/Awohali/firmware/tests/stm32l433/02_set_pins/STM32L433CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "02_set_pins.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/deepspace/Documents/Repositories/DeepSpace00/Awohali/firmware/tests/stm32l433/02_set_pins/STM32L433CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="02_set_pins.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
