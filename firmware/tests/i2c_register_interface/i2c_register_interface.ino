@@ -81,6 +81,7 @@ void usb2422BlockRead(uint8_t addr, uint8_t reg, uint8_t len);
 void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len);
 I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len);
 I2CErrorCode usb2422SMBusBlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len);
+void usb2422RawTest(uint8_t addr, uint8_t reg);
 
 void setup() {
   Serial.begin(115200);
@@ -511,6 +512,108 @@ I2CErrorCode writeRegisters(uint8_t addr, uint8_t reg, uint8_t* values, uint8_t 
   
   uint8_t error = Wire.endTransmission();
   return (I2CErrorCode)error;
+}
+
+void usb2422RawTest(uint8_t addr, uint8_t reg) {
+  Serial.print(F("USB2422 Raw I2C Test - Addr: 0x"));
+  Serial.print(addr, HEX);
+  Serial.print(F(" Reg: 0x"));
+  Serial.println(reg, HEX);
+  
+  // Test 1: Simple register write then read (like standard I2C)
+  Serial.println(F("Test 1: Standard I2C read"));
+  Wire.beginTransmission(addr);
+  Wire.write(reg);
+  uint8_t error = Wire.endTransmission(false); // Repeated start
+  
+  Serial.print(F("Write result: "));
+  Serial.println(error);
+  
+  if (error == 0) {
+    uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)8);
+    Serial.print(F("Bytes available: "));
+    Serial.println(bytes_available);
+    
+    if (bytes_available > 0) {
+      Serial.print(F("Data: "));
+      for (uint8_t i = 0; i < bytes_available; i++) {
+        uint8_t data = Wire.read();
+        Serial.print(F("0x"));
+        if (data < 16) Serial.print(F("0"));
+        Serial.print(data, HEX);
+        Serial.print(F(" "));
+      }
+      Serial.println();
+    }
+  }
+  
+  delay(10);
+  
+  // Test 2: Write some data first, then try to read it
+  Serial.println(F("Test 2: Write then read"));
+  
+  Wire.beginTransmission(addr);
+  Wire.write(reg);
+  Wire.write(2); // Byte count
+  Wire.write(0xAA);
+  Wire.write(0xBB);
+  error = Wire.endTransmission();
+  
+  Serial.print(F("Write result: "));
+  Serial.println(error);
+  
+  if (error == 0) {
+    delay(10);
+    
+    // Now try to read it back
+    Wire.beginTransmission(addr);
+    Wire.write(reg);
+    error = Wire.endTransmission(false);
+    
+    if (error == 0) {
+      uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)8);
+      Serial.print(F("Read back bytes available: "));
+      Serial.println(bytes_available);
+      
+      if (bytes_available > 0) {
+        Serial.print(F("Read back data: "));
+        for (uint8_t i = 0; i < bytes_available; i++) {
+          uint8_t data = Wire.read();
+          Serial.print(F("0x"));
+          if (data < 16) Serial.print(F("0"));
+          Serial.print(data, HEX);
+          Serial.print(F(" "));
+        }
+        Serial.println();
+      }
+    }
+  }
+  
+  // Test 3: Try without repeated start
+  Serial.println(F("Test 3: Full stop/start cycle"));
+  
+  Wire.beginTransmission(addr);
+  Wire.write(reg);
+  error = Wire.endTransmission(true); // Full stop
+  
+  if (error == 0) {
+    delay(1);
+    uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)8);
+    Serial.print(F("Bytes available (full stop): "));
+    Serial.println(bytes_available);
+    
+    if (bytes_available > 0) {
+      Serial.print(F("Data (full stop): "));
+      for (uint8_t i = 0; i < bytes_available; i++) {
+        uint8_t data = Wire.read();
+        Serial.print(F("0x"));
+        if (data < 16) Serial.print(F("0"));
+        Serial.print(data, HEX);
+        Serial.print(F(" "));
+      }
+      Serial.println();
+    }
+  }
 }
 
 void dumpRegisters(uint8_t addr, uint16_t start, uint16_t end) {
@@ -1029,6 +1132,7 @@ void handleUSB2422Command(String cmd) {
     Serial.println(F("Commands:"));
     Serial.println(F("  read <reg> <len>    - SMBus block read"));
     Serial.println(F("  write <reg> <data>  - SMBus block write"));
+    Serial.println(F("  raw <reg>           - Raw I2C debug test"));
     Serial.println(F("  status              - Check device status"));
     return;
   }
@@ -1087,6 +1191,14 @@ void handleUSB2422Command(String cmd) {
   else if (usb_cmd == "status") {
     // Try to read a basic register to check communication
     usb2422BlockRead(addr, 0x00, 4);
+  }
+  else if (usb_cmd.startsWith("raw ")) {
+    // Raw I2C test - try different read approaches
+    int reg_pos = usb_cmd.indexOf(' ') + 1;
+    if (reg_pos > 4) {
+      uint8_t reg = parseNumber(usb_cmd.substring(reg_pos));
+      usb2422RawTest(addr, reg);
+    }
   }
   else {
     Serial.println(F("Unknown USB2422 command"));
@@ -1181,34 +1293,69 @@ void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len) {
 I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len) {
   *received_len = 0;
   
-  // SMBus Block Read Protocol:
-  // 1. Send register address
+  // Method 1: Standard SMBus Block Read
   Wire.beginTransmission(addr);
   Wire.write(reg);
   uint8_t error = Wire.endTransmission(false); // Repeated start
   
   if (error != 0) {
+    if (verbose_mode) Serial.println(F("Error in write phase"));
     return (I2CErrorCode)error;
   }
   
-  // 2. Read byte count first
+  // Try reading with different approaches
+  
+  // Approach 1: Read byte count first (standard SMBus)
   uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)1);
-  if (bytes_available == 0) {
-    return I2C_ERR_NACK_ON_ADDRESS;
-  }
-  
-  uint8_t byte_count = Wire.read();
-  
-  // 3. Read the actual data
-  if (byte_count > 0 && byte_count <= 32) {
-    bytes_available = Wire.requestFrom(addr, byte_count);
-    
-    for (uint8_t i = 0; i < bytes_available && i < byte_count; i++) {
-      buffer[i] = Wire.read();
+  if (bytes_available > 0) {
+    uint8_t byte_count = Wire.read();
+    if (verbose_mode) {
+      Serial.print(F("SMBus byte count received: "));
+      Serial.println(byte_count);
     }
     
-    *received_len = bytes_available;
+    if (byte_count > 0 && byte_count <= 32) {
+      // Try to read the data bytes
+      Wire.beginTransmission(addr);
+      Wire.write(reg);
+      error = Wire.endTransmission(false);
+      
+      if (error == 0) {
+        bytes_available = Wire.requestFrom(addr, (uint8_t)(byte_count + 1)); // +1 for count byte
+        if (bytes_available > 1) {
+          Wire.read(); // Skip the count byte
+          for (uint8_t i = 0; i < byte_count && i < (bytes_available - 1); i++) {
+            buffer[i] = Wire.read();
+          }
+          *received_len = min(byte_count, bytes_available - 1);
+          return I2C_ERR_SUCCESS;
+        }
+      }
+    }
   }
+  
+  // Approach 2: Direct read without byte count (non-standard but some devices use this)
+  if (verbose_mode) Serial.println(F("Trying direct read method..."));
+  
+  Wire.beginTransmission(addr);
+  Wire.write(reg);
+  error = Wire.endTransmission(false);
+  
+  if (error != 0) {
+    return (I2CErrorCode)error;
+  }
+  
+  // Try reading up to 32 bytes directly
+  bytes_available = Wire.requestFrom(addr, (uint8_t)32);
+  if (verbose_mode) {
+    Serial.print(F("Direct read bytes available: "));
+    Serial.println(bytes_available);
+  }
+  
+  for (uint8_t i = 0; i < bytes_available; i++) {
+    buffer[i] = Wire.read();
+  }
+  *received_len = bytes_available;
   
   return I2C_ERR_SUCCESS;
 }
