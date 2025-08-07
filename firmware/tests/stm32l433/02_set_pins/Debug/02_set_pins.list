@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0001fffb  00000000  00000000  0000a1ae  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00007082  00000000  00000000  0002a1a9  2**0
+ 17 .debug_line   00006934  00000000  00000000  0002a1a9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000c1dd8  00000000  00000000  0003122b  2**0
+ 18 .debug_str    000c1e3e  00000000  00000000  00030add  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000f3003  2**0
+ 19 .comment      00000043  00000000  00000000  000f291b  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000017c8  00000000  00000000  000f3048  2**2
+ 20 .debug_frame  000017c8  00000000  00000000  000f2960  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000008d  00000000  00000000  000f4810  2**0
+ 21 .debug_line_str 0000008d  00000000  00000000  000f4128  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -310,8 +310,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
  80002f0:	2300      	movs	r3, #0
  80002f2:	613b      	str	r3, [r7, #16]
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
- 80002f4:	2300      	movs	r3, #0
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+ 80002f4:	2302      	movs	r3, #2
  80002f6:	617b      	str	r3, [r7, #20]
   HAL_GPIO_Init(H7_RESET_GPIO_Port, &GPIO_InitStruct);
  80002f8:	f107 030c 	add.w	r3, r7, #12
@@ -599,108 +599,48 @@ void SystemInit(void)
  80003e8:	e000ed00 	.word	0xe000ed00
 
 080003ec <Reset_Handler>:
-
-    .section	.text.Reset_Handler
-	.weak	Reset_Handler
-	.type	Reset_Handler, %function
-Reset_Handler:
-  ldr   sp, =_estack    /* Set stack pointer */
  80003ec:	f8df d034 	ldr.w	sp, [pc, #52]	@ 8000424 <LoopForever+0x2>
-
-/* Call the clock system initialization function.*/
-    bl  SystemInit
  80003f0:	f7ff ffea 	bl	80003c8 <SystemInit>
-
-/* Copy the data segment initializers from flash to SRAM */
-  ldr r0, =_sdata
  80003f4:	480c      	ldr	r0, [pc, #48]	@ (8000428 <LoopForever+0x6>)
-  ldr r1, =_edata
  80003f6:	490d      	ldr	r1, [pc, #52]	@ (800042c <LoopForever+0xa>)
-  ldr r2, =_sidata
  80003f8:	4a0d      	ldr	r2, [pc, #52]	@ (8000430 <LoopForever+0xe>)
-  movs r3, #0
  80003fa:	2300      	movs	r3, #0
-  b LoopCopyDataInit
  80003fc:	e002      	b.n	8000404 <LoopCopyDataInit>
 
 080003fe <CopyDataInit>:
-
-CopyDataInit:
-  ldr r4, [r2, r3]
  80003fe:	58d4      	ldr	r4, [r2, r3]
-  str r4, [r0, r3]
  8000400:	50c4      	str	r4, [r0, r3]
-  adds r3, r3, #4
  8000402:	3304      	adds	r3, #4
 
 08000404 <LoopCopyDataInit>:
-
-LoopCopyDataInit:
-  adds r4, r0, r3
  8000404:	18c4      	adds	r4, r0, r3
-  cmp r4, r1
  8000406:	428c      	cmp	r4, r1
-  bcc CopyDataInit
  8000408:	d3f9      	bcc.n	80003fe <CopyDataInit>
-  
-/* Zero fill the bss segment. */
-  ldr r2, =_sbss
  800040a:	4a0a      	ldr	r2, [pc, #40]	@ (8000434 <LoopForever+0x12>)
-  ldr r4, =_ebss
  800040c:	4c0a      	ldr	r4, [pc, #40]	@ (8000438 <LoopForever+0x16>)
-  movs r3, #0
  800040e:	2300      	movs	r3, #0
-  b LoopFillZerobss
  8000410:	e001      	b.n	8000416 <LoopFillZerobss>
 
 08000412 <FillZerobss>:
-
-FillZerobss:
-  str  r3, [r2]
  8000412:	6013      	str	r3, [r2, #0]
-  adds r2, r2, #4
  8000414:	3204      	adds	r2, #4
 
 08000416 <LoopFillZerobss>:
-
-LoopFillZerobss:
-  cmp r2, r4
  8000416:	42a2      	cmp	r2, r4
-  bcc FillZerobss
  8000418:	d3fb      	bcc.n	8000412 <FillZerobss>
-
-/* Call static constructors */
-    bl __libc_init_array
  800041a:	f001 f961 	bl	80016e0 <__libc_init_array>
-/* Call the application's entry point.*/
-	bl	main
  800041e:	f7ff fed5 	bl	80001cc <main>
 
 08000422 <LoopForever>:
-
-LoopForever:
-    b LoopForever
  8000422:	e7fe      	b.n	8000422 <LoopForever>
-  ldr   sp, =_estack    /* Set stack pointer */
  8000424:	2000c000 	.word	0x2000c000
-  ldr r0, =_sdata
  8000428:	20000000 	.word	0x20000000
-  ldr r1, =_edata
  800042c:	2000000c 	.word	0x2000000c
-  ldr r2, =_sidata
  8000430:	08001788 	.word	0x08001788
-  ldr r2, =_sbss
  8000434:	2000000c 	.word	0x2000000c
-  ldr r4, =_ebss
  8000438:	2000002c 	.word	0x2000002c
 
 0800043c <ADC1_IRQHandler>:
- * @retval : None
-*/
-    .section	.text.Default_Handler,"ax",%progbits
-Default_Handler:
-Infinite_Loop:
-	b	Infinite_Loop
  800043c:	e7fe      	b.n	800043c <ADC1_IRQHandler>
 
 0800043e <HAL_Init>:
@@ -802,7 +742,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
         HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
  80004ac:	2200      	movs	r2, #0
  80004ae:	6879      	ldr	r1, [r7, #4]
- 80004b0:	f04f 30ff 	mov.w	r0, #4294967295
+ 80004b0:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
  80004b4:	f000 f8f5 	bl	80006a2 <HAL_NVIC_SetPriority>
         uwTickPrio = TickPriority;
  80004b8:	4a0a      	ldr	r2, [pc, #40]	@ (80004e4 <HAL_InitTick+0x74>)
@@ -1058,7 +998,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
 
   return (
            ((PreemptPriority & (uint32_t)((1UL << (PreemptPriorityBits)) - 1UL)) << SubPriorityBits) |
- 8000614:	f04f 32ff 	mov.w	r2, #4294967295
+ 8000614:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
  8000618:	69bb      	ldr	r3, [r7, #24]
  800061a:	fa02 f303 	lsl.w	r3, r2, r3
  800061e:	43da      	mvns	r2, r3
@@ -1067,7 +1007,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
  8000624:	697b      	ldr	r3, [r7, #20]
  8000626:	409a      	lsls	r2, r3
            ((SubPriority     & (uint32_t)((1UL << (SubPriorityBits    )) - 1UL)))
- 8000628:	f04f 31ff 	mov.w	r1, #4294967295
+ 8000628:	f04f 31ff 	mov.w	r1, #4294967295	@ 0xffffffff
  800062c:	697b      	ldr	r3, [r7, #20]
  800062e:	fa01 f303 	lsl.w	r3, r1, r3
  8000632:	43d9      	mvns	r1, r3
@@ -1113,7 +1053,7 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
  8000664:	6053      	str	r3, [r2, #4]
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
  8000666:	210f      	movs	r1, #15
- 8000668:	f04f 30ff 	mov.w	r0, #4294967295
+ 8000668:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
  800066c:	f7ff ff8e 	bl	800058c <__NVIC_SetPriority>
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
  8000670:	4b05      	ldr	r3, [pc, #20]	@ (8000688 <SysTick_Config+0x40>)

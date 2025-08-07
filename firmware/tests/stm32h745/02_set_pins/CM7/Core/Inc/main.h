@@ -59,8 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define L4_RESET_Pin GPIO_PIN_3
 #define L4_RESET_GPIO_Port GPIOD
-#define L4_BOOT0_Pin GPIO_PIN_4
-#define L4_BOOT0_GPIO_Port GPIOD
+#define L4_BOOT_Pin GPIO_PIN_4
+#define L4_BOOT_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 
