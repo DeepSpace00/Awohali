@@ -1182,16 +1182,32 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
   *received_len = 0;
   
 <<<<<<< HEAD
+<<<<<<< HEAD
   // SMBus Block Read Protocol:
   // 1. Send register address
 =======
+=======
+  if (verbose_mode) {
+    Serial.print(F("USB2422 Block Read Debug - Addr: 0x"));
+    Serial.print(addr, HEX);
+    Serial.print(F(" Reg: 0x"));
+    Serial.println(reg, HEX);
+  }
+  
+>>>>>>> 3e48ebe5b (previous one broke it again. maybe this will fix it)
   // USB2422 requires full stop/start cycle, not repeated start
 >>>>>>> 458c34155 (fixed? Full stop/start cycles)
   Wire.beginTransmission(addr);
   Wire.write(reg);
   uint8_t error = Wire.endTransmission(true); // FULL STOP - this is key!
   
+  if (verbose_mode) {
+    Serial.print(F("Write phase result: "));
+    Serial.println(error);
+  }
+  
   if (error != 0) {
+<<<<<<< HEAD
 <<<<<<< HEAD
     return (I2CErrorCode)error;
   }
@@ -1220,6 +1236,8 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
       Serial.print(F("Error in write phase: "));
       Serial.println(error);
     }
+=======
+>>>>>>> 3e48ebe5b (previous one broke it again. maybe this will fix it)
     return (I2CErrorCode)error;
   }
   
@@ -1230,17 +1248,42 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
   uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)32); // Try reading up to 32 bytes
   
   if (verbose_mode) {
-    Serial.print(F("USB2422 bytes available: "));
+    Serial.print(F("Bytes available from requestFrom: "));
     Serial.println(bytes_available);
+    Serial.print(F("Wire.available(): "));
+    Serial.println(Wire.available());
   }
   
   // Read all available bytes
-  for (uint8_t i = 0; i < bytes_available; i++) {
-    buffer[i] = Wire.read();
+  uint8_t actual_bytes = 0;
+  while (Wire.available() && actual_bytes < 32) {
+    buffer[actual_bytes] = Wire.read();
+    actual_bytes++;
   }
   
+<<<<<<< HEAD
   *received_len = bytes_available;
 >>>>>>> 458c34155 (fixed? Full stop/start cycles)
+=======
+  if (verbose_mode) {
+    Serial.print(F("Actually read "));
+    Serial.print(actual_bytes);
+    Serial.println(F(" bytes"));
+    
+    if (actual_bytes > 0) {
+      Serial.print(F("First few bytes: "));
+      for (uint8_t i = 0; i < min(8, actual_bytes); i++) {
+        Serial.print(F("0x"));
+        if (buffer[i] < 16) Serial.print(F("0"));
+        Serial.print(buffer[i], HEX);
+        Serial.print(F(" "));
+      }
+      Serial.println();
+    }
+  }
+  
+  *received_len = actual_bytes;
+>>>>>>> 3e48ebe5b (previous one broke it again. maybe this will fix it)
   return I2C_ERR_SUCCESS;
 }
 
