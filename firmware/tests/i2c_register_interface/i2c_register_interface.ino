@@ -1181,13 +1181,18 @@ void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len) {
 I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len) {
   *received_len = 0;
   
+<<<<<<< HEAD
   // SMBus Block Read Protocol:
   // 1. Send register address
+=======
+  // USB2422 requires full stop/start cycle, not repeated start
+>>>>>>> 458c34155 (fixed? Full stop/start cycles)
   Wire.beginTransmission(addr);
   Wire.write(reg);
-  uint8_t error = Wire.endTransmission(false); // Repeated start
+  uint8_t error = Wire.endTransmission(true); // FULL STOP - this is key!
   
   if (error != 0) {
+<<<<<<< HEAD
     return (I2CErrorCode)error;
   }
   
@@ -1210,6 +1215,32 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
     *received_len = bytes_available;
   }
   
+=======
+    if (verbose_mode) {
+      Serial.print(F("Error in write phase: "));
+      Serial.println(error);
+    }
+    return (I2CErrorCode)error;
+  }
+  
+  // Small delay for USB2422 to process
+  delay(1);
+  
+  // Now read the data with a fresh start
+  uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)32); // Try reading up to 32 bytes
+  
+  if (verbose_mode) {
+    Serial.print(F("USB2422 bytes available: "));
+    Serial.println(bytes_available);
+  }
+  
+  // Read all available bytes
+  for (uint8_t i = 0; i < bytes_available; i++) {
+    buffer[i] = Wire.read();
+  }
+  
+  *received_len = bytes_available;
+>>>>>>> 458c34155 (fixed? Full stop/start cycles)
   return I2C_ERR_SUCCESS;
 }
 
