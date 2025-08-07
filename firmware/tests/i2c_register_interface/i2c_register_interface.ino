@@ -28,6 +28,7 @@ struct DeviceProfile {
 
 // Known device profiles (expandable)
 DeviceProfile known_i2c_devices[] = {
+  {0x2C, false, true, false, 32, 1, "USB2422 Hub Controller"},
   {0x44, false, true, true, 6, 10, "SHT41 Temp/Humidity"},
   {0x45, false, true, true, 6, 10, "SHT41 Temp/Humidity Alt"},
   {0x48, true, false, false, 32, 0, "Generic Sensor"},
@@ -60,6 +61,7 @@ bool parseBulkCommand(String cmd, uint8_t &addr, uint8_t &start, uint16_t &len);
 void handleClockCommand(String cmd);
 void handleProfileCommand(String cmd);
 void handleSHT41Command(String cmd);
+void handleUSB2422Command(String cmd);
 I2CErrorCode readRegisters(uint8_t addr, uint8_t reg, uint8_t* buffer, uint16_t len);
 I2CErrorCode writeRegisters(uint8_t addr, uint8_t reg, uint8_t* values, uint8_t len);
 void dumpRegisters(uint8_t addr, uint16_t start, uint16_t end);
@@ -75,6 +77,10 @@ void sht41ReadSerial(uint8_t addr);
 void sht41SoftReset(uint8_t addr);
 void sht41Heater(uint8_t addr, String cmd);
 bool verifySHT41CRC(uint8_t data1, uint8_t data2, uint8_t expected_crc);
+void usb2422BlockRead(uint8_t addr, uint8_t reg, uint8_t len);
+void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len);
+I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len);
+I2CErrorCode usb2422SMBusBlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len);
 
 void setup() {
   Serial.begin(115200);
@@ -132,6 +138,9 @@ void processCommand(String cmd) {
   else if (cmd.startsWith("sht41 ")) {
     handleSHT41Command(cmd);
   }
+  else if (cmd.startsWith("usb2422 ")) {
+    handleUSB2422Command(cmd);
+  }
   else if (cmd.startsWith("verbose")) {
     verbose_mode = !verbose_mode;
     Serial.print(F("Verbose mode: "));
@@ -142,9 +151,6 @@ void processCommand(String cmd) {
   }
   else if (cmd.startsWith("reset")) {
     resetI2C();
-  }
-  else if (cmd.length() > 0) {
-    Serial.println(F("Unknown command. Type 'help' for available commands."));
   }
 }
 
@@ -161,6 +167,7 @@ void printHelp() {
   Serial.println(F("clock <speed>            - Set I2C clock speed (Hz)"));
   Serial.println(F("profile <addr>           - Show/set device profile"));
   Serial.println(F("sht41 <addr> <cmd>       - SHT41 specific commands"));
+  Serial.println(F("usb2422 <addr> <cmd>     - USB2422 SMBus commands"));
   Serial.println(F("verbose                  - Toggle verbose output"));
   Serial.println(F("reset                    - Reset I2C bus"));
   Serial.println(F("\nAddresses and values in hex (0x48) or decimal (72)"));
@@ -171,6 +178,8 @@ void printHelp() {
   Serial.println(F("  dump 0x48 0x00 0x10"));
   Serial.println(F("  sht41 0x44 measure"));
   Serial.println(F("  sht41 0x44 serial"));
+  Serial.println(F("  usb2422 0x2C read 0x00 4"));
+  Serial.println(F("  usb2422 0x2C write 0x00 0x01 0x02"));
 }
 
 void scanBus() {
@@ -1009,4 +1018,214 @@ bool verifySHT41CRC(uint8_t data1, uint8_t data2, uint8_t expected_crc) {
   }
   
   return crc == expected_crc;
+}
+
+void handleUSB2422Command(String cmd) {
+  int first_space = cmd.indexOf(' ');
+  int second_space = cmd.indexOf(' ', first_space + 1);
+  
+  if (second_space == -1) {
+    Serial.println(F("Usage: usb2422 <addr> <command>"));
+    Serial.println(F("Commands:"));
+    Serial.println(F("  read <reg> <len>    - SMBus block read"));
+    Serial.println(F("  write <reg> <data>  - SMBus block write"));
+    Serial.println(F("  status              - Check device status"));
+    return;
+  }
+  
+  String addr_str = cmd.substring(first_space + 1, second_space);
+  String usb_cmd = cmd.substring(second_space + 1);
+  uint8_t addr = parseNumber(addr_str);
+  
+  usb_cmd.toLowerCase();
+  
+  if (usb_cmd.startsWith("read ")) {
+    int reg_start = usb_cmd.indexOf(' ') + 1;
+    int len_start = usb_cmd.indexOf(' ', reg_start) + 1;
+    
+    if (len_start > reg_start) {
+      uint8_t reg = parseNumber(usb_cmd.substring(reg_start, len_start - 1));
+      uint8_t len = parseNumber(usb_cmd.substring(len_start));
+      len = constrain(len, 1, 32);
+      usb2422BlockRead(addr, reg, len);
+    } else {
+      Serial.println(F("Usage: read <reg> <length>"));
+    }
+  } 
+  else if (usb_cmd.startsWith("write ")) {
+    // Parse write command: write <reg> <data1> <data2> ...
+    int pos = usb_cmd.indexOf(' ') + 1;
+    int next_pos = usb_cmd.indexOf(' ', pos);
+    
+    if (next_pos == -1) {
+      Serial.println(F("Usage: write <reg> <data1> [data2] [data3] ..."));
+      return;
+    }
+    
+    uint8_t reg = parseNumber(usb_cmd.substring(pos, next_pos));
+    pos = next_pos + 1;
+    
+    uint8_t data[32];
+    uint8_t data_len = 0;
+    
+    // Parse data bytes
+    while (pos < usb_cmd.length() && data_len < 32) {
+      next_pos = usb_cmd.indexOf(' ', pos);
+      if (next_pos == -1) next_pos = usb_cmd.length();
+      
+      data[data_len] = parseNumber(usb_cmd.substring(pos, next_pos));
+      data_len++;
+      pos = next_pos + 1;
+    }
+    
+    if (data_len > 0) {
+      usb2422BlockWrite(addr, reg, data, data_len);
+    } else {
+      Serial.println(F("No data specified"));
+    }
+  }
+  else if (usb_cmd == "status") {
+    // Try to read a basic register to check communication
+    usb2422BlockRead(addr, 0x00, 4);
+  }
+  else {
+    Serial.println(F("Unknown USB2422 command"));
+    Serial.println(F("Available: read, write, status"));
+  }
+}
+
+void usb2422BlockRead(uint8_t addr, uint8_t reg, uint8_t len) {
+  if (verbose_mode) {
+    Serial.print(F("USB2422 SMBus block read: addr=0x"));
+    Serial.print(addr, HEX);
+    Serial.print(F(" reg=0x"));
+    Serial.print(reg, HEX);
+    Serial.print(F(" len="));
+    Serial.println(len);
+  }
+  
+  uint8_t buffer[32];
+  uint8_t received_len = 0;
+  
+  I2CErrorCode result = usb2422SMBusBlockRead(addr, reg, buffer, &received_len);
+  
+  if (result == I2C_ERR_SUCCESS) {
+    Serial.print(F("USB2422 Block Read Success: "));
+    Serial.print(received_len);
+    Serial.println(F(" bytes"));
+    
+    // Print data in hex format
+    Serial.print(F("Data: "));
+    for (uint8_t i = 0; i < received_len; i++) {
+      Serial.print(F("0x"));
+      if (buffer[i] < 16) Serial.print(F("0"));
+      Serial.print(buffer[i], HEX);
+      Serial.print(F(" "));
+    }
+    Serial.println();
+    
+    // Print as hex dump if more than 8 bytes
+    if (received_len > 8) {
+      Serial.println(F("Hex dump:"));
+      for (uint8_t i = 0; i < received_len; i += 16) {
+        Serial.print(F("0x"));
+        if (reg + i < 16) Serial.print(F("0"));
+        Serial.print(reg + i, HEX);
+        Serial.print(F(": "));
+        
+        for (uint8_t j = 0; j < 16 && (i + j) < received_len; j++) {
+          if (buffer[i + j] < 16) Serial.print(F("0"));
+          Serial.print(buffer[i + j], HEX);
+          Serial.print(F(" "));
+        }
+        Serial.println();
+      }
+    }
+  } else {
+    printI2CError(result, addr);
+  }
+}
+
+void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len) {
+  if (verbose_mode) {
+    Serial.print(F("USB2422 SMBus block write: addr=0x"));
+    Serial.print(addr, HEX);
+    Serial.print(F(" reg=0x"));
+    Serial.print(reg, HEX);
+    Serial.print(F(" len="));
+    Serial.println(len);
+  }
+  
+  I2CErrorCode result = usb2422SMBusBlockWrite(addr, reg, data, len);
+  
+  if (result == I2C_ERR_SUCCESS) {
+    Serial.print(F("USB2422 Block Write Success: "));
+    Serial.print(len);
+    Serial.println(F(" bytes written"));
+    
+    if (verbose_mode) {
+      Serial.print(F("Data written: "));
+      for (uint8_t i = 0; i < len; i++) {
+        Serial.print(F("0x"));
+        if (data[i] < 16) Serial.print(F("0"));
+        Serial.print(data[i], HEX);
+        Serial.print(F(" "));
+      }
+      Serial.println();
+    }
+  } else {
+    printI2CError(result, addr);
+  }
+}
+
+I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len) {
+  *received_len = 0;
+  
+  // SMBus Block Read Protocol:
+  // 1. Send register address
+  Wire.beginTransmission(addr);
+  Wire.write(reg);
+  uint8_t error = Wire.endTransmission(false); // Repeated start
+  
+  if (error != 0) {
+    return (I2CErrorCode)error;
+  }
+  
+  // 2. Read byte count first
+  uint8_t bytes_available = Wire.requestFrom(addr, (uint8_t)1);
+  if (bytes_available == 0) {
+    return I2C_ERR_NACK_ON_ADDRESS;
+  }
+  
+  uint8_t byte_count = Wire.read();
+  
+  // 3. Read the actual data
+  if (byte_count > 0 && byte_count <= 32) {
+    bytes_available = Wire.requestFrom(addr, byte_count);
+    
+    for (uint8_t i = 0; i < bytes_available && i < byte_count; i++) {
+      buffer[i] = Wire.read();
+    }
+    
+    *received_len = bytes_available;
+  }
+  
+  return I2C_ERR_SUCCESS;
+}
+
+I2CErrorCode usb2422SMBusBlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len) {
+  // SMBus Block Write Protocol:
+  // Start + Addr + W + Reg + ByteCount + Data[0..N] + Stop
+  
+  Wire.beginTransmission(addr);
+  Wire.write(reg);        // Register address
+  Wire.write(len);        // Byte count
+  
+  // Write data bytes
+  for (uint8_t i = 0; i < len; i++) {
+    Wire.write(data[i]);
+  }
+  
+  uint8_t error = Wire.endTransmission();
+  return (I2CErrorCode)error;
 }
