@@ -1124,6 +1124,11 @@ bool verifySHT41CRC(uint8_t data1, uint8_t data2, uint8_t expected_crc) {
 }
 
 void handleUSB2422Command(String cmd) {
+  if (verbose_mode) {
+    Serial.print(F("USB2422 command received: "));
+    Serial.println(cmd);
+  }
+  
   int first_space = cmd.indexOf(' ');
   int second_space = cmd.indexOf(' ', first_space + 1);
   
@@ -1140,6 +1145,13 @@ void handleUSB2422Command(String cmd) {
   String addr_str = cmd.substring(first_space + 1, second_space);
   String usb_cmd = cmd.substring(second_space + 1);
   uint8_t addr = parseNumber(addr_str);
+  
+  if (verbose_mode) {
+    Serial.print(F("Parsed addr: 0x"));
+    Serial.print(addr, HEX);
+    Serial.print(F(" cmd: "));
+    Serial.println(usb_cmd);
+  }
   
   usb_cmd.toLowerCase();
   
@@ -1195,9 +1207,13 @@ void handleUSB2422Command(String cmd) {
   else if (usb_cmd.startsWith("raw ")) {
     // Raw I2C test - try different read approaches
     int reg_pos = usb_cmd.indexOf(' ') + 1;
-    if (reg_pos > 4) {
+    if (reg_pos > 4 && reg_pos < usb_cmd.length()) {
       uint8_t reg = parseNumber(usb_cmd.substring(reg_pos));
+      Serial.print(F("Calling usb2422RawTest with reg: 0x"));
+      Serial.println(reg, HEX);
       usb2422RawTest(addr, reg);
+    } else {
+      Serial.println(F("Invalid raw command format. Use: raw <reg>"));
     }
   }
   else {
