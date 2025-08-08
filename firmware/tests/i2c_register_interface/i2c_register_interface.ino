@@ -79,7 +79,7 @@ void sht41Heater(uint8_t addr, String cmd);
 bool verifySHT41CRC(uint8_t data1, uint8_t data2, uint8_t expected_crc);
 void usb2422BlockRead(uint8_t addr, uint8_t reg, uint8_t len);
 void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len);
-I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len);
+I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t len, uint8_t* received_len);
 I2CErrorCode usb2422SMBusBlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len);
 void usb2422RawTest(uint8_t addr, uint8_t reg);
 
@@ -1219,7 +1219,7 @@ void usb2422BlockRead(uint8_t addr, uint8_t reg, uint8_t len) {
   uint8_t buffer[32];
   uint8_t received_len = 0;
   
-  I2CErrorCode result = usb2422SMBusBlockRead(addr, reg, buffer, &received_len);
+  I2CErrorCode result = usb2422SMBusBlockRead(addr, reg, buffer, len, &received_len);
   
   if (result == I2C_ERR_SUCCESS) {
     Serial.print(F("USB2422 Block Read Success: "));
@@ -1290,8 +1290,25 @@ void usb2422BlockWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint8_t len) {
   }
 }
 
-I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t* received_len) {
+I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, uint8_t len, uint8_t* received_len) {
   *received_len = 0;
+  
+  delay(2);
+  Wire.beginTransmission(addr);
+  Wire.write(reg);
+  Wire.endTransmission(false);
+
+  Wire.requestFrom(addr, len);
+  Wire.read();
+  if (Wire.available() != 0)
+
+  for (uint16_t i = 0; i < len; i++) {
+
+  }
+  
+  
+  
+  /* *received_len = 0;
   
   // Method 1: Standard SMBus Block Read
   Wire.beginTransmission(addr);
@@ -1331,7 +1348,7 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
           return I2C_ERR_SUCCESS;
         }
       }
-    }
+    }*/
   }
   
   // Approach 2: Direct read without byte count (non-standard but some devices use this)
