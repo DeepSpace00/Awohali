@@ -6,6 +6,7 @@
  */
 
 #include <stdbool.h>
+#include <string.h>
 #include "usb2422.h"
 
 ///> @section Register Addresses
@@ -99,7 +100,7 @@
  */
 static usb2422_status_t usb2422_write_register(const usb2422_t *dev, const uint8_t reg, const uint8_t value) {
     const uint8_t data[2] = {reg, value};
-    return dev->io.i2c_write(dev->i2c_address, data, 2) == 0 ? USB2422_OK : USB2422_ERR_I2C;
+    return dev->io.i2c_write(dev->i2c_address, data, 1) == 0 ? USB2422_OK : USB2422_ERR_I2C;
 }
 
 /**
@@ -121,6 +122,8 @@ static usb2422_status_t usb2422_read_register(const usb2422_t *dev, const uint8_
  */
 static usb2422_status_t usb2422_read_cfg_registers(const usb2422_t *dev, usb2422_cfg_regs_t *regs) {
     uint8_t cfg1_val, cfg2_val, cfg3_val;
+
+    memset(regs, 0, sizeof(usb2422_cfg_regs_t));
 
     usb2422_status_t status = usb2422_read_register(dev, USB2422_REG_CFG1, &cfg1_val);
     if (status != USB2422_OK) return status;
@@ -165,11 +168,13 @@ static usb2422_status_t usb2422_write_cfg_registers(const usb2422_t *dev, const 
     if (regs->cfg1.hs_disable) cfg1_val |= USB2422_CFG1_HS_DISABLE;
     if (regs->cfg1.mtt_enable) cfg1_val |= USB2422_CFG1_MTT_ENABLE;
     if (regs->cfg1.eop_disable) cfg1_val |= USB2422_CFG1_EOP_DISABLE;
+    cfg1_val &= ~USB2422_CFG1_CURRENT_SNS_MASK;
     cfg1_val |= (regs->cfg1.current_sns & 0x03) << 1;
     if (regs->cfg1.port_pwr) cfg1_val |= USB2422_CFG1_PORT_PWR;
 
     // Build CFG2
     if (regs->cfg2.dynamic) cfg2_val |= USB2422_CFG2_DYNAMIC;
+    cfg2_val &= ~USB2422_CFG2_OC_TIMER_MASK;
     cfg2_val |= (regs->cfg2.oc_timer & 0x03) << 4;
     if (regs->cfg2.compound) cfg2_val |= USB2422_CFG2_COMPOUND;
 
@@ -514,6 +519,7 @@ usb2422_status_t usb2422_set_dynamic(usb2422_t *dev, usb2422_cfg_regs_t *regs, c
     if (status != USB2422_OK) return status;
 
     regs->cfg2.dynamic = value ? 1 : 0;
+
     return usb2422_write_cfg_registers(dev, regs);
 }
 
@@ -1137,6 +1143,45 @@ usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_
         status = usb2422_write_register(dev, USB2422_REG_SERSTR_START + (i * 2) + 1, 0x00);
         if (status != USB2422_OK) return status;
     }
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_set_smbus_pwrdn(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_STCD, USB2422_STCD_INTF_PW_DN);
+    if (status != USB2422_OK) return status;
+
+    hub_settings->smbus_power_down = true;
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_soft_reset(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, usb2422_power_settings_t *power_settings, usb2422_downstream_port_settings_t *downstream_port_settings, usb2422_cfg_regs_t *regs) {
+    if (!dev) return USB2422_ERR_NULL;
+
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_STCD, USB2422_STCD_RESET);
+    if (status != USB2422_OK) return status;
+
+    // Reset all settings and parameters for the device
+    memset(hub_settings, 0, sizeof(usb2422_hub_settings_t));
+    memset(power_settings, 0, sizeof(usb2422_power_settings_t));
+    memset(downstream_port_settings, 0, sizeof(usb2422_downstream_port_settings_t));
+    memset(regs, 0, sizeof(usb2422_cfg_regs_t));
+
+    dev->io.delay_ms(10);
+
+    return USB2422_OK;
+}
+
+usb2422_status_t usb2422_usb_attach_and_protect(usb2422_t *dev, usb2422_hub_settings_t *hub_settings) {
+    if (!dev || !hub_settings) return USB2422_ERR_NULL;
+
+    const usb2422_status_t status = usb2422_write_register(dev, USB2422_REG_STCD, USB2422_STCD_USB_ATTACH);
+    if (status != USB2422_OK) return status;
+
+    hub_settings->usb_write_protect = true;
 
     return USB2422_OK;
 }

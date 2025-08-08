@@ -118,8 +118,7 @@ typedef struct {
     uint8_t manufacturer_name_len;  ///< Manufacturer name length
     uint8_t product_name_len;       ///< Product name length
     uint8_t serial_number_len;      ///< Serial number length
-    bool smbus_powered_down;        ///< SMBus interface power down
-    bool reset;                     ///< Resets the SMBus interface and memory
+    bool smbus_power_down;          ///< SMBus power down event
     bool usb_write_protect;         ///< Signal a USB attach event
 } usb2422_hub_settings_t;
 
@@ -280,6 +279,12 @@ usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t
 
 usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
 usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[32]);
+
+usb2422_status_t usb2422_set_smbus_pwrdn(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
+
+usb2422_status_t usb2422_soft_reset(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, usb2422_power_settings_t *power_settings, usb2422_downstream_port_settings_t *downstream_port_settings, usb2422_cfg_regs_t *regs);
+
+usb2422_status_t usb2422_usb_attach_and_protect(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
 
 #ifdef __cplusplus
 }

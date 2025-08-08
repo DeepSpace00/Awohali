@@ -43,11 +43,14 @@ extern "C" {
         i2c_wire->write(reg);
         i2c_wire->endTransmission(false);
 
-        i2c_wire->requestFrom(static_cast<int>(dev_addr), (int)len);
-        i2c_wire->read();
+        i2c_wire->requestFrom(static_cast<int>(dev_addr), (len + 1));
+
         //if (i2c_wire->available() != len) return -1;
+
+        i2c_wire->read(); // Discard length byte
+
         for (uint16_t i = 0; i < len; i++) {
-            data[i] = i2c_wire->read();
+            data[i] = i2c_wire->read(); // Read actual data
         }
         return 0;
     }

@@ -209,9 +209,9 @@ usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev) {
     }
 
     // Set string descriptors
-    char manufacturer[] = "Awohali Hub";
-    char product[] = "USB2422 Hub";
-    char serial[] = "12345";
+    char manufacturer[] = "DeepSpace Engineering";
+    char product[] = "Awohali";
+    char serial[] = "0001";
 
     status = usb2422_set_manufacturer_name(dev, &hub_settings, manufacturer);
     if (status != USB2422_OK) {
@@ -359,6 +359,18 @@ void setup() {
     }
 
     Serial.println("\nUSB2422 configuration completed successfully!");
+
+    status = usb2422_usb_attach_and_protect(&usb_hub, &hub_settings);
+
+    if (status != USB2422_OK) {
+        Serial.print("Failed to attach and protect USB2422: ");
+        Serial.println(usb2422_stat_error(status));
+        Serial.println("Configuration failed. Check connections and try again.");
+        while (true) {
+            delay(1000);
+        }
+    }
+
     Serial.println("The hub should now enumerate when connected to a USB host.");
 
     // Print the current configuration for verification
