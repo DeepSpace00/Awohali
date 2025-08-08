@@ -122,6 +122,13 @@ usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev) {
         return status;
     }
 
+    status = usb2422_set_prtmap_en(dev, &config_registers, false);// Standard mode
+    if (status != USB2422_OK) {
+        Serial.print("Failed to set port remapping: ");
+        Serial.println(usb2422_stat_error(status));
+        return status;
+    }
+
     // 3. Configure power characteristics
     Serial.println("Setting power characteristics...");
 
@@ -177,7 +184,7 @@ usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev) {
         return status;
     }
 
-    status = usb2422_set_port_disable_bus_powered(dev, &port_settings, true, true);  // Disable bus-power for both ports
+    status = usb2422_set_port_disable_bus_powered(dev, &port_settings, false, false);  // Enable bus-power for both ports
     if (status != USB2422_OK) {
         Serial.print("Failed to set port disable bus-powered: ");
         Serial.println(usb2422_stat_error(status));

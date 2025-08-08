@@ -110,8 +110,7 @@ static usb2422_status_t usb2422_write_register(const usb2422_t *dev, const uint8
  * @return usb2422_status_t Status code
  */
 static usb2422_status_t usb2422_read_register(const usb2422_t *dev, const uint8_t reg, uint8_t *value) {
-    if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return USB2422_ERR_I2C;
-    return dev->io.i2c_read(dev->i2c_address, value, 1) == 0 ? USB2422_OK : USB2422_ERR_I2C;
+    return dev->io.i2c_read(dev->i2c_address, reg, value, 1) == 0 ? USB2422_OK : USB2422_ERR_I2C;
 }
 
 /**

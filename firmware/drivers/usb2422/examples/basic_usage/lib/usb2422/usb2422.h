@@ -89,7 +89,7 @@ typedef enum {
  */
 typedef struct {
     int (*i2c_write)(uint8_t dev_addr, const uint8_t *data, uint16_t len);
-    int (*i2c_read)(uint8_t dev_addr, uint8_t *data, uint16_t len);
+    int (*i2c_read)(uint8_t dev_addr, uint8_t reg, uint8_t *data, uint16_t len);
     void (*delay_ms)(uint32_t ms);
 } usb2422_interface_t;
 

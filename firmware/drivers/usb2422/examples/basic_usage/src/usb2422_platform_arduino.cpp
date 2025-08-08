@@ -20,17 +20,32 @@ extern "C" {
 
     int platform_i2c_write(const uint8_t dev_addr, const uint8_t *data, const uint16_t len) {
         i2c_wire->beginTransmission(dev_addr);
-        for (uint16_t i = 0; i < len; i++) {
-            i2c_wire->write(data[i]);
+
+        if (len > 2) {
+            i2c_wire->write(data[0]);
+            i2c_wire->write(len - 1);
+            for (uint16_t i = 1; i < len; i++) {
+                i2c_wire->write(data[i]);
+            }
+        }
+        else {
+            i2c_wire->write(data[0]);
+            i2c_wire->write(static_cast<uint8_t>(1));
+            i2c_wire->write(data[1]);
         }
         const int result = i2c_wire->endTransmission();
         return (result == 0) ? 0 : -1;
     }
 
-    int platform_i2c_read(const uint8_t dev_addr, uint8_t *data, const uint16_t len) {
+    int platform_i2c_read(const uint8_t dev_addr, const uint8_t reg, uint8_t *data, const uint16_t len) {
         delay(2); // Add a short delay before reading
+        i2c_wire->beginTransmission(dev_addr);
+        i2c_wire->write(reg);
+        i2c_wire->endTransmission(false);
+
         i2c_wire->requestFrom(static_cast<int>(dev_addr), (int)len);
-        if (i2c_wire->available() != len) return -1;
+        i2c_wire->read();
+        //if (i2c_wire->available() != len) return -1;
         for (uint16_t i = 0; i < len; i++) {
             data[i] = i2c_wire->read();
         }
