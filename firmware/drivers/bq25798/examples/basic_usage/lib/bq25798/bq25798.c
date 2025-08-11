@@ -677,7 +677,7 @@ bq25798_status_t bq25798_set_recharge_threshold_offset(bq25798_t *dev, const int
 
     if (thresholdOffset < 50 || thresholdOffset > 800) return BQ25798_ERR_INVALID_ARG;
 
-    const uint8_t val = (uint8_t)roundf((thresholdOffset - 50) / 50);
+    const uint8_t val = (uint8_t)roundf(((float)thresholdOffset - 50) / 50);
 
     uint8_t data;
     bq25798_status_t status = bq25798_read_register(dev, BQ25798_CMD_RECHARGE_CONTROL, &data);
