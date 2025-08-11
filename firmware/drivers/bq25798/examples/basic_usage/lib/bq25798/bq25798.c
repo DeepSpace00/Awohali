@@ -3526,6 +3526,8 @@ bq25798_status_t bq25798_get_vbus_present_flag(bq25798_t *dev, bool *vbus_presen
     const bq25798_status_t status = bq25798_read_register(dev, BQ25798_CMD_CHARGER_FLAG_0, &data);
     if (status != BQ25798_OK) return status;
 
+    *vbus_present_flag = data & 0x01;
+
     return BQ25798_OK;
 }
 
