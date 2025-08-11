@@ -314,7 +314,7 @@ bq25798_status_t bq25798_set_charge_limit_i(bq25798_t *dev, const int ireg_lim) 
 
     if (ireg_lim < 50 || ireg_lim > 5000) return BQ25798_ERR_INVALID_ARG;
 
-    const uint16_t val = (uint16_t)roundf(ireg_lim / 10);
+    const uint16_t val = (uint16_t)roundf((float)ireg_lim / 10);
 
     uint8_t data[2];
     bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_CHARGE_CURRENT_LIMIT, data, sizeof(data));
