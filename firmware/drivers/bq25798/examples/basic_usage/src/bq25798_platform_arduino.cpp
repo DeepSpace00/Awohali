@@ -18,7 +18,7 @@ extern "C" {
 extern "C" {
 static TwoWire *i2c_wire = &Wire;
 
-int platform_i2c_write(uint8_t dev_addr, const uint8_t *data, uint16_t len) {
+int platform_i2c_write(const uint8_t dev_addr, const uint8_t *data, const uint16_t len) {
     i2c_wire->beginTransmission(dev_addr);
     for (uint16_t i = 0; i < len; i++) {
         i2c_wire->write(data[i]);
