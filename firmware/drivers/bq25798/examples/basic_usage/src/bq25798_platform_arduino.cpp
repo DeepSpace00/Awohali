@@ -23,7 +23,7 @@ int platform_i2c_write(const uint8_t dev_addr, const uint8_t *data, const uint16
     for (uint16_t i = 0; i < len; i++) {
         i2c_wire->write(data[i]);
     }
-    int result = i2c_wire->endTransmission();
+    const int result = i2c_wire->endTransmission();
     return (result == 0) ? 0 : -1;
 }
 
