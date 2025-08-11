@@ -41,7 +41,7 @@ void setup() {
     Serial.println();
 
     // Define the IO interface
-    bq25798_interface_t io = {
+    constexpr bq25798_interface_t io = {
         .i2c_write = platform_i2c_write,
         .i2c_read = platform_i2c_read,
         .delay_ms = platform_delay_ms
