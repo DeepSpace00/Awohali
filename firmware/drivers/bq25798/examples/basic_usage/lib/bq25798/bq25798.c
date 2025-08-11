@@ -3343,7 +3343,7 @@ bq25798_status_t bq25798_check_charger_status(bq25798_t *dev, bq25798_charger_st
     charger_status->trichg_tmr_stat = (bool)((statuses[3] >> 2) & 0x01);
     charger_status->prechg_tmr_stat = (bool)((statuses[3] >> 1) & 0x01);
 
-    charger_status->vbat_present_stat = (bool)((statuses[4] >> 4) & 0x01);
+    charger_status->vbat_otg_low_stat = (bool)((statuses[4] >> 4) & 0x01);
     charger_status->ts_cold_stat = (bool)((statuses[4] >> 3) & 0x01);
     charger_status->ts_cool_stat = (bool)((statuses[4] >> 2) & 0x01);
     charger_status->ts_warm_stat = (bool)((statuses[4] >> 1) & 0x01);
