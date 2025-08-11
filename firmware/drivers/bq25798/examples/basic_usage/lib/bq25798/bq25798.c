@@ -228,7 +228,7 @@ bq25798_status_t bq25798_set_vsysmin(bq25798_t *dev, const int vsysmin) {
 
     if (vsysmin < 2500 || vsysmin > 16000) return BQ25798_ERR_INVALID_ARG;
 
-    const uint8_t val = (uint8_t)roundf((vsysmin - 2500) / 250); // Convert VSYSMIN to bit version
+    const uint8_t val = (uint8_t)roundf(((float)vsysmin - 2500) / 250); // Convert VSYSMIN to bit version
 
     uint8_t data;
     bq25798_status_t status = bq25798_read_register(dev, BQ25798_CMD_MINIMAL_SYSTEM_VOLTAGE, &data);
