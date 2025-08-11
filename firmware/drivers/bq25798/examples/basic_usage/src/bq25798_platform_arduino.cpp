@@ -27,7 +27,7 @@ int platform_i2c_write(const uint8_t dev_addr, const uint8_t *data, const uint16
     return (result == 0) ? 0 : -1;
 }
 
-int platform_i2c_read(uint8_t dev_addr, uint8_t *data, uint16_t len) {
+int platform_i2c_read(const uint8_t dev_addr, uint8_t *data, const uint16_t len) {
     delay(2); // Add a short delay before reading
     i2c_wire->requestFrom((int)dev_addr, (int)len);
     if (i2c_wire->available() != len) return -1;
