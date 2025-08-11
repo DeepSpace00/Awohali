@@ -391,7 +391,7 @@ bq25798_status_t bq25798_set_input_limit_i(bq25798_t *dev, const int iin_lim) {
 
     if (iin_lim < 100 || iin_lim > 3300) return BQ25798_ERR_INVALID_ARG;
 
-    const uint16_t val = (uint16_t)roundf(iin_lim / 10);
+    const uint16_t val = (uint16_t)roundf((float)iin_lim / 10);
 
     uint8_t data[2];
     bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_INPUT_CURRENT_LIMIT, data, sizeof(data));
