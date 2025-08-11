@@ -59,6 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define H7_BOOT0_Pin GPIO_PIN_5
 #define H7_BOOT0_GPIO_Port GPIOA
+#define CE_Pin GPIO_PIN_15
+#define CE_GPIO_Port GPIOB
 #define H7_RESET_Pin GPIO_PIN_4
 #define H7_RESET_GPIO_Port GPIOB
 
