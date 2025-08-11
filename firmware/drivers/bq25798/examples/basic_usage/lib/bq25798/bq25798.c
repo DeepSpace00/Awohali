@@ -3339,7 +3339,7 @@ bq25798_status_t bq25798_check_charger_status(bq25798_t *dev, bq25798_charger_st
     charger_status->acrb1_stat = (bool)((statuses[3] >> 6) & 0x01);
     charger_status->adc_done_stat = (bool)((statuses[3] >> 5) & 0x01);
     charger_status->vsys_stat = (bool)((statuses[3] >> 4) & 0x01);
-    charger_status->chg_stat = (bool)((statuses[3] >> 3) & 0x01);
+    charger_status->chg_tmr_stat = (bool)((statuses[3] >> 3) & 0x01);
     charger_status->trichg_tmr_stat = (bool)((statuses[3] >> 2) & 0x01);
     charger_status->prechg_tmr_stat = (bool)((statuses[3] >> 1) & 0x01);
 
