@@ -240,7 +240,7 @@ typedef enum {
 typedef enum {
     BQ25798_JEITA_ISETH_SUSP = 0x00,        ///< Charge Suspend
     BQ25798_JEITA_ISETH_20_PERCENT = 0x01,  ///< Set ICHG to 20% ICHG
-    BQ25798_JEITA_ISETH_40_PERCENT = 0x02,  ///< Set ICHG to 40% ICHG
+    BQ25798_JEITA_ISETH_40_PERCENT = 0x01,  ///< Set ICHG to 40% ICHG
     BQ25798_JEITA_ISETH_SAME = 0x03         ///< ICHG unchanged
 } bq25798_jeita_iseth_t;
 
@@ -250,7 +250,7 @@ typedef enum {
 typedef enum {
     BQ25798_JEITA_ISETL_SUSP = 0x00,        ///< Charge Suspend
     BQ25798_JEITA_ISETL_20_PERCENT = 0x01,  ///< Set ICHG to 20% ICHG
-    BQ25798_JEITA_ISETL_40_PERCENT = 0x02,  ///< Set ICHG to 40% ICHG
+    BQ25798_JEITA_ISETL_40_PERCENT = 0x01,  ///< Set ICHG to 40% ICHG
     BQ25798_JEITA_ISETL_SAME = 0x03         ///< ICHG unchanged
 } bq25798_jeita_isetc_t;
 

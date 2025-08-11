@@ -2,7 +2,7 @@
  * @file bq25798.c
  * @brief BQ25798 MPPT Battery Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-21
+ * @date 2025-08-11
  */
 
 #include <stddef.h>
@@ -3339,11 +3339,11 @@ bq25798_status_t bq25798_check_charger_status(bq25798_t *dev, bq25798_charger_st
     charger_status->acrb1_stat = (bool)((statuses[3] >> 6) & 0x01);
     charger_status->adc_done_stat = (bool)((statuses[3] >> 5) & 0x01);
     charger_status->vsys_stat = (bool)((statuses[3] >> 4) & 0x01);
-    charger_status->chg_stat = (bool)((statuses[3] >> 3) & 0x01);
+    charger_status->chg_tmr_stat = (bool)((statuses[3] >> 3) & 0x01);
     charger_status->trichg_tmr_stat = (bool)((statuses[3] >> 2) & 0x01);
     charger_status->prechg_tmr_stat = (bool)((statuses[3] >> 1) & 0x01);
 
-    charger_status->vbat_present_stat = (bool)((statuses[4] >> 4) & 0x01);
+    charger_status->vbat_otg_low_stat = (bool)((statuses[4] >> 4) & 0x01);
     charger_status->ts_cold_stat = (bool)((statuses[4] >> 3) & 0x01);
     charger_status->ts_cool_stat = (bool)((statuses[4] >> 2) & 0x01);
     charger_status->ts_warm_stat = (bool)((statuses[4] >> 1) & 0x01);
@@ -4951,7 +4951,10 @@ bq25798_status_t bq25798_get_dm_measurement(bq25798_t *dev, int *dm) {
 bq25798_status_t bq25798_get_adc_mesurements(bq25798_t *dev, bq25798_measurements_t *measurements) {
     if (!dev || !dev->initialized || !measurements) return BQ25798_ERR_NULL;
 
-    bq25798_status_t status = bq25798_get_ibus_measurement(dev, &measurements->ibus);
+    bq25798_status_t status = bq25798_set_adc_enable(dev, true);
+    if (status != BQ25798_OK) return status;
+
+    status = bq25798_get_ibus_measurement(dev, &measurements->ibus);
     if (status != BQ25798_OK) return status;
 
     status = bq25798_get_ibat_measurement(dev, &measurements->ibat);
