@@ -204,7 +204,7 @@ void setup() {
 
     // Test MPPT configuration
     Serial.print("Enabling MPPT... ");
-    status = bq25798_set_mppt_enable(&bq, true);
+    status = bq25798_set_mppt_enable(&bq, false);
     if (status == BQ25798_OK) {
         Serial.println("OK");
     } else {
