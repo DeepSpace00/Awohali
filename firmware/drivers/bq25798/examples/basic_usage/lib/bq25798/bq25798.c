@@ -472,7 +472,7 @@ bq25798_status_t bq25798_set_precharge_lim_i(bq25798_t *dev, const int precharge
     const bq25798_status_t status = bq25798_read_register(dev, BQ25798_CMD_PRECHARGE_CONTROL, &data);
     if (status != BQ25798_OK) return status;
 
-    const uint8_t val = (uint8_t)roundf(precharge_lim / 40);
+    const uint8_t val = (uint8_t)roundf((float)precharge_lim / 40);
     data = (data & 0xC0) | (val & 0x3F);
 
     return bq25798_write_register(dev, BQ25798_CMD_PRECHARGE_CONTROL, data);
