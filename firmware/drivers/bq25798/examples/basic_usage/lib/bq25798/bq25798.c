@@ -562,7 +562,7 @@ bq25798_status_t bq25798_set_termination_curr(bq25798_t *dev, const int term_cur
 
     if (term_curr < 40 || term_curr > 1000) return BQ25798_ERR_INVALID_ARG;
 
-    const uint8_t val = (uint8_t)roundf(term_curr / 40);
+    const uint8_t val = (uint8_t)roundf((float)term_curr / 40);
 
     uint8_t data;
     bq25798_status_t status = bq25798_read_register(dev, BQ25798_CMD_TERMINATION_CONTROL, &data);
