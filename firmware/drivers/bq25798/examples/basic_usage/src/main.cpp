@@ -400,7 +400,7 @@ void loop() {
             Serial.println(charger_status.iindpm_stat ? "YES" : "NO");
 
             Serial.print("Thermal Regulation: ");
-            Serial.println(charger_status.treg_stat ? "ACTIVE" : "INACTIVE");
+            Serial.println(charger_status.treg_stat ? "ACTIVE" : "NORMAL");
 
             // Temperature status
             if (charger_status.ts_cold_stat) Serial.println("Temperature: COLD");
