@@ -2,7 +2,7 @@
  * @file bq25798_platform_arduino.cpp
  * @brief Platform abstraction layer implementation for BQ25798 I2C driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-21
+ * @date 2025-08-11
  *
  * This file should be placed in the src folder and contains platform-specific
  * implementations. Only one version should be compiled based on your platform.
