@@ -349,6 +349,15 @@ void loop() {
                 case BQ25798_VBUS_STAT_NON_STANDARD:
                     Serial.println("Non-standard Adapter");
                     break;
+                case BQ25798_VBUS_STAT_OTG_MODE:
+                    Serial.println("In OTG Mode");
+                    break;
+                case BQ25798_VBUS_STAT_NON_QUAL:
+                    Serial.println("Non-qualified Adapter");
+                    break;
+                case BQ25798_VBUS_STAT_DIRECT_VBUS:
+                    Serial.println("Directly connected to VBUS");
+                    break;
                 case BQ25798_VBUS_STAT_BACKUP_MODE:
                     Serial.println("Backup Mode");
                     break;
