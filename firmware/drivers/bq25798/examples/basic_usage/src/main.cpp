@@ -19,13 +19,15 @@ bq25798_charger_status_t charger_status;
 bq25798_fault_status_t fault_status;
 
 // Test configuration values
-const int TEST_VSYSMIN = 3000;          // 3.0V minimum system voltage
-const int TEST_CHARGE_VOLTAGE = 4200;   // 4.2V charge voltage limit
-const int TEST_CHARGE_CURRENT = 1000;   // 1A charge current limit
-const int TEST_INPUT_VOLTAGE = 5000;    // 5V input voltage limit
-const int TEST_INPUT_CURRENT = 2000;    // 2A input current limit
-const int TEST_PRECHARGE_CURRENT = 200; // 200mA precharge current
-const int TEST_TERM_CURRENT = 100;      // 100mA termination current
+constexpr int TEST_VSYSMIN = 5000;          // 5.0V minimum system voltage
+constexpr int TEST_CHARGE_VOLTAGE = 7300;   // 7.4V charge voltage limit
+constexpr int TEST_CHARGE_CURRENT = 1000;   // 1A charge current limit
+constexpr int TEST_INPUT_VOLTAGE = 10000;    // 5V input voltage limit
+constexpr int TEST_INPUT_CURRENT = 2000;    // 2A input current limit
+constexpr int TEST_PRECHARGE_CURRENT = 200; // 200mA precharge current
+constexpr int TEST_TERM_CURRENT = 100;      // 100mA termination current
+
+bq25798_cell_count_t cellCount = BQ25798_CELL_COUNT_2S; // 2S battery
 
 void setup() {
     Serial.begin(115200);
