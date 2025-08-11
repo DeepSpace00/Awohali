@@ -2,7 +2,7 @@
  * @file bq25798.c
  * @brief BQ25798 MPPT Battery Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-21
+ * @date 2025-08-11
  */
 
 #include <stddef.h>
