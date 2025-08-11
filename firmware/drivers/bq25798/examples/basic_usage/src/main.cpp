@@ -2,7 +2,7 @@
  * @file main.cpp
  * @brief Arduino test program for BQ25798 MPPT battery charger driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-21
+ * @date 2025-08-11
  *
  * This test program demonstrates comprehensive functionality of the BQ25798 driver
  * including initialization, configuration, status monitoring, and ADC measurements.
