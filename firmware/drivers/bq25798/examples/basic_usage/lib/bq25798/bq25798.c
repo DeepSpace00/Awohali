@@ -4951,7 +4951,10 @@ bq25798_status_t bq25798_get_dm_measurement(bq25798_t *dev, int *dm) {
 bq25798_status_t bq25798_get_adc_mesurements(bq25798_t *dev, bq25798_measurements_t *measurements) {
     if (!dev || !dev->initialized || !measurements) return BQ25798_ERR_NULL;
 
-    bq25798_status_t status = bq25798_get_ibus_measurement(dev, &measurements->ibus);
+    bq25798_status_t status = bq25798_set_adc_enable(dev, true);
+    if (status != BQ25798_OK) return status;
+
+    status = bq25798_get_ibus_measurement(dev, &measurements->ibus);
     if (status != BQ25798_OK) return status;
 
     status = bq25798_get_ibat_measurement(dev, &measurements->ibat);
