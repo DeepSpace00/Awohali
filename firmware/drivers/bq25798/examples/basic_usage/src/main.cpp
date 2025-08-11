@@ -235,8 +235,7 @@ void loop() {
         Serial.println("=== BQ25798 Measurements ===");
 
         // Read all ADC measurements
-        bq25798_status_t status = bq25798_get_adc_mesurements(&bq, &measurements);
-        if (status == BQ25798_OK) {
+        if (const bq25798_status_t status = bq25798_get_adc_mesurements(&bq, &measurements); status == BQ25798_OK) {
             Serial.print("IBUS: ");
             Serial.print(measurements.ibus);
             Serial.println(" mA");
