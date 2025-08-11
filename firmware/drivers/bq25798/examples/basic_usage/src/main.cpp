@@ -55,7 +55,7 @@ void setup() {
         Serial.println("FAILED!");
         Serial.print("Error: ");
         Serial.println(bq25798_stat_error(status));
-        while(1) delay(10);
+        while(true) delay(10);
     }
     Serial.println("SUCCESS!");
 
