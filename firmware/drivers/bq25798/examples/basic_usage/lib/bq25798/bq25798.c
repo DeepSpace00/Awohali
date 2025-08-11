@@ -355,7 +355,7 @@ bq25798_status_t bq25798_set_input_limit_v(bq25798_t *dev, const int vin_lim) {
 
     if (vin_lim < 3600 || vin_lim > 22000) return BQ25798_ERR_INVALID_ARG;
 
-    const uint8_t data = (uint8_t)roundf(vin_lim / 100);
+    const uint8_t data = (uint8_t)roundf((float)vin_lim / 100);
 
     return bq25798_write_register(dev, BQ25798_CMD_INPUT_VOLTAGE_LIMIT, data);
 }
