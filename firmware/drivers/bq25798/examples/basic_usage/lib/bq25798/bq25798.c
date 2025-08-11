@@ -271,7 +271,7 @@ bq25798_status_t bq25798_set_charge_limit_v(bq25798_t *dev, const int vreg_lim) 
 
     if (vreg_lim < 3000 || vreg_lim > 18800) return BQ25798_ERR_INVALID_ARG;
 
-    const uint16_t val = (uint16_t)roundf(vreg_lim / 10); // Convert battery voltage limit to bit version
+    const uint16_t val = (uint16_t)roundf((float)vreg_lim / 10); // Convert battery voltage limit to bit version
 
     uint8_t data[2];
     bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_CHARGE_VOLTAGE_LIMIT, data, sizeof(data));
