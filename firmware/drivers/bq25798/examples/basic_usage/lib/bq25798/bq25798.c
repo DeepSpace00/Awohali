@@ -187,8 +187,10 @@ bq25798_status_t bq25798_init(bq25798_t *dev, const uint8_t address, const bq257
 
     const uint8_t reg = BQ25798_CMD_PART_INFORMATION;
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return BQ25798_ERR_I2C; // Try to read part number to check if I2C is working
-    uint8_t partNumber;
-    io.i2c_read(dev->i2c_address, &partNumber, 1);
+    uint8_t value;
+    io.i2c_read(dev->i2c_address, &value, 1);
+
+    const uint8_t partNumber = (value >> 3) & 0x07;
 
     if (partNumber != 0x03) return BQ25798_ERR_I2C;
 
