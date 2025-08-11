@@ -182,7 +182,7 @@ void setup() {
 
     // Test cell count configuration
     Serial.print("Setting cell count to 1S... ");
-    status = bq25798_set_cell_count(&bq, BQ25798_CELL_COUNT_1S);
+    status = bq25798_set_cell_count(&bq, cellCount);
     if (status == BQ25798_OK) {
         bq25798_cell_count_t cells;
         bq25798_get_cell_count(&bq, &cells);
