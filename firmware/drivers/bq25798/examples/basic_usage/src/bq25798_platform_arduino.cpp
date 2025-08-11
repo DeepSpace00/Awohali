@@ -37,7 +37,7 @@ int platform_i2c_read(const uint8_t dev_addr, uint8_t *data, const uint16_t len)
     return 0;
 }
 
-void platform_delay_ms(uint32_t ms) {
+void platform_delay_ms(const uint32_t ms) {
     delay(ms);
 }
 }
