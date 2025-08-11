@@ -2,7 +2,7 @@
  * @file main.cpp
  * @brief Arduino test program for BQ25798 MPPT battery charger driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-21
+ * @date 2025-08-11
  *
  * This test program demonstrates comprehensive functionality of the BQ25798 driver
  * including initialization, configuration, status monitoring, and ADC measurements.
@@ -19,13 +19,15 @@ bq25798_charger_status_t charger_status;
 bq25798_fault_status_t fault_status;
 
 // Test configuration values
-const int TEST_VSYSMIN = 3000;          // 3.0V minimum system voltage
-const int TEST_CHARGE_VOLTAGE = 4200;   // 4.2V charge voltage limit
-const int TEST_CHARGE_CURRENT = 1000;   // 1A charge current limit
-const int TEST_INPUT_VOLTAGE = 5000;    // 5V input voltage limit
-const int TEST_INPUT_CURRENT = 2000;    // 2A input current limit
-const int TEST_PRECHARGE_CURRENT = 200; // 200mA precharge current
-const int TEST_TERM_CURRENT = 100;      // 100mA termination current
+constexpr int TEST_VSYSMIN = 5000;          // 5.0V minimum system voltage
+constexpr int TEST_CHARGE_VOLTAGE = 7300;   // 7.4V charge voltage limit
+constexpr int TEST_CHARGE_CURRENT = 1000;   // 1A charge current limit
+constexpr int TEST_INPUT_VOLTAGE = 10000;    // 5V input voltage limit
+constexpr int TEST_INPUT_CURRENT = 2000;    // 2A input current limit
+constexpr int TEST_PRECHARGE_CURRENT = 200; // 200mA precharge current
+constexpr int TEST_TERM_CURRENT = 100;      // 100mA termination current
+
+bq25798_cell_count_t cellCount = BQ25798_CELL_COUNT_2S; // 2S battery
 
 void setup() {
     Serial.begin(115200);
@@ -39,7 +41,7 @@ void setup() {
     Serial.println();
 
     // Define the IO interface
-    bq25798_interface_t io = {
+    constexpr bq25798_interface_t io = {
         .i2c_write = platform_i2c_write,
         .i2c_read = platform_i2c_read,
         .delay_ms = platform_delay_ms
@@ -53,7 +55,7 @@ void setup() {
         Serial.println("FAILED!");
         Serial.print("Error: ");
         Serial.println(bq25798_stat_error(status));
-        while(1) delay(10);
+        while(true) delay(10);
     }
     Serial.println("SUCCESS!");
 
@@ -179,8 +181,8 @@ void setup() {
     }
 
     // Test cell count configuration
-    Serial.print("Setting cell count to 1S... ");
-    status = bq25798_set_cell_count(&bq, BQ25798_CELL_COUNT_1S);
+    Serial.print("Setting cell count... ");
+    status = bq25798_set_cell_count(&bq, cellCount);
     if (status == BQ25798_OK) {
         bq25798_cell_count_t cells;
         bq25798_get_cell_count(&bq, &cells);
@@ -202,7 +204,7 @@ void setup() {
 
     // Test MPPT configuration
     Serial.print("Enabling MPPT... ");
-    status = bq25798_set_mppt_enable(&bq, true);
+    status = bq25798_set_mppt_enable(&bq, false);
     if (status == BQ25798_OK) {
         Serial.println("OK");
     } else {
@@ -233,8 +235,7 @@ void loop() {
         Serial.println("=== BQ25798 Measurements ===");
 
         // Read all ADC measurements
-        bq25798_status_t status = bq25798_get_adc_mesurements(&bq, &measurements);
-        if (status == BQ25798_OK) {
+        if (const bq25798_status_t status = bq25798_get_adc_mesurements(&bq, &measurements); status == BQ25798_OK) {
             Serial.print("IBUS: ");
             Serial.print(measurements.ibus);
             Serial.println(" mA");
@@ -348,6 +349,15 @@ void loop() {
                 case BQ25798_VBUS_STAT_NON_STANDARD:
                     Serial.println("Non-standard Adapter");
                     break;
+                case BQ25798_VBUS_STAT_OTG_MODE:
+                    Serial.println("In OTG Mode");
+                    break;
+                case BQ25798_VBUS_STAT_NON_QUAL:
+                    Serial.println("Non-qualified Adapter");
+                    break;
+                case BQ25798_VBUS_STAT_DIRECT_VBUS:
+                    Serial.println("Directly connected to VBUS");
+                    break;
                 case BQ25798_VBUS_STAT_BACKUP_MODE:
                     Serial.println("Backup Mode");
                     break;
@@ -390,7 +400,7 @@ void loop() {
             Serial.println(charger_status.iindpm_stat ? "YES" : "NO");
 
             Serial.print("Thermal Regulation: ");
-            Serial.println(charger_status.treg_stat ? "ACTIVE" : "INACTIVE");
+            Serial.println(charger_status.treg_stat ? "ACTIVE" : "NORMAL");
 
             // Temperature status
             if (charger_status.ts_cold_stat) Serial.println("Temperature: COLD");

@@ -1308,7 +1308,7 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
   
   
   
-  /* *received_len = 0;
+  *received_len = 0;
   
   // Method 1: Standard SMBus Block Read
   Wire.beginTransmission(addr);
@@ -1348,7 +1348,7 @@ I2CErrorCode usb2422SMBusBlockRead(uint8_t addr, uint8_t reg, uint8_t* buffer, u
           return I2C_ERR_SUCCESS;
         }
       }
-    }*/
+    }
   }
   
   // Approach 2: Direct read without byte count (non-standard but some devices use this)
