@@ -448,7 +448,7 @@ bq76905_status_t bq76905_reset_passq(bq76905_t *dev);
 
 bq76905_status_t bq76905_exit_deepsleep(bq76905_t *dev);
 
-bq76905_status_t bq76905_deepsleep(bq76905_t *dev);     ///< Must be sent twice in a row within 4s to take effect
+bq76905_status_t bq76905_enter_deepsleep(bq76905_t *dev);   ///< Must be sent twice in a row within 4s to take effect
 
 bq76905_status_t bq76905_shutdown(bq76905_t *dev);      ///< Must be sent twice in a row within 4s to take effect
 
