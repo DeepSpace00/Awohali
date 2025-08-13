@@ -2,7 +2,7 @@
 * @file bq76905_platform_arduino.cpp
  * @brief Platform abstraction layer implementation for BQ76905 I2C driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-22
+ * @date 2025-08-13
  *
  * This file should be placed in the src folder and contains platform-specific
  * implementations. Only one version should be compiled based on your platform.
