@@ -789,3 +789,54 @@ bq76905_status_t bq76905_disable_alarm(bq76905_t *dev, const bq76905_alarms_t al
 
     return BQ76905_OK;
 }
+
+/**
+ * @brief Update all measurements in struct
+ * @param dev Pointer to driver handle
+ * @param measurements Pointer to measurements struct
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_get_measurements(bq76905_t *dev, bq76905_measurements_t *measurements) {
+    if (!dev || !dev->initialized || !measurements) return BQ76905_ERR_NULL;
+
+    bq76905_status_t status = bq76905_get_cell_1_voltage(dev, &measurements->cell_1_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_cell_2_voltage(dev, &measurements->cell_2_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_cell_3_voltage(dev, &measurements->cell_3_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_cell_4_voltage(dev, &measurements->cell_4_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_cell_5_voltage(dev, &measurements->cell_5_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_reg18_voltage(dev, &measurements->reg18_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_vss_voltage(dev, &measurements->vss_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_stack_voltage(dev, &measurements->stack_voltage);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_ic_temperature(dev, &measurements->internal_temp);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_ts_temperature(dev, &measurements->ts_temp);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_raw_current(dev, &measurements->raw_current);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_current(dev, &measurements->current);
+    if (status != BQ76905_OK) return status;
+
+    status = bq76905_get_cc1_current(dev, &measurements->cc1_current);
+    if (status != BQ76905_OK) return status;
+
+    return BQ76905_OK;
+}
