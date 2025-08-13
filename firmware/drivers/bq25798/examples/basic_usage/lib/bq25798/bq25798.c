@@ -4858,7 +4858,7 @@ bq25798_status_t bq25798_get_vsys_measurement(bq25798_t *dev, int *vsys) {
     if (!dev || !dev->initialized || !vsys) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VSYS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vsys = (uint16_t)((data[0] << 8) | data[1]);
