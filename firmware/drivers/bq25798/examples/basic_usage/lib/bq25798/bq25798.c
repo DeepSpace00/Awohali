@@ -4954,6 +4954,8 @@ bq25798_status_t bq25798_get_adc_mesurements(bq25798_t *dev, bq25798_measurement
     bq25798_status_t status = bq25798_set_adc_enable(dev, true);
     if (status != BQ25798_OK) return status;
 
+    dev->io.delay_ms(100); // 100ms delay
+
     status = bq25798_get_ibus_measurement(dev, &measurements->ibus);
     if (status != BQ25798_OK) return status;
 
