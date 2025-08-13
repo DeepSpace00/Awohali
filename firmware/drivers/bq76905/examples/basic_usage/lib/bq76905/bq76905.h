@@ -2,7 +2,7 @@
  * @file bq76905.h
  * @brief BQ76905 Battery Monitor and Protector Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-30
+ * @date 2025-08-13
  *
  * This driver supports the BQ76905 IC from Texas Instruments
  */
