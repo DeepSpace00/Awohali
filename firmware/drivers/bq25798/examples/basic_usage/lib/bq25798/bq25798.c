@@ -4822,7 +4822,7 @@ bq25798_status_t bq25798_get_vac2_measurement(bq25798_t *dev, int *vac2) {
     if (!dev || !dev->initialized || !vac2) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VAC2_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vac2 = (uint16_t)((data[0] << 8) | data[1]);
