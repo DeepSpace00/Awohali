@@ -230,7 +230,7 @@ static bq76905_status_t bq76905_register_bits(uint8_t *reg, const size_t reg_len
  * @param status Status to be converted to a string
  * @return String from status
  */
-const char* bq25798_stat_error(const bq76905_status_t status) {
+const char* bq76905_stat_error(const bq76905_status_t status) {
     switch (status) {
         case BQ76905_OK:                return "OK";
         case BQ76905_ERR_I2C:           return "I2C communication failed";
