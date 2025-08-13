@@ -532,7 +532,7 @@ bq76905_status_t bq76905_get_vss_voltage(bq76905_t *dev, int16_t *vss_voltage) {
  * @param stack_voltage Pointer to the stack voltage variable
  * @return bq76905_status_t Status code
  */
-bq76905_status_t bq76905_get_vss_voltage(bq76905_t *dev, uint16_t *stack_voltage) {
+bq76905_status_t bq76905_get_stack_voltage(bq76905_t *dev, uint16_t *stack_voltage) {
     if (!dev || !dev->initialized || !stack_voltage) return BQ76905_ERR_NULL;
 
     uint8_t data[2];
