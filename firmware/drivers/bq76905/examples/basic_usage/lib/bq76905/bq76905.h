@@ -344,7 +344,7 @@ typedef struct {
 } bq76905_calibration_data_t;
 
 /**
- * @brief Human-readable description of an BQ25798 status code.
+ * @brief Human-readable description of an BQ76905 status code.
  *
  * @param status The status code to translate.
  * @return A string describing the error.
