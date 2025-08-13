@@ -349,7 +349,7 @@ typedef struct {
  * @param status The status code to translate.
  * @return A string describing the error.
  */
-const char* bq25798_stat_error(bq76905_status_t status);
+const char* bq76905_stat_error(bq76905_status_t status);
 
 bq76905_status_t bq76905_init(bq76905_t *dev, uint8_t address, bq76905_interface_t io);
 
