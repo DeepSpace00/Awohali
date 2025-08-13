@@ -4983,7 +4983,7 @@ bq25798_status_t bq25798_get_adc_mesurements(bq25798_t *dev, bq25798_measurement
     status = bq25798_get_tdie_measurement(dev, &measurements->tdie);
     if (status != BQ25798_OK) return status;
 
-    status = bq25798_get_dp_measurement(dev, &measurements->ibus);
+    status = bq25798_get_dp_measurement(dev, &measurements->dp);
     if (status != BQ25798_OK) return status;
 
     status = bq25798_get_dm_measurement(dev, &measurements->ibus);
