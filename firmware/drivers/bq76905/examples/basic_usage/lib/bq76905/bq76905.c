@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <math.h>
 #include "bq76905.h"
+#include "bq76905_platform.h"
 
 ///< @section Registers
 ///< @subsection Direct Command Registers
