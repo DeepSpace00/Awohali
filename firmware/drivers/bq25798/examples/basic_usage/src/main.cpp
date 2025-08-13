@@ -19,7 +19,7 @@ bq25798_charger_status_t charger_status;
 bq25798_fault_status_t fault_status;
 
 // Test configuration values
-constexpr int TEST_VSYSMIN = 5000;          // 5.0V minimum system voltage
+constexpr int TEST_VSYSMIN = 7000;          // 5.0V minimum system voltage
 constexpr int TEST_CHARGE_VOLTAGE = 7300;   // 7.4V charge voltage limit
 constexpr int TEST_CHARGE_CURRENT = 1000;   // 1A charge current limit
 constexpr int TEST_INPUT_VOLTAGE = 10000;    // 5V input voltage limit
