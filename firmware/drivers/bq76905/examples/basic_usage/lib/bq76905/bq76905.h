@@ -458,7 +458,7 @@ bq76905_status_t bq76905_fet_enable(bq76905_t *dev, bq76905_settings_t *settings
 
 //bq76905_status_t bq76905_seal(bq76905_t *dev);
 
-bq76905_status_t bq76905_set_cfg_update(bq76905_t *dev);
+bq76905_status_t bq76905_enter_cfg_update(bq76905_t *dev);
 
 bq76905_status_t bq76905_exit_cfg_update(bq76905_t *dev);
 
