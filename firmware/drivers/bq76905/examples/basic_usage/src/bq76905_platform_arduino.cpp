@@ -29,7 +29,7 @@ extern "C" {
 
     int platform_i2c_read(const uint8_t dev_addr, uint8_t *data, const uint16_t len) {
         delay(2); // Add a short delay before reading
-        i2c_wire->requestFrom((int)dev_addr, (int)len);
+        i2c_wire->requestFrom(static_cast<int>(dev_addr), (int)len);
         if (i2c_wire->available() != len) return -1;
         for (uint16_t i = 0; i < len; i++) {
             data[i] = i2c_wire->read();
