@@ -4840,7 +4840,7 @@ bq25798_status_t bq25798_get_vbat_measurement(bq25798_t *dev, int *vbat) {
     if (!dev || !dev->initialized || !vbat) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VBAT_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vbat = (uint16_t)((data[0] << 8) | data[1]);
