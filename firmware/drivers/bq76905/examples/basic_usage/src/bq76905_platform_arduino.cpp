@@ -37,7 +37,7 @@ extern "C" {
         return 0;
     }
 
-    void platform_delay_ms(uint32_t ms) {
+    void platform_delay_ms(const uint32_t ms) {
         delay(ms);
     }
 }
