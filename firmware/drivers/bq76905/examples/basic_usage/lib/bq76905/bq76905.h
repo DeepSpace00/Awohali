@@ -476,8 +476,6 @@ bq76905_status_t bq76905_get_hardware_version(bq76905_t *dev, bq76905_settings_t
 
 bq76905_status_t bq76905_get_passq(bq76905_t *dev, bq76905_settings_t *settings);
 
-bq76905_status_t bq76905_get_passtime(bq76905_t *dev, bq76905_settings_t *settings);
-
 // bq76905_status_t bq76905_use_security_keys(bq76905_t *dev, uint16_t *security_keys);
 
 bq76905_status_t bq7605_get_active_cells(bq76905_t *dev, bq76905_active_cells_t *active_cells);
