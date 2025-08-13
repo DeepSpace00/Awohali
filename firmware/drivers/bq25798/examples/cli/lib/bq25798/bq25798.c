@@ -4768,7 +4768,7 @@ bq25798_status_t bq25798_get_ibat_measurement(bq25798_t *dev, int *ibat) {
     if (!dev || !dev->initialized || !ibat) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBAT_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *ibat = (int16_t)((data[0] << 8) | data[1]);
@@ -4786,7 +4786,7 @@ bq25798_status_t bq25798_get_vbus_measurement(bq25798_t *dev, int *vbus) {
     if (!dev || !dev->initialized || !vbus) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VBUS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vbus = (uint16_t)((data[0] << 8) | data[1]);
@@ -4804,7 +4804,7 @@ bq25798_status_t bq25798_get_vac1_measurement(bq25798_t *dev, int *vac1) {
     if (!dev || !dev->initialized || !vac1) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VAC1_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vac1 = (uint16_t)((data[0] << 8) | data[1]);
@@ -4822,7 +4822,7 @@ bq25798_status_t bq25798_get_vac2_measurement(bq25798_t *dev, int *vac2) {
     if (!dev || !dev->initialized || !vac2) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VAC2_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vac2 = (uint16_t)((data[0] << 8) | data[1]);
@@ -4840,7 +4840,7 @@ bq25798_status_t bq25798_get_vbat_measurement(bq25798_t *dev, int *vbat) {
     if (!dev || !dev->initialized || !vbat) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VBAT_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vbat = (uint16_t)((data[0] << 8) | data[1]);
@@ -4858,7 +4858,7 @@ bq25798_status_t bq25798_get_vsys_measurement(bq25798_t *dev, int *vsys) {
     if (!dev || !dev->initialized || !vsys) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_VSYS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *vsys = (uint16_t)((data[0] << 8) | data[1]);
@@ -4876,7 +4876,7 @@ bq25798_status_t bq25798_get_ts_measurement(bq25798_t *dev, float *ts) {
     if (!dev || !dev->initialized || !ts) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_TS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     const uint16_t dataCombined = (uint16_t)((data[0] << 8) | data[1]);
@@ -4896,7 +4896,7 @@ bq25798_status_t bq25798_get_tdie_measurement(bq25798_t *dev, float *tdie) {
     if (!dev || !dev->initialized || !tdie) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_TDIE_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     const int16_t dataCombined = (int16_t)((data[0] << 8) | data[1]);
@@ -4916,7 +4916,7 @@ bq25798_status_t bq25798_get_dp_measurement(bq25798_t *dev, int *dp) {
     if (!dev || !dev->initialized || !dp) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_DPLUS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *dp = (uint16_t)((data[0] << 8) | data[1]);
@@ -4934,7 +4934,7 @@ bq25798_status_t bq25798_get_dm_measurement(bq25798_t *dev, int *dm) {
     if (!dev || !dev->initialized || !dm) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_DMINUS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     *dm = (uint16_t)((data[0] << 8) | data[1]);
@@ -4953,6 +4953,8 @@ bq25798_status_t bq25798_get_adc_mesurements(bq25798_t *dev, bq25798_measurement
 
     bq25798_status_t status = bq25798_set_adc_enable(dev, true);
     if (status != BQ25798_OK) return status;
+
+    dev->io.delay_ms(100); // 100ms delay
 
     status = bq25798_get_ibus_measurement(dev, &measurements->ibus);
     if (status != BQ25798_OK) return status;
@@ -4981,10 +4983,10 @@ bq25798_status_t bq25798_get_adc_mesurements(bq25798_t *dev, bq25798_measurement
     status = bq25798_get_tdie_measurement(dev, &measurements->tdie);
     if (status != BQ25798_OK) return status;
 
-    status = bq25798_get_dp_measurement(dev, &measurements->ibus);
+    status = bq25798_get_dp_measurement(dev, &measurements->dp);
     if (status != BQ25798_OK) return status;
 
-    status = bq25798_get_dm_measurement(dev, &measurements->ibus);
+    status = bq25798_get_dm_measurement(dev, &measurements->dm);
     if (status != BQ25798_OK) return status;
 
     return BQ25798_OK;
