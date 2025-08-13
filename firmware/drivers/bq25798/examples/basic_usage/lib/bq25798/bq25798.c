@@ -4876,7 +4876,7 @@ bq25798_status_t bq25798_get_ts_measurement(bq25798_t *dev, float *ts) {
     if (!dev || !dev->initialized || !ts) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_TS_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     const uint16_t dataCombined = (uint16_t)((data[0] << 8) | data[1]);
