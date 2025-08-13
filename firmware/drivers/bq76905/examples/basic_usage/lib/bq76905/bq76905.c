@@ -2,7 +2,7 @@
  * @file bq76905.c
  * @brief BQ76905 Battery Monitor and Protector Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-30
+ * @date 2025-08-13
  */
 
 #include <stddef.h>
