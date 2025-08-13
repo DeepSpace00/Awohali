@@ -4896,7 +4896,7 @@ bq25798_status_t bq25798_get_tdie_measurement(bq25798_t *dev, float *tdie) {
     if (!dev || !dev->initialized || !tdie) return BQ25798_ERR_NULL;
 
     uint8_t data[2];
-    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_IBUS_ADC, data, sizeof(data));
+    const bq25798_status_t status = bq25798_read_registers(dev, BQ25798_CMD_TDIE_ADC, data, sizeof(data));
     if (status != BQ25798_OK) return status;
 
     const int16_t dataCombined = (int16_t)((data[0] << 8) | data[1]);
