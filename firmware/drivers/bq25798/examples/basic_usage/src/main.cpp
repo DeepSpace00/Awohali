@@ -202,6 +202,17 @@ void setup() {
         Serial.println("FAILED");
     }
 
+    // Set the ADC to continuous mode
+    Serial.print("Setting ADC to continuous mode... ");
+    status = bq25798_set_adc_rate(&bq, true);   // Continuous mode
+    if (status == BQ25798_OK)
+    {
+        Serial.println("OK");
+    } else
+    {
+        Serial.println("FAILED");
+    }
+
     // Test MPPT configuration
     Serial.print("Enabling MPPT... ");
     status = bq25798_set_mppt_enable(&bq, false);
