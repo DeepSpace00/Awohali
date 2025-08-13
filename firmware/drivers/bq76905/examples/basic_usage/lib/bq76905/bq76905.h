@@ -472,7 +472,7 @@ bq76905_status_t bq76905_get_device_number(bq76905_t *dev, bq76905_settings_t *s
 
 bq76905_status_t bq76905_get_firmware_version(bq76905_t *dev, bq76905_settings_t *settings);
 
-bq76905_status_t bq76905_get_hardware_version(bq76905_t *dev, uint16_t *hardware_version);
+bq76905_status_t bq76905_get_hardware_version(bq76905_t *dev, bq76905_settings_t *settings);
 
 bq76905_status_t bq76905_get_passq(bq76905_t *dev, bq76905_settings_t *settings);
 
