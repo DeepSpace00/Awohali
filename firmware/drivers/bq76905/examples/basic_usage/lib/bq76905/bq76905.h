@@ -454,7 +454,7 @@ bq76905_status_t bq76905_shutdown(bq76905_t *dev);      ///< Must be sent twice 
 
 bq76905_status_t bq76905_reset(bq76905_t *dev);
 
-bq76905_status_t bq76905_fet_enable(bq76905_t *dev, bq76905_settings_t *settings, bool fet_en);
+bq76905_status_t bq76905_fet_enable(bq76905_t *dev, bq76905_settings_t *settings);
 
 //bq76905_status_t bq76905_seal(bq76905_t *dev);
 
