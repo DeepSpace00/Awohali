@@ -5,7 +5,7 @@
  * @date 2025-07-14
  */
 
-#include <lps28.h>
+#include "lps28.h"
 
 // Register addresses
 #define LPS28_WHO_AM_I_REG      0x0F
