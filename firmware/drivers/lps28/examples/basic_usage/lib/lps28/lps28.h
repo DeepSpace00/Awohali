@@ -14,7 +14,6 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
 #include <stdint.h>
 
 #define LPS28_I2C_ADDR_1 0x5C
