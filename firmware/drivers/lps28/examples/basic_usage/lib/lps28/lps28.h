@@ -155,13 +155,6 @@ lps28_status_t lps28_ctrl_reg2(lps28_t *dev, bool boot, bool reset, bool oneshot
  */
 lps28_status_t lps28_reference_pressure(lps28_t *dev, float ref_pressure);
 
-/**
- * @brief Set pressure offset for calibration.
- *
- * @param dev Pointer to initialized driver struct.
- * @param offset Pressure offset in hPa.
- * @return LPS28_OK on success, or an error code.
- */
 lps28_status_t lps28_pressure_offset(lps28_t *dev, float offset);
 
 lps28_status_t lps28_status(lps28_t *dev, lps28_status_reg_t *status);
