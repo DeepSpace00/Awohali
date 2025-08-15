@@ -164,13 +164,6 @@ lps28_status_t lps28_reference_pressure(lps28_t *dev, float ref_pressure);
  */
 lps28_status_t lps28_pressure_offset(lps28_t *dev, float offset);
 
-/**
- * @brief Read the status register.
- *
- * @param dev Pointer to initialized driver struct.
- * @param status Output pointer for status register data.
- * @return LPS28_OK on success, or an error code.
- */
 lps28_status_t lps28_status(lps28_t *dev, lps28_status_reg_t *status);
 
 lps28_status_t lps28_read_pressure(lps28_t *dev, float *pressure);
