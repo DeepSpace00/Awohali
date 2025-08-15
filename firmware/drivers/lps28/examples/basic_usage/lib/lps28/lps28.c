@@ -136,6 +136,15 @@ lps28_status_t lps28_who_am_i(lps28_t *dev, uint8_t *who_am_i) {
     return dev->io.i2c_read(dev->i2c_address, who_am_i, 1) == 0 ? LPS28_OK : LPS28_ERR_I2C;
 }
 
+/**
+ * @brief Configure CTRL_REG1 register.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param odr Output data rate setting.
+ * @param avg Average configuration setting.
+
+ * @return LPS28_OK on success, or an error code.
+ */
 lps28_status_t lps28_ctrl_reg1(lps28_t *dev, const lps28_odr_t odr, const lps28_avg_t avg) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
