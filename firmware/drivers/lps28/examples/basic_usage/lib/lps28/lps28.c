@@ -285,7 +285,7 @@ lps28_status_t lps28_read_temperature(lps28_t *dev, float *temperature) {
     if (status != LPS28_OK) return status;
     
     // Combine 16-bit temperature data (L, H)
-    int16_t raw_temp = (int16_t)((data[1] << 8) | data[0]);
+    const int16_t raw_temp = (int16_t)((data[1] << 8) | data[0]);
     
     // Convert to Celsius (100 LSB/°C)
     *temperature = (float)raw_temp / 100.0f;
