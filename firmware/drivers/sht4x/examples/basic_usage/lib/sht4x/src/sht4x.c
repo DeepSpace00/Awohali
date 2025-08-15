@@ -57,8 +57,10 @@ static sht4x_status_t sht4x_read_register(const sht4x_t *dev, const uint8_t reg,
  * @param length Length of data array
  * @return
  */
-static sht4x_status_t sht4x_read_registers(const sht4x_t *dev, const uint8_t reg, uint8_t *data, const size_t length) {
-    if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return SHT4X_ERR_I2C;
+static sht4x_status_t sht4x_command_read(const sht4x_t *dev, const uint8_t cmd, uint8_t *data, const size_t length, const uint32_t delay_ms) {
+    // Send command
+    const sht4x_status_t status = sht4x_send_command(dev, cmd);
+    if (status != SHT4X_OK) return status;
 
     // Wait for processing if delay specified
     if (delay_ms > 0) {
