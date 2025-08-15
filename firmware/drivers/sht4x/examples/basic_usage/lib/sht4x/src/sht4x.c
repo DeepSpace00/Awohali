@@ -81,7 +81,32 @@ static uint16_t sht4x_crc(const uint8_t *data, const uint8_t len) {
     return crc;
 }
 
-sht4x_status_t sht4x_init(sht4x_t *dev, uint8_t address, sht4x_interface_t io) {
+/**
+ * @brief Human-readable description of an SHT4x status code.
+ *
+ * @param status The status code to translate.
+ * @return A string describing the error.
+ */
+const char* sht4x_stat_error(const sht4x_status_t status) {
+    switch (status) {
+    case SHT4X_OK:              return "OK";
+    case SHT4X_ERR_I2C:         return "I2C communication failed";
+    case SHT4X_ERR_TIMEOUT:     return "Timeout occurred";
+    case SHT4X_ERR_NULL:        return "Null pointer";
+    case SHT4X_ERR_CRC:         return "CRC check failed";
+    case SHT4X_ERR_INVALID_ARG: return "Invalid argument";
+    default:                    return "Unknown error";
+    }
+}
+
+/**
+ * @brief Initialize the SHT4x driver
+ * @param dev Pointer to driver handle
+ * @param address I2C address (0 to use default)
+ * @param io Interface structure with platform-specific functions
+ * @return sht4x_status_t Error code
+ */
+sht4x_status_t sht4x_init(sht4x_t *dev, const uint8_t address, const sht4x_interface_t io) {
     if (!dev || !io.i2c_write || !io.i2c_read || !io.delay_ms) return SHT4X_ERR_NULL;
 
     dev->i2c_address = address ? address : SHT4X_I2C_ADDR; // Check if the address matches, if not, set it to the default I2C address
