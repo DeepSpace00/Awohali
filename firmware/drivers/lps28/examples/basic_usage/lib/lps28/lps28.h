@@ -115,13 +115,6 @@ typedef struct {
  */
 lps28_status_t lps28_init(lps28_t *dev, uint8_t address, lps28_interface_t io);
 
-/**
- * @brief Read the WHO_AM_I register to verify sensor identity.
- *
- * @param dev Pointer to initialized driver struct.
- * @param who_am_i Output pointer for WHO_AM_I register value.
- * @return LPS28_OK on success, or an error code.
- */
 lps28_status_t lps28_who_am_i(lps28_t *dev, uint8_t *who_am_i);
 
 lps28_status_t lps28_ctrl_reg1(lps28_t *dev, lps28_odr_t odr, lps28_avg_t avg);
