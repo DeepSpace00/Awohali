@@ -113,7 +113,7 @@ sht4x_status_t sht4x_init(sht4x_t *dev, const uint8_t address, const sht4x_inter
     dev->initialized = false;
     dev->serial_number = 0;
 
-    sht4x_status_t status = sht4x_read_serial_number(dev);
+    const sht4x_status_t status = sht4x_read_serial_number(dev);
     if (status != SHT4X_OK) return status;
 
     dev->initialized = true;
