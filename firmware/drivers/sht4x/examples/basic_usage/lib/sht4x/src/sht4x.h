@@ -14,7 +14,6 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
 #include <stdint.h>
 
 #define SHT4X_I2C_ADDR 0x44
