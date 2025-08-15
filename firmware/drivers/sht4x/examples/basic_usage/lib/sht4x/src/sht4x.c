@@ -60,6 +60,12 @@ static sht4x_status_t sht4x_read_register(const sht4x_t *dev, const uint8_t reg,
 static sht4x_status_t sht4x_read_registers(const sht4x_t *dev, const uint8_t reg, uint8_t *data, const size_t length) {
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return SHT4X_ERR_I2C;
 
+    // Wait for processing if delay specified
+    if (delay_ms > 0) {
+        dev->io.delay_ms(delay_ms);
+    }
+
+    // Read response
     return dev->io.i2c_read(dev->i2c_address, data, length) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
 }
 
