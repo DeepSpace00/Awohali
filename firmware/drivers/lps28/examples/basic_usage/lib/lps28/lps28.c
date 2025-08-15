@@ -155,6 +155,15 @@ lps28_status_t lps28_ctrl_reg1(lps28_t *dev, const lps28_odr_t odr, const lps28_
     return lps28_write_register(dev, LPS28_CTRL_REG1, reg_value);
 }
 
+/**
+ * @brief Configure CTRL_REG2 register.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param boot Enable boot mode.
+ * @param reset Enable software reset.
+ * @param oneshot Enable one-shot mode.
+ * @return LPS28_OK on success, or an error code.
+ */
 lps28_status_t lps28_ctrl_reg2(lps28_t *dev, const bool boot, const bool reset, const bool oneshot) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
