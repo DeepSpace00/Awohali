@@ -81,10 +81,10 @@ void loop() {
         if (sensor_status.pressure_data_available && sensor_status.temperature_data_available) {
             // Read pressure and temperature
             float pressure, temperature;
-            
-            lps28_status_t pressure_status = lps28_read_pressure(&lps, &pressure);
-            lps28_status_t temp_status = lps28_read_temperature(&lps, &temperature);
-            
+
+            const lps28_status_t pressure_status = lps28_read_pressure(&lps, &pressure);
+            const lps28_status_t temp_status = lps28_read_temperature(&lps, &temperature);
+
             if (pressure_status == LPS28_OK && temp_status == LPS28_OK) {
                 char buffer[80];
                 sprintf(buffer, "Pressure: %.2f hPa, Temperature: %.2f °C", pressure, temperature);
