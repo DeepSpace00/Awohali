@@ -25,9 +25,23 @@
 // Implementation of functions
 
 /**
- * @brief  Adafruit Unified Sensor interface for the humidity sensor component
- * of SHT4x
- *
+ * @brief Helper function to write to a register
+ * @param dev Pointer to driver handle
+ * @param reg Target register
+ * @param value Value to write to a register
+ * @return
+ */
+static sht4x_status_t sht4x_write_register(const sht4x_t *dev, const uint8_t reg, const uint8_t value) {
+    const uint8_t data[2] = {reg, value};
+    return dev->io.i2c_write(dev->i2c_address, data, 2) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
+}
+
+/**
+ * @brief Helper function to read data from a register
+ * @param dev Pointer to driver handle
+ * @param reg Target register
+ * @param value Pointer to data variable
+ * @return
  */
 static uint16_t sht4x_crc(uint8_t *data, uint8_t len) {
     uint8_t crc = 0xFF; // Initialize the CRC variable
