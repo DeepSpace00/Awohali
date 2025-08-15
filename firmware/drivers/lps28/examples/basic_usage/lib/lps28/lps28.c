@@ -5,6 +5,7 @@
  * @date 2025-07-14
  */
 
+#include <stdbool.h>
 #include "lps28.h"
 
 // Register addresses
@@ -51,15 +52,15 @@
 #define LPS28_STATUS_P_DA           0x01
 
 // Helper function to write a register
-static lps28_status_t lps28_write_register(lps28_t *dev, uint8_t reg, uint8_t value) {
+static lps28_status_t lps28_write_register(lps28_t *dev, const uint8_t reg, const uint8_t value) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
-    uint8_t data[2] = {reg, value};
+    const uint8_t data[2] = {reg, value};
     return dev->io.i2c_write(dev->i2c_address, data, 2) == 0 ? LPS28_OK : LPS28_ERR_I2C;
 }
 
 // Helper function to read a register
-static lps28_status_t lps28_read_register(lps28_t *dev, uint8_t reg, uint8_t *value) {
+static lps28_status_t lps28_read_register(lps28_t *dev, const uint8_t reg, uint8_t *value) {
     if (!dev || !dev->initialized || !value) return LPS28_ERR_NULL;
     
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return LPS28_ERR_I2C;
@@ -68,7 +69,7 @@ static lps28_status_t lps28_read_register(lps28_t *dev, uint8_t reg, uint8_t *va
 }
 
 // Helper function to read multiple registers
-static lps28_status_t lps28_read_registers(lps28_t *dev, uint8_t reg, uint8_t *data, uint8_t len) {
+static lps28_status_t lps28_read_registers(lps28_t *dev, const uint8_t reg, uint8_t *data, const uint8_t len) {
     if (!dev || !dev->initialized || !data) return LPS28_ERR_NULL;
     
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return LPS28_ERR_I2C;
@@ -76,7 +77,7 @@ static lps28_status_t lps28_read_registers(lps28_t *dev, uint8_t reg, uint8_t *d
     return dev->io.i2c_read(dev->i2c_address, data, len) == 0 ? LPS28_OK : LPS28_ERR_I2C;
 }
 
-lps28_status_t lps28_init(lps28_t *dev, uint8_t address, lps28_interface_t io) {
+lps28_status_t lps28_init(lps28_t *dev, const uint8_t address, const lps28_interface_t io) {
     if (!dev || !io.i2c_write || !io.i2c_read || !io.delay_ms) return LPS28_ERR_NULL;
 
     dev->i2c_address = address ? address : LPS28_I2C_ADDR_1;
@@ -85,7 +86,7 @@ lps28_status_t lps28_init(lps28_t *dev, uint8_t address, lps28_interface_t io) {
 
     // Verify WHO_AM_I
     uint8_t who_am_i;
-    lps28_status_t status = lps28_who_am_i(dev, &who_am_i);
+    const lps28_status_t status = lps28_who_am_i(dev, &who_am_i);
     if (status != LPS28_OK) return status;
     
     if (who_am_i != LPS28_WHO_AM_I_VALUE) return LPS28_ERR_WHO_AM_I;
@@ -98,24 +99,23 @@ lps28_status_t lps28_init(lps28_t *dev, uint8_t address, lps28_interface_t io) {
 lps28_status_t lps28_who_am_i(lps28_t *dev, uint8_t *who_am_i) {
     if (!dev || !who_am_i) return LPS28_ERR_NULL;
     
-    uint8_t reg = LPS28_WHO_AM_I_REG;
+    const uint8_t reg = LPS28_WHO_AM_I_REG;
     if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return LPS28_ERR_I2C;
     
     return dev->io.i2c_read(dev->i2c_address, who_am_i, 1) == 0 ? LPS28_OK : LPS28_ERR_I2C;
 }
 
-lps28_status_t lps28_ctrl_reg1(lps28_t *dev, lps28_odr_t odr, lps28_avg_t avg) {
+lps28_status_t lps28_ctrl_reg1(lps28_t *dev, const lps28_odr_t odr, const lps28_avg_t avg) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
     if (odr > LPS28_ODR_200_HZ || avg > LPS28_AVG_32) return LPS28_ERR_INVALID_ARG;
     
-    uint8_t reg_value = ((odr << LPS28_CTRL_REG1_ODR_SHIFT) & LPS28_CTRL_REG1_ODR_MASK) |
-                        ((avg << LPS28_CTRL_REG1_AVG_SHIFT) & LPS28_CTRL_REG1_AVG_MASK);
+    const uint8_t reg_value = ((odr << LPS28_CTRL_REG1_ODR_SHIFT) & LPS28_CTRL_REG1_ODR_MASK) | ((avg << LPS28_CTRL_REG1_AVG_SHIFT) & LPS28_CTRL_REG1_AVG_MASK);
     
     return lps28_write_register(dev, LPS28_CTRL_REG1, reg_value);
 }
 
-lps28_status_t lps28_ctrl_reg2(lps28_t *dev, bool boot, bool reset, bool oneshot) {
+lps28_status_t lps28_ctrl_reg2(lps28_t *dev, const bool boot, const bool reset, const bool oneshot) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
     uint8_t reg_value = 0;

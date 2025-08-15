@@ -12,7 +12,7 @@
 #include <Wire.h>
 
 extern "C" {
-#include <lps28_platform.h>
+#include <../lib/lps28/lps28_platform.h>
 }
 
 extern "C" {
