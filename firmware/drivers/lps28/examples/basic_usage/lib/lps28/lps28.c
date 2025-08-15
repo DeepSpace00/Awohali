@@ -189,8 +189,8 @@ lps28_status_t lps28_reference_pressure(lps28_t *dev, const float ref_pressure) 
     // LPS28DFW has 24-bit pressure data, but reference is 16-bit
     const int16_t ref_raw = (int16_t)(ref_pressure * 4096.0f / 1260.0f);
     
-    uint8_t ref_l = (uint8_t)(ref_raw & 0xFF);
-    uint8_t ref_h = (uint8_t)((ref_raw >> 8) & 0xFF);
+    const uint8_t ref_l = (uint8_t)(ref_raw & 0xFF);
+    const uint8_t ref_h = (uint8_t)((ref_raw >> 8) & 0xFF);
     
     lps28_status_t status = lps28_write_register(dev, LPS28_REF_P_L, ref_l);
     if (status != LPS28_OK) return status;
