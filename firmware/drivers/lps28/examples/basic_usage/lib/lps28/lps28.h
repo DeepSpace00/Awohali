@@ -146,13 +146,6 @@ lps28_status_t lps28_ctrl_reg1(lps28_t *dev, lps28_odr_t odr, lps28_avg_t avg);
  */
 lps28_status_t lps28_ctrl_reg2(lps28_t *dev, bool boot, bool reset, bool oneshot);
 
-/**
- * @brief Set reference pressure for differential pressure measurement.
- *
- * @param dev Pointer to initialized driver struct.
- * @param ref_pressure Reference pressure in hPa.
- * @return LPS28_OK on success, or an error code.
- */
 lps28_status_t lps28_reference_pressure(lps28_t *dev, float ref_pressure);
 
 lps28_status_t lps28_pressure_offset(lps28_t *dev, float offset);
