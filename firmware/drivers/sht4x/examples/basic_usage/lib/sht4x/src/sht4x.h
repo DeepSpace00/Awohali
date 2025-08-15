@@ -80,12 +80,6 @@ sht4x_status_t sht4x_init(sht4x_t *dev, uint8_t address, sht4x_interface_t io);
 
 sht4x_status_t sht4x_soft_reset(sht4x_t *dev);
 
-/**
- * @brief Read and store the serial number of the sensor.
- *
- * @param dev Pointer to initialized driver struct.
- * @return SHT4X_OK on success, or an error code.
- */
 sht4x_status_t sht4x_read_serial_number(sht4x_t *dev);
 
 /**
