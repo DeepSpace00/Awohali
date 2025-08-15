@@ -2,8 +2,8 @@
  * @file main.cpp
  * @brief Arduino example sketch for LPS28DFW pressure and temperature sensor
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-14
- * 
+ * @date 2025-08-15
+ *
  * This example demonstrates how to use the LPS28DFW driver with Arduino.
  */
 
