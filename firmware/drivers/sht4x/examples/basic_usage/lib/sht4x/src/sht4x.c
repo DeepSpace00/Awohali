@@ -144,8 +144,8 @@ sht4x_status_t sht4x_read_serial_number(sht4x_t *dev) {
 
     uint8_t data[6]; // 2 bytes + CRC, 2 bytes + CRC
 
-    uint8_t buffer[6]; // 2 bytes + CRC, 2 bytes + CRC 
-    if (dev->io.i2c_read(dev->i2c_address, buffer, 6) != 0) return SHT4X_ERR_I2C;
+    const sht4x_status_t status = sht4x_read_registers(dev, SHT4X_CMD_READ_SERIAL, data, sizeof(data));
+    if (status != SHT4X_OK) return status;
 
     // CRC Check
     if (sht4x_crc(&buffer[0], 2) != buffer[2] || sht4x_crc(&buffer[3], 2) != buffer[5]) return SHT4X_ERR_I2C; // Check if the CRC matches
