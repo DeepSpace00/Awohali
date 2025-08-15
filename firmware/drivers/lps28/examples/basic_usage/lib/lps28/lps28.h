@@ -173,13 +173,6 @@ lps28_status_t lps28_pressure_offset(lps28_t *dev, float offset);
  */
 lps28_status_t lps28_status(lps28_t *dev, lps28_status_reg_t *status);
 
-/**
- * @brief Read pressure from the sensor.
- *
- * @param dev Pointer to initialized driver struct.
- * @param pressure Output pointer for pressure in hPa.
- * @return LPS28_OK on success, or an error code.
- */
 lps28_status_t lps28_read_pressure(lps28_t *dev, float *pressure);
 
 lps28_status_t lps28_read_temperature(lps28_t *dev, float *temperature);
