@@ -43,7 +43,33 @@ static sht4x_status_t sht4x_write_register(const sht4x_t *dev, const uint8_t reg
  * @param value Pointer to data variable
  * @return
  */
-static uint16_t sht4x_crc(uint8_t *data, uint8_t len) {
+static sht4x_status_t sht4x_read_register(const sht4x_t *dev, const uint8_t reg, uint8_t *value) {
+    if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return SHT4X_ERR_I2C;
+
+    return dev->io.i2c_read(dev->i2c_address, value, 1) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
+}
+
+/**
+ * @brief Helper function to read multiple bytes from a register
+ * @param dev Pointer to driver handle
+ * @param reg Target register
+ * @param data Pointer to data array
+ * @param length Length of data array
+ * @return
+ */
+static sht4x_status_t sht4x_read_registers(const sht4x_t *dev, const uint8_t reg, uint8_t *data, const size_t length) {
+    if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return SHT4X_ERR_I2C;
+
+    return dev->io.i2c_read(dev->i2c_address, data, length) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
+}
+
+/**
+ * @brief CRC check
+ * @param data Bytes
+ * @param len Number of bytes
+ * @return crc
+ */
+static uint16_t sht4x_crc(const uint8_t *data, const uint8_t len) {
     uint8_t crc = 0xFF; // Initialize the CRC variable
     for (uint8_t i = 0; i < len; i++) {
         crc ^= data[i];
