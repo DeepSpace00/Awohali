@@ -178,7 +178,7 @@ sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, const sht4x_heater_t level) {
         return SHT4X_ERR_INVALID_ARG;
     }
 
-    return sht4x_write_register(dev, cmd, 0);
+    return sht4x_send_command(dev, cmd);
 }
 
 /**
