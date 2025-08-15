@@ -57,7 +57,7 @@ void setup() {
     if (status != LPS28_OK) {
         Serial.println("Failed to configure CTRL_REG1");
         Serial.println(lps28_stat_error(status));
-        while(1) delay(10);
+        while (true) delay(10);
     }
 
     // Optional: Set reference pressure (e.g., sea level pressure)
