@@ -197,7 +197,7 @@ sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measu
     if (status != SHT4X_OK) return status;
 
     // CRC Check
-    if (sht4x_crc(&buffer[0], 2) != buffer[2] || sht4x_crc(&buffer[3], 2) != buffer[5]) return SHT4X_ERR_I2C;
+    if (sht4x_crc(&data[0], 2) != data[2] || sht4x_crc(&data[3], 2) != data[5]) return SHT4X_ERR_I2C;
 
     uint16_t raw_temp = (buffer[0] << 8) | buffer[1];
     uint16_t raw_rh = (buffer[3] << 8) | buffer[4];
