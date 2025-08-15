@@ -142,8 +142,7 @@ sht4x_status_t sht4x_soft_reset(sht4x_t *dev) {
 sht4x_status_t sht4x_read_serial_number(sht4x_t *dev) {
     if (!dev) return SHT4X_ERR_NULL;
 
-    uint8_t cmd = SHT4X_CMD_READ_SERIAL;
-    if (dev->io.i2c_write(dev->i2c_address, &cmd, 1) != 0) return SHT4X_ERR_I2C;
+    uint8_t data[6]; // 2 bytes + CRC, 2 bytes + CRC
 
     uint8_t buffer[6]; // 2 bytes + CRC, 2 bytes + CRC 
     if (dev->io.i2c_read(dev->i2c_address, buffer, 6) != 0) return SHT4X_ERR_I2C;
