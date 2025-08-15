@@ -55,6 +55,7 @@ static sht4x_status_t sht4x_read_register(const sht4x_t *dev, const uint8_t reg,
  * @param reg Target register
  * @param data Pointer to data array
  * @param length Length of data array
+ * @param delay_ms Measurement delay (if needed)
  * @return
  */
 static sht4x_status_t sht4x_command_read(const sht4x_t *dev, const uint8_t cmd, uint8_t *data, const size_t length, const uint32_t delay_ms) {
