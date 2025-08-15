@@ -2,7 +2,7 @@
  * @file lps28.c
  * @brief LPS28DFW Pressure and Temperature Sensor Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-14
+ * @date 2025-08-15
  */
 
 #include <stdbool.h>
