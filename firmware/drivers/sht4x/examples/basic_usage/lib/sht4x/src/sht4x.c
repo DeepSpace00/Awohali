@@ -193,8 +193,8 @@ sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measu
 
     uint8_t data[6];
 
-    uint8_t buffer[6];
-    if (dev->io.i2c_read(dev->i2c_address, buffer, 6) != 0) return SHT4X_ERR_I2C;
+    const sht4x_status_t status = sht4x_read_registers(dev, SHT4X_CMD_MEASURE_HIGH_PRECISION, data, sizeof(data));
+    if (status != SHT4X_OK) return status;
 
     // CRC Check
     if (sht4x_crc(&buffer[0], 2) != buffer[2] || sht4x_crc(&buffer[3], 2) != buffer[5]) return SHT4X_ERR_I2C;
