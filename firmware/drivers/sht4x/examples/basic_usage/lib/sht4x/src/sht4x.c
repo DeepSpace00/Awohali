@@ -111,7 +111,7 @@ sht4x_status_t sht4x_init(sht4x_t *dev, const uint8_t address, const sht4x_inter
     if (status != SHT4X_OK) return status;
 
     dev->initialized = true;
-    
+
     return SHT4X_OK;
 }
 
@@ -160,12 +160,12 @@ sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, const sht4x_heater_t level) {
 
     uint8_t cmd;
     switch (level) {
-        case SHT4X_HEATER_20MW_100MS:   cmd = SHT4X_CMD_HEATER_20MW_100MS; break;
-        case SHT4X_HEATER_20MW_1S:      cmd = SHT4X_CMD_HEATER_20MW_1S; break;
-        case SHT4X_HEATER_110MW_100MS:  cmd = SHT4X_CMD_HEATER_110MW_100MS; break;
-        case SHT4X_HEATER_110MW_1S:     cmd = SHT4X_CMD_HEATER_110MW_1S; break;
-        case SHT4X_HEATER_200MW_100MS:  cmd = SHT4X_CMD_HEATER_200MW_100MS; break;
-        case SHT4X_HEATER_200MW_1S:     cmd = SHT4X_CMD_HEATER_200MW_1S; break;
+    case SHT4X_HEATER_20MW_100MS:   cmd = SHT4X_CMD_HEATER_20MW_100MS; break;
+    case SHT4X_HEATER_20MW_1S:      cmd = SHT4X_CMD_HEATER_20MW_1S; break;
+    case SHT4X_HEATER_110MW_100MS:  cmd = SHT4X_CMD_HEATER_110MW_100MS; break;
+    case SHT4X_HEATER_110MW_1S:     cmd = SHT4X_CMD_HEATER_110MW_1S; break;
+    case SHT4X_HEATER_200MW_100MS:  cmd = SHT4X_CMD_HEATER_200MW_100MS; break;
+    case SHT4X_HEATER_200MW_1S:     cmd = SHT4X_CMD_HEATER_200MW_1S; break;
     default:
         return SHT4X_ERR_INVALID_ARG;
     }

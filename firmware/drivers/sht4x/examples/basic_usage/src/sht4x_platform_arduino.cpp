@@ -1,3 +1,10 @@
+/**
+ * @file sht4x_platform_arduino.cpp
+ * @brief Platform abstraction layer for SHT4x I2C driver
+ * @author Madison Gleydura (DeepSpace00)
+ * @date 2025-08-15
+ */
+
 #include <Arduino.h>
 #include <Wire.h>
 
