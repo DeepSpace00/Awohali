@@ -175,7 +175,14 @@ lps28_status_t lps28_ctrl_reg2(lps28_t *dev, const bool boot, const bool reset, 
     return lps28_write_register(dev, LPS28_CTRL_REG2, reg_value);
 }
 
-lps28_status_t lps28_reference_pressure(lps28_t *dev, float ref_pressure) {
+/**
+ * @brief Set reference pressure for differential pressure measurement.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param ref_pressure Reference pressure in hPa.
+ * @return LPS28_OK on success, or an error code.
+ */
+lps28_status_t lps28_reference_pressure(lps28_t *dev, const float ref_pressure) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
     // Convert pressure from hPa to raw 16-bit value
