@@ -73,12 +73,9 @@ typedef struct {
 
 
 // Public function prototypes
-/**
- * @brief Initialize the SHT4x driver
- * @param dev Pointer to driver handle
- * @param pvt_data Pointer to PVT data structure
- * @return zedf9p_error_t Error code
- */
+
+const char* sht4x_stat_error(sht4x_status_t status);
+
 sht4x_status_t sht4x_init(sht4x_t *dev, uint8_t address, sht4x_interface_t io);
 
 /**
