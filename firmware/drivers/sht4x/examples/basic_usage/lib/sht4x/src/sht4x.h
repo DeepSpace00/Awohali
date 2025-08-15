@@ -84,14 +84,7 @@ sht4x_status_t sht4x_read_serial_number(sht4x_t *dev);
 
 sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, sht4x_heater_t level);
 
-/**
- * @brief Read temperature and humidity from the sensor.
- *
- * @param dev Pointer to initialized driver struct.
- * @param measurement Output pointer for temperature in degrees Celsius & relative humidity in %RH.
- * @return SHT4X_OK on success, or an error code.
- */
-sht4x_status_t sht4x_read_measurement(sht4x_t *dev, sht4x_measurement_t *measurement);
+sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measurements);
 
 #ifdef __cplusplus
 }
