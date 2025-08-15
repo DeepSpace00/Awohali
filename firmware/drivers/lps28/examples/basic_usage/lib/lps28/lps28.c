@@ -104,7 +104,7 @@ const char* lps28_stat_error(const lps28_status_t status) {
 lps28_status_t lps28_init(lps28_t *dev, const uint8_t address, const lps28_interface_t io) {
     if (!dev || !io.i2c_write || !io.i2c_read || !io.delay_ms) return LPS28_ERR_NULL;
 
-    dev->i2c_address = address ? address : LPS28_I2C_ADDR;
+    dev->i2c_address = address ? address : LPS28_I2C_ADDR_1;
     dev->io = io;
     dev->initialized = false;
 
