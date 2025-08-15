@@ -77,7 +77,6 @@ static uint16_t sht4x_crc(const uint8_t *data, const uint8_t len) {
             crc = (crc & 0x80) ? (crc << 1) ^ 0x31 : (crc << 1);
         }
     }
-
     return crc;
 }
 
