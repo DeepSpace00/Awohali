@@ -165,8 +165,7 @@ sht4x_status_t sht4x_read_serial_number(sht4x_t *dev) {
 sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, const sht4x_heater_t level) {
     if (!dev || !dev->initialized) return SHT4X_ERR_NULL;
 
-    uint8_t cmd = SHT4X_CMD_HEATER_20MW_100MS;
-
+    uint8_t cmd;
     switch (level) {
         case SHT4X_HEATER_20MW_100MS:   cmd = SHT4X_CMD_HEATER_20MW_100MS; break;
         case SHT4X_HEATER_20MW_1S:      cmd = SHT4X_CMD_HEATER_20MW_1S; break;
