@@ -253,7 +253,7 @@ lps28_status_t lps28_read_pressure(lps28_t *dev, float *pressure) {
     if (!dev || !dev->initialized || !pressure) return LPS28_ERR_NULL;
     
     uint8_t data[3];
-    lps28_status_t status = lps28_read_registers(dev, LPS28_PRESS_OUT_XL, data, 3);
+    const lps28_status_t status = lps28_read_registers(dev, LPS28_PRESS_OUT_XL, data, 3);
     if (status != LPS28_OK) return status;
     
     // Combine 24-bit pressure data (XL, L, H)
