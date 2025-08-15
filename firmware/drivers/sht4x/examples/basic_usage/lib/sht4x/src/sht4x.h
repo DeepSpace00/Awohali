@@ -69,7 +69,7 @@ typedef struct {
 typedef struct {
     float temperature_c;
     float humidity_rh;
-} sht4x_measurement_t;
+} sht4x_measurements_t;
 
 
 // Public function prototypes
