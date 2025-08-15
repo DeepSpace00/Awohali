@@ -31,14 +31,6 @@ typedef enum {
 } sht4x_status_t;
 
 /**
- * @brief Human-readable description of an SHT4x status code.
- *
- * @param status The status code to translate.
- * @return A string describing the error.
- */
-const char* sht4x_stat_error(sht4x_status_t status);
-
-/**
  * @brief Heater configuration options for the SHT4x sensor.
  */
 typedef enum {
