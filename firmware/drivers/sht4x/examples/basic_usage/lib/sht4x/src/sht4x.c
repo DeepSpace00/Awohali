@@ -36,19 +36,6 @@ static sht4x_status_t sht4x_send_command(const sht4x_t *dev, const uint8_t cmd) 
 }
 
 /**
- * @brief Helper function to read data from a register
- * @param dev Pointer to driver handle
- * @param reg Target register
- * @param value Pointer to data variable
- * @return
- */
-static sht4x_status_t sht4x_read_register(const sht4x_t *dev, const uint8_t reg, uint8_t *value) {
-    if (dev->io.i2c_write(dev->i2c_address, &reg, 1) != 0) return SHT4X_ERR_I2C;
-
-    return dev->io.i2c_read(dev->i2c_address, value, 1) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
-}
-
-/**
  * @brief Helper function to read multiple bytes from a register
  * @param dev Pointer to driver handle
  * @param cmd Target register
