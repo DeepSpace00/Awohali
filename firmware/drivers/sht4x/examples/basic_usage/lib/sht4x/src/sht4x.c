@@ -52,7 +52,7 @@ static sht4x_status_t sht4x_read_register(const sht4x_t *dev, const uint8_t reg,
 /**
  * @brief Helper function to read multiple bytes from a register
  * @param dev Pointer to driver handle
- * @param reg Target register
+ * @param cmd Target register
  * @param data Pointer to data array
  * @param length Length of data array
  * @param delay_ms Measurement delay (if needed)
