@@ -1,4 +1,4 @@
-/*!
+/**
  * @file lps28.h
  * @brief LPS28DFW Pressure and Temperature Sensor Driver
  * @author Madison Gleydura (DeepSpace00)
