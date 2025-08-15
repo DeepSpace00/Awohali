@@ -77,6 +77,30 @@ static lps28_status_t lps28_read_registers(lps28_t *dev, const uint8_t reg, uint
     return dev->io.i2c_read(dev->i2c_address, data, len) == 0 ? LPS28_OK : LPS28_ERR_I2C;
 }
 
+/**
+ * @brief Convert status error into string
+ * @param status Status error
+ * @return String describing status error
+ */
+const char* lps28_stat_error(const lps28_status_t status) {
+    switch (status) {
+    case LPS28_OK:              return "OK";
+    case LPS28_ERR_I2C:         return "I2C communication failed";
+    case LPS28_ERR_TIMEOUT:     return "Timeout occurred";
+    case LPS28_ERR_NULL:        return "Null pointer";
+    case LPS28_ERR_INVALID_ARG: return "Invalid argument";
+    case LPS28_ERR_WHO_AM_I:    return "WHO_AM_I verification failed";
+    default:                    return "Unknown error";
+    }
+}
+
+/**
+ * @brief Initialize the LPS28DFW driver
+ * @param dev Pointer to driver handle
+ * @param address I2C address (0 to use default)
+ * @param io Interface structure with platform-specific functions
+ * @return lps28_status_t Error code
+ */
 lps28_status_t lps28_init(lps28_t *dev, const uint8_t address, const lps28_interface_t io) {
     if (!dev || !io.i2c_write || !io.i2c_read || !io.delay_ms) return LPS28_ERR_NULL;
 
