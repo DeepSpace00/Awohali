@@ -82,13 +82,6 @@ sht4x_status_t sht4x_soft_reset(sht4x_t *dev);
 
 sht4x_status_t sht4x_read_serial_number(sht4x_t *dev);
 
-/**
- * @brief Pulse the heater on the sensor.
- *
- * @param dev Pointer to initialized driver struct.
- * @param level The desired heater setting.
- * @return SHT4X_OK on success, or an error code.
- */
 sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, sht4x_heater_t level);
 
 /**
