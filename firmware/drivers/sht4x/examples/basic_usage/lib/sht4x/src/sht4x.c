@@ -121,6 +121,12 @@ sht4x_status_t sht4x_init(sht4x_t *dev, const uint8_t address, const sht4x_inter
     return SHT4X_OK;
 }
 
+/**
+ * @brief Perform a soft reset of the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @return SHT4X_OK on success, or an error code.
+ */
 sht4x_status_t sht4x_soft_reset(sht4x_t *dev) {
     if (!dev || !dev->initialized) return SHT4X_ERR_NULL;
 
