@@ -5,7 +5,9 @@
  * @date 2025-07-12
  */
 
-#include <sht4x.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include "sht4x.h"
 
 // Registers
 #define SHT4X_CMD_MEASURE_HIGH_PRECISION    0xFD
