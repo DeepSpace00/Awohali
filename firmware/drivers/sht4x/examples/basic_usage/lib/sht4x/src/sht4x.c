@@ -31,9 +31,8 @@
  * @param value Value to write to a register
  * @return
  */
-static sht4x_status_t sht4x_write_register(const sht4x_t *dev, const uint8_t reg, const uint8_t value) {
-    const uint8_t data[2] = {reg, value};
-    return dev->io.i2c_write(dev->i2c_address, data, 2) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
+static sht4x_status_t sht4x_send_command(const sht4x_t *dev, const uint8_t cmd) {
+    return dev->io.i2c_write(dev->i2c_address, &cmd, 1) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
 }
 
 /**
