@@ -198,7 +198,14 @@ lps28_status_t lps28_reference_pressure(lps28_t *dev, const float ref_pressure) 
     return lps28_write_register(dev, LPS28_REF_P_H, ref_h);
 }
 
-lps28_status_t lps28_pressure_offset(lps28_t *dev, float offset) {
+/**
+ * @brief Set pressure offset for calibration.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param offset Pressure offset in hPa.
+ * @return LPS28_OK on success, or an error code.
+ */
+lps28_status_t lps28_pressure_offset(lps28_t *dev, const float offset) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
     // Convert offset from hPa to raw 16-bit value
