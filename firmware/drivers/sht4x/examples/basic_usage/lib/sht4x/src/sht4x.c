@@ -192,8 +192,7 @@ sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measu
     if (!dev || !measurements) return SHT4X_ERR_NULL;
 
     uint8_t data[6];
-
-    const sht4x_status_t status = sht4x_read_registers(dev, SHT4X_CMD_MEASURE_HIGH_PRECISION, data, sizeof(data));
+    const sht4x_status_t status = sht4x_command_read(dev, SHT4X_CMD_MEASURE_HIGH_PRECISION, data, sizeof(data), 10);
     if (status != SHT4X_OK) return status;
 
     // CRC Check
