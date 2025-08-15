@@ -120,6 +120,13 @@ lps28_status_t lps28_init(lps28_t *dev, const uint8_t address, const lps28_inter
     return LPS28_OK;
 }
 
+/**
+ * @brief Read the WHO_AM_I register to verify sensor identity.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param who_am_i Output pointer for WHO_AM_I register value.
+ * @return LPS28_OK on success, or an error code.
+ */
 lps28_status_t lps28_who_am_i(lps28_t *dev, uint8_t *who_am_i) {
     if (!dev || !who_am_i) return LPS28_ERR_NULL;
     
