@@ -270,6 +270,13 @@ lps28_status_t lps28_read_pressure(lps28_t *dev, float *pressure) {
     return LPS28_OK;
 }
 
+/**
+ * @brief Read temperature from the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param temperature Output pointer for temperature in degrees Celsius.
+ * @return LPS28_OK on success, or an error code.
+ */
 lps28_status_t lps28_read_temperature(lps28_t *dev, float *temperature) {
     if (!dev || !dev->initialized || !temperature) return LPS28_ERR_NULL;
     
