@@ -148,7 +148,7 @@ sht4x_status_t sht4x_read_serial_number(sht4x_t *dev) {
     if (status != SHT4X_OK) return status;
 
     // CRC Check
-    if (sht4x_crc(&data[0], 2) != data[2] || sht4x_crc(&data[3], 2) != data[5]) return SHT4X_ERR_I2C; // Check if the CRC matches
+    if (sht4x_crc(&data[0], 2) != data[2] || sht4x_crc(&data[3], 2) != data[5]) return SHT4X_ERR_CRC;
 
     dev->serial_number = (uint32_t)data[0] << 24 | (uint32_t)data[1] << 16 |
                         (uint32_t)data[3] << 8 | (uint32_t)data[4]; // bit-shift the data to form the serial number
