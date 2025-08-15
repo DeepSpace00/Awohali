@@ -199,8 +199,8 @@ sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measu
     // CRC Check
     if (sht4x_crc(&data[0], 2) != data[2] || sht4x_crc(&data[3], 2) != data[5]) return SHT4X_ERR_I2C;
 
-    uint16_t raw_temp = (buffer[0] << 8) | buffer[1];
-    uint16_t raw_rh = (buffer[3] << 8) | buffer[4];
+    const uint16_t raw_temp = (data[0] << 8) | data[1];
+    const uint16_t raw_rh = (data[3] << 8) | data[4];
 
     // Convert raw values to temperature and humidity
     measurement->temperature_c = -45.0f + 175.0f * ((float)raw_temp / 65535.0f);
