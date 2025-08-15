@@ -231,7 +231,7 @@ lps28_status_t lps28_status(lps28_t *dev, lps28_status_reg_t *status) {
     if (!dev || !dev->initialized || !status) return LPS28_ERR_NULL;
     
     uint8_t status_reg;
-    lps28_status_t result = lps28_read_register(dev, LPS28_STATUS, &status_reg);
+    const lps28_status_t result = lps28_read_register(dev, LPS28_STATUS, &status_reg);
     if (result != LPS28_OK) return result;
     
     status->temperature_overrun = (status_reg & LPS28_STATUS_T_OR) ? true : false;
