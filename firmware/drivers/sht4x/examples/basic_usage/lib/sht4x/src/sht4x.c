@@ -207,16 +207,4 @@ sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measu
     measurements->humidity_rh = 100.0f * ((float)raw_rh / 65535.0f);
 
     return SHT4X_OK;
-}*/
-
-const char* sht4x_stat_error(sht4x_status_t status) {
-    switch (status) {
-        case SHT4X_OK:              return "OK";
-        case SHT4X_ERR_I2C:         return "I2C communication failed";
-        case SHT4X_ERR_TIMEOUT:     return "Timeout occurred";
-        case SHT4X_ERR_NULL:        return "Null pointer";
-        case SHT4X_ERR_CRC:         return "CRC check failed";
-        case SHT4X_ERR_INVALID_ARG: return "Invalid argument";
-        default:                    return "Unknown error";
-    }
 }
