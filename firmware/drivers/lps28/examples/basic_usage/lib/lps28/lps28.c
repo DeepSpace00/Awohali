@@ -292,15 +292,3 @@ lps28_status_t lps28_read_temperature(lps28_t *dev, float *temperature) {
     
     return LPS28_OK;
 }
-
-const char* lps28_stat_error(lps28_status_t status) {
-    switch (status) {
-        case LPS28_OK:              return "OK";
-        case LPS28_ERR_I2C:         return "I2C communication failed";
-        case LPS28_ERR_TIMEOUT:     return "Timeout occurred";
-        case LPS28_ERR_NULL:        return "Null pointer";
-        case LPS28_ERR_INVALID_ARG: return "Invalid argument";
-        case LPS28_ERR_WHO_AM_I:    return "WHO_AM_I verification failed";
-        default:                    return "Unknown error";
-    }
-}
