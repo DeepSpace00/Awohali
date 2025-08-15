@@ -2,7 +2,7 @@
  * @file bq76905.c
  * @brief BQ76905 Battery Monitor and Protector Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-08-13
+ * @date 2025-08-14
  */
 
 #include <stddef.h>
@@ -138,6 +138,28 @@
 #define BQ76905_REG_SECURITY_SETTINGS 0x9059                    ///< Security Settings
 #define BQ76905_REG_FULL_ACCESS_KEY_STEP1 0x905A                ///< Full Access Key Step 1
 #define BQ76905_REG_FULL_ACCESS_KEY_STEP2 0x905C                ///< Full Access Key Step 2
+
+///< @section Register Bit Masks
+///< @subsection CB_ACTIVE_CELLS Bit Masks
+#define BQ76905_ACTIVE_CELLS_5  (1 << 5)
+#define BQ76905_ACTIVE_CELLS_4  (1 << 4)
+#define BQ76905_ACTIVE_CELLS_3  (1 << 3)
+#define BQ76905_ACTIVE_CELLS_2  (1 << 2)
+#define BQ76905_ACTIVE_CELLS_1  (1 << 1)
+
+static uint8_t bq76905_crc(const uint8_t *data, const uint8_t len) {
+    if (!data || !len) return 0;
+    uint8_t crc = 0x00; // Initialize the CRC variable
+    const uint8_t polynomial = 0x07;    // x^8 + x^2 + x + 1
+    for (uint8_t i = 0; i < len; i++) {
+        crc ^= data[i];
+        for (uint8_t j = 0; j < 8; j++) {
+            crc = (crc & 0x80) ? (crc << 1) ^ polynomial : (crc << 1);
+        }
+    }
+
+    return crc;
+}
 
 /**
  * @brief Helper function to write to a register
@@ -789,6 +811,294 @@ bq76905_status_t bq76905_disable_alarm(bq76905_t *dev, const bq76905_alarms_t al
     if (status != BQ76905_OK) return status;
 
     return BQ76905_OK;
+}
+
+///< @section Command-Only Subcommands
+
+/**
+ * Reset the accumulated charge and timer
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_reset_passq(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_RESET_PASSQ);
+}
+
+/**
+ * @brief Exit DEEPSLEEP mode
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_exit_deepsleep(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_EXIT_DEEPSLEEP);
+}
+
+/**
+ * @brief Enter DEEPSLEEP mode
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_enter_deepsleep(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    const bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_DEEPSLEEP);
+    if (status != BQ76905_OK) return status;
+
+    platform_delay_ms(1000);
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_DEEPSLEEP); // Must send command twice within 4s to take effect
+}
+
+/**
+ * @brief Enter SHUTDOWN mode
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_shutdown(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    const bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_SHUTDOWN);
+    if (status != BQ76905_OK) return status;
+
+    platform_delay_ms(1000);
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_SHUTDOWN); // Must send command twice within 4s to take effect
+}
+
+/**
+ * @brief Reset the device
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_reset(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_RESET);
+}
+
+/**
+ * @brief Select between manual and autonomous device FET control
+ * @details 0 - Manual FET control
+ * @details 1 - Autonomous FET control
+ * @param dev Pointer to driver handle
+ * @param settings Pointer to settings struct
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_fet_enable(bq76905_t *dev, bq76905_settings_t *settings) {
+    if (!dev || !dev->initialized || !settings) return BQ76905_ERR_NULL;
+
+    const bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_FET_ENABLE);
+    if (status != BQ76905_OK) return status;
+
+    settings->fet_en = ! settings->fet_en;
+
+    return BQ76905_OK;
+}
+
+/**
+ * @brief Enter CONFIG_UPDATE mode
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_enter_cfg_update(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_SET_CFGUPDATE);
+}
+
+/**
+ * @brief Exit CONFIG_UPDATE mode
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_exit_cfg_update(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_EXIT_CFGUPDATE);
+}
+
+/**
+ * @brief Allow device to enter SLEEP mode
+ * @param dev Pointer to driver handle
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_sleep_enable(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_SLEEP_ENABLE);
+}
+
+/**
+ * @brief Block device from entering SLEEP mode
+ * @param dev
+ * @return
+ */
+bq76905_status_t bq76905_sleep_disable(bq76905_t *dev) {
+    if (!dev || !dev->initialized) return BQ76905_ERR_NULL;
+
+    return bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_SLEEP_DISABLE);
+}
+
+///< @section Subcommands with data
+
+/**
+ * @brief Get the device number that identifies the product
+ * @param dev Pointer to driver handle
+ * @param settings Pointer to settings structure
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_get_device_number(bq76905_t *dev, bq76905_settings_t *settings) {
+    if (!dev || !dev->initialized || !settings) return BQ76905_ERR_NULL;
+
+    bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_DEVICE_NUMBER);
+    if (status != BQ76905_OK) return status;
+
+    uint8_t data[3];
+
+    status = bq76905_read_registers(dev, BQ76905_I2C_DATA_BUFFER_ADDRESS, data, sizeof(data));
+    if (status != BQ76905_OK) return status;
+
+    settings->device_number = (data[1] << 8) | data[2];
+
+    return BQ76905_OK;
+}
+
+/**
+ * @brief Get the device number and firmware version for the product
+ * @param dev Pointer to driver handle
+ * @param settings Pointer to settings structure
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_get_firmware_version(bq76905_t *dev, bq76905_settings_t *settings) {
+    if (!dev || !dev->initialized || !settings) return BQ76905_ERR_NULL;
+
+    bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_FW_VERSION);
+    if (status != BQ76905_OK) return status;
+
+    uint8_t data[7];
+
+    status = bq76905_read_registers(dev, BQ76905_I2C_DATA_BUFFER_ADDRESS, data, sizeof(data));
+    if (status != BQ76905_OK) return status;
+
+    settings->device_number = (data[1] << 8) | data[2];
+    settings->firmware_version = (data[3] << 8) | data[4];
+    settings->build_number = (data[5] << 8) | data[6];
+
+    return BQ76905_OK;
+}
+
+/**
+ * @brief Get the device hardware version
+ * @param dev Pointer to driver handle
+ * @param settings Pointer to settings structure
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_get_hardware_version(bq76905_t *dev, bq76905_settings_t *settings) {
+    if (!dev || !dev->initialized || !settings) return BQ76905_ERR_NULL;
+
+    bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_HW_VERSION);
+    if (status != BQ76905_OK) return status;
+
+    uint8_t data[3];
+
+    status = bq76905_read_registers(dev, BQ76905_I2C_DATA_BUFFER_ADDRESS, data, sizeof(data));
+    if (status != BQ76905_OK) return status;
+
+    settings->device_number = (data[1] << 8) | data[2];
+
+    return BQ76905_OK;
+}
+
+/**
+ * @brief Get the accumulated charge and time
+ * @param dev Pointer to driver handle
+ * @param settings Pointer to settings structure
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_get_passq(bq76905_t *dev, bq76905_settings_t *settings) {
+    if (!dev || !dev->initialized || !settings) return BQ76905_ERR_NULL;
+
+    bq76905_status_t status = bq76905_write_register(dev, BQ76905_I2C_COMMAND_ADDRESS, BQ76905_REG_PASSQ);
+    if (status != BQ76905_OK) return status;
+
+    uint8_t data[13];
+
+    status = bq76905_read_registers(dev, BQ76905_I2C_DATA_BUFFER_ADDRESS, data, sizeof(data));
+    if (status != BQ76905_OK) return status;
+
+    const uint32_t lsb = (data[4] << 24) | (data[3] << 16) | (data[2] << 8) | data[1];
+    const int32_t msb = (data[8] << 24) | (data[7] << 16) | (data[6] << 8) | data[5];
+
+    settings->passq = ((int64_t)msb << 32) | lsb;
+    settings->passtime = (data[12] << 24) | (data[11] << 16) | (data[10] << 8) | data[9];
+
+    return BQ76905_OK;
+}
+
+/**
+ * @brief Get how which cells are being actively balanced
+ * @param dev Pointer to driver handle
+ * @param active_cells Pointer to active_cells struct
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq7605_get_active_cells(bq76905_t *dev, bq76905_active_cells_t *active_cells) {
+    if (!dev || !dev->initialized || !active_cells) return BQ76905_ERR_NULL;
+
+    uint8_t data[2];
+    data[0] = BQ76905_REG_CB_ACTIVE_CELLS;
+    data[1] = 0x00;
+
+    bq76905_status_t status = bq76905_write_registers(dev, BQ76905_I2C_COMMAND_ADDRESS, data, sizeof(data));
+    if (status != BQ76905_OK) return status;
+
+    uint8_t activeCellsByte;
+
+    status = bq76905_read_register(dev, BQ76905_I2C_DATA_BUFFER_ADDRESS, &activeCellsByte);
+    if (status != BQ76905_OK) return status;
+
+    active_cells->cell_5 = (activeCellsByte & BQ76905_ACTIVE_CELLS_5) ? 1 : 0;
+    active_cells->cell_4 = (activeCellsByte & BQ76905_ACTIVE_CELLS_4) ? 1 : 0;
+    active_cells->cell_3 = (activeCellsByte & BQ76905_ACTIVE_CELLS_3) ? 1 : 0;
+    active_cells->cell_2 = (activeCellsByte & BQ76905_ACTIVE_CELLS_2) ? 1 : 0;
+    active_cells->cell_1 = (activeCellsByte & BQ76905_ACTIVE_CELLS_1) ? 1 : 0;
+
+    return BQ76905_OK;
+}
+
+/**
+ * @brief Set which cells should be balanced
+ * @param dev Pointer to driver handle
+ * @param active_cells Pointer to active_cells structure
+ * @return bq76905_status_t Status code
+ */
+bq76905_status_t bq76905_set_active_cells(bq76905_t *dev, bq76905_active_cells_t *active_cells){
+    if (!dev || !dev->initialized || !active_cells) return BQ76905_ERR_NULL;
+
+    uint8_t activeCellsByte = 0;
+
+    if (active_cells->cell_5) activeCellsByte |= BQ76905_ACTIVE_CELLS_5;
+    if (active_cells->cell_4) activeCellsByte |= BQ76905_ACTIVE_CELLS_4;
+    if (active_cells->cell_3) activeCellsByte |= BQ76905_ACTIVE_CELLS_3;
+    if (active_cells->cell_2) activeCellsByte |= BQ76905_ACTIVE_CELLS_2;
+    if (active_cells->cell_1) activeCellsByte |= BQ76905_ACTIVE_CELLS_1;
+
+    uint8_t data[3];
+    data[0] = BQ76905_REG_CB_ACTIVE_CELLS;
+    data[1] = 0x00;
+    data[2] = activeCellsByte;
+
+    const bq76905_status_t status = bq76905_write_registers(dev, BQ76905_I2C_COMMAND_ADDRESS, data, sizeof(data));
+    if (status != BQ76905_OK) return status;
+
+    uint8_t crc[2];
+    crc[0] = bq76905_crc(data, 3);
+    crc[1] = 0x05;
+
+    return bq76905_write_registers(dev, 0x60, crc, sizeof(crc));
 }
 
 /**

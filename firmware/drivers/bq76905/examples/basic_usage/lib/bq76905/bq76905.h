@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 #ifdef __cplusplus
-// extern "C" {
+extern "C" {
 #endif
 
 #define BQ76905_I2C_DEFAULT_ADDRESS 0x10        // Default I2C address
@@ -450,7 +450,7 @@ bq76905_status_t bq76905_exit_deepsleep(bq76905_t *dev);
 
 bq76905_status_t bq76905_enter_deepsleep(bq76905_t *dev);   ///< Must be sent twice in a row within 4s to take effect
 
-bq76905_status_t bq76905_shutdown(bq76905_t *dev);      ///< Must be sent twice in a row within 4s to take effect
+bq76905_status_t bq76905_shutdown(bq76905_t *dev);          ///< Must be sent twice in a row within 4s to take effect
 
 bq76905_status_t bq76905_reset(bq76905_t *dev);
 
@@ -484,7 +484,7 @@ bq76905_status_t bq76905_set_active_cells(bq76905_t *dev, bq76905_active_cells_t
 bq76905_status_t bq76905_get_measurements(bq76905_t *dev, bq76905_measurements_t *measurements);
 
 #ifdef __cplusplus
-// }
+}
 #endif
 
 #endif //BQ76905_H
