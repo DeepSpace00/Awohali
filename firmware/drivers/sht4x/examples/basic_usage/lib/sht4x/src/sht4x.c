@@ -191,9 +191,7 @@ sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, const sht4x_heater_t level) {
 sht4x_status_t sht4x_read_measurements(sht4x_t *dev, sht4x_measurements_t *measurements) {
     if (!dev || !measurements) return SHT4X_ERR_NULL;
 
-    uint8_t cmd = SHT4X_CMD_MEASURE_HIGH_PRECISION;
-    if (dev->io.i2c_write(dev->i2c_address, &cmd, 1) != 0) return SHT4X_ERR_I2C;
-    dev->io.delay_ms(10); // Max measurement duration
+    uint8_t data[6];
 
     uint8_t buffer[6];
     if (dev->io.i2c_read(dev->i2c_address, buffer, 6) != 0) return SHT4X_ERR_I2C;
