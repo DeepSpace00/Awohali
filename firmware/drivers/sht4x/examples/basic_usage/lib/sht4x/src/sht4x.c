@@ -178,9 +178,7 @@ sht4x_status_t sht4x_pulse_heater(sht4x_t *dev, const sht4x_heater_t level) {
         return SHT4X_ERR_INVALID_ARG;
     }
 
-    if (dev->io.i2c_write(dev->i2c_address, &cmd, 1) != 0) return SHT4X_ERR_I2C;
-
-    return SHT4X_OK;
+    return sht4x_write_register(dev, cmd, 0);
 }
 
 sht4x_status_t sht4x_read_measurement(sht4x_t *dev, sht4x_measurement_t *measurement) {
