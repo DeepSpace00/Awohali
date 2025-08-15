@@ -2,7 +2,7 @@
  * @file sht4x.c
  * @brief SHT4x Temperature and Humidity Sensor Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-12
+ * @date 2025-08-15
  */
 
 #include <stdbool.h>
