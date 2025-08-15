@@ -28,7 +28,7 @@ void setup() {
     Serial.println("LPS28DFW Basic Usage");
 
     // Define the IO pointers
-    lps28_interface_t io = {
+    constexpr lps28_interface_t io = {
         .i2c_write = platform_i2c_write,
         .i2c_read = platform_i2c_read,
         .delay_ms = platform_delay_ms
