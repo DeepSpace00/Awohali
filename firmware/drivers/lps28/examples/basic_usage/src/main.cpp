@@ -1,4 +1,4 @@
-/*!
+/**
  * @file main.cpp
  * @brief Arduino example sketch for LPS28DFW pressure and temperature sensor
  * @author Madison Gleydura (DeepSpace00)
