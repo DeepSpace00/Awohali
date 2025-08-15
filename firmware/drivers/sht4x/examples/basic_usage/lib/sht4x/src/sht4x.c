@@ -143,8 +143,7 @@ sht4x_status_t sht4x_read_serial_number(sht4x_t *dev) {
     if (!dev) return SHT4X_ERR_NULL;
 
     uint8_t data[6]; // 2 bytes + CRC, 2 bytes + CRC
-
-    const sht4x_status_t status = sht4x_read_registers(dev, SHT4X_CMD_READ_SERIAL, data, sizeof(data));
+    const sht4x_status_t status = sht4x_command_read(dev, SHT4X_CMD_READ_SERIAL, data, sizeof(data), 1);
     if (status != SHT4X_OK) return status;
 
     // CRC Check
