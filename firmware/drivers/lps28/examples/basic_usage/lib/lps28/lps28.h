@@ -106,13 +106,6 @@ typedef struct {
 } lps28_status_reg_t;
 
 // Public function prototypes
-/**
- * @brief Initialize the LPS28DFW driver
- * @param dev Pointer to driver handle
- * @param address I2C address (0 to use default)
- * @param io Interface structure with platform-specific functions
- * @return lps28_status_t Error code
- */
 lps28_status_t lps28_init(lps28_t *dev, uint8_t address, lps28_interface_t io);
 
 lps28_status_t lps28_who_am_i(lps28_t *dev, uint8_t *who_am_i);
