@@ -281,7 +281,7 @@ lps28_status_t lps28_read_temperature(lps28_t *dev, float *temperature) {
     if (!dev || !dev->initialized || !temperature) return LPS28_ERR_NULL;
     
     uint8_t data[2];
-    lps28_status_t status = lps28_read_registers(dev, LPS28_TEMP_OUT_L, data, 2);
+    const lps28_status_t status = lps28_read_registers(dev, LPS28_TEMP_OUT_L, data, 2);
     if (status != LPS28_OK) return status;
     
     // Combine 16-bit temperature data (L, H)
