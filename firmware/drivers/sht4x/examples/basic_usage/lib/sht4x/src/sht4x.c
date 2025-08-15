@@ -135,6 +135,12 @@ sht4x_status_t sht4x_soft_reset(sht4x_t *dev) {
     return dev->io.i2c_write(dev->i2c_address, &cmd, 1) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
 }
 
+/**
+ * @brief Read and store the serial number of the sensor.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @return SHT4X_OK on success, or an error code.
+ */
 sht4x_status_t sht4x_read_serial_number(sht4x_t *dev) {
     if (!dev) return SHT4X_ERR_NULL;
 
