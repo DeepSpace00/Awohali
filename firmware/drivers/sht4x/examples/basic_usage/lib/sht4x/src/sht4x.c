@@ -1,4 +1,4 @@
-/*!
+/**
  * @file sht4x.c
  * @brief SHT4x Temperature and Humidity Sensor Driver Implementation
  * @author Madison Gleydura (DeepSpace00)
