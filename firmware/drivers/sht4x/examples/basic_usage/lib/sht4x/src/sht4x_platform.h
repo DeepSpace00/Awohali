@@ -1,4 +1,4 @@
-/*!
+/**
  * @file sht4x_platform.h
  * @brief Platform abstraction layer for SHT4x I2C driver
  * @author Madison Gleydura (DeepSpace00)
