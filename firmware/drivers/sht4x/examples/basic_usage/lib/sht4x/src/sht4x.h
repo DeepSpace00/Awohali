@@ -2,7 +2,7 @@
  * @file sht4x.h
  * @brief SHT4x Temperature and Humidity Sensor Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-12
+ * @date 2025-08-14
  * 
  * This driver supports the SHT40, SHT41, SHT45 sensors from Sensirion
  */
