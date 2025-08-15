@@ -27,8 +27,7 @@
 /**
  * @brief Helper function to write to a register
  * @param dev Pointer to driver handle
- * @param reg Target register
- * @param value Value to write to a register
+ * @param cmd Target register
  * @return
  */
 static sht4x_status_t sht4x_send_command(const sht4x_t *dev, const uint8_t cmd) {
