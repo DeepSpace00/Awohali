@@ -129,8 +129,7 @@ sht4x_status_t sht4x_init(sht4x_t *dev, const uint8_t address, const sht4x_inter
  */
 sht4x_status_t sht4x_soft_reset(sht4x_t *dev) {
     if (!dev || !dev->initialized) return SHT4X_ERR_NULL;
-
-    return sht4x_write_register(dev, SHT4X_CMD_SOFT_RESET, 0) == 0 ? SHT4X_OK : SHT4X_ERR_I2C;
+    return sht4x_send_command(dev, SHT4X_CMD_SOFT_RESET);
 }
 
 /**
