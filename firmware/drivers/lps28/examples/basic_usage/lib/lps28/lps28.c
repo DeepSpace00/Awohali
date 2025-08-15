@@ -209,7 +209,7 @@ lps28_status_t lps28_pressure_offset(lps28_t *dev, const float offset) {
     if (!dev || !dev->initialized) return LPS28_ERR_NULL;
     
     // Convert offset from hPa to raw 16-bit value
-    int16_t offset_raw = (int16_t)(offset * 4096.0f / 1260.0f);
+    const int16_t offset_raw = (int16_t)(offset * 4096.0f / 1260.0f);
     
     uint8_t offset_l = (uint8_t)(offset_raw & 0xFF);
     uint8_t offset_h = (uint8_t)((offset_raw >> 8) & 0xFF);
