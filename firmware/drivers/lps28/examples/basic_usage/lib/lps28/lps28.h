@@ -2,7 +2,7 @@
  * @file lps28.h
  * @brief LPS28DFW Pressure and Temperature Sensor Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-07-14
+ * @date 2025-08-15
  * 
  * This driver supports the LPS28DFW sensor from STMicroelectronics
  */
