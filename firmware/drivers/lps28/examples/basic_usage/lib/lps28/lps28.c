@@ -192,7 +192,7 @@ lps28_status_t lps28_reference_pressure(lps28_t *dev, const float ref_pressure) 
     const uint8_t ref_l = (uint8_t)(ref_raw & 0xFF);
     const uint8_t ref_h = (uint8_t)((ref_raw >> 8) & 0xFF);
     
-    lps28_status_t status = lps28_write_register(dev, LPS28_REF_P_L, ref_l);
+    const lps28_status_t status = lps28_write_register(dev, LPS28_REF_P_L, ref_l);
     if (status != LPS28_OK) return status;
     
     return lps28_write_register(dev, LPS28_REF_P_H, ref_h);
