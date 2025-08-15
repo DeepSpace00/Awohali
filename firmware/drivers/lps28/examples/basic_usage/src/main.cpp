@@ -107,6 +107,6 @@ void loop() {
         Serial.println("Status read failed.");
         Serial.println(lps28_stat_error(status));
     }
-    
+
     delay(1000); // Wait 500ms between readings (sensor runs at 10Hz)
 }
