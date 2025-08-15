@@ -214,7 +214,7 @@ lps28_status_t lps28_pressure_offset(lps28_t *dev, const float offset) {
     const uint8_t offset_l = (uint8_t)(offset_raw & 0xFF);
     const uint8_t offset_h = (uint8_t)((offset_raw >> 8) & 0xFF);
     
-    lps28_status_t status = lps28_write_register(dev, LPS28_RPDS_L, offset_l);
+    const lps28_status_t status = lps28_write_register(dev, LPS28_RPDS_L, offset_l);
     if (status != LPS28_OK) return status;
     
     return lps28_write_register(dev, LPS28_RPDS_H, offset_h);
