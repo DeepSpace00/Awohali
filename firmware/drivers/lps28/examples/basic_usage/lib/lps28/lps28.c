@@ -220,6 +220,13 @@ lps28_status_t lps28_pressure_offset(lps28_t *dev, const float offset) {
     return lps28_write_register(dev, LPS28_RPDS_H, offset_h);
 }
 
+/**
+ * @brief Read the status register.
+ *
+ * @param dev Pointer to initialized driver struct.
+ * @param status Output pointer for status register data.
+ * @return LPS28_OK on success, or an error code.
+ */
 lps28_status_t lps28_status(lps28_t *dev, lps28_status_reg_t *status) {
     if (!dev || !dev->initialized || !status) return LPS28_ERR_NULL;
     
