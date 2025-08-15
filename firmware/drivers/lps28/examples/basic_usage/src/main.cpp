@@ -40,7 +40,7 @@ void setup() {
     if (status != LPS28_OK) {
         Serial.println("Failed to init LPS28DFW");
         Serial.println(lps28_stat_error(status));
-        while(1) delay(10);
+        while (true) delay(10);
     }
     else {
         // Verify WHO_AM_I
