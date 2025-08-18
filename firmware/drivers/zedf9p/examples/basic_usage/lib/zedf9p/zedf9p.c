@@ -59,15 +59,6 @@ zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address, void *wire
 
     // Initialize device structure
     dev->io = interface;
-    dev->last_nav_pvt_time = 0;
-    dev->message_timeout_ms = ZEDF9P_DEFAULT_TIMEOUT_MS;
-
-    // Send a simple poll request to verify communication
-    zedf9p_status_t status = zedf9p_poll_version(dev);
-    if (status != ZEDF9P_OK) {
-        platform_i2c_deinit(); // Clean up on failure
-        return status;
-    }
 
     dev->initialized = true;
 
