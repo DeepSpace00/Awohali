@@ -109,6 +109,8 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_t *io, const u
 
     dev->initialized = false;
 
+    zedf9p_status_t status;
+
     // Validate interface based on type
     if (io->interface_type == ZEDF9P_INTERFACE_UART) {
         if (io->uart.uart_write || !dev->io.uart.uart_read || !io->uart.uart_available || !io->delay_ms) {
