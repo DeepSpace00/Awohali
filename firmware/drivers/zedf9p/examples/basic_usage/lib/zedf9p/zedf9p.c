@@ -102,7 +102,6 @@ zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev, const uint32_t baudrate, void *s
     dev->io.interface_type = ZEDF9P_INTERFACE_UART;
     dev->i2c_address = 0; // Not used for UART
     dev->io = interface;
-    
 
     return ZEDF9P_OK;
 }
