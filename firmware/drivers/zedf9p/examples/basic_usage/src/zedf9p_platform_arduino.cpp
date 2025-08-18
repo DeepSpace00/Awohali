@@ -116,61 +116,7 @@ void platform_delay_ms(const uint32_t ms) {
 void platform_delay_us(const uint32_t us) {
     delayMicroseconds(us);
 }
-
-// Platform initialization functions
-int platform_i2c_init(void) {
-    i2c_wire = &Wire;
-    i2c_wire->begin();
-    return 0;
-}
-
-int platform_i2c_init_custom(void *wire_instance) {
-    if (!wire_instance) return -1;
-    i2c_wire = static_cast<TwoWire*>(wire_instance);
-    i2c_wire->begin();
-    return 0;
-}
-
-int platform_uart_init_hardware(void *serial_instance, const uint32_t baudrate) {
-    if (!serial_instance) return -1;
-
-    hw_serial = static_cast<HardwareSerial*>(serial_instance);
-    sw_serial = nullptr; // Ensure software serial is disabled
-
-    hw_serial->begin(baudrate);
-    hw_serial->setTimeout(100); // 100ms timeout
-    return 0;
-}
-
-int platform_uart_init_software(const uint8_t rx_pin, const uint8_t tx_pin, const uint32_t baudrate) {
-    static SoftwareSerial soft_serial(rx_pin, tx_pin);
-
-    hw_serial = nullptr; // Ensure hardware serial is disabled
-    sw_serial = &soft_serial;
-
-    sw_serial->begin(baudrate);
-    sw_serial->setTimeout(100); // 100ms timeout
-    return 0;
-}
-
-void platform_uart_deinit(void) {
-    if (hw_serial) {
-        hw_serial->end();
-        hw_serial = nullptr;
-    }
-    if (sw_serial) {
-        sw_serial->end();
-        sw_serial = nullptr;
-    }
-}
-
-void platform_i2c_deinit(void) {
-    if (i2c_wire) {
-        // Note: Arduino Wire library doesn't have an end() function
-        i2c_wire = nullptr;
-    }
-}
-
+    
 // Utility functions for Arduino-specific features
 uint32_t platform_millis(void) {
     return millis();
