@@ -3,7 +3,9 @@
 //
 
 #include <Arduino.h>
-#include "../lib/zedf9p/zedf9p_platform.h"
+#include <Wire.h>
+#include <SPI.h>
+#include "zedf9p_platform.h"
 
 // Initialize the I2C port
 bool SFE_UBLOX_GNSS::begin(TwoWire &wirePort, uint8_t deviceAddress, uint16_t maxWait, bool assumeSuccess)
