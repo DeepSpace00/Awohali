@@ -116,6 +116,8 @@ zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev, const uint32_t baudrate, void *s
 zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_t *io, const uint8_t address) {
     if (!dev) return ZEDF9P_ERR_NULL;
 
+    dev->initialized = false;
+
     // Validate interface based on type
     if (io->interface_type == ZEDF9P_INTERFACE_UART) {
         if (io->uart.uart_write || !dev->io.uart.uart_read || !io->uart.uart_available || !io->delay_ms) {
