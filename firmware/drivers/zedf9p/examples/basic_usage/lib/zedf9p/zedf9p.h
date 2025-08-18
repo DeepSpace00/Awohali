@@ -349,11 +349,6 @@ typedef struct {
 zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_t *io, uint8_t address);
 
 /**
- * @brief Deinitialize the ZED-F9P driver
- */
-zedf9p_status_t zedf9p_deinit(zedf9p_t *dev);
-
-/**
  * @brief Send UBX message to the module
  */
 zedf9p_status_t zedf9p_send_ubx_message(zedf9p_t *dev, uint8_t msg_class,
