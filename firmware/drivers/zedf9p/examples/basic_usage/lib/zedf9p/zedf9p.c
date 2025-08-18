@@ -135,27 +135,6 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_t *io, const u
 }
 
 /**
- * @brief Deinitialize the ZED-F9P driver
- * @param dev Pointer to driver handle
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_deinit(zedf9p_t *dev) {
-    if (!dev || !dev->initialized) return ZEDF9P_ERROR_NOT_INITIALIZED;
-
-    bool deinit_success = false;
-
-    if (dev->io.interface_type == ZEDF9P_INTERFACE_I2C) {
-        deinit_success = zedf9p_platform_i2c_deinit();
-    } else if (dev->io.interface_type == ZEDF9P_INTERFACE_UART) {
-        deinit_success = zedf9p_platform_uart_deinit();
-    }
-
-    dev->initialized = false;
-
-    return deinit_success ? ZEDF9P_OK : ZEDF9P_ERR_COMMUNICATION;
-}
-
-/**
  * @brief Send UBX message to the module
  * @param dev Pointer to driver handle
  * @param msg_class UBX message class
