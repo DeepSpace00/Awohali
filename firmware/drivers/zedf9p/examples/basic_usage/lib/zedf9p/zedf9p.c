@@ -58,7 +58,6 @@ zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address, void *wire
     };
 
     // Initialize device structure
-    dev->io.interface_type = ZEDF9P_INTERFACE_I2C;
     dev->io = interface;
     dev->last_nav_pvt_time = 0;
     dev->message_timeout_ms = ZEDF9P_DEFAULT_TIMEOUT_MS;
