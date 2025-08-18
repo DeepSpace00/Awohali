@@ -58,7 +58,6 @@ zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address) {
 
     // Initialize device structure
     dev->io = interface;
-    dev->initialized = true;
 
     return ZEDF9P_OK;
 }
