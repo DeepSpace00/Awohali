@@ -35,15 +35,6 @@ zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address, void *wire
     // Use default I2C address if none provided
     dev->i2c_address = address ? address : ZEDF9P_DEFAULT_I2C_ADDR;
 
-    // Initialize platform I2C
-    const int init_result = wire_instance ?
-        platform_i2c_init_custom(wire_instance) :
-        platform_i2c_init();
-
-    if (init_result != 0) {
-        return ZEDF9P_ERR_I2C;
-    }
-
     // Setup the interface structure with I2C function pointers
     const zedf9p_interface_t interface = {
         .delay_ms = platform_delay_ms,
