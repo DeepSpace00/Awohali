@@ -134,7 +134,6 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_t *io, const u
     }
 
     // Initialize device structure
-    dev->initialized = false;
     dev->last_nav_pvt_time = 0;
     dev->message_timeout_ms = ZEDF9P_DEFAULT_TIMEOUT_MS;
 
