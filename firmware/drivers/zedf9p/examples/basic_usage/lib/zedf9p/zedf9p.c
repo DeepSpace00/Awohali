@@ -102,18 +102,7 @@ zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev, const uint32_t baudrate, void *s
     dev->io.interface_type = ZEDF9P_INTERFACE_UART;
     dev->i2c_address = 0; // Not used for UART
     dev->io = interface;
-
-    dev->last_nav_pvt_time = 0;
-    dev->message_timeout_ms = ZEDF9P_DEFAULT_TIMEOUT_MS;
-
-    // Send a simple poll request to verify communication
-    const zedf9p_status_t status = zedf9p_poll_version(dev);
-    if (status != ZEDF9P_OK) {
-        platform_uart_deinit(); // Clean up on failure
-        return status;
-    }
-
-    dev->initialized = true;
+    
 
     return ZEDF9P_OK;
 }
