@@ -62,7 +62,7 @@ static zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address) {
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev) {
+static zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev) {
     if (!dev) return ZEDF9P_ERR_NULL;
 
     // Setup the interface structure with UART function pointers
