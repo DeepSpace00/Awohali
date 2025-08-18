@@ -63,8 +63,8 @@ zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address) {
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev, const uint32_t baudrate, void *serial_instance) {
-    if (!dev || !serial_instance) return ZEDF9P_ERR_NULL;
+zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev) {
+    if (!dev) return ZEDF9P_ERR_NULL;
 
     // Initialize platform UART with the provided serial instance and baud rate
     if (platform_uart_init_hardware(serial_instance, baudrate) != 0) {
