@@ -73,43 +73,6 @@ void platform_delay_ms(uint32_t ms);
  */
 void platform_delay_us(uint32_t us);
 
-/**
- * @brief Platform-specific I2C initialization
- * @return true if successful, false otherwise
- */
-int platform_i2c_init();
-
-int platform_i2c_init_custom(void *wire_instance);
-
-/**
- * @brief Platform-specific UART initialization
- * @param serial_instance Serial instance
- * @param baudrate UART baudrate (typically 38400)
- * @return true if successful, false otherwise
- */
-int platform_uart_init_hardware(void *serial_instance, uint32_t baudrate);
-
-/**
- * @brief Platform-specific UART initialization
- * @param rx_pin Software serial rx pin
- * @param tx_pin Software serial tx pin
- * @param baudrate UART baudrate (typically 38400)
- * @return true if successful, false otherwise
- */
-int platform_uart_init_software(uint8_t rx_pin, uint8_t tx_pin, uint32_t baudrate);
-
-/**
- * @brief Platform-specific UART deinitialization
- * @return true if successful, false otherwise
- */
-void platform_uart_deinit();
-
-/**
- * @brief Platform-specific I2C deinitialization
- * @return true if successful, false otherwise
- */
-void platform_i2c_deinit();
-
 uint32_t platform_millis();
 
 uint32_t platform_micros();
