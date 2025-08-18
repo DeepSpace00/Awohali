@@ -26,7 +26,6 @@ static zedf9p_status_t zedf9p_parse_rawx_message(const ubx_message_t *dev, zedf9
  *
  * @param dev Pointer to driver handle
  * @param address I2C device address (typically ZEDF9P_I2C_ADDR or 0)
- * @param wire_instance Pointer to Arduino Wire object (e.g., &Wire)
  * @return zedf9p_status_t Error code
  */
 zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address) {
