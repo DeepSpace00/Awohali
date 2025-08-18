@@ -29,7 +29,7 @@ static zedf9p_status_t zedf9p_parse_rawx_message(const ubx_message_t *dev, zedf9
  * @param wire_instance Pointer to Arduino Wire object (e.g., &Wire)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address, void *wire_instance) {
+zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address) {
     if (!dev) return ZEDF9P_ERR_NULL;
 
     // Use default I2C address if none provided
