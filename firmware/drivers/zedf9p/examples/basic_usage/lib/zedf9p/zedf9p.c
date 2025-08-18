@@ -66,11 +66,6 @@ zedf9p_status_t zedf9p_init_i2c(zedf9p_t *dev, const uint8_t address) {
 zedf9p_status_t zedf9p_init_uart(zedf9p_t *dev) {
     if (!dev) return ZEDF9P_ERR_NULL;
 
-    // Initialize platform UART with the provided serial instance and baud rate
-    if (platform_uart_init_hardware(serial_instance, baudrate) != 0) {
-        return ZEDF9P_ERR_UART;
-    }
-
     // Setup the interface structure with UART function pointers
     const zedf9p_interface_t interface = {
         .delay_ms = platform_delay_ms,
