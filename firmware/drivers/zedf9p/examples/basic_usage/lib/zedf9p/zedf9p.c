@@ -114,6 +114,9 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_t *io, const u
         if (io->uart.uart_write || !dev->io.uart.uart_read || !io->uart.uart_available || !io->delay_ms) {
             return ZEDF9P_ERR_NULL;
         }
+
+        status = zedf9p_init_uart(dev);
+        if (status != ZEDF9P_OK) return status;
     } else if (io->interface_type == ZEDF9P_INTERFACE_I2C) {
         if (!io->i2c.i2c_write || !io->i2c.i2c_read || !io->delay_ms) {
             return ZEDF9P_ERR_NULL;
