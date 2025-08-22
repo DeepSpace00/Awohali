@@ -371,14 +371,14 @@ extern "C" {
 #define PM_OPERATEMODE_AGGRESSIVE_4HZ       5
 
 // UART Parity Options
-#define ZEDF9P_UART_PARITY_NONE                    0
-#define ZEDF9P_UART_PARITY_ODD                     1
-#define ZEDF9P_UART_PARITY_EVEN                    2
+#define ZEDF9P_UART_PARITY_NONE             0
+#define ZEDF9P_UART_PARITY_ODD              1
+#define ZEDF9P_UART_PARITY_EVEN             2
 
 // UART Stop Bits
-#define ZEDF9P_UART_STOPBITS_1                     0
-#define ZEDF9P_UART_STOPBITS_1_5                   1
-#define ZEDF9P_UART_STOPBITS_2                     2
+#define ZEDF9P_UART_STOPBITS_1              0
+#define ZEDF9P_UART_STOPBITS_1_5            1
+#define ZEDF9P_UART_STOPBITS_2              2
 
 // UART Data Bits
 #define UART_DATABITS_7                     0
@@ -679,6 +679,15 @@ typedef struct {
     uint32_t (*get_millis)(void);
 } zedf9p_interface_t;
 
+typedef struct {
+    char sw_version[30];            // Software version string
+    char hw_version[10];            // Hardware version string
+    char rom_version[30];           // ROM version string
+    uint8_t num_extensions;         // Number of extension strings
+    char extensions[30][30];        // Extension strings (max 30)
+    bool valid;                     // Data validity flag
+} zedf9p_mon_ver_t;
+
 /**
  * @brief Message callback function pointer type.
  */
@@ -702,11 +711,13 @@ typedef struct {
     zedf9p_nav_pvt_t nav_pvt;
     zedf9p_nav_hpposllh_t nav_hpposllh;
     zedf9p_rawx_t rawx;
+    zedf9p_mon_ver_t mon_ver;
 
     // Data flags
     bool nav_pvt_valid;
     bool nav_hpposllh_valid;
     bool rawx_valid;
+    bool mon_ver_valid;
 
     // Callback system
     zedf9p_message_callback_t nav_pvt_callback;
@@ -1114,6 +1125,15 @@ void zedf9p_calculate_checksum(const uint8_t *data, uint16_t len, uint8_t *ck_a,
  * @return true if checksum is valid, false otherwise
  */
 bool zedf9p_validate_checksum(const uint8_t *data, uint16_t len, uint8_t ck_a, uint8_t ck_b);
+
+// Poll for version information
+zedf9p_status_t zedf9p_poll_mon_ver(zedf9p_t *dev);
+
+// Get the version data
+zedf9p_status_t zedf9p_get_mon_ver(zedf9p_t *dev, zedf9p_mon_ver_t *mon_ver);
+
+// Check if data is available
+bool zedf9p_is_mon_ver_available(zedf9p_t *dev);
 
 #ifdef __cplusplus
 }

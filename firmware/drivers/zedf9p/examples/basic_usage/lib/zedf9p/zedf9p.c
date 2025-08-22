@@ -1349,3 +1349,33 @@ zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, const double 
     // Set time mode to fixed
     return zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_MODE, TMODE_FIXED_MODE, 1U);
 }
+
+zedf9p_status_t zedf9p_get_mon_ver(zedf9p_t *dev, zedf9p_mon_ver_t *mon_ver) {
+    if (dev == NULL || !dev->initialized || mon_ver == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    if (!dev->mon_ver_valid) {
+        return ZEDF9P_ERR_NO_DATA;
+    }
+
+    *mon_ver = dev->mon_ver;
+    dev->mon_ver_valid = false;  // Mark as consumed
+
+    return ZEDF9P_OK;
+}
+
+bool zedf9p_is_mon_ver_available(zedf9p_t *dev) {
+    if (dev == NULL || !dev->initialized) {
+        return false;
+    }
+    return dev->mon_ver_valid;
+}
+
+zedf9p_status_t zedf9p_poll_mon_ver(zedf9p_t *dev) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    return zedf9p_poll_ubx_message(dev, UBX_CLASS_MON, UBX_MON_VER);
+}
