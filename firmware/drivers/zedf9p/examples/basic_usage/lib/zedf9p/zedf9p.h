@@ -2,7 +2,7 @@
  * @file zedf9p.h
  * @brief ZEDF9P GNSS Module Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-08-19
+ * @date 2025-09-10
  *
  * This driver supports the ZEDF9P GNSS module from u-blox with full UBX protocol support
  * including RAWX data acquisition. System agnostic design for Arduino, STM32, Zephyr, etc.
@@ -112,6 +112,11 @@ extern "C" {
 #define UBX_CFG_VALGET                      0x8B
 #define UBX_CFG_VALDEL                      0x8C
 #define UBX_CFG_VALSET                      0x8A
+
+// Add layer definitions to zedf9p.h
+#define UBLOX_CFG_LAYER_RAM     0x01
+#define UBLOX_CFG_LAYER_BBR     0x02  // Battery Backed RAM
+#define UBLOX_CFG_LAYER_FLASH   0x04
 
 // UBX Message IDs - ACK Class
 #define UBX_ACK_NAK                         0x00
@@ -441,6 +446,23 @@ typedef struct {
 } ubx_message_t;
 
 /**
+ * @brief Pending message tracking structure.
+ */
+typedef struct {
+    uint8_t msg_class;
+    uint8_t msg_id;
+    uint8_t expected_class;
+    uint8_t expected_id;
+    uint32_t timestamp_ms;
+    uint32_t timeout_ms;
+    bool waiting_for_ack;
+    bool waiting_for_response;
+    bool ack_received;
+    bool response_received;
+    bool is_ack;
+} pending_message_t;
+
+/**
  * @brief Navigation Position Velocity Time (PVT) data structure.
  */
 typedef struct {
@@ -518,6 +540,32 @@ typedef struct {
     uint8_t trk_stat;               // Tracking status
     uint8_t reserved3;              // Reserved
 } zedf9p_rawx_meas_t;
+
+/**
+ * @brief RAWX message data structure.
+ */
+typedef struct {
+    double rc_tow;                  // Measurement time of week (s)
+    uint16_t week;                  // GPS week number
+    int8_t leap_s;                  // GPS leap seconds
+    uint8_t num_meas;               // Number of measurements
+    uint8_t rec_stat;               // Receiver tracking status
+    uint8_t version;                // Message version
+    uint8_t reserved1[2];           // Reserved
+    zedf9p_rawx_meas_t meas[32];    // Measurement data (max 32 measurements)
+} zedf9p_rawx_t;
+
+/**
+ * @brief MON-VER version information structure.
+ */
+typedef struct {
+    char sw_version[30];            // Software version string
+    char hw_version[10];            // Hardware version string
+    char rom_version[30];           // ROM version string
+    uint8_t num_extensions;         // Number of extension strings
+    char extensions[30][30];        // Extension strings (max 30)
+    bool valid;                     // Data validity flag
+} zedf9p_mon_ver_t;
 
 /**
  * @brief UART configuration structure.
@@ -654,20 +702,6 @@ typedef struct {
 } zedf9p_antenna_config_t;
 
 /**
- * @brief RAWX message data structure.
- */
-typedef struct {
-    double rc_tow;                  // Measurement time of week (s)
-    uint16_t week;                  // GPS week number
-    int8_t leap_s;                  // GPS leap seconds
-    uint8_t num_meas;               // Number of measurements
-    uint8_t rec_stat;               // Receiver tracking status
-    uint8_t version;                // Message version
-    uint8_t reserved1[2];           // Reserved
-    zedf9p_rawx_meas_t meas[32];    // Measurement data (max 32 measurements)
-} zedf9p_rawx_t;
-
-/**
  * @brief Platform interface abstraction for ZEDF9P driver.
  */
 typedef struct {
@@ -679,14 +713,18 @@ typedef struct {
     uint32_t (*get_millis)(void);
 } zedf9p_interface_t;
 
-typedef struct {
-    char sw_version[30];            // Software version string
-    char hw_version[10];            // Hardware version string
-    char rom_version[30];           // ROM version string
-    uint8_t num_extensions;         // Number of extension strings
-    char extensions[30][30];        // Extension strings (max 30)
-    bool valid;                     // Data validity flag
-} zedf9p_mon_ver_t;
+// Enhanced message parsing states
+typedef enum {
+    UBX_STATE_SYNC1,
+    UBX_STATE_SYNC2,
+    UBX_STATE_CLASS,
+    UBX_STATE_ID,
+    UBX_STATE_LENGTH1,
+    UBX_STATE_LENGTH2,
+    UBX_STATE_PAYLOAD,
+    UBX_STATE_CHECKSUM1,
+    UBX_STATE_CHECKSUM2
+} ubx_parse_state_t;
 
 /**
  * @brief Message callback function pointer type.
@@ -702,10 +740,21 @@ typedef struct {
     zedf9p_interface_t io;
     bool initialized;
 
-    // Message parsing state
+    // Enhanced message parsing state
     uint8_t rx_buffer[UBX_MAX_PAYLOAD_SIZE + UBX_HEADER_SIZE + UBX_CHECKSUM_SIZE];
     uint16_t rx_buffer_idx;
+    ubx_parse_state_t parse_state;
     ubx_message_t current_message;
+
+    // Parsing state variables (moved from static to make reentrant)
+    uint16_t expected_length;
+    uint16_t bytes_remaining;
+    uint8_t calculated_ck_a;
+    uint8_t calculated_ck_b;
+
+    // Pending message tracking for enhanced communication
+    pending_message_t pending_msg;
+    ubx_message_t pending_response;
 
     // Latest received data
     zedf9p_nav_pvt_t nav_pvt;
@@ -769,19 +818,21 @@ zedf9p_status_t zedf9p_hard_reset(zedf9p_t *dev);
 /**
  * @brief Set the measurement rate and navigation rate.
  * @param dev Pointer to initialized driver struct
+ * @param layer_mask Configuration layer (RAM, BBR, or FLASH)
  * @param meas_rate_ms Measurement rate in milliseconds
  * @param nav_rate Navigation rate (measurements per navigation solution)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, uint16_t meas_rate_ms, uint16_t nav_rate);
+zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, uint8_t layer_mask, uint16_t meas_rate_ms, uint16_t nav_rate);
 
 /**
  * @brief Set the dynamic model for navigation.
  * @param dev Pointer to initialized driver struct
+ * @param layer_mask Configuration layer (RAM, BBR, or FLASH)
  * @param model Dynamic model (DYN_MODEL_*)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, uint8_t model);
+zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, uint8_t layer_mask, uint8_t model);
 
 /**
  * @brief Enable or disable a UBX message.
@@ -796,186 +847,24 @@ zedf9p_status_t zedf9p_set_message_rate(zedf9p_t *dev, uint8_t msg_class, uint8_
 /**
  * @brief Configure a setting using CFG-VALSET.
  * @param dev Pointer to initialized driver struct
+ * @param layer_mask Configuration layer (RAM, BBR, or FLASH)
  * @param key_id Configuration key ID
  * @param value Configuration value
  * @param size Size of value in bytes (1, 2, 4, or 8)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, uint32_t key_id, uint64_t value, uint8_t size);
+zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, uint8_t layer_mask, uint32_t key_id, uint64_t value, uint8_t size);
 
 /**
  * @brief Read a configuration value using CFG-VALGET.
  * @param dev Pointer to initialized driver struct
+ * @param layer_mask Configuration layer (RAM, BBR, or FLASH)
  * @param key_id Configuration key ID
  * @param value Pointer to store the retrieved value
  * @param size Size of value in bytes (1, 2, 4, or 8)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_config_get_val(const zedf9p_t *dev, uint32_t key_id, uint64_t *value, uint8_t size);
-
-// Hardware Configuration Functions
-
-/**
- * @brief Configure UART port settings.
- * @param dev Pointer to initialized driver struct
- * @param port UART port number (1 or 2)
- * @param config UART configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, uint8_t port, const zedf9p_uart_config_t *config);
-
-/**
- * @brief Configure I2C interface settings.
- * @param dev Pointer to initialized driver struct
- * @param config I2C configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, const zedf9p_i2c_config_t *config);
-
-/**
- * @brief Configure GNSS signal reception.
- * @param dev Pointer to initialized driver struct
- * @param config GNSS signal configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, const zedf9p_gnss_config_t *config);
-
-/**
- * @brief Configure SBAS settings.
- * @param dev Pointer to initialized driver struct
- * @param config SBAS configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, const zedf9p_sbas_config_t *config);
-
-/**
- * @brief Configure time mode (survey-in, fixed base station).
- * @param dev Pointer to initialized driver struct
- * @param config Time mode configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, const zedf9p_tmode_config_t *config);
-
-/**
- * @brief Configure time pulse output.
- * @param dev Pointer to initialized driver struct
- * @param config Time pulse configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, const zedf9p_timepulse_config_t *config);
-
-/**
- * @brief Configure power management settings.
- * @param dev Pointer to initialized driver struct
- * @param config Power management configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, const zedf9p_power_config_t *config);
-
-/**
- * @brief Configure antenna settings.
- * @param dev Pointer to initialized driver struct
- * @param config Antenna configuration structure
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, const zedf9p_antenna_config_t *config);
-
-/**
- * @brief Enable or disable interference mitigation.
- * @param dev Pointer to initialized driver struct
- * @param enable Enable interference mitigation
- * @param ant_setting Antenna setting for mitigation
- * @param enable_aux Enable auxiliary interference mitigation
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, bool enable, uint8_t ant_setting, bool enable_aux);
-
-/**
- * @brief Enable or disable jamming monitor.
- * @param dev Pointer to initialized driver struct
- * @param enable Enable jamming monitor
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, bool enable);
-
-// RTCM Configuration Functions
-
-/**
- * @brief Enable RTCM message output.
- * @param dev Pointer to initialized driver struct
- * @param message_type RTCM message type (e.g., 1005, 1077, etc.)
- * @param rate Output rate (0 = disabled, >0 = every N navigation solutions)
- * @param interface_mask Bitmask for output interfaces (bit 0 = I2C, bit 1 = UART1, bit 2 = UART2)
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, uint16_t message_type, uint8_t rate, uint8_t interface_mask);
-
-/**
- * @brief Configure base station for RTCM output.
- * @param dev Pointer to initialized driver struct
- * @param enable_1005 Enable RTCM 1005 (station coordinates)
- * @param enable_1077 Enable RTCM 1077 (GPS MSM7)
- * @param enable_1087 Enable RTCM 1087 (GLONASS MSM7)
- * @param enable_1097 Enable RTCM 1097 (Galileo MSM7)
- * @param enable_1127 Enable RTCM 1127 (BeiDou MSM7)
- * @param enable_1230 Enable RTCM 1230 (GLONASS code-phase biases)
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, bool enable_1005, bool enable_1077,
-                                               bool enable_1087, bool enable_1097, bool enable_1127, bool enable_1230);
-
-// SPARTN Configuration Functions
-
-/**
- * @brief Enable SPARTN message reception and processing.
- * @param dev Pointer to initialized driver struct
- * @param enable Enable SPARTN
- * @param use_source Use SPARTN as correction source
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, bool enable, bool use_source);
-
-// Survey-in Functions
-
-/**
- * @brief Start survey-in mode for base station operation.
- * @param dev Pointer to initialized driver struct
- * @param min_duration_s Minimum survey duration in seconds
- * @param accuracy_limit_mm Required accuracy limit in 0.1 mm
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, uint32_t min_duration_s, uint32_t accuracy_limit_mm);
-
-/**
- * @brief Stop survey-in mode.
- * @param dev Pointer to initialized driver struct
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev);
-
-/**
- * @brief Set fixed base station position.
- * @param dev Pointer to initialized driver struct
- * @param lat_deg Latitude in degrees
- * @param lon_deg Longitude in degrees
- * @param height_m Height above ellipsoid in meters
- * @param accuracy_mm Position accuracy in 0.1 mm
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, double lat_deg, double lon_deg,
-                                              double height_m, uint32_t accuracy_mm);
-
-/**
- * @brief Set fixed base station position using ECEF coordinates.
- * @param dev Pointer to initialized driver struct
- * @param x_m ECEF X coordinate in meters
- * @param y_m ECEF Y coordinate in meters
- * @param z_m ECEF Z coordinate in meters
- * @param accuracy_mm Position accuracy in 0.1 mm
- * @return zedf9p_status_t Error code
- */
-zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, double x_m, double y_m,
-                                                   double z_m, uint32_t accuracy_mm);
+zedf9p_status_t zedf9p_config_get_val(zedf9p_t *dev, uint8_t layer_mask, uint32_t key_id, uint64_t *value, uint8_t size);
 
 // Data Acquisition Functions
 
@@ -1069,7 +958,7 @@ zedf9p_status_t zedf9p_register_rawx_callback(zedf9p_t *dev, zedf9p_message_call
  */
 zedf9p_status_t zedf9p_register_generic_callback(zedf9p_t *dev, zedf9p_message_callback_t callback, void *user_data);
 
-// Raw UBX Message Functions
+// Enhanced UBX Message Functions
 
 /**
  * @brief Send a raw UBX message.
@@ -1097,13 +986,34 @@ zedf9p_status_t zedf9p_send_ubx_message_with_ack(zedf9p_t *dev, uint8_t msg_clas
                                                 const uint8_t *payload, uint16_t payload_len, uint32_t timeout_ms);
 
 /**
- * @brief Poll a UBX message.
+ * @brief Send a UBX message and wait for a specific response.
+ * @param dev Pointer to initialized driver struct
+ * @param send_class UBX message class to send
+ * @param send_id UBX message ID to send
+ * @param payload Payload data
+ * @param payload_len Payload length
+ * @param expected_class Expected response message class
+ * @param expected_id Expected response message ID (0xFF for any ACK/NAK)
+ * @param timeout_ms Timeout in milliseconds
+ * @param response Pointer to store the response message
+ * @return zedf9p_status_t Error code
+ */
+zedf9p_status_t zedf9p_send_ubx_message_with_response(zedf9p_t *dev, uint8_t send_class, uint8_t send_id,
+                                                     const uint8_t *payload, uint16_t payload_len,
+                                                     uint8_t expected_class, uint8_t expected_id,
+                                                     uint32_t timeout_ms, ubx_message_t *response);
+
+/**
+ * @brief Poll a UBX message and wait for response.
  * @param dev Pointer to initialized driver struct
  * @param msg_class UBX message class
  * @param msg_id UBX message ID
+ * @param timeout_ms Timeout in milliseconds
+ * @param response Pointer to store the response message
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_poll_ubx_message(const zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id);
+zedf9p_status_t zedf9p_poll_ubx_message(zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id,
+                                        uint32_t timeout_ms, ubx_message_t *response);
 
 // Utility Functions
 
@@ -1126,14 +1036,69 @@ void zedf9p_calculate_checksum(const uint8_t *data, uint16_t len, uint8_t *ck_a,
  */
 bool zedf9p_validate_checksum(const uint8_t *data, uint16_t len, uint8_t ck_a, uint8_t ck_b);
 
-// Poll for version information
-zedf9p_status_t zedf9p_poll_mon_ver(const zedf9p_t *dev);
+// Version Information Functions
 
-// Get the version data
+/**
+ * @brief Poll for MON-VER version information.
+ * @param dev Pointer to initialized driver struct
+ * @return zedf9p_status_t Error code
+ */
+zedf9p_status_t zedf9p_poll_mon_ver(zedf9p_t *dev);
+
+/**
+ * @brief Get the latest MON-VER data.
+ * @param dev Pointer to initialized driver struct
+ * @param mon_ver Pointer to store version data
+ * @return zedf9p_status_t Error code
+ */
 zedf9p_status_t zedf9p_get_mon_ver(zedf9p_t *dev, zedf9p_mon_ver_t *mon_ver);
 
-// Check if data is available
+/**
+ * @brief Check if MON-VER data is available.
+ * @param dev Pointer to initialized driver struct
+ * @return true if new data is available, false otherwise
+ */
 bool zedf9p_is_mon_ver_available(const zedf9p_t *dev);
+
+zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, uint8_t layer_mask, uint8_t port, const zedf9p_uart_config_t *config);
+
+zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_i2c_config_t *config);
+
+zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_gnss_config_t *config);
+
+zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_sbas_config_t *config);
+
+zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_tmode_config_t *config);
+
+zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_timepulse_config_t *config);
+
+zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_power_config_t *config);
+
+zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_antenna_config_t *config);
+
+zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, uint8_t layer_mask, bool enable, uint8_t ant_setting, bool enable_aux);
+
+zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, uint8_t layer_mask, bool enable);
+
+// RTCM Configuration Functions
+zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, uint8_t layer_mask, uint16_t message_type, uint8_t rate, uint8_t interface_mask);
+
+zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, uint8_t layer_mask, bool enable_1005, bool enable_1077,
+                                               bool enable_1087, bool enable_1097, bool enable_1127, bool enable_1230);
+
+// SPARTN Configuration Functions
+zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, uint8_t layer_mask, bool enable, bool use_source);
+
+// Survey-in Functions
+zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, uint8_t layer_mask, uint32_t min_duration_s, uint32_t accuracy_limit_mm);
+
+zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev, uint8_t layer_mask);
+
+zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, uint8_t layer_mask, double lat_deg, double lon_deg,
+                                              double height_m, uint32_t accuracy_mm);
+
+zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, uint8_t layer_mask, double x_m, double y_m,
+                                                   double z_m, uint32_t accuracy_mm);
 
 #ifdef __cplusplus
 }

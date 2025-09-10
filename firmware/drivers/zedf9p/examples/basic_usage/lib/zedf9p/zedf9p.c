@@ -1,8 +1,9 @@
+
 /**
  * @file zedf9p.c
- * @brief ZEDF9P GNSS Module Driver Implementation
+ * @brief ZEDF9P GNSS Module Driver Implementation - Enhanced UBX Protocol Support
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-08-19
+ * @date 2025-09-10
  */
 
 #include "zedf9p.h"
@@ -12,31 +13,25 @@
 static const uint16_t UBX_HEADER_LENGTH = 6U;
 static const uint16_t UBX_CHECKSUM_LENGTH = 2U;
 static const uint32_t DEFAULT_TIMEOUT_MS = 1000U;
+static const uint32_t UBX_POLL_TIMEOUT_MS = 5000U;
 static const uint8_t UBX_SYNC_CHAR_1 = 0xB5U;
 static const uint8_t UBX_SYNC_CHAR_2 = 0x62U;
-
-// Message parsing states
-typedef enum {
-    UBX_STATE_SYNC1,
-    UBX_STATE_SYNC2,
-    UBX_STATE_CLASS,
-    UBX_STATE_ID,
-    UBX_STATE_LENGTH1,
-    UBX_STATE_LENGTH2,
-    UBX_STATE_PAYLOAD,
-    UBX_STATE_CHECKSUM1,
-    UBX_STATE_CHECKSUM2
-} ubx_parse_state_t;
+static const uint16_t UBX_I2C_BYTES_AVAILABLE_REG = 0xFD;
+static const uint8_t UBX_MAX_RETRIES = 3U;
 
 // Internal function prototypes
 static zedf9p_status_t zedf9p_write_data(const zedf9p_t *dev, const uint8_t *data, uint16_t length);
 static zedf9p_status_t zedf9p_read_data(const zedf9p_t *dev, uint8_t *data, uint16_t length);
+static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *data, uint16_t max_length, uint16_t *bytes_read);
 static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, uint8_t byte);
 static zedf9p_status_t zedf9p_handle_message(zedf9p_t *dev, const ubx_message_t *message);
-static zedf9p_status_t zedf9p_wait_for_ack(zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id, uint32_t timeout_ms);
+static zedf9p_status_t zedf9p_wait_for_message_response(zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id,
+                                                       uint32_t timeout_ms, bool wait_for_ack, ubx_message_t *response);
 static bool zedf9p_is_ack_nak(const ubx_message_t *message, uint8_t expected_class, uint8_t expected_id, bool *is_ack);
+static zedf9p_status_t zedf9p_flush_input_buffer(const zedf9p_t *dev);
+static zedf9p_status_t zedf9p_check_i2c_bytes_available(const zedf9p_t *dev, uint16_t *bytes_available);
 
-// Status error string lookup table
+// Enhanced status error string lookup table
 static const char* const STATUS_STRINGS[] = {
     [ZEDF9P_OK] = "OK",
     [-ZEDF9P_ERR_I2C] = "I2C communication failed",
@@ -95,6 +90,7 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_type_t interfa
     // Initialize parsing state
     dev->rx_buffer_idx = 0U;
     dev->current_message.valid = false;
+    dev->parse_state = UBX_STATE_SYNC1;
 
     // Initialize data validity flags
     dev->nav_pvt_valid = false;
@@ -102,7 +98,16 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_type_t interfa
     dev->rawx_valid = false;
     dev->mon_ver_valid = false;
 
+    // Initialize pending message tracking
+    dev->pending_msg.msg_class = 0;
+    dev->pending_msg.msg_id = 0;
+    dev->pending_msg.waiting_for_ack = false;
+    dev->pending_msg.waiting_for_response = false;
+
     dev->initialized = true;
+
+    // Flush any existing data in the input buffer
+    zedf9p_flush_input_buffer(dev);
 
     return ZEDF9P_OK;
 }
@@ -127,7 +132,7 @@ zedf9p_status_t zedf9p_hard_reset(zedf9p_t *dev) {
                                            payload, sizeof(payload), DEFAULT_TIMEOUT_MS);
 }
 
-zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, const uint16_t meas_rate_ms, const uint16_t nav_rate) {
+zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, const uint8_t layer_mask, const uint16_t meas_rate_ms, const uint16_t nav_rate) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -136,12 +141,12 @@ zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, const uint16_t meas_r
         return ZEDF9P_ERR_INVALID_ARG;
     }
 
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_RATE_MEAS, meas_rate_ms, 2U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_RATE_MEAS, meas_rate_ms, 2U);
     if (status != ZEDF9P_OK) {
         return status;
     }
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_RATE_NAV, nav_rate, 2U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_RATE_NAV, nav_rate, 2U);
     if (status == ZEDF9P_OK) {
         dev->measurement_rate_ms = meas_rate_ms;
         dev->navigation_rate = nav_rate;
@@ -150,7 +155,7 @@ zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, const uint16_t meas_r
     return status;
 }
 
-zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, const uint8_t model) {
+zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, const uint8_t layer_mask, const uint8_t model) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -159,7 +164,7 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, const uint8_t model) {
         return ZEDF9P_ERR_INVALID_ARG;
     }
 
-    const zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_NAVSPG_DYNMODEL, model, 1U);
+    const zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_NAVSPG_DYNMODEL, model, 1U);
     if (status == ZEDF9P_OK) {
         dev->dynamic_model = model;
     }
@@ -177,7 +182,7 @@ zedf9p_status_t zedf9p_set_message_rate(zedf9p_t *dev, const uint8_t msg_class, 
                                            payload, sizeof(payload), DEFAULT_TIMEOUT_MS);
 }
 
-zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, const uint32_t key_id, const uint64_t value, const uint8_t size) {
+zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, const uint64_t value, const uint8_t size) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -188,10 +193,10 @@ zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, const uint32_t key_id, cons
 
     uint8_t payload[12];  // Version(1) + Layer(1) + Reserved(2) + KeyID(4) + Value(up to 8)
 
-    payload[0] = 0x00;  // Version
-    payload[1] = 0x01;  // Layer: RAM
-    payload[2] = 0x00;  // Reserved
-    payload[3] = 0x00;  // Reserved
+    payload[0] = 0x00;          // Version
+    payload[1] = layer_mask;    // Layer: RAM
+    payload[2] = 0x00;          // Reserved
+    payload[3] = 0x00;          // Reserved
 
     // Key ID (little endian)
     payload[4] = (uint8_t)(key_id & 0xFFU);
@@ -208,7 +213,7 @@ zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, const uint32_t key_id, cons
                                            payload, 8U + size, DEFAULT_TIMEOUT_MS);
 }
 
-zedf9p_status_t zedf9p_config_get_val(const zedf9p_t *dev, const uint32_t key_id, uint64_t *value, const uint8_t size) {
+zedf9p_status_t zedf9p_config_get_val(zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, uint64_t *value, const uint8_t size) {
     if (dev == NULL || !dev->initialized || value == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -219,10 +224,10 @@ zedf9p_status_t zedf9p_config_get_val(const zedf9p_t *dev, const uint32_t key_id
 
     uint8_t payload[8];  // Version(1) + Layer(1) + Position(2) + KeyID(4)
 
-    payload[0] = 0x00;  // Version
-    payload[1] = 0x00;  // Layer: RAM
-    payload[2] = 0x00;  // Position
-    payload[3] = 0x00;  // Position
+    payload[0] = 0x00;          // Version
+    payload[1] = layer_mask;    // Layer: RAM
+    payload[2] = 0x00;          // Position
+    payload[3] = 0x00;          // Position
 
     // Key ID (little endian)
     payload[4] = (uint8_t)(key_id & 0xFFU);
@@ -230,14 +235,38 @@ zedf9p_status_t zedf9p_config_get_val(const zedf9p_t *dev, const uint32_t key_id
     payload[6] = (uint8_t)((key_id >> 16) & 0xFFU);
     payload[7] = (uint8_t)((key_id >> 24) & 0xFFU);
 
-    const zedf9p_status_t status = zedf9p_send_ubx_message(dev, UBX_CLASS_CFG, UBX_CFG_VALGET, payload, sizeof(payload));
+    // Send CFG-VALGET request and wait for response
+    ubx_message_t response;
+    const zedf9p_status_t status = zedf9p_send_ubx_message_with_response(dev, UBX_CLASS_CFG, UBX_CFG_VALGET,
+                                                                  payload, sizeof(payload),
+                                                                  UBX_CLASS_CFG, UBX_CFG_VALGET,
+                                                                  UBX_POLL_TIMEOUT_MS, &response);
+
     if (status != ZEDF9P_OK) {
         return status;
     }
 
-    // TODO: Wait for and parse CFG-VALGET response
-    // For now, return success - full implementation would parse the response
+    // Parse the response to extract the value
+    if (response.length < (12U + size)) {  // Header + KeyID + Value
+        return ZEDF9P_ERR_INVALID_MESSAGE;
+    }
+
+    // Verify the key ID in the response matches our request
+    const uint32_t response_key = (uint32_t)response.payload[8] |
+                           ((uint32_t)response.payload[9] << 8) |
+                           ((uint32_t)response.payload[10] << 16) |
+                           ((uint32_t)response.payload[11] << 24);
+
+    if (response_key != key_id) {
+        return ZEDF9P_ERR_INVALID_MESSAGE;
+    }
+
+    // Extract the value (little endian)
     *value = 0;
+    for (uint8_t i = 0; i < size; i++) {
+        *value |= ((uint64_t)response.payload[12 + i] << (i * 8));
+    }
+
     return ZEDF9P_OK;
 }
 
@@ -246,15 +275,24 @@ zedf9p_status_t zedf9p_process_data(zedf9p_t *dev) {
         return ZEDF9P_ERR_NULL;
     }
 
-    uint8_t byte;
+    uint8_t buffer[64];  // Process data in chunks
+    uint16_t bytes_read = 0;
 
-    // Try to read one byte
-    const zedf9p_status_t status = zedf9p_read_data(dev, &byte, 1U);
+    // Read available data
+    zedf9p_status_t status = zedf9p_read_available_data(dev, buffer, sizeof(buffer), &bytes_read);
     if (status != ZEDF9P_OK) {
         return (status == ZEDF9P_ERR_NO_DATA) ? ZEDF9P_OK : status;  // No data is not an error
     }
 
-    return zedf9p_parse_ubx_byte(dev, byte);
+    // Process each byte
+    for (uint16_t i = 0; i < bytes_read; i++) {
+        status = zedf9p_parse_ubx_byte(dev, buffer[i]);
+        if (status != ZEDF9P_OK && status != ZEDF9P_ERR_NO_DATA) {
+            return status;
+        }
+    }
+
+    return ZEDF9P_OK;
 }
 
 zedf9p_status_t zedf9p_get_pvt(zedf9p_t *dev, zedf9p_nav_pvt_t *pvt) {
@@ -410,20 +448,63 @@ zedf9p_status_t zedf9p_send_ubx_message_with_ack(zedf9p_t *dev, const uint8_t ms
         return ZEDF9P_ERR_NULL;
     }
 
-    const zedf9p_status_t send_status = zedf9p_send_ubx_message(dev, msg_class, msg_id, payload, payload_len);
-    if (send_status != ZEDF9P_OK) {
-        return send_status;
-    }
-
-    return zedf9p_wait_for_ack(dev, msg_class, msg_id, timeout_ms);
+    // Send message and wait for ACK/NAK
+    ubx_message_t response;
+    return zedf9p_send_ubx_message_with_response(dev, msg_class, msg_id, payload, payload_len,
+                                               UBX_CLASS_ACK, 0xFF, timeout_ms, &response);
 }
 
-zedf9p_status_t zedf9p_poll_ubx_message(const zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id) {
+zedf9p_status_t zedf9p_send_ubx_message_with_response(zedf9p_t *dev, const uint8_t send_class, const uint8_t send_id,
+                                                     const uint8_t *payload, const uint16_t payload_len,
+                                                     const uint8_t expected_class, const uint8_t expected_id,
+                                                     const uint32_t timeout_ms, ubx_message_t *response) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
-    return zedf9p_send_ubx_message(dev, msg_class, msg_id, NULL, 0U);
+    uint8_t retry_count = 0;
+
+    while (retry_count < UBX_MAX_RETRIES) {
+        // Clear any existing data
+        zedf9p_flush_input_buffer(dev);
+
+        // Send the message
+        zedf9p_status_t status = zedf9p_send_ubx_message(dev, send_class, send_id, payload, payload_len);
+        if (status != ZEDF9P_OK) {
+            retry_count++;
+            dev->io.delay_ms(10);  // Short delay before retry
+            continue;
+        }
+
+        // Wait for response
+        const bool wait_for_ack = (expected_class == UBX_CLASS_ACK);
+        status = zedf9p_wait_for_message_response(dev, expected_class, expected_id,
+                                                timeout_ms, wait_for_ack, response);
+
+        if (status == ZEDF9P_OK) {
+            return ZEDF9P_OK;
+        }
+
+        if (status != ZEDF9P_ERR_TIMEOUT) {
+            return status;  // Non-timeout errors are not retried
+        }
+
+        retry_count++;
+        dev->io.delay_ms(50);  // Delay before retry
+    }
+
+    return ZEDF9P_ERR_TIMEOUT;
+}
+
+zedf9p_status_t zedf9p_poll_ubx_message(zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id,
+                                        const uint32_t timeout_ms, ubx_message_t *response) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    // Send poll request and wait for response
+    return zedf9p_send_ubx_message_with_response(dev, msg_class, msg_id, NULL, 0,
+                                               msg_class, msg_id, timeout_ms, response);
 }
 
 void zedf9p_calculate_checksum(const uint8_t *data, const uint16_t len, uint8_t *ck_a, uint8_t *ck_b) {
@@ -499,26 +580,115 @@ static zedf9p_status_t zedf9p_read_data(const zedf9p_t *dev, uint8_t *data, cons
     return ZEDF9P_ERR_INVALID_ARG;
 }
 
+static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *data, uint16_t max_length, uint16_t *bytes_read) {
+    if (dev == NULL || data == NULL || bytes_read == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    *bytes_read = 0;
+
+    if (dev->interface_type == ZEDF9P_INTERFACE_I2C) {
+        // For I2C, check how many bytes are available first
+        uint16_t available_bytes = 0;
+        zedf9p_status_t status = zedf9p_check_i2c_bytes_available(dev, &available_bytes);
+        if (status != ZEDF9P_OK) {
+            return status;
+        }
+
+        if (available_bytes == 0) {
+            return ZEDF9P_ERR_NO_DATA;
+        }
+
+        // Read the lesser of available bytes or max_length
+        const uint16_t bytes_to_read = (available_bytes < max_length) ? available_bytes : max_length;
+        status = zedf9p_read_data(dev, data, bytes_to_read);
+        if (status == ZEDF9P_OK) {
+            *bytes_read = bytes_to_read;
+        }
+        return status;
+    } else if (dev->interface_type == ZEDF9P_INTERFACE_UART) {
+        // For UART, try to read up to max_length bytes
+        const zedf9p_status_t status = zedf9p_read_data(dev, data, max_length);
+        if (status == ZEDF9P_OK) {
+            *bytes_read = max_length;
+        } else if (status == ZEDF9P_ERR_NO_DATA) {
+            *bytes_read = 0;
+        }
+        return status;
+    }
+
+    return ZEDF9P_ERR_INVALID_ARG;
+}
+
+static zedf9p_status_t zedf9p_check_i2c_bytes_available(const zedf9p_t *dev, uint16_t *bytes_available) {
+    if (dev == NULL || bytes_available == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    if (dev->interface_type != ZEDF9P_INTERFACE_I2C) {
+        return ZEDF9P_ERR_INVALID_ARG;
+    }
+
+    const uint8_t reg_addr_bytes[2] = {(uint8_t)(UBX_I2C_BYTES_AVAILABLE_REG >> 8),
+                                 (uint8_t)(UBX_I2C_BYTES_AVAILABLE_REG & 0xFF)};
+    uint8_t response[2] = {0};
+
+    // Write register address
+    int result = dev->io.i2c_write(dev->i2c_address, reg_addr_bytes, 2);
+    if (result != 0) {
+        return ZEDF9P_ERR_I2C;
+    }
+
+    // Read bytes available count
+    result = dev->io.i2c_read(dev->i2c_address, response, 2);
+    if (result != 0) {
+        return ZEDF9P_ERR_I2C;
+    }
+
+    *bytes_available = ((uint16_t)response[0] << 8) | response[1];
+    return ZEDF9P_OK;
+}
+
+static zedf9p_status_t zedf9p_flush_input_buffer(const zedf9p_t *dev) {
+    if (dev == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    uint8_t dummy_buffer[64];
+    uint16_t bytes_read;
+    zedf9p_status_t status;
+
+    // Keep reading until no more data is available
+    do {
+        status = zedf9p_read_available_data(dev, dummy_buffer, sizeof(dummy_buffer), &bytes_read);
+        if (status == ZEDF9P_ERR_NO_DATA) {
+            break;  // No more data to flush
+        }
+        dev->io.delay_ms(1);  // Small delay to allow more data to arrive
+    } while (status == ZEDF9P_OK && bytes_read > 0);
+
+    return ZEDF9P_OK;
+}
+
 static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, const uint8_t byte) {
-    static ubx_parse_state_t parse_state = UBX_STATE_SYNC1;
     static uint16_t expected_length = 0U;
     static uint16_t bytes_remaining = 0U;
     static uint8_t calculated_ck_a = 0U;
     static uint8_t calculated_ck_b = 0U;
 
-    switch (parse_state) {
+    switch (dev->parse_state) {
         case UBX_STATE_SYNC1:
             if (byte == UBX_SYNC_CHAR_1) {
-                parse_state = UBX_STATE_SYNC2;
+                dev->parse_state = UBX_STATE_SYNC2;
                 dev->rx_buffer_idx = 0U;
             }
             break;
 
         case UBX_STATE_SYNC2:
             if (byte == UBX_SYNC_CHAR_2) {
-                parse_state = UBX_STATE_CLASS;
+                dev->parse_state = UBX_STATE_CLASS;
             } else {
-                parse_state = UBX_STATE_SYNC1;
+                dev->parse_state = UBX_STATE_SYNC1;
             }
             break;
 
@@ -526,21 +696,21 @@ static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, const uint8_t byte) 
             dev->current_message.msg_class = byte;
             calculated_ck_a = byte;
             calculated_ck_b = byte;
-            parse_state = UBX_STATE_ID;
+            dev->parse_state = UBX_STATE_ID;
             break;
 
         case UBX_STATE_ID:
             dev->current_message.msg_id = byte;
             calculated_ck_a += byte;
             calculated_ck_b += calculated_ck_a;
-            parse_state = UBX_STATE_LENGTH1;
+            dev->parse_state = UBX_STATE_LENGTH1;
             break;
 
         case UBX_STATE_LENGTH1:
             expected_length = byte;
             calculated_ck_a += byte;
             calculated_ck_b += calculated_ck_a;
-            parse_state = UBX_STATE_LENGTH2;
+            dev->parse_state = UBX_STATE_LENGTH2;
             break;
 
         case UBX_STATE_LENGTH2:
@@ -550,12 +720,12 @@ static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, const uint8_t byte) 
             calculated_ck_b += calculated_ck_a;
 
             if (expected_length == 0U) {
-                parse_state = UBX_STATE_CHECKSUM1;
+                dev->parse_state = UBX_STATE_CHECKSUM1;
             } else if (expected_length <= UBX_MAX_PAYLOAD_SIZE) {
                 bytes_remaining = expected_length;
-                parse_state = UBX_STATE_PAYLOAD;
+                dev->parse_state = UBX_STATE_PAYLOAD;
             } else {
-                parse_state = UBX_STATE_SYNC1;  // Invalid length, restart
+                dev->parse_state = UBX_STATE_SYNC1;  // Invalid length, restart
                 return ZEDF9P_ERR_INVALID_MESSAGE;
             }
             break;
@@ -568,25 +738,25 @@ static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, const uint8_t byte) 
                 bytes_remaining--;
 
                 if (bytes_remaining == 0U) {
-                    parse_state = UBX_STATE_CHECKSUM1;
+                    dev->parse_state = UBX_STATE_CHECKSUM1;
                 }
             } else {
-                parse_state = UBX_STATE_SYNC1;  // Buffer overflow, restart
+                dev->parse_state = UBX_STATE_SYNC1;  // Buffer overflow, restart
                 return ZEDF9P_ERR_BUFFER_FULL;
             }
             break;
 
         case UBX_STATE_CHECKSUM1:
             if (byte == calculated_ck_a) {
-                parse_state = UBX_STATE_CHECKSUM2;
+                dev->parse_state = UBX_STATE_CHECKSUM2;
             } else {
-                parse_state = UBX_STATE_SYNC1;  // Checksum mismatch, restart
+                dev->parse_state = UBX_STATE_SYNC1;  // Checksum mismatch, restart
                 return ZEDF9P_ERR_CRC;
             }
             break;
 
         case UBX_STATE_CHECKSUM2:
-            parse_state = UBX_STATE_SYNC1;  // Always reset to start
+            dev->parse_state = UBX_STATE_SYNC1;  // Always reset to start
 
             if (byte == calculated_ck_b) {
                 dev->current_message.valid = true;
@@ -597,7 +767,7 @@ static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, const uint8_t byte) 
             }
 
         default:
-            parse_state = UBX_STATE_SYNC1;
+            dev->parse_state = UBX_STATE_SYNC1;
             break;
     }
 
@@ -685,12 +855,115 @@ static zedf9p_status_t zedf9p_handle_message(zedf9p_t *dev, const ubx_message_t 
         }
     }
 
+    // Check if this message matches a pending request
+    if (dev->pending_msg.waiting_for_response &&
+        message->msg_class == dev->pending_msg.expected_class &&
+        (dev->pending_msg.expected_id == 0xFF || message->msg_id == dev->pending_msg.expected_id)) {
+
+        // Copy the message to the response buffer
+        dev->pending_response = *message;
+        dev->pending_msg.waiting_for_response = false;
+        dev->pending_msg.response_received = true;
+    }
+
+    // Handle ACK/NAK messages
+    if (message->msg_class == UBX_CLASS_ACK && message->length >= 2U && dev->pending_msg.waiting_for_ack) {
+        const uint8_t ack_class = message->payload[0];
+        const uint8_t ack_id = message->payload[1];
+
+        if (ack_class == dev->pending_msg.msg_class && ack_id == dev->pending_msg.msg_id) {
+            dev->pending_msg.waiting_for_ack = false;
+            dev->pending_msg.ack_received = true;
+            dev->pending_msg.is_ack = (message->msg_id == UBX_ACK_ACK);
+        }
+    }
+
     // Call generic callback for all messages
     if (dev->generic_callback != NULL) {
         dev->generic_callback(message, dev->callback_user_data);
     }
 
     return ZEDF9P_OK;
+}
+
+static zedf9p_status_t zedf9p_wait_for_message_response(zedf9p_t *dev, const uint8_t msg_class,
+                                                       const uint8_t msg_id, const uint32_t timeout_ms,
+                                                       const bool wait_for_ack, ubx_message_t *response) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+
+    // Set up pending message tracking
+    dev->pending_msg.expected_class = msg_class;
+    dev->pending_msg.expected_id = msg_id;
+    dev->pending_msg.timestamp_ms = dev->io.get_millis();
+    dev->pending_msg.timeout_ms = timeout_ms;
+    dev->pending_msg.waiting_for_ack = wait_for_ack;
+    dev->pending_msg.waiting_for_response = !wait_for_ack;
+    dev->pending_msg.ack_received = false;
+    dev->pending_msg.response_received = false;
+    dev->pending_msg.is_ack = false;
+
+    const uint32_t start_time = dev->io.get_millis();
+
+    while ((dev->io.get_millis() - start_time) < timeout_ms) {
+        // Process incoming data
+        const zedf9p_status_t status = zedf9p_process_data(dev);
+        if (status != ZEDF9P_OK && status != ZEDF9P_ERR_NO_DATA) {
+            return status;
+        }
+
+        // Check if we received what we were waiting for
+        if (wait_for_ack && dev->pending_msg.ack_received) {
+            if (response != NULL) {
+                // For ACK/NAK, create a simple response message
+                response->msg_class = UBX_CLASS_ACK;
+                response->msg_id = dev->pending_msg.is_ack ? UBX_ACK_ACK : UBX_ACK_NAK;
+                response->length = 2;
+                response->payload[0] = dev->pending_msg.msg_class;
+                response->payload[1] = dev->pending_msg.msg_id;
+                response->valid = true;
+                response->timestamp_ms = dev->io.get_millis();
+            }
+            return dev->pending_msg.is_ack ? ZEDF9P_OK : ZEDF9P_ERR_NACK;
+        }
+
+        if (!wait_for_ack && dev->pending_msg.response_received) {
+            if (response != NULL) {
+                *response = dev->pending_response;
+            }
+            return ZEDF9P_OK;
+        }
+
+        dev->io.delay_ms(1);  // Small delay to prevent busy waiting
+    }
+
+    // Reset pending message state
+    dev->pending_msg.waiting_for_ack = false;
+    dev->pending_msg.waiting_for_response = false;
+
+    return ZEDF9P_ERR_TIMEOUT;
+}
+
+static bool zedf9p_is_ack_nak(const ubx_message_t *message, const uint8_t expected_class,
+                             const uint8_t expected_id, bool *is_ack) {
+    if (message == NULL || is_ack == NULL || !message->valid) {
+        return false;
+    }
+
+    if (message->msg_class != UBX_CLASS_ACK || message->length < 2U) {
+        return false;
+    }
+
+    const uint8_t ack_class = message->payload[0];
+    const uint8_t ack_id = message->payload[1];
+
+    if (ack_class == expected_class && ack_id == expected_id) {
+        *is_ack = (message->msg_id == UBX_ACK_ACK);
+        return true;
+    }
+
+    return false;
 }
 
 static zedf9p_status_t zedf9p_wait_for_ack(zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint32_t timeout_ms) {
@@ -725,29 +998,9 @@ static zedf9p_status_t zedf9p_wait_for_ack(zedf9p_t *dev, const uint8_t msg_clas
     return ZEDF9P_ERR_TIMEOUT;
 }
 
-static bool zedf9p_is_ack_nak(const ubx_message_t *message, const uint8_t expected_class, const uint8_t expected_id, bool *is_ack) {
-    if (message == NULL || is_ack == NULL || !message->valid) {
-        return false;
-    }
-
-    if (message->msg_class != UBX_CLASS_ACK || message->length < 2U) {
-        return false;
-    }
-
-    const uint8_t ack_class = message->payload[0];
-    const uint8_t ack_id = message->payload[1];
-
-    if (ack_class == expected_class && ack_id == expected_id) {
-        *is_ack = (message->msg_id == UBX_ACK_ACK);
-        return true;
-    }
-
-    return false;
-}
-
 // Hardware Configuration Function Implementations
 
-zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, const uint8_t port, const zedf9p_uart_config_t *config) {
+zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, const uint8_t layer_mask, const uint8_t port, const zedf9p_uart_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -759,369 +1012,369 @@ zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, const uint8_t port, const zedf
     const uint32_t base_key = (port == 1U) ? 0x40520000U : 0x40530000U;
 
     // Configure baudrate
-    zedf9p_status_t status = zedf9p_config_set_val(dev, base_key + 1U, config->baudrate, 4U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, base_key + 1U, config->baudrate, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure stop bits
-    status = zedf9p_config_set_val(dev, base_key + 2U, config->stopbits, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, base_key + 2U, config->stopbits, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure data bits
-    status = zedf9p_config_set_val(dev, base_key + 3U, config->databits, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, base_key + 3U, config->databits, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure parity
-    status = zedf9p_config_set_val(dev, base_key + 4U, config->parity, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, base_key + 4U, config->parity, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Enable/disable UART
-    status = zedf9p_config_set_val(dev, base_key + 5U, config->enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, base_key + 5U, config->enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure remap
-    return zedf9p_config_set_val(dev, base_key + 6U, config->remap ? 1U : 0U, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, base_key + 6U, config->remap ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, const zedf9p_i2c_config_t *config) {
+zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_i2c_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Set I2C address
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_I2C_ADDRESS, config->address, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_I2C_ADDRESS, config->address, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Set extended timeout
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_I2C_EXTENDEDTIMEOUT, config->extended_timeout ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_I2C_EXTENDEDTIMEOUT, config->extended_timeout ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Enable/disable I2C
-    return zedf9p_config_set_val(dev, UBLOX_CFG_I2C_ENABLED, config->enabled ? 1U : 0U, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_I2C_ENABLED, config->enabled ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, const zedf9p_gnss_config_t *config) {
+zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_gnss_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // GPS configuration
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GPS_ENA, config->gps_enabled ? 1U : 0U, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GPS_ENA, config->gps_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GPS_L1CA_ENA, config->gps_l1ca_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GPS_L1CA_ENA, config->gps_l1ca_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GPS_L2C_ENA, config->gps_l2c_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GPS_L2C_ENA, config->gps_l2c_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // SBAS configuration
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_SBAS_ENA, config->sbas_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_SBAS_ENA, config->sbas_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_SBAS_L1CA_ENA, config->sbas_l1ca_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_SBAS_L1CA_ENA, config->sbas_l1ca_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Galileo configuration
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GAL_ENA, config->galileo_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GAL_ENA, config->galileo_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GAL_E1_ENA, config->galileo_e1_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GAL_E1_ENA, config->galileo_e1_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GAL_E5B_ENA, config->galileo_e5b_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GAL_E5B_ENA, config->galileo_e5b_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // BeiDou configuration
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_BDS_ENA, config->beidou_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_BDS_ENA, config->beidou_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_BDS_B1_ENA, config->beidou_b1_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_BDS_B1_ENA, config->beidou_b1_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_BDS_B2_ENA, config->beidou_b2_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_BDS_B2_ENA, config->beidou_b2_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // QZSS configuration
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_QZSS_ENA, config->qzss_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_QZSS_ENA, config->qzss_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_QZSS_L1CA_ENA, config->qzss_l1ca_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_QZSS_L1CA_ENA, config->qzss_l1ca_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_QZSS_L1S_ENA, config->qzss_l1s_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_QZSS_L1S_ENA, config->qzss_l1s_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_QZSS_L2C_ENA, config->qzss_l2c_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_QZSS_L2C_ENA, config->qzss_l2c_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // GLONASS configuration
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GLO_ENA, config->glonass_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GLO_ENA, config->glonass_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GLO_L1_ENA, config->glonass_l1_enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GLO_L1_ENA, config->glonass_l1_enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    return zedf9p_config_set_val(dev, UBLOX_CFG_SIGNAL_GLO_L2_ENA, config->glonass_l2_enabled ? 1U : 0U, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GLO_L2_ENA, config->glonass_l2_enabled ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, const zedf9p_sbas_config_t *config) {
+zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_sbas_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Configure SBAS test mode
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_SBAS_USE_TESTMODE, config->use_testmode ? 1U : 0U, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SBAS_USE_TESTMODE, config->use_testmode ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure SBAS ranging
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SBAS_USE_RANGING, config->use_ranging ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SBAS_USE_RANGING, config->use_ranging ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure SBAS differential corrections
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SBAS_USE_DIFFCORR, config->use_diffcorr ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SBAS_USE_DIFFCORR, config->use_diffcorr ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure SBAS integrity
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_SBAS_USE_INTEGRITY, config->use_integrity ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SBAS_USE_INTEGRITY, config->use_integrity ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure PRN scan mask
-    return zedf9p_config_set_val(dev, UBLOX_CFG_SBAS_PRNSCANMASK, config->prn_scan_mask, 8U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SBAS_PRNSCANMASK, config->prn_scan_mask, 8U);
 }
 
-zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, const zedf9p_tmode_config_t *config) {
+zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_tmode_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Set time mode
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_MODE, config->mode, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, config->mode, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Set position type
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_POS_TYPE, config->pos_type, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_POS_TYPE, config->pos_type, 1U);
     if (status != ZEDF9P_OK) return status;
 
     if (config->pos_type == POS_TYPE_ECEF) {
         // Configure ECEF coordinates
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_X, (uint64_t)config->ecef_x, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_X, (uint64_t)config->ecef_x, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Y, (uint64_t)config->ecef_y, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Y, (uint64_t)config->ecef_y, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Z, (uint64_t)config->ecef_z, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Z, (uint64_t)config->ecef_z, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_X_HP, config->ecef_x_hp, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_X_HP, config->ecef_x_hp, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Y_HP, config->ecef_y_hp, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Y_HP, config->ecef_y_hp, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Z_HP, config->ecef_z_hp, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Z_HP, config->ecef_z_hp, 1U);
         if (status != ZEDF9P_OK) return status;
     } else {
         // Configure LLH coordinates
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LAT, (uint64_t)config->lat, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LAT, (uint64_t)config->lat, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LON, (uint64_t)config->lon, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LON, (uint64_t)config->lon, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_HEIGHT, (uint64_t)config->height, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_HEIGHT, (uint64_t)config->height, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LAT_HP, config->lat_hp, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LAT_HP, config->lat_hp, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LON_HP, config->lon_hp, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LON_HP, config->lon_hp, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_HEIGHT_HP, config->height_hp, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_HEIGHT_HP, config->height_hp, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 
     // Configure accuracy and survey-in parameters
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_FIXED_POS_ACC, config->fixed_pos_acc, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_FIXED_POS_ACC, config->fixed_pos_acc, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_SVIN_MIN_DUR, config->svin_min_dur, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_SVIN_MIN_DUR, config->svin_min_dur, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    return zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_SVIN_ACC_LIMIT, config->svin_acc_limit, 4U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_SVIN_ACC_LIMIT, config->svin_acc_limit, 4U);
 }
 
-zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, const zedf9p_timepulse_config_t *config) {
+zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_timepulse_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Configure antenna cable delay
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_ANT_CABLEDELAY, (uint64_t)config->ant_cable_delay_ns, 2U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_ANT_CABLEDELAY, (uint64_t)config->ant_cable_delay_ns, 2U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure period/frequency
     if (config->period_us > 0U) {
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_PERIOD_TP1, config->period_us, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_PERIOD_TP1, config->period_us, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_PERIOD_LOCK_TP1, config->period_lock_us, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_PERIOD_LOCK_TP1, config->period_lock_us, 4U);
         if (status != ZEDF9P_OK) return status;
     }
 
     if (config->freq_hz > 0U) {
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_FREQ_TP1, config->freq_hz, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_FREQ_TP1, config->freq_hz, 4U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_FREQ_LOCK_TP1, config->freq_lock_hz, 4U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_FREQ_LOCK_TP1, config->freq_lock_hz, 4U);
         if (status != ZEDF9P_OK) return status;
     }
 
     // Configure pulse length
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_LEN_TP1, config->length_us, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_LEN_TP1, config->length_us, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_LEN_LOCK_TP1, config->length_lock_us, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_LEN_LOCK_TP1, config->length_lock_us, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure duty cycle (convert to fixed point)
     const uint64_t duty_fixed = (uint64_t)(config->duty_percent * 4294967296.0 / 100.0);
     const uint64_t duty_lock_fixed = (uint64_t)(config->duty_lock_percent * 4294967296.0 / 100.0);
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_DUTY_TP1, duty_fixed, 8U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_DUTY_TP1, duty_fixed, 8U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_DUTY_LOCK_TP1, duty_lock_fixed, 8U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_DUTY_LOCK_TP1, duty_lock_fixed, 8U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure user delay
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_USER_DELAY_TP1, (uint64_t)config->user_delay_ns, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_USER_DELAY_TP1, (uint64_t)config->user_delay_ns, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure flags
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_TP1_ENA, config->enabled ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_TP1_ENA, config->enabled ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_SYNC_GNSS_TP1, config->sync_gnss ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_SYNC_GNSS_TP1, config->sync_gnss ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_USE_LOCKED_TP1, config->use_locked ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_USE_LOCKED_TP1, config->use_locked ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_ALIGN_TO_TOW_TP1, config->align_to_tow ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_ALIGN_TO_TOW_TP1, config->align_to_tow ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TP_POL_TP1, config->polarity, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_POL_TP1, config->polarity, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    return zedf9p_config_set_val(dev, UBLOX_CFG_TP_TIMEGRID_TP1, config->time_grid, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_TIMEGRID_TP1, config->time_grid, 1U);
 }
 
-zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, const zedf9p_power_config_t *config) {
+zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_power_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Configure operate mode
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_PM_OPERATEMODE, config->operate_mode, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_OPERATEMODE, config->operate_mode, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure position update period
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_PM_POSUPDATEPERIOD, config->pos_update_period_ms, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_POSUPDATEPERIOD, config->pos_update_period_ms, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure acquisition period
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_PM_ACQPERIOD, config->acq_period_ms, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_ACQPERIOD, config->acq_period_ms, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure grid offset
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_PM_GRIDOFFSET, config->grid_offset_ms, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_GRIDOFFSET, config->grid_offset_ms, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure on time
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_PM_ONTIME, config->on_time_ms, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_ONTIME, config->on_time_ms, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure minimum acquisition time
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_PM_MINACQTIME, config->min_acq_time_ms, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_MINACQTIME, config->min_acq_time_ms, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure maximum acquisition time
-    return zedf9p_config_set_val(dev, UBLOX_CFG_PM_MAXACQTIME, config->max_acq_time_ms, 4U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_MAXACQTIME, config->max_acq_time_ms, 4U);
 }
 
-zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, const zedf9p_antenna_config_t *config) {
+zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_antenna_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Configure voltage control
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_VOLTCTRL, config->voltage_ctrl ? 1U : 0U, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_VOLTCTRL, config->voltage_ctrl ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure short detection
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_SHORTDET, config->short_det ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_SHORTDET, config->short_det ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_SHORTDET_POL, config->short_det_pol ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_SHORTDET_POL, config->short_det_pol ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure open detection
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_OPENDET, config->open_det ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_OPENDET, config->open_det ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_OPENDET_POL, config->open_det_pol ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_OPENDET_POL, config->open_det_pol ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure power down
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_PWRDOWN, config->power_down ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_PWRDOWN, config->power_down ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_PWRDOWN_POL, config->power_down_pol ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_PWRDOWN_POL, config->power_down_pol ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure recovery
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_CFG_RECOVER, config->recover ? 1U : 0U, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_CFG_RECOVER, config->recover ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure switch pin
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_SUP_SWITCH_PIN, config->switch_pin, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_SUP_SWITCH_PIN, config->switch_pin, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure thresholds
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_SUP_SHORT_THR, config->short_thr, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_SUP_SHORT_THR, config->short_thr, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    return zedf9p_config_set_val(dev, UBLOX_CFG_HW_ANT_SUP_OPEN_THR, config->open_thr, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_SUP_OPEN_THR, config->open_thr, 1U);
 }
 
-zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, const bool enable, const uint8_t ant_setting, const bool enable_aux) {
+zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, const uint8_t layer_mask, const bool enable, const uint8_t ant_setting, const bool enable_aux) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Enable/disable interference mitigation
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_ITFM_ENABLE, enable ? 1U : 0U, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_ITFM_ENABLE, enable ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Configure antenna setting
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_ITFM_ANTSETTING, ant_setting, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_ITFM_ANTSETTING, ant_setting, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Enable/disable auxiliary interference mitigation
-    return zedf9p_config_set_val(dev, UBLOX_CFG_ITFM_ENABLE_AUX, enable_aux ? 1U : 0U, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_ITFM_ENABLE_AUX, enable_aux ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, const bool enable) {
+zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, const uint8_t layer_mask, const bool enable) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
-    return zedf9p_config_set_val(dev, UBLOX_CFG_JAMMING_MONITOR, enable ? 1U : 0U, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_JAMMING_MONITOR, enable ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, const uint16_t message_type, const uint8_t rate, const uint8_t interface_mask) {
+zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, const uint8_t layer_mask, const uint16_t message_type, const uint8_t rate, const uint8_t interface_mask) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1168,24 +1421,24 @@ zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, const uint16_t message
 
     // Configure message rate for selected interfaces
     if ((interface_mask & 0x01U) != 0U) {  // I2C
-        status = zedf9p_config_set_val(dev, i2c_key, rate, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, i2c_key, rate, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 
     if ((interface_mask & 0x02U) != 0U) {  // UART1
-        status = zedf9p_config_set_val(dev, uart1_key, rate, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, uart1_key, rate, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 
     if ((interface_mask & 0x04U) != 0U) {  // UART2
-        status = zedf9p_config_set_val(dev, uart2_key, rate, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, uart2_key, rate, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, const bool enable_1005, const bool enable_1077,
+zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, const uint8_t layer_mask, const bool enable_1005, const bool enable_1077,
                                                const bool enable_1087, const bool enable_1097,
                                                const bool enable_1127, const bool enable_1230) {
     if (dev == NULL || !dev->initialized) {
@@ -1198,98 +1451,98 @@ zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, const bool enable
 
     // Configure each RTCM message type
     if (enable_1005) {
-        status = zedf9p_enable_rtcm_message(dev, 1005U, rate, all_interfaces);
+        status = zedf9p_enable_rtcm_message(dev, layer_mask, 1005U, rate, all_interfaces);
         if (status != ZEDF9P_OK) return status;
     }
 
     if (enable_1077) {
-        status = zedf9p_enable_rtcm_message(dev, 1077U, rate, all_interfaces);
+        status = zedf9p_enable_rtcm_message(dev, layer_mask, 1077U, rate, all_interfaces);
         if (status != ZEDF9P_OK) return status;
     }
 
     if (enable_1087) {
-        status = zedf9p_enable_rtcm_message(dev, 1087U, rate, all_interfaces);
+        status = zedf9p_enable_rtcm_message(dev, layer_mask, 1087U, rate, all_interfaces);
         if (status != ZEDF9P_OK) return status;
     }
 
     if (enable_1097) {
-        status = zedf9p_enable_rtcm_message(dev, 1097U, rate, all_interfaces);
+        status = zedf9p_enable_rtcm_message(dev, layer_mask, 1097U, rate, all_interfaces);
         if (status != ZEDF9P_OK) return status;
     }
 
     if (enable_1127) {
-        status = zedf9p_enable_rtcm_message(dev, 1127U, rate, all_interfaces);
+        status = zedf9p_enable_rtcm_message(dev, layer_mask, 1127U, rate, all_interfaces);
         if (status != ZEDF9P_OK) return status;
     }
 
     if (enable_1230) {
-        status = zedf9p_enable_rtcm_message(dev, 1230U, rate, all_interfaces);
+        status = zedf9p_enable_rtcm_message(dev, layer_mask, 1230U, rate, all_interfaces);
         if (status != ZEDF9P_OK) return status;
     }
 
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, const bool enable, const bool use_source) {
+zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, const uint8_t layer_mask, const bool enable, const bool use_source) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Configure SPARTN as correction source
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_SPARTN_USE_SOURCE, use_source ? 1U : 0U, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SPARTN_USE_SOURCE, use_source ? 1U : 0U, 1U);
     if (status != ZEDF9P_OK) return status;
 
     if (enable) {
         // Enable SPARTN message output on all interfaces
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_MSGOUT_SPARTN_I2C, 1U, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_I2C, 1U, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_MSGOUT_SPARTN_UART1, 1U, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART1, 1U, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_MSGOUT_SPARTN_UART2, 1U, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART2, 1U, 1U);
         if (status != ZEDF9P_OK) return status;
     } else {
         // Disable SPARTN message output
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_MSGOUT_SPARTN_I2C, 0U, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_I2C, 0U, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_MSGOUT_SPARTN_UART1, 0U, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART1, 0U, 1U);
         if (status != ZEDF9P_OK) return status;
 
-        status = zedf9p_config_set_val(dev, UBLOX_CFG_MSGOUT_SPARTN_UART2, 0U, 1U);
+        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART2, 0U, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, const uint32_t min_duration_s, const uint32_t accuracy_limit_mm) {
+zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, const uint8_t layer_mask, const uint32_t min_duration_s, const uint32_t accuracy_limit_mm) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Configure survey-in parameters
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_SVIN_MIN_DUR, min_duration_s, 4U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_SVIN_MIN_DUR, min_duration_s, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_SVIN_ACC_LIMIT, accuracy_limit_mm, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_SVIN_ACC_LIMIT, accuracy_limit_mm, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Set time mode to survey-in
-    return zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_MODE, TMODE_SURVEY_IN, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_SURVEY_IN, 1U);
 }
 
-zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev) {
+zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev, const uint8_t layer_mask) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     // Disable time mode
-    return zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_MODE, TMODE_DISABLED, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_DISABLED, 1U);
 }
 
-zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, const double lat_deg, const double lon_deg,
+zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, const uint8_t layer_mask, const double lat_deg, const double lon_deg,
                                               const double height_m, const uint32_t accuracy_mm) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
@@ -1310,38 +1563,38 @@ zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, const double lat_d
     const int8_t height_hp = (int8_t)(height_hp_m * 10.0);  // 0.1 mm
 
     // Set position type to LLH
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_POS_TYPE, POS_TYPE_LLH, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_POS_TYPE, POS_TYPE_LLH, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Set coordinates
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LAT, (uint64_t)lat_scaled, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LAT, (uint64_t)lat_scaled, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LON, (uint64_t)lon_scaled, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LON, (uint64_t)lon_scaled, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_HEIGHT, (uint64_t)height_scaled, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_HEIGHT, (uint64_t)height_scaled, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Set high precision parts
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LAT_HP, lat_hp, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LAT_HP, lat_hp, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_LON_HP, lon_hp, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_LON_HP, lon_hp, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_HEIGHT_HP, height_hp, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_HEIGHT_HP, height_hp, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Set accuracy
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_FIXED_POS_ACC, accuracy_mm, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_FIXED_POS_ACC, accuracy_mm, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Set time mode to fixed
-    return zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_MODE, TMODE_FIXED_MODE, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_FIXED_MODE, 1U);
 }
 
-zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, const double x_m, const double y_m,
+zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, const uint8_t layer_mask, const double x_m, const double y_m,
                                                    const double z_m, const uint32_t accuracy_mm) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
@@ -1362,35 +1615,35 @@ zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, const double 
     const int8_t z_hp = (int8_t)(z_hp_m * 10.0);  // 0.1 mm
 
     // Set position type to ECEF
-    zedf9p_status_t status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_POS_TYPE, POS_TYPE_ECEF, 1U);
+    zedf9p_status_t status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_POS_TYPE, POS_TYPE_ECEF, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Set coordinates
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_X, (uint64_t)x_scaled, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_X, (uint64_t)x_scaled, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Y, (uint64_t)y_scaled, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Y, (uint64_t)y_scaled, 4U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Z, (uint64_t)z_scaled, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Z, (uint64_t)z_scaled, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Set high precision parts
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_X_HP, x_hp, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_X_HP, x_hp, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Y_HP, y_hp, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Y_HP, y_hp, 1U);
     if (status != ZEDF9P_OK) return status;
 
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_ECEF_Z_HP, z_hp, 1U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_ECEF_Z_HP, z_hp, 1U);
     if (status != ZEDF9P_OK) return status;
 
     // Set accuracy
-    status = zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_FIXED_POS_ACC, accuracy_mm, 4U);
+    status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_FIXED_POS_ACC, accuracy_mm, 4U);
     if (status != ZEDF9P_OK) return status;
 
     // Set time mode to fixed
-    return zedf9p_config_set_val(dev, UBLOX_CFG_TMODE_MODE, TMODE_FIXED_MODE, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_FIXED_MODE, 1U);
 }
 
 zedf9p_status_t zedf9p_get_mon_ver(zedf9p_t *dev, zedf9p_mon_ver_t *mon_ver) {
@@ -1415,10 +1668,12 @@ bool zedf9p_is_mon_ver_available(const zedf9p_t *dev) {
     return dev->mon_ver_valid;
 }
 
-zedf9p_status_t zedf9p_poll_mon_ver(const zedf9p_t *dev) {
+zedf9p_status_t zedf9p_poll_mon_ver(zedf9p_t *dev) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
-    return zedf9p_poll_ubx_message(dev, UBX_CLASS_MON, UBX_MON_VER);
+    ubx_message_t response;
+    return zedf9p_poll_ubx_message(dev, UBX_CLASS_MON, UBX_MON_VER,
+                                  UBX_POLL_TIMEOUT_MS, &response);
 }

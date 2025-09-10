@@ -66,8 +66,8 @@ zedf9p_rawx_t rawx_data;
 // Timing variables
 unsigned long last_position_print = 0;
 unsigned long last_status_print = 0;
-const unsigned long POSITION_INTERVAL = 1000;  // Print position every 1 second
-const unsigned long STATUS_INTERVAL = 5000;    // Print status every 5 seconds
+constexpr unsigned long POSITION_INTERVAL = 1000;  // Print position every 1 second
+constexpr unsigned long STATUS_INTERVAL = 5000;    // Print status every 5 seconds
 
 void setup() {
     Serial.begin(115200);
@@ -97,7 +97,7 @@ void setup() {
     // Initialize the ZEDF9P driver
     if (!initialize_gps()) {
         Serial.println("Failed to initialize ZEDF9P!");
-        while (1) {
+        while (true) {
             delay(1000);
             Serial.println("System halted - check connections");
         }
@@ -106,7 +106,7 @@ void setup() {
     // Configure the GNSS module
     if (!configure_gps()) {
         Serial.println("Failed to configure ZEDF9P!");
-        while (1) delay(1000);
+        while (true) delay(1000);
     }
 
     Serial.println("ZEDF9P initialized and configured successfully!");
@@ -121,7 +121,7 @@ void loop() {
     // Process incoming GNSS data
     zedf9p_process_data(&gps);
 
-    unsigned long current_time = millis();
+    const unsigned long current_time = millis();
 
     // Print position data periodically
     if (current_time - last_position_print >= POSITION_INTERVAL) {
@@ -141,7 +141,7 @@ void loop() {
 
 bool initialize_gps() {
     // Define the interface functions
-    zedf9p_interface_t io = {
+    constexpr zedf9p_interface_t io = {
         .i2c_write = platform_i2c_write,
         .i2c_read = platform_i2c_read,
         .uart_write = platform_uart_write,
@@ -151,8 +151,8 @@ bool initialize_gps() {
     };
 
     // Initialize the driver
-    zedf9p_interface_type_t interface = use_i2c ? ZEDF9P_INTERFACE_I2C : ZEDF9P_INTERFACE_UART;
-    zedf9p_status_t status = zedf9p_init(&gps, interface, ZEDF9P_I2C_ADDR, io);
+    const zedf9p_interface_type_t interface = use_i2c ? ZEDF9P_INTERFACE_I2C : ZEDF9P_INTERFACE_UART;
+    const zedf9p_status_t status = zedf9p_init(&gps, interface, ZEDF9P_I2C_ADDR, io);
 
     if (status != ZEDF9P_OK) {
         Serial.print("Driver initialization failed: ");
@@ -164,11 +164,9 @@ bool initialize_gps() {
 }
 
 bool configure_gps() {
-    zedf9p_status_t status;
-
     // Set measurement rate to 1Hz (1000ms)
     Serial.println("Setting measurement rate to 1Hz...");
-    status = zedf9p_set_measurement_rate(&gps, 1000, 1);
+    zedf9p_status_t status = zedf9p_set_measurement_rate(&gps, 1000, 1);
     if (status != ZEDF9P_OK) {
         Serial.print("Failed to set measurement rate: ");
         Serial.println(zedf9p_status_error(status));
@@ -235,7 +233,7 @@ bool configure_gnss_signals() {
     Serial.println("Configuring GNSS signals...");
 
     // Configure multi-constellation GNSS
-    zedf9p_gnss_config_t gnss_config = {
+    constexpr zedf9p_gnss_config_t gnss_config = {
         .gps_enabled = true,
         .gps_l1ca_enabled = true,
         .gps_l2c_enabled = true,          // L2C for better accuracy
@@ -256,7 +254,7 @@ bool configure_gnss_signals() {
         .glonass_l2_enabled = true
     };
 
-    zedf9p_status_t status = zedf9p_config_gnss_signals(&gps, &gnss_config);
+    const zedf9p_status_t status = zedf9p_config_gnss_signals(&gps, &gnss_config);
     if (status != ZEDF9P_OK) {
         Serial.print("Failed to configure GNSS signals: ");
         Serial.println(zedf9p_status_error(status));
@@ -316,13 +314,13 @@ void print_position_data() {
 
 void print_pvt_data() {
     // Convert coordinates to degrees
-    double latitude = pvt_data.lat / 1e7;
-    double longitude = pvt_data.lon / 1e7;
-    double height = pvt_data.height / 1000.0;  // mm to m
-    double h_acc = pvt_data.h_acc / 1000.0;    // mm to m
+    const double latitude = pvt_data.lat / 1e7;
+    const double longitude = pvt_data.lon / 1e7;
+    const double height = pvt_data.height / 1000.0;  // mm to m
+    const double h_acc = pvt_data.h_acc / 1000.0;    // mm to m
 
     // Get fix type string
-    String fix_type = get_fix_type_string(pvt_data.fix_type);
+    const String fix_type = get_fix_type_string(pvt_data.fix_type);
 
     // Print formatted data
     char buffer[200];
@@ -339,8 +337,8 @@ void print_pvt_data() {
 
     // Print additional useful information
     if (pvt_data.fix_type >= 3) {  // 3D fix or better
-        double speed_kmh = (pvt_data.g_speed / 1000.0) * 3.6;  // mm/s to km/h
-        double heading = pvt_data.head_mot / 1e5;  // 1e-5 deg to deg
+        const double speed_kmh = (pvt_data.g_speed / 1000.0) * 3.6;  // mm/s to km/h
+        const double heading = pvt_data.head_mot / 1e5;  // 1e-5 deg to deg
 
         Serial.print("   Speed: ");
         Serial.print(speed_kmh, 1);
@@ -352,9 +350,9 @@ void print_pvt_data() {
 
 void print_hppos_data() {
     // High precision coordinates
-    double lat_hp = (pvt_data.lat / 1e7) + (hppos_data.lat_hp / 1e9);
-    double lon_hp = (pvt_data.lon / 1e7) + (hppos_data.lon_hp / 1e9);
-    double height_hp = (pvt_data.height / 1000.0) + (hppos_data.height_hp / 10000.0);
+    const double lat_hp = (pvt_data.lat / 1e7) + (hppos_data.lat_hp / 1e9);
+    const double lon_hp = (pvt_data.lon / 1e7) + (hppos_data.lon_hp / 1e9);
+    const double height_hp = (pvt_data.height / 1000.0) + (hppos_data.height_hp / 10000.0);
 
     Serial.print("   HP: ");
     Serial.print(lat_hp, 9);
