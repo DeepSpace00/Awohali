@@ -113,11 +113,6 @@ extern "C" {
 #define UBX_CFG_VALDEL                      0x8C
 #define UBX_CFG_VALSET                      0x8A
 
-// Add layer definitions to zedf9p.h
-#define UBLOX_CFG_LAYER_RAM     0x01
-#define UBLOX_CFG_LAYER_BBR     0x02  // Battery Backed RAM
-#define UBLOX_CFG_LAYER_FLASH   0x04
-
 // UBX Message IDs - ACK Class
 #define UBX_ACK_NAK                         0x00
 #define UBX_ACK_ACK                         0x01
@@ -333,6 +328,11 @@ extern "C" {
 #define UBLOX_CFG_MSGOUT_SPARTN_I2C         0x20910366
 #define UBLOX_CFG_MSGOUT_SPARTN_UART1       0x20910367
 #define UBLOX_CFG_MSGOUT_SPARTN_UART2       0x20910368
+
+// Add layer definitions to zedf9p.h
+#define UBLOX_CFG_LAYER_RAM     0x01
+#define UBLOX_CFG_LAYER_BBR     0x02  // Battery Backed RAM
+#define UBLOX_CFG_LAYER_FLASH   0x04
 
 // Dynamic Models
 #define DYN_MODEL_PORTABLE                  0
