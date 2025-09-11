@@ -168,24 +168,24 @@ void setup() {
     }*/
 
     // Enable RXM-RAWX messages
-    /*Serial.println("Enabling NAV-HPPOSLLH messages...");
+    Serial.println("Enabling NAV-HPPOSLLH messages...");
     status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1);
     if (status == ZEDF9P_OK) {
         Serial.println("NAV-HPPOSLLH messages enabled!");
     } else {
         Serial.print("Failed to enable NAV-HPPOSLLH: ");
         Serial.println(zedf9p_status_error(status));
-    }*/
+    }
 
     // Enable PVT messages using enhanced message configuration
-    Serial.println("Enabling NAV-PVT messages...");
+    /*Serial.println("Enabling NAV-PVT messages...");
     status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 1);
     if (status == ZEDF9P_OK) {
         Serial.println("NAV-PVT messages enabled!");
     } else {
         Serial.print("Failed to enable NAV-PVT: ");
         Serial.println(zedf9p_status_error(status));
-    }
+    }*/
 
     // Test enhanced CFG-VALGET functionality
     /*Serial.println("Reading current measurement rate...");
