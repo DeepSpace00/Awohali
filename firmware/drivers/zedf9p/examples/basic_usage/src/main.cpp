@@ -28,17 +28,66 @@ void pvt_callback(const ubx_message_t *message, void *user_data) {
     Serial.println("PVT message received via callback!");
 }
 
+void setup_pps_simple() {
+    Serial.println("Configuring PPS (no ACK wait)...");
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_PULSE_DEF, 1, 1);
+    delay(100);
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_TP1_ENA, 1, 1);
+    delay(100);
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_FREQ_TP1, 1, 4);
+    delay(100);
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_SYNC_GNSS_TP1, 1, 1);
+    delay(100);
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_POL_TP1, 0, 1);
+    delay(100);
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_LEN_TP1, 100000, 4);
+    delay(100);
+
+    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_TIMEGRID_TP1, 2, 1);
+    delay(100);
+
+    Serial.println("PPS configuration sent (check LED after GPS fix)");
+}
+
 // Generic callback for monitoring all messages
 void generic_callback(const ubx_message_t *message, void *user_data) {
+    if (message->msg_class == 0x05) { // ACK class
+        Serial.print("ACK: ID=0x");
+        Serial.print(message->msg_id, HEX);
+        Serial.print(" for Class=0x");
+        Serial.print(message->payload[0], HEX);
+        Serial.print(" ID=0x");
+        Serial.print(message->payload[1], HEX);
+        Serial.println();
+    }
     char buffer[128];
     sprintf(buffer, "Message received: Class=0x%02X, ID=0x%02X, Length=%d",
            message->msg_class, message->msg_id, message->length);
     Serial.println(buffer);
 }
 
+#define CARD_EN 3
+#define CARD_RST 7
+#define CARD_IO1 6
+#define CARD_IO2 5
+#define CARD_IO3 4
+
+#define GNSS_SERIAL Serial1
+
 void setup() {
+    pinMode(CARD_EN, OUTPUT);
+    pinMode(CARD_IO1, OUTPUT);
+    digitalWrite(CARD_EN, HIGH);
+    digitalWrite(CARD_IO3, LOW);
+    delay(1000);
     Serial.begin(115200);
-    Wire.begin();
+    GNSS_SERIAL.begin(38400, SERIAL_8N1);
 
     delay(100);
 
@@ -49,8 +98,8 @@ void setup() {
 
     // Define the enhanced IO interface
     constexpr zedf9p_interface_t io = {
-        .i2c_write = platform_i2c_write,
-        .i2c_read = platform_i2c_read,
+        .i2c_write = NULL,  // Not used for UART
+        .i2c_read = NULL,   // Not used for UART
         .uart_write = platform_uart_write,
         .uart_read = platform_uart_read,
         .delay_ms = platform_delay_ms,
@@ -58,8 +107,8 @@ void setup() {
     };
 
     // Initialize the GNSS module with I2C interface
-    zedf9p_status_t status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_I2C,
-                                        ZEDF9P_I2C_ADDR, io);
+    zedf9p_status_t status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_UART,
+                                        0, io); // Address ignored for UART
 
     if (status != ZEDF9P_OK) {
         Serial.print("Failed to initialize ZEDF9P: ");
@@ -106,6 +155,28 @@ void setup() {
         Serial.println(zedf9p_status_error(status));
     }
 
+    setup_pps_simple();
+
+    // Enable RXM-RAWX messages
+    /*Serial.println("Enabling RXM-RAWX messages...");
+    status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 1);
+    if (status == ZEDF9P_OK) {
+        Serial.println("RXM-RAWX messages enabled!");
+    } else {
+        Serial.print("Failed to enable RXM-RAWX: ");
+        Serial.println(zedf9p_status_error(status));
+    }*/
+
+    // Enable RXM-RAWX messages
+    /*Serial.println("Enabling NAV-HPPOSLLH messages...");
+    status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1);
+    if (status == ZEDF9P_OK) {
+        Serial.println("NAV-HPPOSLLH messages enabled!");
+    } else {
+        Serial.print("Failed to enable NAV-HPPOSLLH: ");
+        Serial.println(zedf9p_status_error(status));
+    }*/
+
     // Enable PVT messages using enhanced message configuration
     Serial.println("Enabling NAV-PVT messages...");
     status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 1);
@@ -117,7 +188,7 @@ void setup() {
     }
 
     // Test enhanced CFG-VALGET functionality
-    Serial.println("Reading current measurement rate...");
+    /*Serial.println("Reading current measurement rate...");
     uint64_t current_rate = 0;
     status = zedf9p_config_get_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_RATE_MEAS, &current_rate, 2);
     if (status == ZEDF9P_OK) {
@@ -127,10 +198,10 @@ void setup() {
     } else {
         Serial.print("Failed to read measurement rate: ");
         Serial.println(zedf9p_status_error(status));
-    }
+    }*/
 
     // Configure dynamic model
-    Serial.println("Setting dynamic model to stationary...");
+    /*Serial.println("Setting dynamic model to stationary...");
     status = zedf9p_set_dynamic_model(&gnss_module, UBLOX_CFG_LAYER_RAM, DYN_MODEL_STATIONARY);
     if (status == ZEDF9P_OK) {
         Serial.println("Dynamic model set to stationary!");
@@ -140,7 +211,7 @@ void setup() {
     }
 
     Serial.println("Starting enhanced data acquisition...");
-    Serial.println("====================================");
+    Serial.println("====================================");*/
 }
 
 void loop() {
@@ -155,38 +226,17 @@ void loop() {
     // Check for new PVT data
     if (zedf9p_is_pvt_available(&gnss_module)) {
         status = zedf9p_get_pvt(&gnss_module, &pvt_data);
-
         if (status == ZEDF9P_OK) {
-            // Enhanced data display with more information
-            char buffer[256];
+            Serial.print("Fix type: ");
+            Serial.print(pvt_data.fix_type);
+            Serial.print(", Satellites: ");
+            Serial.println(pvt_data.num_sv);
 
-            // Convert coordinates to decimal degrees
-            const double lat_deg = static_cast<double>(pvt_data.lat) / 1e7;
-            const double lon_deg = static_cast<double>(pvt_data.lon) / 1e7;
-            const double height_m = static_cast<double>(pvt_data.height) / 1000.0;
-
-            sprintf(buffer, "PVT Data: Lat=%.7f°, Lon=%.7f°, Height=%.3fm, "
-                           "Fix=%d, NumSV=%d, HAcc=%lumm, VAcc=%lumm",
-                    lat_deg, lon_deg, height_m, pvt_data.fix_type,
-                    pvt_data.num_sv, pvt_data.h_acc, pvt_data.v_acc);
-            Serial.println(buffer);
-
-            // Display time information
-            sprintf(buffer, "Time: %04d-%02d-%02d %02d:%02d:%02d UTC",
-                    pvt_data.year, pvt_data.month, pvt_data.day,
-                    pvt_data.hour, pvt_data.min, pvt_data.sec);
-            Serial.println(buffer);
-
-            // Display velocity information
-            sprintf(buffer, "Velocity: N=%.3fm/s, E=%.3fm/s, D=%.3fm/s, Speed=%.3fm/s",
-                    static_cast<double>(pvt_data.vel_n) / 1000.0, static_cast<double>(pvt_data.vel_e) / 1000.0,
-                    static_cast<double>(pvt_data.vel_d) / 1000.0, static_cast<double>(pvt_data.g_speed) / 1000.0);
-            Serial.println(buffer);
-
-            Serial.println("---");
-        } else {
-            Serial.print("Failed to get PVT data: ");
-            Serial.println(zedf9p_status_error(status));
+            if (pvt_data.fix_type >= 3) {
+                Serial.println("Good fix - PPS should be active");
+            } else {
+                Serial.println("No fix - PPS inactive");
+            }
         }
     }
 
@@ -232,7 +282,7 @@ void loop() {
     }
 
     // Demonstrate enhanced error handling with retry
-    static uint32_t last_config_test = 0;
+    /*static uint32_t last_config_test = 0;
     if (millis() - last_config_test > 30000) { // Every 30 seconds
         last_config_test = millis();
 
@@ -247,7 +297,7 @@ void loop() {
             Serial.print("Config read failed: ");
             Serial.println(zedf9p_status_error(status));
         }
-    }
+    }*/
 
     delay(100); // Small delay to prevent overwhelming the module
 }

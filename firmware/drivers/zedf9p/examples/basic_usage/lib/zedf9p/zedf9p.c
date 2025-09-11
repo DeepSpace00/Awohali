@@ -10,9 +10,9 @@
 #include <string.h>
 
 // Internal constants
-static const uint16_t UBX_HEADER_LENGTH = 6U;
-static const uint16_t UBX_CHECKSUM_LENGTH = 2U;
-static const uint32_t DEFAULT_TIMEOUT_MS = 1000U;
+//static const uint16_t UBX_HEADER_LENGTH = 6U;
+//static const uint16_t UBX_CHECKSUM_LENGTH = 2U;
+//static const uint32_t DEFAULT_TIMEOUT_MS = 1000U;
 static const uint32_t UBX_POLL_TIMEOUT_MS = 5000U;
 static const uint8_t UBX_SYNC_CHAR_1 = 0xB5U;
 static const uint8_t UBX_SYNC_CHAR_2 = 0x62U;
@@ -27,7 +27,6 @@ static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, uint8_t byte);
 static zedf9p_status_t zedf9p_handle_message(zedf9p_t *dev, const ubx_message_t *message);
 static zedf9p_status_t zedf9p_wait_for_message_response(zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id,
                                                        uint32_t timeout_ms, bool wait_for_ack, ubx_message_t *response);
-static bool zedf9p_is_ack_nak(const ubx_message_t *message, uint8_t expected_class, uint8_t expected_id, bool *is_ack);
 static zedf9p_status_t zedf9p_flush_input_buffer(const zedf9p_t *dev);
 static zedf9p_status_t zedf9p_check_i2c_bytes_available(const zedf9p_t *dev, uint16_t *bytes_available);
 
@@ -112,24 +111,24 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_type_t interfa
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_soft_reset(zedf9p_t *dev) {
+zedf9p_status_t zedf9p_soft_reset(const zedf9p_t *dev) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     const uint8_t payload[] = {0x00, 0x00, 0x02, 0x00};  // Software reset, controlled
-    return zedf9p_send_ubx_message_with_ack(dev, UBX_CLASS_CFG, UBX_CFG_RST,
-                                           payload, sizeof(payload), DEFAULT_TIMEOUT_MS);
+    return zedf9p_send_ubx_message(dev, UBX_CLASS_CFG, UBX_CFG_RST,
+                                           payload, sizeof(payload));
 }
 
-zedf9p_status_t zedf9p_hard_reset(zedf9p_t *dev) {
+zedf9p_status_t zedf9p_hard_reset(const zedf9p_t *dev) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     const uint8_t payload[] = {0x00, 0x00, 0x01, 0x00};  // Hardware reset, controlled
-    return zedf9p_send_ubx_message_with_ack(dev, UBX_CLASS_CFG, UBX_CFG_RST,
-                                           payload, sizeof(payload), DEFAULT_TIMEOUT_MS);
+    return zedf9p_send_ubx_message(dev, UBX_CLASS_CFG, UBX_CFG_RST,
+                                           payload, sizeof(payload));
 }
 
 zedf9p_status_t zedf9p_set_measurement_rate(zedf9p_t *dev, const uint8_t layer_mask, const uint16_t meas_rate_ms, const uint16_t nav_rate) {
@@ -172,17 +171,17 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, const uint8_t layer_mask
     return status;
 }
 
-zedf9p_status_t zedf9p_set_message_rate(zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint8_t rate) {
+zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint8_t rate) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
     const uint8_t payload[] = {msg_class, msg_id, rate};
-    return zedf9p_send_ubx_message_with_ack(dev, UBX_CLASS_CFG, UBX_CFG_MSG,
-                                           payload, sizeof(payload), DEFAULT_TIMEOUT_MS);
+    return zedf9p_send_ubx_message(dev, UBX_CLASS_CFG, UBX_CFG_MSG,
+                                           payload, sizeof(payload));
 }
 
-zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, const uint64_t value, const uint8_t size) {
+zedf9p_status_t zedf9p_config_set_val(const zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, const uint64_t value, const uint8_t size) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -209,8 +208,8 @@ zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, const uint8_t layer_mask, c
         payload[8 + i] = (uint8_t)((value >> (i * 8)) & 0xFFU);
     }
 
-    return zedf9p_send_ubx_message_with_ack(dev, UBX_CLASS_CFG, UBX_CFG_VALSET,
-                                           payload, 8U + size, DEFAULT_TIMEOUT_MS);
+    return zedf9p_send_ubx_message(dev, UBX_CLASS_CFG, UBX_CFG_VALSET,
+                                           payload, 8U + size);
 }
 
 zedf9p_status_t zedf9p_config_get_val(zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, uint64_t *value, const uint8_t size) {
@@ -451,7 +450,7 @@ zedf9p_status_t zedf9p_send_ubx_message_with_ack(zedf9p_t *dev, const uint8_t ms
     // Send message and wait for ACK/NAK
     ubx_message_t response;
     return zedf9p_send_ubx_message_with_response(dev, msg_class, msg_id, payload, payload_len,
-                                               UBX_CLASS_ACK, 0xFF, timeout_ms, &response);
+                                               UBX_CLASS_ACK, UBX_ACK_ACK, timeout_ms, &response);
 }
 
 zedf9p_status_t zedf9p_send_ubx_message_with_response(zedf9p_t *dev, const uint8_t send_class, const uint8_t send_id,
@@ -856,10 +855,28 @@ static zedf9p_status_t zedf9p_handle_message(zedf9p_t *dev, const ubx_message_t 
     }
 
     // Check if this message matches a pending request
-    if (dev->pending_msg.waiting_for_response &&
-        message->msg_class == dev->pending_msg.expected_class &&
-        (dev->pending_msg.expected_id == 0xFF || message->msg_id == dev->pending_msg.expected_id)) {
+    bool is_expected_response = false;
 
+    if (dev->pending_msg.waiting_for_response) {
+        if (dev->pending_msg.expected_class == UBX_CLASS_ACK) {
+            // For ACK messages, check the payload to see what command was ACKed
+            if (message->msg_class == UBX_CLASS_ACK && message->length >= 2) {
+                const uint8_t ack_class = message->payload[0];
+                const uint8_t ack_id = message->payload[1];
+                if (ack_class == dev->pending_msg.msg_class && ack_id == dev->pending_msg.msg_id) {
+                    is_expected_response = true;
+                }
+            }
+        } else {
+            // For non-ACK messages, use the original logic
+            if (message->msg_class == dev->pending_msg.expected_class &&
+                (dev->pending_msg.expected_id == 0xFF || message->msg_id == dev->pending_msg.expected_id)) {
+                is_expected_response = true;
+                }
+        }
+    }
+
+    if (is_expected_response) {
         // Copy the message to the response buffer
         dev->pending_response = *message;
         dev->pending_msg.waiting_for_response = false;
@@ -945,62 +962,9 @@ static zedf9p_status_t zedf9p_wait_for_message_response(zedf9p_t *dev, const uin
     return ZEDF9P_ERR_TIMEOUT;
 }
 
-static bool zedf9p_is_ack_nak(const ubx_message_t *message, const uint8_t expected_class,
-                             const uint8_t expected_id, bool *is_ack) {
-    if (message == NULL || is_ack == NULL || !message->valid) {
-        return false;
-    }
-
-    if (message->msg_class != UBX_CLASS_ACK || message->length < 2U) {
-        return false;
-    }
-
-    const uint8_t ack_class = message->payload[0];
-    const uint8_t ack_id = message->payload[1];
-
-    if (ack_class == expected_class && ack_id == expected_id) {
-        *is_ack = (message->msg_id == UBX_ACK_ACK);
-        return true;
-    }
-
-    return false;
-}
-
-static zedf9p_status_t zedf9p_wait_for_ack(zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint32_t timeout_ms) {
-    if (dev == NULL || !dev->initialized) {
-        return ZEDF9P_ERR_NULL;
-    }
-
-    const uint32_t start_time = dev->io.get_millis();
-    uint32_t current_time = start_time;
-
-    while ((current_time - start_time) < timeout_ms) {
-        const zedf9p_status_t status = zedf9p_process_data(dev);
-        if (status != ZEDF9P_OK && status != ZEDF9P_ERR_NO_DATA) {
-            return status;
-        }
-
-        // Check if we received an ACK or NAK for our message
-        if (dev->current_message.valid &&
-            dev->current_message.msg_class == UBX_CLASS_ACK &&
-            dev->current_message.length >= 2U) {
-
-            bool is_ack;
-            if (zedf9p_is_ack_nak(&dev->current_message, msg_class, msg_id, &is_ack)) {
-                return is_ack ? ZEDF9P_OK : ZEDF9P_ERR_NACK;
-            }
-        }
-
-        dev->io.delay_ms(1U);  // Small delay
-        current_time = dev->io.get_millis();
-    }
-
-    return ZEDF9P_ERR_TIMEOUT;
-}
-
 // Hardware Configuration Function Implementations
 
-zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, const uint8_t layer_mask, const uint8_t port, const zedf9p_uart_config_t *config) {
+zedf9p_status_t zedf9p_config_uart(const zedf9p_t *dev, const uint8_t layer_mask, const uint8_t port, const zedf9p_uart_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1035,7 +999,7 @@ zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, const uint8_t layer_mask, cons
     return zedf9p_config_set_val(dev, layer_mask, base_key + 6U, config->remap ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_i2c_config_t *config) {
+zedf9p_status_t zedf9p_config_i2c(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_i2c_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1052,7 +1016,7 @@ zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, const uint8_t layer_mask, const
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_I2C_ENABLED, config->enabled ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_gnss_config_t *config) {
+zedf9p_status_t zedf9p_config_gnss_signals(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_gnss_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1117,7 +1081,7 @@ zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, const uint8_t layer_ma
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SIGNAL_GLO_L2_ENA, config->glonass_l2_enabled ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_sbas_config_t *config) {
+zedf9p_status_t zedf9p_config_sbas(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_sbas_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1142,7 +1106,7 @@ zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, const uint8_t layer_mask, cons
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_SBAS_PRNSCANMASK, config->prn_scan_mask, 8U);
 }
 
-zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_tmode_config_t *config) {
+zedf9p_status_t zedf9p_config_time_mode(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_tmode_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1205,7 +1169,7 @@ zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, const uint8_t layer_mask,
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_SVIN_ACC_LIMIT, config->svin_acc_limit, 4U);
 }
 
-zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_timepulse_config_t *config) {
+zedf9p_status_t zedf9p_config_time_pulse(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_timepulse_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1271,7 +1235,7 @@ zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, const uint8_t layer_mask
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TP_TIMEGRID_TP1, config->time_grid, 1U);
 }
 
-zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_power_config_t *config) {
+zedf9p_status_t zedf9p_config_power_management(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_power_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1304,7 +1268,7 @@ zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, const uint8_t laye
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_PM_MAXACQTIME, config->max_acq_time_ms, 4U);
 }
 
-zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_antenna_config_t *config) {
+zedf9p_status_t zedf9p_config_antenna(const zedf9p_t *dev, const uint8_t layer_mask, const zedf9p_antenna_config_t *config) {
     if (dev == NULL || !dev->initialized || config == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1349,7 +1313,7 @@ zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, const uint8_t layer_mask, c
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_HW_ANT_SUP_OPEN_THR, config->open_thr, 1U);
 }
 
-zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, const uint8_t layer_mask, const bool enable, const uint8_t ant_setting, const bool enable_aux) {
+zedf9p_status_t zedf9p_config_interference_mitigation(const zedf9p_t *dev, const uint8_t layer_mask, const bool enable, const uint8_t ant_setting, const bool enable_aux) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1366,7 +1330,7 @@ zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, const uint8
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_ITFM_ENABLE_AUX, enable_aux ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, const uint8_t layer_mask, const bool enable) {
+zedf9p_status_t zedf9p_config_jamming_monitor(const zedf9p_t *dev, const uint8_t layer_mask, const bool enable) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1374,7 +1338,7 @@ zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, const uint8_t layer
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_JAMMING_MONITOR, enable ? 1U : 0U, 1U);
 }
 
-zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, const uint8_t layer_mask, const uint16_t message_type, const uint8_t rate, const uint8_t interface_mask) {
+zedf9p_status_t zedf9p_enable_rtcm_message(const zedf9p_t *dev, const uint8_t layer_mask, const uint16_t message_type, const uint8_t rate, const uint8_t interface_mask) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1438,7 +1402,7 @@ zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, const uint8_t layer_ma
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, const uint8_t layer_mask, const bool enable_1005, const bool enable_1077,
+zedf9p_status_t zedf9p_config_rtcm_base_station(const zedf9p_t *dev, const uint8_t layer_mask, const bool enable_1005, const bool enable_1077,
                                                const bool enable_1087, const bool enable_1097,
                                                const bool enable_1127, const bool enable_1230) {
     if (dev == NULL || !dev->initialized) {
@@ -1483,7 +1447,7 @@ zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, const uint8_t lay
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, const uint8_t layer_mask, const bool enable, const bool use_source) {
+zedf9p_status_t zedf9p_config_spartn(const zedf9p_t *dev, const uint8_t layer_mask, const bool enable, const bool use_source) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1517,7 +1481,7 @@ zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, const uint8_t layer_mask, co
     return ZEDF9P_OK;
 }
 
-zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, const uint8_t layer_mask, const uint32_t min_duration_s, const uint32_t accuracy_limit_mm) {
+zedf9p_status_t zedf9p_start_survey_in(const zedf9p_t *dev, const uint8_t layer_mask, const uint32_t min_duration_s, const uint32_t accuracy_limit_mm) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1533,7 +1497,7 @@ zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, const uint8_t layer_mask, 
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_SURVEY_IN, 1U);
 }
 
-zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev, const uint8_t layer_mask) {
+zedf9p_status_t zedf9p_stop_survey_in(const zedf9p_t *dev, const uint8_t layer_mask) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1542,7 +1506,7 @@ zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev, const uint8_t layer_mask) {
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_DISABLED, 1U);
 }
 
-zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, const uint8_t layer_mask, const double lat_deg, const double lon_deg,
+zedf9p_status_t zedf9p_set_fixed_base_position(const zedf9p_t *dev, const uint8_t layer_mask, const double lat_deg, const double lon_deg,
                                               const double height_m, const uint32_t accuracy_mm) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
@@ -1594,7 +1558,7 @@ zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, const uint8_t laye
     return zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_TMODE_MODE, TMODE_FIXED_MODE, 1U);
 }
 
-zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, const uint8_t layer_mask, const double x_m, const double y_m,
+zedf9p_status_t zedf9p_set_fixed_base_position_ecef(const zedf9p_t *dev, const uint8_t layer_mask, const double x_m, const double y_m,
                                                    const double z_m, const uint32_t accuracy_mm) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;

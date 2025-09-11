@@ -806,14 +806,14 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, zedf9p_interface_type_t interface_typ
  * @param dev Pointer to initialized driver struct
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_soft_reset(zedf9p_t *dev);
+zedf9p_status_t zedf9p_soft_reset(const zedf9p_t *dev);
 
 /**
  * @brief Perform a hardware reset of the module.
  * @param dev Pointer to initialized driver struct
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_hard_reset(zedf9p_t *dev);
+zedf9p_status_t zedf9p_hard_reset(const zedf9p_t *dev);
 
 /**
  * @brief Set the measurement rate and navigation rate.
@@ -842,7 +842,7 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, uint8_t layer_mask, uint
  * @param rate Output rate (0 = disabled, >0 = every N navigation solutions)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_set_message_rate(zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id, uint8_t rate);
+zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id, uint8_t rate);
 
 /**
  * @brief Configure a setting using CFG-VALSET.
@@ -853,7 +853,7 @@ zedf9p_status_t zedf9p_set_message_rate(zedf9p_t *dev, uint8_t msg_class, uint8_
  * @param size Size of value in bytes (1, 2, 4, or 8)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_config_set_val(zedf9p_t *dev, uint8_t layer_mask, uint32_t key_id, uint64_t value, uint8_t size);
+zedf9p_status_t zedf9p_config_set_val(const zedf9p_t *dev, uint8_t layer_mask, uint32_t key_id, uint64_t value, uint8_t size);
 
 /**
  * @brief Read a configuration value using CFG-VALGET.
@@ -1060,44 +1060,44 @@ zedf9p_status_t zedf9p_get_mon_ver(zedf9p_t *dev, zedf9p_mon_ver_t *mon_ver);
  */
 bool zedf9p_is_mon_ver_available(const zedf9p_t *dev);
 
-zedf9p_status_t zedf9p_config_uart(zedf9p_t *dev, uint8_t layer_mask, uint8_t port, const zedf9p_uart_config_t *config);
+zedf9p_status_t zedf9p_config_uart(const zedf9p_t *dev, uint8_t layer_mask, uint8_t port, const zedf9p_uart_config_t *config);
 
-zedf9p_status_t zedf9p_config_i2c(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_i2c_config_t *config);
+zedf9p_status_t zedf9p_config_i2c(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_i2c_config_t *config);
 
-zedf9p_status_t zedf9p_config_gnss_signals(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_gnss_config_t *config);
+zedf9p_status_t zedf9p_config_gnss_signals(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_gnss_config_t *config);
 
-zedf9p_status_t zedf9p_config_sbas(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_sbas_config_t *config);
+zedf9p_status_t zedf9p_config_sbas(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_sbas_config_t *config);
 
-zedf9p_status_t zedf9p_config_time_mode(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_tmode_config_t *config);
+zedf9p_status_t zedf9p_config_time_mode(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_tmode_config_t *config);
 
-zedf9p_status_t zedf9p_config_time_pulse(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_timepulse_config_t *config);
+zedf9p_status_t zedf9p_config_time_pulse(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_timepulse_config_t *config);
 
-zedf9p_status_t zedf9p_config_power_management(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_power_config_t *config);
+zedf9p_status_t zedf9p_config_power_management(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_power_config_t *config);
 
-zedf9p_status_t zedf9p_config_antenna(zedf9p_t *dev, uint8_t layer_mask, const zedf9p_antenna_config_t *config);
+zedf9p_status_t zedf9p_config_antenna(const zedf9p_t *dev, uint8_t layer_mask, const zedf9p_antenna_config_t *config);
 
-zedf9p_status_t zedf9p_config_interference_mitigation(zedf9p_t *dev, uint8_t layer_mask, bool enable, uint8_t ant_setting, bool enable_aux);
+zedf9p_status_t zedf9p_config_interference_mitigation(const zedf9p_t *dev, uint8_t layer_mask, bool enable, uint8_t ant_setting, bool enable_aux);
 
-zedf9p_status_t zedf9p_config_jamming_monitor(zedf9p_t *dev, uint8_t layer_mask, bool enable);
+zedf9p_status_t zedf9p_config_jamming_monitor(const zedf9p_t *dev, uint8_t layer_mask, bool enable);
 
 // RTCM Configuration Functions
-zedf9p_status_t zedf9p_enable_rtcm_message(zedf9p_t *dev, uint8_t layer_mask, uint16_t message_type, uint8_t rate, uint8_t interface_mask);
+zedf9p_status_t zedf9p_enable_rtcm_message(const zedf9p_t *dev, uint8_t layer_mask, uint16_t message_type, uint8_t rate, uint8_t interface_mask);
 
-zedf9p_status_t zedf9p_config_rtcm_base_station(zedf9p_t *dev, uint8_t layer_mask, bool enable_1005, bool enable_1077,
+zedf9p_status_t zedf9p_config_rtcm_base_station(const zedf9p_t *dev, uint8_t layer_mask, bool enable_1005, bool enable_1077,
                                                bool enable_1087, bool enable_1097, bool enable_1127, bool enable_1230);
 
 // SPARTN Configuration Functions
-zedf9p_status_t zedf9p_config_spartn(zedf9p_t *dev, uint8_t layer_mask, bool enable, bool use_source);
+zedf9p_status_t zedf9p_config_spartn(const zedf9p_t *dev, uint8_t layer_mask, bool enable, bool use_source);
 
 // Survey-in Functions
-zedf9p_status_t zedf9p_start_survey_in(zedf9p_t *dev, uint8_t layer_mask, uint32_t min_duration_s, uint32_t accuracy_limit_mm);
+zedf9p_status_t zedf9p_start_survey_in(const zedf9p_t *dev, uint8_t layer_mask, uint32_t min_duration_s, uint32_t accuracy_limit_mm);
 
-zedf9p_status_t zedf9p_stop_survey_in(zedf9p_t *dev, uint8_t layer_mask);
+zedf9p_status_t zedf9p_stop_survey_in(const zedf9p_t *dev, uint8_t layer_mask);
 
-zedf9p_status_t zedf9p_set_fixed_base_position(zedf9p_t *dev, uint8_t layer_mask, double lat_deg, double lon_deg,
+zedf9p_status_t zedf9p_set_fixed_base_position(const zedf9p_t *dev, uint8_t layer_mask, double lat_deg, double lon_deg,
                                               double height_m, uint32_t accuracy_mm);
 
-zedf9p_status_t zedf9p_set_fixed_base_position_ecef(zedf9p_t *dev, uint8_t layer_mask, double x_m, double y_m,
+zedf9p_status_t zedf9p_set_fixed_base_position_ecef(const zedf9p_t *dev, uint8_t layer_mask, double x_m, double y_m,
                                                    double z_m, uint32_t accuracy_mm);
 
 #ifdef __cplusplus

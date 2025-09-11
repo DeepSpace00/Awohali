@@ -22,7 +22,7 @@ extern "C" {
 static TwoWire *i2c_wire = &Wire;
 
 // UART interface pointer - defaults to Serial3 but can be changed
-static HardwareSerial *uart_serial = &Serial3;
+static HardwareSerial *uart_serial = &Serial1;
 
 // I2C implementation
 int platform_i2c_write(const uint8_t dev_addr, const uint8_t *data, const uint16_t len) {
