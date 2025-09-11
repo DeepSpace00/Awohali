@@ -84,7 +84,7 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_type_t interfa
     dev->io = io;
     dev->measurement_rate_ms = 1000U;  // Default 1Hz
     dev->navigation_rate = 1U;
-    dev->dynamic_model = DYN_MODEL_PORTABLE;
+    dev->dynamic_model = DYN_MODEL_STATIONARY;
 
     // Initialize parsing state
     dev->rx_buffer_idx = 0U;

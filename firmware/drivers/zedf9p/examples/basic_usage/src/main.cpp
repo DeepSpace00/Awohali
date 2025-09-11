@@ -119,8 +119,8 @@ void setup() {
     Serial.println("ZEDF9P initialized successfully!");
 
     // Register callbacks for enhanced message handling
-    zedf9p_register_pvt_callback(&gnss_module, pvt_callback, NULL);
-    zedf9p_register_generic_callback(&gnss_module, generic_callback, NULL);
+    //zedf9p_register_pvt_callback(&gnss_module, pvt_callback, NULL);
+    //zedf9p_register_generic_callback(&gnss_module, generic_callback, NULL);
 
     // Poll for version information using enhanced polling
     Serial.println("Polling for version information...");
@@ -146,16 +146,14 @@ void setup() {
     }
 
     // Configure measurement rate using enhanced CFG-VALSET
-    Serial.println("Setting measurement rate to 2Hz...");
-    status = zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 500, 1); // 500ms = 2Hz
+    Serial.println("Setting measurement rate to 10Hz...");
+    status = zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 100, 1); // 500ms = 2Hz
     if (status == ZEDF9P_OK) {
         Serial.println("Measurement rate set successfully!");
     } else {
         Serial.print("Failed to set measurement rate: ");
         Serial.println(zedf9p_status_error(status));
     }
-
-    setup_pps_simple();
 
     // Enable RXM-RAWX messages
     /*Serial.println("Enabling RXM-RAWX messages...");
@@ -169,7 +167,7 @@ void setup() {
 
     // Enable RXM-RAWX messages
     Serial.println("Enabling NAV-HPPOSLLH messages...");
-    status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1);
+    status = zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1, 1, 1);
     if (status == ZEDF9P_OK) {
         Serial.println("NAV-HPPOSLLH messages enabled!");
     } else {
