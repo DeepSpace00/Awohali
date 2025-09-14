@@ -15,100 +15,72 @@
 #include <Wire.h>
 #include <zedf9p.h>
 #include <zedf9p_platform.h>
-//#include <cinttypes>
+#include <cinttypes>
+#include <algorithm>
 
 zedf9p_t gnss_module;
-zedf9p_nav_pvt_t pvt_data;        // For PVT data
 zedf9p_nav_hpposllh_t hppos_data; // For high precision position
 zedf9p_rawx_t rawx_data;          // For raw measurements
 zedf9p_mon_ver_t version_info;    // For version information
 
-// Callback function for PVT messages
-void pvt_callback(const ubx_message_t *message, void *user_data) {
-    Serial.println("PVT message received via callback!");
-}
+#define GNSS_SERIAL &Serial3
+#define GNSS_WIRE &Wire
 
-void setup_pps_simple() {
-    Serial.println("Configuring PPS (no ACK wait)...");
+// Communication interface selection
+bool use_i2c = true;  // Set to false to use UART instead
 
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_PULSE_DEF, 1, 1);
-    delay(100);
+// I2C Configuration
+TwoWire* selected_i2c;
+//unsigned long i2c_freq = 100000;   // I2C frequency in Hz
 
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_TP1_ENA, 1, 1);
-    delay(100);
-
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_FREQ_TP1, 1, 4);
-    delay(100);
-
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_SYNC_GNSS_TP1, 1, 1);
-    delay(100);
-
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_POL_TP1, 0, 1);
-    delay(100);
-
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_LEN_TP1, 100000, 4);
-    delay(100);
-
-    zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_TP_TIMEGRID_TP1, 2, 1);
-    delay(100);
-
-    Serial.println("PPS configuration sent (check LED after GPS fix)");
-}
-
-// Generic callback for monitoring all messages
-void generic_callback(const ubx_message_t *message, void *user_data) {
-    if (message->msg_class == 0x05) { // ACK class
-        Serial.print("ACK: ID=0x");
-        Serial.print(message->msg_id, HEX);
-        Serial.print(" for Class=0x");
-        Serial.print(message->payload[0], HEX);
-        Serial.print(" ID=0x");
-        Serial.print(message->payload[1], HEX);
-        Serial.println();
-    }
-    char buffer[128];
-    sprintf(buffer, "Message received: Class=0x%02X, ID=0x%02X, Length=%d",
-           message->msg_class, message->msg_id, message->length);
-    Serial.println(buffer);
-}
-
-#define CARD_EN 3
-#define CARD_RST 7
-#define CARD_IO1 6
-#define CARD_IO2 5
-#define CARD_IO3 4
-
-#define GNSS_SERIAL Serial1
+// UART Configuration
+HardwareSerial* selected_uart;
+unsigned long uart_baudrate = 38400;       // UART baudrate
+uint32_t uart_config = SERIAL_8N1;         // UART config (8N1, 8E1, etc.)
 
 void setup() {
-    pinMode(CARD_EN, OUTPUT);
-    pinMode(CARD_IO1, OUTPUT);
-    digitalWrite(CARD_EN, HIGH);
-    digitalWrite(CARD_IO3, LOW);
-    delay(1000);
     Serial.begin(115200);
-    GNSS_SERIAL.begin(38400, SERIAL_8N1);
-
-    delay(100);
-
     while(!Serial) delay(10);
 
     Serial.println("Enhanced ZEDF9P Driver Example");
     Serial.println("===============================");
 
-    // Define the enhanced IO interface
-    constexpr zedf9p_interface_t io = {
-        .i2c_write = NULL,  // Not used for UART
-        .i2c_read = NULL,   // Not used for UART
-        .uart_write = platform_uart_write,
-        .uart_read = platform_uart_read,
-        .delay_ms = platform_delay_ms,
-        .get_millis = platform_get_millis
-    };
+    selected_i2c = GNSS_WIRE;
+    selected_uart = GNSS_SERIAL;    // Change to &Serial2, &Serial3, etc. as needed
 
-    // Initialize the GNSS module with I2C interface
-    zedf9p_status_t status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_UART,
-                                        0, io); // Address ignored for UART
+    zedf9p_status_t status;
+    if (use_i2c) {
+        platform_set_i2c_interface(selected_i2c);
+        selected_i2c->begin();
+        //selected_i2c->setClock(i2c_freq);
+
+        constexpr zedf9p_interface_t io = {
+        .i2c_write = platform_i2c_write,  // Not used for UART
+        .i2c_read = platform_i2c_read,   // Not used for UART
+        .uart_write = NULL,
+        .uart_read = NULL,
+        .delay_ms = platform_delay_ms,
+        .get_millis = platform_get_millis,
+        .debug_print = NULL  // Add this
+        };
+
+        status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_I2C, 0, io);
+    } else {
+        platform_set_uart_interface(GNSS_SERIAL);
+        selected_uart->begin(uart_baudrate, uart_config);
+
+        constexpr zedf9p_interface_t io = {
+            .i2c_write = NULL,  // Not used for UART
+            .i2c_read = NULL,   // Not used for UART
+            .uart_write = platform_uart_write,
+            .uart_read = platform_uart_read,
+            .delay_ms = platform_delay_ms,
+            .get_millis = platform_get_millis,
+            .debug_print = NULL  // Add this
+            };
+
+        status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_UART, 0, io);
+    }
 
     if (status != ZEDF9P_OK) {
         Serial.print("Failed to initialize ZEDF9P: ");
@@ -117,10 +89,6 @@ void setup() {
     }
 
     Serial.println("ZEDF9P initialized successfully!");
-
-    // Register callbacks for enhanced message handling
-    //zedf9p_register_pvt_callback(&gnss_module, pvt_callback, NULL);
-    //zedf9p_register_generic_callback(&gnss_module, generic_callback, NULL);
 
     // Poll for version information using enhanced polling
     Serial.println("Polling for version information...");
@@ -145,9 +113,13 @@ void setup() {
         Serial.println(zedf9p_status_error(status));
     }
 
+    // CRITICAL: Disable 7F check for RAWX messages
+    zedf9p_disable_7f_check(&gnss_module, true);
+    Serial.println("7F check disabled for RAWX compatibility");
+
     // Configure measurement rate using enhanced CFG-VALSET
-    Serial.println("Setting measurement rate to 10Hz...");
-    status = zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 100, 1); // 500ms = 2Hz
+    Serial.println("Setting measurement rate to 0.5Hz...");
+    status = zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1); // 1000ms = 1Hz
     if (status == ZEDF9P_OK) {
         Serial.println("Measurement rate set successfully!");
     } else {
@@ -156,18 +128,18 @@ void setup() {
     }
 
     // Enable RXM-RAWX messages
-    /*Serial.println("Enabling RXM-RAWX messages...");
+    Serial.println("Enabling RXM-RAWX messages...");
     status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 1);
     if (status == ZEDF9P_OK) {
         Serial.println("RXM-RAWX messages enabled!");
     } else {
         Serial.print("Failed to enable RXM-RAWX: ");
         Serial.println(zedf9p_status_error(status));
-    }*/
+    }
 
-    // Enable RXM-RAWX messages
+    // Enable NAV-HPPOSLLH messages
     Serial.println("Enabling NAV-HPPOSLLH messages...");
-    status = zedf9p_config_set_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1, 1, 1);
+    status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1);
     if (status == ZEDF9P_OK) {
         Serial.println("NAV-HPPOSLLH messages enabled!");
     } else {
@@ -175,41 +147,8 @@ void setup() {
         Serial.println(zedf9p_status_error(status));
     }
 
-    // Enable PVT messages using enhanced message configuration
-    /*Serial.println("Enabling NAV-PVT messages...");
-    status = zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 1);
-    if (status == ZEDF9P_OK) {
-        Serial.println("NAV-PVT messages enabled!");
-    } else {
-        Serial.print("Failed to enable NAV-PVT: ");
-        Serial.println(zedf9p_status_error(status));
-    }*/
-
-    // Test enhanced CFG-VALGET functionality
-    /*Serial.println("Reading current measurement rate...");
-    uint64_t current_rate = 0;
-    status = zedf9p_config_get_val(&gnss_module, UBLOX_CFG_LAYER_RAM, UBLOX_CFG_RATE_MEAS, &current_rate, 2);
-    if (status == ZEDF9P_OK) {
-        Serial.print("Current measurement rate: ");
-        Serial.print(static_cast<uint16_t>(current_rate));
-        Serial.println(" ms");
-    } else {
-        Serial.print("Failed to read measurement rate: ");
-        Serial.println(zedf9p_status_error(status));
-    }*/
-
-    // Configure dynamic model
-    /*Serial.println("Setting dynamic model to stationary...");
-    status = zedf9p_set_dynamic_model(&gnss_module, UBLOX_CFG_LAYER_RAM, DYN_MODEL_STATIONARY);
-    if (status == ZEDF9P_OK) {
-        Serial.println("Dynamic model set to stationary!");
-    } else {
-        Serial.print("Failed to set dynamic model: ");
-        Serial.println(zedf9p_status_error(status));
-    }
-
     Serial.println("Starting enhanced data acquisition...");
-    Serial.println("====================================");*/
+    Serial.println("====================================");
 }
 
 void loop() {
@@ -219,23 +158,6 @@ void loop() {
     if (status != ZEDF9P_OK && status != ZEDF9P_ERR_NO_DATA) {
         Serial.print("Data processing error: ");
         Serial.println(zedf9p_status_error(status));
-    }
-
-    // Check for new PVT data
-    if (zedf9p_is_pvt_available(&gnss_module)) {
-        status = zedf9p_get_pvt(&gnss_module, &pvt_data);
-        if (status == ZEDF9P_OK) {
-            Serial.print("Fix type: ");
-            Serial.print(pvt_data.fix_type);
-            Serial.print(", Satellites: ");
-            Serial.println(pvt_data.num_sv);
-
-            if (pvt_data.fix_type >= 3) {
-                Serial.println("Good fix - PPS should be active");
-            } else {
-                Serial.println("No fix - PPS inactive");
-            }
-        }
     }
 
     // Check for high precision position data
@@ -250,7 +172,7 @@ void loop() {
             const double lon_hp = static_cast<double>(hppos_data.lon) / 1e7 + static_cast<double>(hppos_data.lon_hp) / 1e9;
             const double height_hp = static_cast<double>(hppos_data.height) / 1000.0 + static_cast<double>(hppos_data.height_hp) / 10000.0;
 
-            char buffer[256];
+            char buffer[4096];
             sprintf(buffer, "HP Position: Lat=%.9f°, Lon=%.9f°, Height=%.4fm, "
                            "HAcc=%.1fmm, VAcc=%.1fmm",
                     lat_hp, lon_hp, height_hp,
@@ -264,13 +186,13 @@ void loop() {
         status = zedf9p_get_rawx(&gnss_module, &rawx_data);
 
         if (status == ZEDF9P_OK) {
-            char buffer[128];
+            char buffer[256];
             sprintf(buffer, "RAWX Data: Week=%d, TOW=%.3fs, NumMeas=%d",
                     rawx_data.week, rawx_data.rc_tow, rawx_data.num_meas);
             Serial.println(buffer);
 
             // Display first few measurements
-            for (int i = 0; i < min(3, rawx_data.num_meas); i++) {
+            for (int i = 0; i < std::min(3, static_cast<int>(rawx_data.num_meas)); i++) {
                 sprintf(buffer, "  Meas[%d]: GNSS=%d, SV=%d, CNO=%ddB",
                         i, rawx_data.meas[i].gnss_id, rawx_data.meas[i].sv_id,
                         rawx_data.meas[i].cno);
@@ -278,24 +200,6 @@ void loop() {
             }
         }
     }
-
-    // Demonstrate enhanced error handling with retry
-    /*static uint32_t last_config_test = 0;
-    if (millis() - last_config_test > 30000) { // Every 30 seconds
-        last_config_test = millis();
-
-        Serial.println("Testing enhanced configuration read...");
-        uint64_t nav_rate = 0;
-        status = zedf9p_config_get_val(&gnss_module, UBLOX_CFG_LAYER_RAM,UBLOX_CFG_RATE_NAV, &nav_rate, 2);
-
-        if (status == ZEDF9P_OK) {
-            Serial.print("Navigation rate: ");
-            Serial.println(static_cast<uint16_t>(nav_rate));
-        } else {
-            Serial.print("Config read failed: ");
-            Serial.println(zedf9p_status_error(status));
-        }
-    }*/
 
     delay(100); // Small delay to prevent overwhelming the module
 }
@@ -353,19 +257,24 @@ void configure_high_precision_rover() {
 
     // Configure GNSS constellation
     constexpr zedf9p_gnss_config_t gnss_config = {
+        .beidou_enabled = false,
+        .beidou_b1_enabled = false,
+        .beidou_b2_enabled = false,
+        .galileo_enabled = false,
+        .galileo_e1_enabled = false,
+        .galileo_e5b_enabled = false,
+        .glonass_enabled = false,
+        .glonass_l1_enabled = false,
+        .glonass_l2_enabled = false,
         .gps_enabled = true,
         .gps_l1ca_enabled = true,
-        .gps_l2c_enabled = true,
-        .sbas_enabled = true,
-        .sbas_l1ca_enabled = true,
-        .galileo_enabled = true,
-        .galileo_e1_enabled = true,
-        .galileo_e5b_enabled = true,
-        .beidou_enabled = false, // Disable for this example
+        .gps_l2c_enabled = false,
         .qzss_enabled = false,
-        .glonass_enabled = true,
-        .glonass_l1_enabled = true,
-        .glonass_l2_enabled = true,
+        .qzss_l1ca_enabled = false,
+        .qzss_l1s_enabled = false,
+        .qzss_l2c_enabled = false,
+        .sbas_enabled = false,
+        .sbas_l1ca_enabled = false
     };
 
     status = zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
