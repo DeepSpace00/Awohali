@@ -11,58 +11,29 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <STM32SD.h>
-#include "Sd2Card.h"
 #include <zedf9p.h>
 #include <zedf9p_platform.h>
 
-bool init_stm32_sdio();
-bool create_new_log_file();
-void write_file_header();
-size_t write_ubx_message_to_file(const ubx_message_t *message);
-void flush_write_buffer();
-void calculate_ubx_checksum(const ubx_message_t *message, uint8_t *ck_a, uint8_t *ck_b);
-void configure_gnss_for_logging();
-void handle_serial_commands();
-void print_brief_stats();
-void print_detailed_statistics();
-void restart_log_file();
-void stop_logging();
-void force_flush();
-void error_blink_forever();
-void print_help();
-
-//char filename[32];
-
-// STM32F405 specific SDIO pin definitions (hardcoded)
-#define SDIO_D0   PC8
-#define SDIO_D1   PC9
-#define SDIO_D2   PC10
-#define SDIO_D3   PC11
-#define SDIO_CLK  PC12
-#define SDIO_CMD  PD2
-
 // SparkFun STM32 Thing Plus pin definitions
 #define STATUS_LED_PIN LED_BUILTIN  // PC13 on STM32F405
-
-#define GNSS_SERIAL &Serial3
-#define GNSS_WIRE &Wire
 
 // Data logging configuration
 #define LOG_FILENAME_PREFIX "GNSS"
 #define LOG_FILENAME_EXTENSION ".ubx"
 #define MAX_LOG_FILE_SIZE_MB 200    // Larger files for SDIO
 #define FLUSH_INTERVAL_MS 5000      // Flush every 5 seconds
-#define WRITE_BUFFER_SIZE 64       // Buffer size for batched writes
-
-// SDIO configuration for STM32F405
-#define USE_SDIO 1
-#define ENABLE_DEDICATED_SPI 0
+#define WRITE_BUFFER_SIZE 512       // Buffer size for batched writes
 
 // GNSS module and data structures
 zedf9p_t gnss_module;
-zedf9p_nav_hpposllh_t hppos_data; // For high precision position
-zedf9p_rawx_t rawx_data;          // For raw measurements
-zedf9p_mon_ver_t version_info;    // For version information
+File dataFile;
+
+// Write buffer for performance optimization
+uint8_t write_buffer[WRITE_BUFFER_SIZE];
+size_t buffer_index = 0;
+
+#define GNSS_SERIAL &Serial3
+#define GNSS_WIRE &Wire
 
 // Communication interface selection
 bool use_i2c = true;  // Set to false to use UART instead
@@ -75,11 +46,6 @@ TwoWire* selected_i2c;
 HardwareSerial* selected_uart;
 unsigned long uart_baudrate = 38400;       // UART baudrate
 uint32_t uart_config = SERIAL_8N1;         // UART config (8N1, 8E1, etc.)
-
-File dataFile;
-// Write buffer for performance optimization
-uint8_t write_buffer[WRITE_BUFFER_SIZE];
-size_t buffer_index = 0;
 
 // Logging statistics
 struct {
@@ -95,6 +61,22 @@ struct {
     unsigned long max_write_time_us;
     unsigned long total_messages;
 } logging_stats = {0};
+
+// Function prototypes
+bool init_stm32_sdio();
+bool create_new_log_file();
+size_t write_ubx_message_to_file(const ubx_message_t *message);
+void flush_write_buffer();
+void calculate_ubx_checksum(const ubx_message_t *message, uint8_t *ck_a, uint8_t *ck_b);
+void configure_gnss_for_logging();
+void handle_serial_commands();
+void print_brief_stats();
+void print_detailed_statistics();
+void restart_log_file();
+void stop_logging();
+void force_flush();
+void error_blink_forever();
+void print_help();
 
 // Message callback for logging
 void gnss_message_logger(const ubx_message_t *message, void *user_data) {
@@ -168,15 +150,18 @@ void setup() {
 
     Serial.begin(115200);
 
+    // Wait for serial connection with timeout
+    const unsigned long start_time = millis();
     while (!Serial) {
         digitalWrite(STATUS_LED_PIN, !digitalRead(STATUS_LED_PIN));
-        delay(100);
+        delay(500);
     }
 
     digitalWrite(STATUS_LED_PIN, HIGH);
 
-    Serial.println("ZEDF9P GNSS Data Logger");
-    Serial.println("=======================");
+    Serial.println("ZEDF9P GNSS Data Logger (STM32 Thing Plus - STM32SD)");
+    Serial.println("====================================================");
+    Serial.println("Using STM32duino STM32SD library for SDIO");
 
     // Initialize STM32 SDIO SD card
     if (!init_stm32_sdio()) {
@@ -196,11 +181,11 @@ void setup() {
         constexpr zedf9p_interface_t io = {
             .i2c_write = platform_i2c_write,  // Not used for UART
             .i2c_read = platform_i2c_read,   // Not used for UART
-            .uart_write = NULL,
-            .uart_read = NULL,
+            .uart_write = nullptr,
+            .uart_read = nullptr,
             .delay_ms = platform_delay_ms,
             .get_millis = platform_get_millis,
-            .debug_print = NULL  // Add this
+            .debug_print = nullptr  // Add this
             };
 
         status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_I2C, 0, io);
@@ -209,13 +194,13 @@ void setup() {
         selected_uart->begin(uart_baudrate, uart_config);
 
         constexpr zedf9p_interface_t io = {
-            .i2c_write = NULL,  // Not used for UART
-            .i2c_read = NULL,   // Not used for UART
+            .i2c_write = nullptr,  // Not used for UART
+            .i2c_read = nullptr,   // Not used for UART
             .uart_write = platform_uart_write,
             .uart_read = platform_uart_read,
             .delay_ms = platform_delay_ms,
             .get_millis = platform_get_millis,
-            .debug_print = NULL  // Add this
+            .debug_print = nullptr  // Add this
             };
 
         status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_UART, 0, io);
@@ -248,9 +233,11 @@ void setup() {
     logging_stats.last_flush_ms = millis();
     logging_stats.logging_active = true;
 
-    Serial.println("Data logging started!");
-    Serial.println("Commands: 's' = statistics, 'r' = restart file, 'q' = stop logging");
+    Serial.println("High-speed STM32 SDIO logging started!");
+    Serial.println("Commands: 's'=stats, 'r'=restart file, 'q'=stop, 'f'=flush");
     Serial.println("=========================================================");
+
+    digitalWrite(STATUS_LED_PIN, LOW);  // Turn off LED when ready
 }
 
 void loop() {
@@ -335,32 +322,7 @@ bool create_new_log_file() {
     Serial.print("Created log file: ");
     Serial.println(filename);
 
-    // Write file header
-    write_file_header();
-
     return true;
-}
-
-void write_file_header() {
-    if (!dataFile) return;
-
-    // Write file header with STM32 specific info
-    char header[512];
-    sprintf(header,
-        "# ZEDF9P GNSS Data Log - STM32F405 SDIO\n"
-        "# Start Time: %lu ms\n"
-        "# File Number: %lu\n"
-        "# Format: UBX binary\n"
-        "# Platform: SparkFun STM32 Thing Plus\n"
-        "# Library: STM32duino STM32SD\n"
-        "# Interface: SDIO (High Speed)\n"
-        "# Contains: RAWX, HPPOSLLH messages\n"
-        "# SDIO Pins: D0=PC8, D1=PC9, D2=PC10, D3=PC11, CLK=PC12, CMD=PD2\n"
-        "# ==========================================\n",
-        millis(), logging_stats.file_number);
-
-    dataFile.print(header);
-    dataFile.flush();
 }
 
 size_t write_ubx_message_to_file(const ubx_message_t *message) {
@@ -369,26 +331,37 @@ size_t write_ubx_message_to_file(const ubx_message_t *message) {
     }
 
     // Calculate total message size
-    const size_t total_size = 6 + message->length + 2;
+    const size_t total_size = 6 + message->length + 2;  // Header + payload + checksum
 
-    // Write directly without buffering
-    dataFile.write(0xB5);  // Sync char 1
-    dataFile.write(0x62);  // Sync char 2
-    dataFile.write(message->msg_class);
-    dataFile.write(message->msg_id);
-    dataFile.write(static_cast<uint8_t>(message->length & 0xFF));
-    dataFile.write(static_cast<uint8_t>((message->length >> 8) & 0xFF));
-
-    if (message->length > 0) {
-        dataFile.write(message->payload, message->length);
+    // Check if message fits in buffer
+    if (buffer_index + total_size > WRITE_BUFFER_SIZE) {
+        flush_write_buffer();
     }
 
+    // Build UBX message in write buffer
+    write_buffer[buffer_index++] = 0xB5;  // Sync char 1
+    write_buffer[buffer_index++] = 0x62;  // Sync char 2
+    write_buffer[buffer_index++] = message->msg_class;
+    write_buffer[buffer_index++] = message->msg_id;
+    write_buffer[buffer_index++] = static_cast<uint8_t>(message->length & 0xFF);        // Length LSB
+    write_buffer[buffer_index++] = static_cast<uint8_t>((message->length >> 8) & 0xFF); // Length MSB
+
+    // Add payload
+    if (message->length > 0) {
+        memcpy(&write_buffer[buffer_index], message->payload, message->length);
+        buffer_index += message->length;
+    }
+
+    // Calculate and add checksum
     uint8_t ck_a, ck_b;
     calculate_ubx_checksum(message, &ck_a, &ck_b);
-    dataFile.write(ck_a);
-    dataFile.write(ck_b);
+    write_buffer[buffer_index++] = ck_a;
+    write_buffer[buffer_index++] = ck_b;
 
-    dataFile.flush(); // Force immediate write
+    // If buffer is getting full, flush it
+    if (buffer_index > (WRITE_BUFFER_SIZE - 100)) {
+        flush_write_buffer();
+    }
 
     return total_size;
 }
@@ -397,10 +370,7 @@ void flush_write_buffer() {
     if (buffer_index > 0 && dataFile) {
         if (const size_t bytes_written = dataFile.write(write_buffer, buffer_index); bytes_written != buffer_index) {
             logging_stats.write_errors++;
-            Serial.print("ERROR: Buffer flush failed. Expected ");
-            Serial.print(buffer_index);
-            Serial.print(" wrote ");
-            Serial.println(bytes_written);
+            Serial.println("ERROR: Buffer write failed");
         }
         buffer_index = 0;
     }
@@ -519,11 +489,7 @@ void print_brief_stats() {
     Serial.print(uptime_s);
     Serial.print("s Rate:");
     Serial.print(data_rate);
-    Serial.print("B/s RAWX:");
-    Serial.print(logging_stats.rawx_count);
-    Serial.print(" HP:");
-    Serial.print(logging_stats.hppos_count);
-    Serial.print(" Err:");
+    Serial.print("B/s Errors:");
     Serial.println(logging_stats.write_errors);
 }
 
@@ -531,7 +497,7 @@ void print_detailed_statistics() {
     const unsigned long uptime_s = (millis() - logging_stats.session_start_ms) / 1000;
     char filename[32];
 
-    Serial.println("\n=== STM32 SDIO LOGGING STATISTICS ===");
+    Serial.println("\n=== STM32 RAW LOGGING STATISTICS ===");
     Serial.print("Session uptime: ");
     Serial.print(uptime_s);
     Serial.println(" seconds");
@@ -547,22 +513,8 @@ void print_detailed_statistics() {
     Serial.print("Total bytes logged: ");
     Serial.println(logging_stats.bytes_logged);
 
-    Serial.print("Total messages: ");
-    Serial.println(logging_stats.total_messages);
-
-    Serial.print("RAWX messages: ");
-    Serial.println(logging_stats.rawx_count);
-
-    Serial.print("HPPOSLLH messages: ");
-    Serial.println(logging_stats.hppos_count);
-
     Serial.print("Write errors: ");
     Serial.println(logging_stats.write_errors);
-
-    Serial.print("Buffer index: ");
-    Serial.print(buffer_index);
-    Serial.print("/");
-    Serial.println(WRITE_BUFFER_SIZE);
 
     if (dataFile) {
         Serial.print("Current file size: ");
@@ -574,17 +526,9 @@ void print_detailed_statistics() {
         Serial.print("Average data rate: ");
         Serial.print(logging_stats.bytes_logged / uptime_s);
         Serial.println(" bytes/sec");
-
-        Serial.print("Messages per second: ");
-        Serial.print(logging_stats.total_messages / uptime_s);
-        Serial.println(" msg/s");
     }
 
-    Serial.print("Max write time: ");
-    Serial.print(logging_stats.max_write_time_us);
-    Serial.println(" microseconds");
-
-    Serial.println("=====================================\n");
+    Serial.println("===================================\n");
 }
 
 void restart_log_file() {

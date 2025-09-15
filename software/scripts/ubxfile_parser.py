@@ -21,8 +21,8 @@ from pyubx2.ubxreader import (
     UBXReader,
 )
 
-ubx_file = "software/ubx_data/RXM_RAWX.ubx"
-output_file = "software/ubx_data/rawx.csv"
+ubx_file = "software/ubx_data/GNSS011.ubx"
+output_file = "software/ubx_data/GNSS011.csv"
 
 def errhandler(err):
     """Handles errors output by iterator."""
