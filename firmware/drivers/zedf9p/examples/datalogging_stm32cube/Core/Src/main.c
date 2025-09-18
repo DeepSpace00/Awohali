@@ -385,12 +385,12 @@ void configure_gnss_for_logging(void) {
         .beidou_enabled = false,
         .beidou_b1_enabled = false,
         .beidou_b2_enabled = false,
-        .galileo_enabled = true,
-        .galileo_e1_enabled = true,
-        .galileo_e5b_enabled = true,
-        .glonass_enabled = true,
-        .glonass_l1_enabled = true,
-        .glonass_l2_enabled = true,
+        .galileo_enabled = false,
+        .galileo_e1_enabled = false,
+        .galileo_e5b_enabled = false,
+        .glonass_enabled = false,
+        .glonass_l1_enabled = false,
+        .glonass_l2_enabled = false,
         .gps_enabled = true,
         .gps_l1ca_enabled = true,
         .gps_l2c_enabled = true,
@@ -842,7 +842,7 @@ int main(void)
         usb_debug_print(debug_buffer);
         while(1) {
             HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
-            HAL_Delay(1000);
+            HAL_Delay(100);
         }
     }
 
@@ -856,7 +856,7 @@ int main(void)
         usb_debug_print("FATAL: Failed to create log file!\r\n");
         while(1) {
             HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
-            HAL_Delay(1000);
+            HAL_Delay(100);
         }
     }
 
@@ -892,9 +892,9 @@ int main(void)
         process_gnss_logging();
 
         // Print statistics every 10 seconds
-        if (HAL_GetTick() - logging_stats.last_stats_ms > 10000) {
-            HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin); // Blink LED
+        if (HAL_GetTick() - logging_stats.last_stats_ms > 1000) {
             print_statistics();
+            HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin); // Blink LED
             logging_stats.last_stats_ms = HAL_GetTick();
         }
 
