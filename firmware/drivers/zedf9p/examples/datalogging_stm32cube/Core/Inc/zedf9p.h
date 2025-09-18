@@ -1,0 +1,8 @@
+//
+// Created by deepspace on 9/18/25.
+//
+
+#ifndef DATALOGGING_STM32CUBE_ZEDF9P_H
+#define DATALOGGING_STM32CUBE_ZEDF9P_H
+
+#endif //DATALOGGING_STM32CUBE_ZEDF9P_H
