@@ -51,7 +51,6 @@ add_link_options(
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
         Core/Inc/zedf9p.h
-        Core/Inc/zedf9p_platform.h
         Core/Src/zedf9p.c)
 
 # Add STM32CubeMX generated sources

@@ -617,7 +617,7 @@ static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *
 
     if (dev->interface_type == ZEDF9P_INTERFACE_I2C) {
         // For I2C, just try to read a small amount first
-        int result = dev->io.i2c_read(dev->i2c_address, data, 8); // Read only 8 bytes at a time
+        const int result = dev->io.i2c_read(dev->i2c_address, data, 8); // Read only 8 bytes at a time
         if (result >= 0) {
             *bytes_read = result;
             return (result > 0) ? ZEDF9P_OK : ZEDF9P_ERR_NO_DATA;
@@ -818,8 +818,8 @@ static zedf9p_status_t zedf9p_parse_ubx_byte(zedf9p_t *dev, const uint8_t byte) 
 
                 // Debug checksum calculation for first/last few bytes
                 if (dev->rx_buffer_idx <= 5 || dev->bytes_remaining <= 5) {
-                    uint8_t old_ck_a = dev->calculated_ck_a;
-                    uint8_t old_ck_b = dev->calculated_ck_b;
+                    const uint8_t old_ck_a = dev->calculated_ck_a;
+                    const uint8_t old_ck_b = dev->calculated_ck_b;
                     dev->calculated_ck_a += byte;
                     dev->calculated_ck_b += dev->calculated_ck_a;
 
@@ -1791,7 +1791,7 @@ zedf9p_status_t zedf9p_poll_mon_ver(zedf9p_t *dev) {
                                   UBX_POLL_TIMEOUT_MS, &response);
 }
 
-zedf9p_status_t zedf9p_disable_7f_check(zedf9p_t *dev, bool disabled) {
+zedf9p_status_t zedf9p_disable_7f_check(zedf9p_t *dev, const bool disabled) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
