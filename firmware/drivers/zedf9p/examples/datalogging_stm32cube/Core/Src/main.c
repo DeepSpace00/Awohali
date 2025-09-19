@@ -622,30 +622,8 @@ void pvt_callback(const ubx_message_t *message, void *user_data) {
     (void)user_data;
 
     if (message && message->valid && message->length >= sizeof(zedf9p_nav_pvt_t)) {
-        // Debug: Print raw payload bytes
-        /*if (logging_stats.usb_ready) {
-            snprintf(debug_buffer, sizeof(debug_buffer),
-                    "PVT raw length: %d, expected: %d\r\n",
-                    message->length, (int)sizeof(zedf9p_nav_pvt_t));
-            usb_debug_print(debug_buffer);
-
-            // Print first 20 bytes of payload in hex
-            usb_debug_print("PVT payload (first 20 bytes): ");
-            for (int i = 0; i < 20 && i < message->length; i++) {
-                snprintf(debug_buffer, sizeof(debug_buffer), "%02X ", message->payload[i]);
-                usb_debug_print(debug_buffer);
-            }
-            usb_debug_print("\r\n");
-        }*/
-
         zedf9p_nav_pvt_t pvt;
         memcpy(&pvt, message->payload, sizeof(zedf9p_nav_pvt_t));
-
-        // Debug: Print raw integer values before conversion
-        /*snprintf(debug_buffer, sizeof(debug_buffer),
-                "PVT raw: lat=%ld lon=%ld height=%ld\r\n",
-                (long)pvt.lat, (long)pvt.lon, (long)pvt.height);
-        usb_debug_print(debug_buffer);*/
 
         update_gnss_time_from_pvt(&pvt);
 
@@ -675,8 +653,130 @@ void pvt_callback(const ubx_message_t *message, void *user_data) {
         }
     }
 
-    // Note: We don't log PVT messages to keep file size manageable
-    // Only RAWX and HPPOSLLH are logged
+    // NEW: Log PVT messages to SD card (same as RAWX and HPPOSLLH)
+    if (!logging_stats.sd_card_present || !logging_stats.logging_active || !logging_stats.file_open) {
+        return;
+    }
+
+    // Log the complete UBX message directly to SD card
+    uint8_t ubx_header[6];
+    ubx_header[0] = 0xB5; // UBX_SYNCH_1
+    ubx_header[1] = 0x62; // UBX_SYNCH_2
+    ubx_header[2] = message->msg_class;
+    ubx_header[3] = message->msg_id;
+    ubx_header[4] = (uint8_t)(message->length & 0xFF);
+    ubx_header[5] = (uint8_t)((message->length >> 8) & 0xFF);
+
+    // Calculate checksum for the complete message
+    uint8_t ck_a = 0, ck_b = 0;
+    for (int i = 2; i < 6; i++) { // Class, ID, Length
+        ck_a += ubx_header[i];
+        ck_b += ck_a;
+    }
+    for (uint16_t i = 0; i < message->length; i++) { // Payload
+        ck_a += message->payload[i];
+        ck_b += ck_a;
+    }
+
+    const uint8_t checksum[2] = {ck_a, ck_b};
+
+    // Write header
+    UINT bytes_written;
+    FRESULT result = f_write(&dataFile, ubx_header, 6, &bytes_written);
+    if (result != FR_OK || bytes_written != 6) {
+        logging_stats.write_errors++;
+        return;
+    }
+
+    // Write payload
+    if (message->length > 0) {
+        result = f_write(&dataFile, message->payload, message->length, &bytes_written);
+        if (result != FR_OK || bytes_written != message->length) {
+            logging_stats.write_errors++;
+            return;
+        }
+    }
+
+    // Write checksum
+    result = f_write(&dataFile, checksum, 2, &bytes_written);
+    if (result != FR_OK || bytes_written != 2) {
+        logging_stats.write_errors++;
+        return;
+    }
+
+    // Update statistics
+    logging_stats.bytes_logged += 6 + message->length + 2; // Header + payload + checksum
+    logging_stats.messages_logged++;
+    // Note: You might want to add a pvt_count variable to logging_stats for tracking
+
+    // Reset write error count on successful write
+    if (logging_stats.write_errors > 0) {
+        logging_stats.write_errors = 0;
+    }
+
+    if (logging_stats.usb_ready && message && message->length >= sizeof(zedf9p_nav_pvt_t)) {
+        // First, print the exact message info
+        /*snprintf(debug_buffer, sizeof(debug_buffer),
+                "PVT Message: class=0x%02X id=0x%02X length=%d expected=%d\r\n",
+                message->msg_class, message->msg_id, message->length, (int)sizeof(zedf9p_nav_pvt_t));
+        usb_debug_print(debug_buffer);
+
+        // Print raw bytes around the time fields (bytes 4-14 typically contain time)
+        usb_debug_print("Time bytes (4-14): ");
+        for (int i = 4; i < 15 && i < message->length; i++) {
+            snprintf(debug_buffer, sizeof(debug_buffer), "%02X ", message->payload[i]);
+            usb_debug_print(debug_buffer);
+        }
+        usb_debug_print("\r\n");*/
+
+        // Manual extraction of time fields according to UBX-NAV-PVT spec:
+        // iTOW: bytes 0-3 (uint32_t)
+        // year: bytes 4-5 (uint16_t)
+        // month: byte 6 (uint8_t)
+        // day: byte 7 (uint8_t)
+        // hour: byte 8 (uint8_t)
+        // min: byte 9 (uint8_t)
+        // sec: byte 10 (uint8_t)
+        // valid: byte 11 (uint8_t)
+
+        if (message->length >= 12) {
+            uint32_t manual_iTOW = *(uint32_t*)&message->payload[0];
+            uint16_t manual_year = *(uint16_t*)&message->payload[4];
+            uint8_t manual_month = message->payload[6];
+            uint8_t manual_day = message->payload[7];
+            uint8_t manual_hour = message->payload[8];
+            uint8_t manual_min = message->payload[9];
+            uint8_t manual_sec = message->payload[10];
+            uint8_t manual_valid = message->payload[11];
+
+            /*snprintf(debug_buffer, sizeof(debug_buffer),
+                    "Manual Parse: iTOW=%lu year=%d month=%d day=%d hour=%d min=%d sec=%d valid=0x%02X\r\n",
+                    manual_iTOW, manual_year, manual_month, manual_day,
+                    manual_hour, manual_min, manual_sec, manual_valid);
+            usb_debug_print(debug_buffer);*/
+        }
+
+        // Compare with structure parsing
+        zedf9p_nav_pvt_t pvt;
+        memcpy(&pvt, message->payload, sizeof(zedf9p_nav_pvt_t));
+
+        /*snprintf(debug_buffer, sizeof(debug_buffer),
+                "Struct Parse: iTOW=%lu year=%d month=%d day=%d hour=%d min=%d sec=%d valid=0x%02X\r\n",
+                pvt.i_tow, pvt.year, pvt.month, pvt.day,
+                pvt.hour, pvt.min, pvt.sec, pvt.valid);
+        usb_debug_print(debug_buffer);*/
+
+        // Check if there's a mismatch
+        if (message->length >= 12) {
+            uint8_t manual_sec = message->payload[10];
+            if (manual_sec != pvt.sec) {
+                snprintf(debug_buffer, sizeof(debug_buffer),
+                        "*** MISMATCH: Manual sec=%d vs Struct sec=%d ***\r\n",
+                        manual_sec, pvt.sec);
+                usb_debug_print(debug_buffer);
+            }
+        }
+    }
 }
 
 void usb_debug_print(const char* message) {
