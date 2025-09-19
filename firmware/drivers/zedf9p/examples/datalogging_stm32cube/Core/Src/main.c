@@ -363,9 +363,9 @@ void configure_gnss_for_logging(void) {
         .beidou_enabled = false,
         .beidou_b1_enabled = false,
         .beidou_b2_enabled = false,
-        .galileo_enabled = false,
-        .galileo_e1_enabled = false,
-        .galileo_e5b_enabled = false,
+        .galileo_enabled = true,
+        .galileo_e1_enabled = true,
+        .galileo_e5b_enabled = true,
         .glonass_enabled = false,
         .glonass_l1_enabled = false,
         .glonass_l2_enabled = false,
@@ -386,9 +386,9 @@ void configure_gnss_for_logging(void) {
     zedf9p_disable_7f_check(&gnss_module, true);
 
     // Enable UBX messages we want to log
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 60);     // Raw measurement data every 60 measurements
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 60); // High precision position every 60 measurements
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 60);      // PVT data every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 1);     // Raw measurement data every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1); // High precision position every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 1);      // PVT data every 60 measurements
 
     HAL_Delay(2000); // Wait for configuration to take effect
     usb_debug_print("GNSS configured for RAWX + HPPOSLLH + PVT logging\r\n");
