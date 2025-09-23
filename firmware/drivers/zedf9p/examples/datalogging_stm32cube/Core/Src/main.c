@@ -356,7 +356,7 @@ void configure_gnss_for_logging(void) {
     usb_debug_print("Configuring GNSS for RAWX and HPPOSLLH logging...\r\n");
 
     // Set measurement rate to 1Hz
-    zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
+    zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 5000, 1);
 
     // Configure GPS + Galileo for optimal RAWX data
     const zedf9p_gnss_config_t gnss_config = {
