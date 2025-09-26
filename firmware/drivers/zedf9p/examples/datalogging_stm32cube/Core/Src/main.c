@@ -356,7 +356,7 @@ void configure_gnss_for_logging(void) {
     usb_debug_print("Configuring GNSS for RAWX and HPPOSLLH logging...\r\n");
 
     // Set measurement rate to 1Hz
-    zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 5000, 1);
+    zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
 
     // Configure GPS + Galileo for optimal RAWX data
     const zedf9p_gnss_config_t gnss_config = {
@@ -386,9 +386,9 @@ void configure_gnss_for_logging(void) {
     zedf9p_disable_7f_check(&gnss_module, true);
 
     // Enable UBX messages we want to log
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 1);     // Raw measurement data every 60 measurements
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1); // High precision position every 60 measurements
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 1);      // PVT data every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 5);     // Raw measurement data every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 5); // High precision position every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 5);      // PVT data every 60 measurements
 
     HAL_Delay(2000); // Wait for configuration to take effect
     usb_debug_print("GNSS configured for RAWX + HPPOSLLH + PVT logging\r\n");
