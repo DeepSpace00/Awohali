@@ -36,7 +36,34 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+extern struct {
+  uint32_t session_start_ms;
+  uint32_t last_flush_ms;
+  uint32_t last_stats_ms;
+  uint32_t bytes_logged;
+  uint32_t messages_logged;
+  uint32_t rawx_count;
+  uint32_t hpposllh_count;
+  uint32_t file_number;
+  uint8_t logging_active;
+  uint8_t sd_card_present;
+  uint32_t write_errors;
+  uint32_t recovery_attempts;
+  uint8_t usb_ready;
+  uint8_t file_open;
+} logging_stats;
 
+extern struct {
+  uint32_t i_tow;        // GPS time of week (ms)
+  uint16_t year;         // Year (UTC)
+  uint8_t month;         // Month (UTC)
+  uint8_t day;           // Day (UTC)
+  uint8_t hour;          // Hour (UTC)
+  uint8_t min;           // Minute (UTC)
+  uint8_t sec;           // Second (UTC)
+  uint8_t valid;         // Time validity flags
+  uint8_t time_available;
+} gnss_time;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -53,7 +80,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void usb_debug_print(const char *message);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -71,8 +98,12 @@ void Error_Handler(void);
 #define L4_RESET_GPIO_Port GPIOD
 #define L4_BOOT_Pin GPIO_PIN_4
 #define L4_BOOT_GPIO_Port GPIOD
+#define H7_LEDBUILTIN_Pin GPIO_PIN_8
+#define H7_LEDBUILTIN_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+#define ZEDF9P_I2C_TIMEOUT_MS     1000
+#define ZEDF9P_UART_TIMEOUT_MS    1000
 
 /* USER CODE END Private defines */
 

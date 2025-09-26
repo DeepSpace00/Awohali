@@ -37,7 +37,12 @@ set(CMAKE_PROJECT_NAME 05_gnss_datalogging_CM7)
 project(${CMAKE_PROJECT_NAME})
 
 # Create an executable object type
-add_executable(${CMAKE_PROJECT_NAME})
+add_executable(${CMAKE_PROJECT_NAME}
+        Core/Inc/zedf9p.h
+        Core/Src/zedf9p.c
+        Core/Inc/zedf9p_platform.h
+        Core/Src/zedf9p_platform_stm32cube.c
+)
 
 # Include mx-generated
 include("mx-generated.cmake")
