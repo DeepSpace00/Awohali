@@ -218,10 +218,10 @@ zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_c
     if (msg_class == UBX_CLASS_NAV) {
         switch (msg_id) {
             case UBX_NAV_CLOCK:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? 0x20910065 : 0x20910066; // I2C : UART1
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART1; // I2C : UART1
                 break;
             case UBX_NAV_HPPOSECEF:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? 0x2091002E : 0x2091002F; // I2C : UART1
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART1; // I2C : UART1
                 break;
             case UBX_NAV_HPPOSLLH:
                 config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1;
@@ -236,7 +236,7 @@ zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_c
                 config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_SAT_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART1;
                 break;
             case UBX_NAV_TIMEUTC:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? 0x2091005B : 0x2091005C; // I2C : UART1
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1; // I2C : UART1
                 break;
             default:
                 return ZEDF9P_ERR_INVALID_ARG; // Unsupported NAV message
