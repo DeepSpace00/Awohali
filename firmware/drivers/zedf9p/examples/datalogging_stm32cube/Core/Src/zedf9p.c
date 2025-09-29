@@ -1,4 +1,3 @@
-
 /**
  * @file zedf9p.c
  * @brief ZEDF9P GNSS Module Driver Implementation - Enhanced UBX Protocol Support
