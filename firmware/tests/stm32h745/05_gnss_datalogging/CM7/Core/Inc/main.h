@@ -28,6 +28,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal.h"
+#include "usb2422.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -81,6 +82,14 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 void usb_debug_print(const char *message);
+
+usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev);
+void print_hub_configuration(usb2422_t *dev);
+
+usb2422_hub_settings_t hub_settings = {0};
+usb2422_power_settings_t power_settings = {0};
+usb2422_downstream_port_settings_t port_settings = {false};
+usb2422_cfg_regs_t config_registers = {0};
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

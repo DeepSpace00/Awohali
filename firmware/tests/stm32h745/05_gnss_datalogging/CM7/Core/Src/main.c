@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usbd_cdc_if.h"
+#include "usb2422.h"
+#include "usb2422_platform.h"
 #include "zedf9p.h"
 #include "zedf9p_platform.h"
 
@@ -59,6 +61,8 @@
 #define ZEDF9P_I2C &hi2c2
 #define ZEDF9P_UART &huart4
 
+#define USB2422_I2C &hi2c1
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -84,6 +88,10 @@ zedf9p_t gnss_module;
 uint8_t process_buffer[PROCESS_BUFFER_SIZE];
 char filename[32];
 char debug_buffer[USB_DEBUG_BUFFER_SIZE];
+
+// USB instances
+usb2422_t usb_hub;
+
 
 /* USER CODE END PV */
 
@@ -705,56 +713,56 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-/* USER CODE BEGIN Boot_Mode_Sequence_0 */
-#if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
-  int32_t timeout;
-#endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
-/* USER CODE END Boot_Mode_Sequence_0 */
+    /* USER CODE BEGIN Boot_Mode_Sequence_0 */
+    #if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
+      int32_t timeout;
+    #endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
+    /* USER CODE END Boot_Mode_Sequence_0 */
 
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
+      /* MPU Configuration--------------------------------------------------------*/
+      MPU_Config();
 
-/* USER CODE BEGIN Boot_Mode_Sequence_1 */
-#if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
-  /* Wait until CPU2 boots and enters in stop mode or timeout*/
-  timeout = 0xFFFF;
-  while((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) != RESET) && (timeout-- > 0));
-  if ( timeout < 0 )
-  {
-  Error_Handler();
-  }
-#endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
-/* USER CODE END Boot_Mode_Sequence_1 */
-  /* MCU Configuration--------------------------------------------------------*/
+    /* USER CODE BEGIN Boot_Mode_Sequence_1 */
+    #if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
+      /* Wait until CPU2 boots and enters in stop mode or timeout*/
+      timeout = 0xFFFF;
+      while((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) != RESET) && (timeout-- > 0));
+      if ( timeout < 0 )
+      {
+      Error_Handler();
+      }
+    #endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
+    /* USER CODE END Boot_Mode_Sequence_1 */
+      /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+      /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+      HAL_Init();
 
-  /* USER CODE BEGIN Init */
+      /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+      /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
-/* USER CODE BEGIN Boot_Mode_Sequence_2 */
-#if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
-/* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
-HSEM notification */
-/*HW semaphore Clock enable*/
-__HAL_RCC_HSEM_CLK_ENABLE();
-/*Take HSEM */
-HAL_HSEM_FastTake(HSEM_ID_0);
-/*Release HSEM in order to notify the CPU2(CM4)*/
-HAL_HSEM_Release(HSEM_ID_0,0);
-/* wait until CPU2 wakes up from stop mode */
-timeout = 0xFFFF;
-while((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) == RESET) && (timeout-- > 0));
-if ( timeout < 0 )
-{
-Error_Handler();
-}
-#endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
-/* USER CODE END Boot_Mode_Sequence_2 */
+      /* Configure the system clock */
+      SystemClock_Config();
+    /* USER CODE BEGIN Boot_Mode_Sequence_2 */
+    #if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
+    /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
+    HSEM notification */
+    /*HW semaphore Clock enable*/
+    __HAL_RCC_HSEM_CLK_ENABLE();
+    /*Take HSEM */
+    HAL_HSEM_FastTake(HSEM_ID_0);
+    /*Release HSEM in order to notify the CPU2(CM4)*/
+    HAL_HSEM_Release(HSEM_ID_0,0);
+    /* wait until CPU2 wakes up from stop mode */
+    timeout = 0xFFFF;
+    while((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) == RESET) && (timeout-- > 0));
+    if ( timeout < 0 )
+    {
+    Error_Handler();
+    }
+    #endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
+    /* USER CODE END Boot_Mode_Sequence_2 */
 
     /* USER CODE BEGIN SysInit */
 
@@ -775,10 +783,46 @@ Error_Handler();
     HAL_Delay(5000);
     //HAL_GPIO_WritePin(GNSS_ENABLE_GPIO_Port, GNSS_ENABLE_Pin, GPIO_PIN_SET); // Turn on the GNSS load switch
 
+    // Initialize USB hub
+    usb2422_platform_set_i2c_handle(USB2422_I2C);
+
+    const usb2422_interface_t io_usb = {
+        .i2c_write = platform_i2c_write,
+        .i2c_read = platform_i2c_read_reg,
+        .delay_ms = platform_delay_ms,
+    };
+
+    usb2422_status_t status_usb = usb2422_init(&usb_hub, USB2422_SMBUS_ADDRESS, io_usb);
+    if (status_usb != USB2422_OK) {
+        while(1) {
+            HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+            HAL_Delay(100);
+        }
+    }
+
+    status_usb = configure_usb2422_for_enumeration(&usb_hub);
+    if (status_usb != USB2422_OK) {
+        while(1) {
+            HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+            HAL_Delay(100);
+        }
+    }
+
+    status_usb = usb2422_usb_attach_and_protect(&usb_hub, &hub_settings);
+    if (status_usb != USB2422_OK) {
+        while(1) {
+            HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+            HAL_Delay(100);
+        }
+    }
+
     logging_stats.usb_ready = 1;
+
+    HAL_Delay(5000);
 
     usb_debug_print("ZEDF9P GNSS Data Logger\r\n");
     usb_debug_print("=======================\r\n");
+
 
     // Initialize SD card with FatFS
     if (!init_sd_card()) {

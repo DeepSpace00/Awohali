@@ -11,7 +11,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#include <main.h>
 #include <stdint.h>
 
     void zedf9p_platform_set_i2c_handle(I2C_HandleTypeDef *hi2c);

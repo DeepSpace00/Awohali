@@ -42,6 +42,11 @@ add_executable(${CMAKE_PROJECT_NAME}
         Core/Src/zedf9p.c
         Core/Inc/zedf9p_platform.h
         Core/Src/zedf9p_platform_stm32cube.c
+        Core/Inc/usb2422.h
+        Core/Src/usb2422.c
+        Core/Src/usb2422_platform_stm32cube.c
+        Core/Inc/usb2422_platform.h
+        Core/Src/usb2422_configuration.c
 )
 
 # Include mx-generated
