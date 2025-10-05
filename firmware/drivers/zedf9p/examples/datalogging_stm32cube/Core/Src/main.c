@@ -356,7 +356,7 @@ void configure_gnss_for_logging(void) {
     usb_debug_print("Configuring GNSS for UBX message logging...\r\n");
 
     // Set measurement rate to 1Hz
-    zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
+    //zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
 
     // Configure GPS + Galileo for optimal data
     const zedf9p_gnss_config_t gnss_config = {
@@ -380,10 +380,10 @@ void configure_gnss_for_logging(void) {
         .sbas_l1ca_enabled = false
     };
 
-    zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
+    //zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
 
     // Disable 7F check for RAWX compatibility
-    zedf9p_disable_7f_check(&gnss_module, true);
+    //zedf9p_disable_7f_check(&gnss_module, true);
 
     // Enable the specific UBX messages we want to log (1Hz rate)
     // Now using CFG-VALSET internally via the updated zedf9p_set_message_rate function

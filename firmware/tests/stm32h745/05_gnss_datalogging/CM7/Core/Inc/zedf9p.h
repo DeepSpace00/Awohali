@@ -157,13 +157,17 @@ extern "C" {
 #define UBLOX_CFG_MSGOUT_UBX_NAV_PVT_UART1  0x20910007
 #define UBLOX_CFG_MSGOUT_UBX_NAV_PVT_UART2  0x20910008
 
-#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_I2C   0x20910034
-#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1 0x20910035
-#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART2 0x20910036
+#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_I2C   0x20910033
+#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1 0x20910034
+#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART2 0x20910035
 
-#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_I2C   0x209102A5
-#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART1 0x209102A6
-#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART2 0x209102A7
+#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_I2C  0x2091002E
+#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART1 0x2091002F
+#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART2 0x20910030
+
+#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_I2C   0x209102A4
+#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART1 0x209102A5
+#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART2 0x209102A6
 
 #define UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_I2C  0x20910204
 #define UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_UART1 0x20910205
@@ -180,6 +184,14 @@ extern "C" {
 #define UBLOX_CFG_MSGOUT_UBX_NAV_SAT_I2C    0x20910015
 #define UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART1  0x20910016
 #define UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART2  0x20910017
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_I2C      0x20910065
+#define UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART1    0x20910066
+#define UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART2    0x20910067
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C    0x2091005B
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1  0x2091005C
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART2  0x2091005D
 
 #define UBLOX_CFG_MSGOUT_UBX_MON_RF_I2C     0x20910359
 #define UBLOX_CFG_MSGOUT_UBX_MON_RF_UART1   0x2091035A
@@ -525,8 +537,8 @@ typedef struct {
  * @brief Raw measurement data (RAWX) structure.
  */
 typedef struct {
-    double rc_mes;                  // Pseudorange measurement (m)
-    double pr_mes;                  // Carrier phase measurement (cycles)
+    double pr_mes;                  // Pseudorange measurement (m)
+    double cp_mes;                  // Carrier phase measurement (cycles)
     float do_mes;                   // Doppler measurement (Hz)
     uint8_t gnss_id;                // GNSS identifier
     uint8_t sv_id;                  // Satellite identifier
@@ -554,6 +566,65 @@ typedef struct {
     uint8_t reserved1[2];           // Reserved
     zedf9p_rawx_meas_t meas[32];    // Measurement data (max 32 measurements)
 } zedf9p_rawx_t;
+
+/**
+ * @brief Navigation Clock Solution (CLOCK) data structure.
+ */
+typedef struct {
+    uint32_t i_tow;                 // GPS time of week (ms)
+    int32_t clk_b;                  // Clock bias (ns)
+    int32_t clk_d;                  // Clock drift (ns/s)
+    uint32_t t_acc;                 // Time accuracy estimate (ns)
+    uint32_t f_acc;                 // Frequency accuracy estimate (ps/s)
+} zedf9p_nav_clock_t;
+
+/**
+ * @brief High Precision Position ECEF (HPPOSECEF) data structure.
+ */
+typedef struct {
+    uint8_t version;                // Message version
+    uint8_t reserved1[3];           // Reserved
+    uint32_t i_tow;                 // GPS time of week (ms)
+    int32_t ecef_x;                 // ECEF X coordinate (cm)
+    int32_t ecef_y;                 // ECEF Y coordinate (cm)
+    int32_t ecef_z;                 // ECEF Z coordinate (cm)
+    int8_t ecef_x_hp;               // High precision ECEF X (0.1 mm)
+    int8_t ecef_y_hp;               // High precision ECEF Y (0.1 mm)
+    int8_t ecef_z_hp;               // High precision ECEF Z (0.1 mm)
+    uint8_t invalid_ecef;           // Invalid ECEF position flag
+    uint32_t p_acc;                 // Position accuracy (0.1 mm)
+} zedf9p_nav_hpposecef_t;
+
+/**
+ * @brief Time UTC (TIMEUTC) data structure.
+ */
+typedef struct {
+    uint32_t i_tow;                 // GPS time of week (ms)
+    uint32_t t_acc;                 // Time accuracy estimate (ns)
+    int32_t nano;                   // Fraction of second (ns)
+    uint16_t year;                  // Year (UTC)
+    uint8_t month;                  // Month (UTC)
+    uint8_t day;                    // Day (UTC)
+    uint8_t hour;                   // Hour (UTC)
+    uint8_t min;                    // Minute (UTC)
+    uint8_t sec;                    // Second (UTC)
+    uint8_t valid;                  // Validity flags
+} zedf9p_nav_timeutc_t;
+
+/**
+ * @brief Subframe Buffer (SFRBX) data structure.
+ */
+typedef struct {
+    uint8_t gnss_id;                // GNSS identifier
+    uint8_t sv_id;                  // Satellite identifier
+    uint8_t reserved1;              // Reserved
+    uint8_t freq_id;                // Frequency identifier (GLONASS only)
+    uint8_t num_words;              // Number of data words
+    uint8_t chn;                    // Channel number
+    uint8_t version;                // Message version
+    uint8_t reserved2;              // Reserved
+    uint32_t dwrd[10];              // Data words (max 10 words for GPS/Galileo)
+} zedf9p_sfrbx_t;
 
 /**
  * @brief MON-VER version information structure.
@@ -764,17 +835,29 @@ typedef struct {
     zedf9p_nav_hpposllh_t nav_hpposllh;
     zedf9p_rawx_t rawx;
     zedf9p_mon_ver_t mon_ver;
+    zedf9p_nav_clock_t nav_clock;
+    zedf9p_nav_hpposecef_t nav_hpposecef;
+    zedf9p_nav_timeutc_t nav_timeutc;
+    zedf9p_sfrbx_t sfrbx;
 
     // Data flags
     bool nav_pvt_valid;
     bool nav_hpposllh_valid;
     bool rawx_valid;
     bool mon_ver_valid;
+    bool nav_clock_valid;
+    bool nav_hpposecef_valid;
+    bool nav_timeutc_valid;
+    bool sfrbx_valid;
 
     // Callback system
     zedf9p_message_callback_t nav_pvt_callback;
     zedf9p_message_callback_t nav_hpposllh_callback;
     zedf9p_message_callback_t rawx_callback;
+    zedf9p_message_callback_t nav_clock_callback;
+    zedf9p_message_callback_t nav_hpposecef_callback;
+    zedf9p_message_callback_t nav_timeutc_callback;
+    zedf9p_message_callback_t sfrbx_callback;
     zedf9p_message_callback_t generic_callback;
     void *callback_user_data;
 
@@ -845,7 +928,7 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, uint8_t layer_mask, uint
  * @param rate Output rate (0 = disabled, >0 = every N navigation solutions)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id, uint8_t rate);
+zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, uint8_t layer_mask, uint8_t msg_class, uint8_t msg_id, uint8_t rate);
 
 /**
  * @brief Configure a setting using CFG-VALSET.
@@ -902,6 +985,11 @@ zedf9p_status_t zedf9p_get_hpposllh(zedf9p_t *dev, zedf9p_nav_hpposllh_t *hppos)
  */
 zedf9p_status_t zedf9p_get_rawx(zedf9p_t *dev, zedf9p_rawx_t *rawx);
 
+zedf9p_status_t zedf9p_get_clock(zedf9p_t *dev, zedf9p_nav_clock_t *clock);
+zedf9p_status_t zedf9p_get_hpposecef(zedf9p_t *dev, zedf9p_nav_hpposecef_t *hpposecef);
+zedf9p_status_t zedf9p_get_timeutc(zedf9p_t *dev, zedf9p_nav_timeutc_t *timeutc);
+zedf9p_status_t zedf9p_get_sfrbx(zedf9p_t *dev, zedf9p_sfrbx_t *sfrbx);
+
 /**
  * @brief Check if new PVT data is available.
  * @param dev Pointer to initialized driver struct
@@ -922,6 +1010,11 @@ bool zedf9p_is_hpposllh_available(const zedf9p_t *dev);
  * @return true if new data is available, false otherwise
  */
 bool zedf9p_is_rawx_available(const zedf9p_t *dev);
+
+bool zedf9p_is_clock_available(const zedf9p_t *dev);
+bool zedf9p_is_hpposecef_available(const zedf9p_t *dev);
+bool zedf9p_is_timeutc_available(const zedf9p_t *dev);
+bool zedf9p_is_sfrbx_available(const zedf9p_t *dev);
 
 // Callback Functions
 
@@ -951,6 +1044,11 @@ zedf9p_status_t zedf9p_register_hpposllh_callback(zedf9p_t *dev, zedf9p_message_
  * @return zedf9p_status_t Error code
  */
 zedf9p_status_t zedf9p_register_rawx_callback(zedf9p_t *dev, zedf9p_message_callback_t callback, void *user_data);
+
+zedf9p_status_t zedf9p_register_clock_callback(zedf9p_t *dev, zedf9p_message_callback_t callback, void *user_data);
+zedf9p_status_t zedf9p_register_hpposecef_callback(zedf9p_t *dev, zedf9p_message_callback_t callback, void *user_data);
+zedf9p_status_t zedf9p_register_timeutc_callback(zedf9p_t *dev, zedf9p_message_callback_t callback, void *user_data);
+zedf9p_status_t zedf9p_register_sfrbx_callback(zedf9p_t *dev, zedf9p_message_callback_t callback, void *user_data);
 
 /**
  * @brief Register a generic callback for all UBX messages.

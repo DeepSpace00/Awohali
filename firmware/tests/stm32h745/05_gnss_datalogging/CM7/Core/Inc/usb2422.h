@@ -273,13 +273,13 @@ usb2422_status_t usb2422_get_serial_string_length(usb2422_t *dev, usb2422_hub_se
 usb2422_status_t usb2422_set_serial_string_length(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, uint8_t serial_number_len);
 
 usb2422_status_t usb2422_get_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
-usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char manufacturer_name[32]);
+usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char manufacturer_name[]);
 
 usb2422_status_t usb2422_get_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
-usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char product_name[32]);
+usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char product_name[]);
 
 usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
-usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[32]);
+usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[]);
 
 usb2422_status_t usb2422_set_smbus_pwrdn(usb2422_t *dev, usb2422_hub_settings_t *hub_settings);
 

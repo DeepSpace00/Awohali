@@ -37,34 +37,41 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-extern struct {
-  uint32_t session_start_ms;
-  uint32_t last_flush_ms;
-  uint32_t last_stats_ms;
-  uint32_t bytes_logged;
-  uint32_t messages_logged;
-  uint32_t rawx_count;
-  uint32_t hpposllh_count;
-  uint32_t file_number;
-  uint8_t logging_active;
-  uint8_t sd_card_present;
-  uint32_t write_errors;
-  uint32_t recovery_attempts;
-  uint8_t usb_ready;
-  uint8_t file_open;
-} logging_stats;
+typedef struct {
+    uint32_t session_start_ms;
+    uint32_t last_flush_ms;
+    uint32_t last_stats_ms;
+    uint32_t bytes_logged;
+    uint32_t messages_logged;
+    uint32_t clock_count;
+    uint32_t hpposecef_count;
+    uint32_t hpposllh_count;
+    uint32_t timeutc_count;
+    uint32_t rawx_count;
+    uint32_t sfrbx_count;
+    uint32_t file_number;
+    uint8_t logging_active;
+    uint8_t sd_card_present;
+    uint32_t write_errors;
+    uint32_t recovery_attempts;
+    uint8_t usb_ready;
+    uint8_t file_open;
+} logging_stats_t;
 
-extern struct {
-  uint32_t i_tow;        // GPS time of week (ms)
-  uint16_t year;         // Year (UTC)
-  uint8_t month;         // Month (UTC)
-  uint8_t day;           // Day (UTC)
-  uint8_t hour;          // Hour (UTC)
-  uint8_t min;           // Minute (UTC)
-  uint8_t sec;           // Second (UTC)
-  uint8_t valid;         // Time validity flags
-  uint8_t time_available;
-} gnss_time;
+typedef struct {
+    uint32_t i_tow;        // GPS time of week (ms)
+    uint16_t year;         // Year (UTC)
+    uint8_t month;         // Month (UTC)
+    uint8_t day;           // Day (UTC)
+    uint8_t hour;          // Hour (UTC)
+    uint8_t min;           // Minute (UTC)
+    uint8_t sec;           // Second (UTC)
+    uint8_t valid;         // Time validity flags
+    uint8_t time_available;
+} gnss_time_t;
+
+extern logging_stats_t logging_stats;
+extern gnss_time_t gnss_time;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -86,10 +93,10 @@ void usb_debug_print(const char *message);
 usb2422_status_t configure_usb2422_for_enumeration(usb2422_t *dev);
 void print_hub_configuration(usb2422_t *dev);
 
-usb2422_hub_settings_t hub_settings = {0};
-usb2422_power_settings_t power_settings = {0};
-usb2422_downstream_port_settings_t port_settings = {false};
-usb2422_cfg_regs_t config_registers = {0};
+extern usb2422_hub_settings_t hub_settings;
+extern usb2422_power_settings_t power_settings;
+extern usb2422_downstream_port_settings_t port_settings;
+extern usb2422_cfg_regs_t config_registers;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

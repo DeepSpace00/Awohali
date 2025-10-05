@@ -1012,11 +1012,13 @@ usb2422_status_t usb2422_get_manufacturer_name(usb2422_t *dev, usb2422_hub_setti
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char manufacturer_name[32]) {
+usb2422_status_t usb2422_set_manufacturer_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char manufacturer_name[]) {
     if (!dev || !hub_settings || !manufacturer_name) return USB2422_ERR_NULL;
 
+    if (sizeof(*manufacturer_name) > 32) return USB2422_ERR_INVALID_ARG;
+
     uint8_t length = 0;
-    while (manufacturer_name[length] != '\0' && length < 31) {
+    while (manufacturer_name[length] != '\0' && length < sizeof(*manufacturer_name)) {
         length++;
     }
 
@@ -1066,8 +1068,10 @@ usb2422_status_t usb2422_get_product_name(usb2422_t *dev, usb2422_hub_settings_t
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char product_name[32]) {
+usb2422_status_t usb2422_set_product_name(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char product_name[]) {
     if (!dev || !hub_settings || !product_name) return USB2422_ERR_NULL;
+
+    if (sizeof(*product_name) > 32) return USB2422_ERR_INVALID_ARG;
 
     uint8_t length = 0;
     while (product_name[length] != '\0' && length < 31) {
@@ -1120,8 +1124,10 @@ usb2422_status_t usb2422_get_serial_number(usb2422_t *dev, usb2422_hub_settings_
     return USB2422_OK;
 }
 
-usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[32]) {
+usb2422_status_t usb2422_set_serial_number(usb2422_t *dev, usb2422_hub_settings_t *hub_settings, char serial_number[]) {
     if (!dev || !hub_settings || !serial_number) return USB2422_ERR_NULL;
+
+    if (sizeof(*serial_number) > 32) return USB2422_ERR_INVALID_ARG;
 
     uint8_t length = 0;
     while (serial_number[length] != '\0' && length < 31) {

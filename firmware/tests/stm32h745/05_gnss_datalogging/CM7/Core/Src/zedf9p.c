@@ -127,6 +127,10 @@ zedf9p_status_t zedf9p_init(zedf9p_t *dev, const zedf9p_interface_type_t interfa
     dev->nav_hpposllh_valid = false;
     dev->rawx_valid = false;
     dev->mon_ver_valid = false;
+    dev->nav_clock_valid = false;
+    dev->nav_hpposecef_valid = false;
+    dev->nav_timeutc_valid = false;
+    dev->sfrbx_valid = false;
 
     // Initialize pending message tracking
     dev->pending_msg.msg_class = 0;
@@ -202,14 +206,73 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, const uint8_t layer_mask
     return status;
 }
 
-zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint8_t rate) {
+zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t layer_mask, const uint8_t msg_class, const uint8_t msg_id, const uint8_t rate) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
 
-    const uint8_t payload[] = {msg_class, msg_id, rate};
-    return zedf9p_send_ubx_message(dev, UBX_CLASS_CFG, UBX_CFG_MSG,
-                                           payload, sizeof(payload));
+    // Map UBX message class/ID to CFG-VALSET key
+    uint32_t config_key = 0;
+
+    if (msg_class == UBX_CLASS_NAV) {
+        switch (msg_id) {
+            case UBX_NAV_CLOCK:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART1; // I2C : UART1
+                break;
+            case UBX_NAV_HPPOSECEF:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART1; // I2C : UART1
+                break;
+            case UBX_NAV_HPPOSLLH:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1;
+                break;
+            case UBX_NAV_PVT:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_PVT_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_PVT_UART1;
+                break;
+            case UBX_NAV_RELPOSNED:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_UART1;
+                break;
+            case UBX_NAV_SAT:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_SAT_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART1;
+                break;
+            case UBX_NAV_TIMEUTC:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1; // I2C : UART1
+                break;
+            default:
+                return ZEDF9P_ERR_INVALID_ARG; // Unsupported NAV message
+        }
+    } else if (msg_class == UBX_CLASS_RXM) {
+        switch (msg_id) {
+            case UBX_RXM_RAWX:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_I2C : UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART1;
+                break;
+            case UBX_RXM_MEASX:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_I2C : UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_UART1;
+                break;
+            case UBX_RXM_SFRBX:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_RXM_SFRBX_I2C : UBLOX_CFG_MSGOUT_UBX_RXM_SFRBX_UART1;
+                break;
+            default:
+                return ZEDF9P_ERR_INVALID_ARG; // Unsupported RXM message
+        }
+    } else if (msg_class == UBX_CLASS_MON) {
+        switch (msg_id) {
+            case UBX_MON_RF:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_MON_RF_I2C : UBLOX_CFG_MSGOUT_UBX_MON_RF_UART1;
+                break;
+            default:
+                return ZEDF9P_ERR_INVALID_ARG; // Unsupported MON message
+        }
+    } else {
+        return ZEDF9P_ERR_INVALID_ARG; // Unsupported message class
+    }
+
+    // If we couldn't find a mapping, return error
+    if (config_key == 0) {
+        return ZEDF9P_ERR_INVALID_ARG;
+    }
+
+    // Use CFG-VALSET to configure the message rate
+    return zedf9p_config_set_val(dev, layer_mask, config_key, rate, 1U);
 }
 
 zedf9p_status_t zedf9p_config_set_val(const zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, const uint64_t value, const uint8_t size) {
@@ -607,7 +670,7 @@ static zedf9p_status_t zedf9p_write_data(const zedf9p_t *dev, const uint8_t *dat
     return ZEDF9P_ERR_INVALID_ARG;
 }*/
 
-static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *data, uint16_t max_length, uint16_t *bytes_read) {
+static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *data, const uint16_t max_length, uint16_t *bytes_read) {
     if (dev == NULL || data == NULL || bytes_read == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -943,24 +1006,50 @@ static zedf9p_status_t zedf9p_handle_message(zedf9p_t *dev, const ubx_message_t 
             if (dev->nav_hpposllh_callback != NULL) {
                 dev->nav_hpposllh_callback(message, dev->callback_user_data);
             }
+        } else if (message->msg_id == UBX_NAV_CLOCK && message->length >= sizeof(zedf9p_nav_clock_t)) {
+            memcpy(&dev->nav_clock, message->payload, sizeof(zedf9p_nav_clock_t));
+            dev->nav_clock_valid = true;
+            if (dev->nav_clock_callback != NULL) {
+                dev->nav_clock_callback(message, dev->callback_user_data);
+            }
+        } else if (message->msg_id == UBX_NAV_HPPOSECEF && message->length >= sizeof(zedf9p_nav_hpposecef_t)) {
+            memcpy(&dev->nav_hpposecef, message->payload, sizeof(zedf9p_nav_hpposecef_t));
+            dev->nav_hpposecef_valid = true;
+            if (dev->nav_hpposecef_callback != NULL) {
+                dev->nav_hpposecef_callback(message, dev->callback_user_data);
+            }
+        } else if (message->msg_id == UBX_NAV_TIMEUTC && message->length >= sizeof(zedf9p_nav_timeutc_t)) {
+            memcpy(&dev->nav_timeutc, message->payload, sizeof(zedf9p_nav_timeutc_t));
+            dev->nav_timeutc_valid = true;
+            if (dev->nav_timeutc_callback != NULL) {
+                dev->nav_timeutc_callback(message, dev->callback_user_data);
+            }
         }
-    } else if (message->msg_class == UBX_CLASS_RXM && message->msg_id == UBX_RXM_RAWX) {
-        // RAWX handling code
-        if (message->length >= 16U) {
-            memcpy(&dev->rawx, message->payload, 16U);
-            const uint8_t num_meas = dev->rawx.num_meas;
-            const uint16_t expected_length = 16U + (num_meas * 32U);
+    } else if (message->msg_class == UBX_CLASS_RXM) {
+        if (message->msg_id == UBX_RXM_RAWX) {
+            // RAWX handling code
+            if (message->length >= 16U) {
+                memcpy(&dev->rawx, message->payload, 16U);
+                const uint8_t num_meas = dev->rawx.num_meas;
+                const uint16_t expected_length = 16U + (num_meas * 32U);
 
-            if (message->length == expected_length && num_meas <= 32U) {
-                if (num_meas > 0) {
-                    memcpy(dev->rawx.meas, &message->payload[16], num_meas * 32U);
-                }
-                dev->rawx_valid = true;
+                if (message->length == expected_length && num_meas <= 32U) {
+                    if (num_meas > 0) {
+                        memcpy(dev->rawx.meas, &message->payload[16], num_meas * 32U);
+                    }
+                    dev->rawx_valid = true;
 
-                // THIS IS THE MISSING PIECE:
-                if (dev->rawx_callback != NULL) {
-                    dev->rawx_callback(message, dev->callback_user_data);
+                    // THIS IS THE MISSING PIECE:
+                    if (dev->rawx_callback != NULL) {
+                        dev->rawx_callback(message, dev->callback_user_data);
+                    }
                 }
+            }
+        } else if (message->msg_id == UBX_RXM_SFRBX && message->length >= sizeof(zedf9p_sfrbx_t)) {
+            memcpy(&dev->sfrbx, message->payload, sizeof(zedf9p_sfrbx_t));
+            dev->sfrbx_valid = true;
+            if (dev->sfrbx_callback != NULL) {
+                dev->sfrbx_callback(message, dev->callback_user_data);
             }
         }
     } else if (message->msg_class == UBX_CLASS_MON && message->msg_id == UBX_MON_VER) {
@@ -1797,4 +1886,119 @@ zedf9p_status_t zedf9p_disable_7f_check(zedf9p_t *dev, const bool disabled) {
 
     dev->ubx_7f_check_disabled = disabled;
     return ZEDF9P_OK;
+}
+
+// Callback registration functions
+zedf9p_status_t zedf9p_register_clock_callback(zedf9p_t *dev, const zedf9p_message_callback_t callback, void *user_data) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+    dev->nav_clock_callback = callback;
+    dev->callback_user_data = user_data;
+    return ZEDF9P_OK;
+}
+
+zedf9p_status_t zedf9p_register_hpposecef_callback(zedf9p_t *dev, const zedf9p_message_callback_t callback, void *user_data) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+    dev->nav_hpposecef_callback = callback;
+    dev->callback_user_data = user_data;
+    return ZEDF9P_OK;
+}
+
+zedf9p_status_t zedf9p_register_timeutc_callback(zedf9p_t *dev, const zedf9p_message_callback_t callback, void *user_data) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+    dev->nav_timeutc_callback = callback;
+    dev->callback_user_data = user_data;
+    return ZEDF9P_OK;
+}
+
+zedf9p_status_t zedf9p_register_sfrbx_callback(zedf9p_t *dev, const zedf9p_message_callback_t callback, void *user_data) {
+    if (dev == NULL || !dev->initialized) {
+        return ZEDF9P_ERR_NULL;
+    }
+    dev->sfrbx_callback = callback;
+    dev->callback_user_data = user_data;
+    return ZEDF9P_OK;
+}
+
+// Data getter functions
+zedf9p_status_t zedf9p_get_clock(zedf9p_t *dev, zedf9p_nav_clock_t *clock) {
+    if (dev == NULL || !dev->initialized || clock == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+    if (!dev->nav_clock_valid) {
+        return ZEDF9P_ERR_NO_DATA;
+    }
+    *clock = dev->nav_clock;
+    dev->nav_clock_valid = false;  // Mark as consumed
+    return ZEDF9P_OK;
+}
+
+zedf9p_status_t zedf9p_get_hpposecef(zedf9p_t *dev, zedf9p_nav_hpposecef_t *hpposecef) {
+    if (dev == NULL || !dev->initialized || hpposecef == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+    if (!dev->nav_hpposecef_valid) {
+        return ZEDF9P_ERR_NO_DATA;
+    }
+    *hpposecef = dev->nav_hpposecef;
+    dev->nav_hpposecef_valid = false;  // Mark as consumed
+    return ZEDF9P_OK;
+}
+
+zedf9p_status_t zedf9p_get_timeutc(zedf9p_t *dev, zedf9p_nav_timeutc_t *timeutc) {
+    if (dev == NULL || !dev->initialized || timeutc == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+    if (!dev->nav_timeutc_valid) {
+        return ZEDF9P_ERR_NO_DATA;
+    }
+    *timeutc = dev->nav_timeutc;
+    dev->nav_timeutc_valid = false;  // Mark as consumed
+    return ZEDF9P_OK;
+}
+
+zedf9p_status_t zedf9p_get_sfrbx(zedf9p_t *dev, zedf9p_sfrbx_t *sfrbx) {
+    if (dev == NULL || !dev->initialized || sfrbx == NULL) {
+        return ZEDF9P_ERR_NULL;
+    }
+    if (!dev->sfrbx_valid) {
+        return ZEDF9P_ERR_NO_DATA;
+    }
+    *sfrbx = dev->sfrbx;
+    dev->sfrbx_valid = false;  // Mark as consumed
+    return ZEDF9P_OK;
+}
+
+// Availability check functions
+bool zedf9p_is_clock_available(const zedf9p_t *dev) {
+    if (dev == NULL || !dev->initialized) {
+        return false;
+    }
+    return dev->nav_clock_valid;
+}
+
+bool zedf9p_is_hpposecef_available(const zedf9p_t *dev) {
+    if (dev == NULL || !dev->initialized) {
+        return false;
+    }
+    return dev->nav_hpposecef_valid;
+}
+
+bool zedf9p_is_timeutc_available(const zedf9p_t *dev) {
+    if (dev == NULL || !dev->initialized) {
+        return false;
+    }
+    return dev->nav_timeutc_valid;
+}
+
+bool zedf9p_is_sfrbx_available(const zedf9p_t *dev) {
+    if (dev == NULL || !dev->initialized) {
+        return false;
+    }
+    return dev->sfrbx_valid;
 }

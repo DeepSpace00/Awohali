@@ -67,7 +67,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-bool zedf9p_use_i2c = true; // Set to false to use UART instead
+bool zedf9p_use_i2c = false; // Set to false to use UART instead
 
 /* USER CODE END PM */
 
@@ -92,6 +92,13 @@ char debug_buffer[USB_DEBUG_BUFFER_SIZE];
 // USB instances
 usb2422_t usb_hub;
 
+logging_stats_t logging_stats = {0};
+gnss_time_t gnss_time = {0};
+
+usb2422_hub_settings_t hub_settings = {0};
+usb2422_power_settings_t power_settings = {0};
+usb2422_downstream_port_settings_t port_settings = {false};
+usb2422_cfg_regs_t config_registers = {0};
 
 /* USER CODE END PV */
 
@@ -114,12 +121,15 @@ void configure_gnss_for_logging(void);
 void process_gnss_logging(void);
 void print_statistics(void);
 // void usb_debug_print(const char *message);
-void update_gnss_time_from_pvt(const zedf9p_nav_pvt_t *pvt);
+void update_gnss_time_from_timeutc(const zedf9p_nav_timeutc_t *timeutc);
 
 // Message callbacks
-void rawx_callback(const ubx_message_t *message, void *user_data);
+void clock_callback(const ubx_message_t *message, void *user_data);
+void hpposecef_callback(const ubx_message_t *message, void *user_data);
 void hpposllh_callback(const ubx_message_t *message, void *user_data);
-void pvt_callback(const ubx_message_t *message, void *user_data);
+void timeutc_callback(const ubx_message_t *message, void *user_data);
+void rawx_callback(const ubx_message_t *message, void *user_data);
+void sfrbx_callback(const ubx_message_t *message, void *user_data);
 
 /* USER CODE END PFP */
 
@@ -348,12 +358,15 @@ void configure_gnss_for_logging(void) {
     zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
 
     // Disable 7F check for RAWX compatibility
-    zedf9p_disable_7f_check(&gnss_module, true);
+    //zedf9p_disable_7f_check(&gnss_module, true);
 
     // Enable UBX messages we want to log
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 1);     // Raw measurement data every 60 measurements
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 1); // High precision position every 60 measurements
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_PVT, 1);      // PVT data every 60 measurements
+    zedf9p_set_message_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, UBX_CLASS_NAV, UBX_NAV_CLOCK, 5);        // NAV-CLOCK
+    zedf9p_set_message_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, UBX_CLASS_NAV, UBX_NAV_HPPOSECEF, 5);    // NAV-HPPOSECEF
+    zedf9p_set_message_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 5);     // NAV-HPPOSLLH
+    zedf9p_set_message_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, UBX_CLASS_NAV, UBX_NAV_TIMEUTC, 5);      // NAV-TIMEUTC
+    zedf9p_set_message_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, UBX_CLASS_RXM, UBX_RXM_RAWX, 5);         // RXM-RAWX
+    zedf9p_set_message_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, UBX_CLASS_RXM, UBX_RXM_SFRBX, 5);        // RXM-SFRBX
 
     HAL_Delay(2000); // Wait for configuration to take effect
     usb_debug_print("GNSS configured for RAWX + HPPOSLLH + PVT logging\r\n");
@@ -421,19 +434,13 @@ void process_gnss_logging(void) {
     }
 }
 
-void rawx_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
-
+// Generic function to write any UBX message to file
+void write_ubx_message_to_file(const ubx_message_t *message) {
     if (!logging_stats.sd_card_present || !logging_stats.logging_active || !logging_stats.file_open) {
         return;
     }
 
-    if (message->length >= sizeof(zedf9p_nav_hpposllh_t) && logging_stats.usb_ready) {
-        zedf9p_nav_hpposllh_t hppos;
-        memcpy(&hppos, message->payload, sizeof(zedf9p_nav_hpposllh_t));
-    }
-
-    // Log the complete UBX message directly to SD card
+    // Build complete UBX message with header and checksum
     uint8_t ubx_header[6];
     ubx_header[0] = 0xB5; // UBX_SYNCH_1
     ubx_header[1] = 0x62; // UBX_SYNCH_2
@@ -482,172 +489,137 @@ void rawx_callback(const ubx_message_t *message, void *user_data) {
     // Update statistics
     logging_stats.bytes_logged += 6 + message->length + 2; // Header + payload + checksum
     logging_stats.messages_logged++;
-    logging_stats.rawx_count++;
 
     // Reset write error count on successful write
     if (logging_stats.write_errors > 0) {
         logging_stats.write_errors = 0;
+    }
+}
+
+// Message callback implementations
+void clock_callback(const ubx_message_t *message, void *user_data) {
+    (void)user_data; // Unused parameter
+
+    write_ubx_message_to_file(message);
+    logging_stats.clock_count++;
+
+    // Optional: Print some debug info about the clock message
+    if (logging_stats.usb_ready && message->length >= sizeof(zedf9p_nav_clock_t)) {
+        zedf9p_nav_clock_t clock;
+        memcpy(&clock, message->payload, sizeof(zedf9p_nav_clock_t));
+
+        snprintf(debug_buffer, sizeof(debug_buffer),
+                "CLOCK: iTOW=%lu ClkB=%ld ClkD=%ld TAcc=%lu\r\n",
+                clock.i_tow, clock.clk_b, clock.clk_d, clock.t_acc);
+        usb_debug_print(debug_buffer);
+    }
+}
+
+void hpposecef_callback(const ubx_message_t *message, void *user_data) {
+    (void)user_data; // Unused parameter
+
+    write_ubx_message_to_file(message);
+    logging_stats.hpposecef_count++;
+
+    // Optional: Print some debug info
+    if (logging_stats.usb_ready && message->length >= sizeof(zedf9p_nav_hpposecef_t)) {
+        zedf9p_nav_hpposecef_t hppos;
+        memcpy(&hppos, message->payload, sizeof(zedf9p_nav_hpposecef_t));
+
+        snprintf(debug_buffer, sizeof(debug_buffer),
+                "HPPOSECEF: iTOW=%lu X=%ld Y=%ld Z=%ld PAcc=%lu\r\n",
+                hppos.i_tow, hppos.ecef_x, hppos.ecef_y, hppos.ecef_z, hppos.p_acc);
+        usb_debug_print(debug_buffer);
     }
 }
 
 void hpposllh_callback(const ubx_message_t *message, void *user_data) {
     (void)user_data; // Unused parameter
 
-    if (!logging_stats.sd_card_present || !logging_stats.logging_active || !logging_stats.file_open) {
-        return;
-    }
-
-    // Log the complete UBX message directly to SD card
-    uint8_t ubx_header[6];
-    ubx_header[0] = 0xB5; // UBX_SYNCH_1
-    ubx_header[1] = 0x62; // UBX_SYNCH_2
-    ubx_header[2] = message->msg_class;
-    ubx_header[3] = message->msg_id;
-    ubx_header[4] = (uint8_t)(message->length & 0xFF);
-    ubx_header[5] = (uint8_t)((message->length >> 8) & 0xFF);
-
-    // Calculate checksum for the complete message
-    uint8_t ck_a = 0, ck_b = 0;
-    for (int i = 2; i < 6; i++) { // Class, ID, Length
-        ck_a += ubx_header[i];
-        ck_b += ck_a;
-    }
-    for (uint16_t i = 0; i < message->length; i++) { // Payload
-        ck_a += message->payload[i];
-        ck_b += ck_a;
-    }
-
-    const uint8_t checksum[2] = {ck_a, ck_b};
-
-    // Write header
-    UINT bytes_written;
-    FRESULT result = f_write(&dataFile, ubx_header, 6, &bytes_written);
-    if (result != FR_OK || bytes_written != 6) {
-        logging_stats.write_errors++;
-        return;
-    }
-
-    // Write payload
-    if (message->length > 0) {
-        result = f_write(&dataFile, message->payload, message->length, &bytes_written);
-        if (result != FR_OK || bytes_written != message->length) {
-            logging_stats.write_errors++;
-            return;
-        }
-    }
-
-    // Write checksum
-    result = f_write(&dataFile, checksum, 2, &bytes_written);
-    if (result != FR_OK || bytes_written != 2) {
-        logging_stats.write_errors++;
-        return;
-    }
-
-    // Update statistics
-    logging_stats.bytes_logged += 6 + message->length + 2; // Header + payload + checksum
-    logging_stats.messages_logged++;
+    write_ubx_message_to_file(message);
     logging_stats.hpposllh_count++;
+}
 
-    // Reset write error count on successful write
-    if (logging_stats.write_errors > 0) {
-        logging_stats.write_errors = 0;
+void timeutc_callback(const ubx_message_t *message, void *user_data) {
+    (void)user_data; // Unused parameter
+
+    write_ubx_message_to_file(message);
+    logging_stats.timeutc_count++;
+
+    // Update GNSS time from this message
+    if (message->length >= sizeof(zedf9p_nav_timeutc_t)) {
+        zedf9p_nav_timeutc_t timeutc;
+        memcpy(&timeutc, message->payload, sizeof(zedf9p_nav_timeutc_t));
+        update_gnss_time_from_timeutc(&timeutc);
     }
 }
 
-void pvt_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data;
+void rawx_callback(const ubx_message_t *message, void *user_data) {
+    (void)user_data; // Unused parameter
 
-    if (!logging_stats.sd_card_present || !logging_stats.logging_active || !logging_stats.file_open) {
-        return;
-    }
+    write_ubx_message_to_file(message);
+    logging_stats.rawx_count++;
 
-    // Log the complete UBX message directly to SD card
-    uint8_t ubx_header[6];
-    ubx_header[0] = 0xB5; // UBX_SYNCH_1
-    ubx_header[1] = 0x62; // UBX_SYNCH_2
-    ubx_header[2] = message->msg_class;
-    ubx_header[3] = message->msg_id;
-    ubx_header[4] = (uint8_t)(message->length & 0xFF);
-    ubx_header[5] = (uint8_t)((message->length >> 8) & 0xFF);
+    // Optional: Print debug info about RAWX message
+    if (logging_stats.usb_ready && message->length >= 16) {
+        zedf9p_rawx_t rawx;
+        memcpy(&rawx, message->payload, sizeof(zedf9p_rawx_t));
 
-    // Calculate checksum for the complete message
-    uint8_t ck_a = 0, ck_b = 0;
-    for (int i = 2; i < 6; i++) { // Class, ID, Length
-        ck_a += ubx_header[i];
-        ck_b += ck_a;
-    }
-    for (uint16_t i = 0; i < message->length; i++) { // Payload
-        ck_a += message->payload[i];
-        ck_b += ck_a;
-    }
+        // Print header information
+        snprintf(debug_buffer, sizeof(debug_buffer),
+                "RAWX: rcTow=%.3f week=%u numMeas=%u recStat=0x%02X\r\n",
+                rawx.rc_tow, rawx.week, rawx.num_meas, rawx.rec_stat);
+        usb_debug_print(debug_buffer);
 
-    const uint8_t checksum[2] = {ck_a, ck_b};
+        // Print first few satellite measurements as examples (limit to 3 to avoid flooding)
+        const uint8_t num_to_print = (rawx.num_meas < 3) ? rawx.num_meas : 3;
+        for (uint8_t i = 0; i < num_to_print; i++) {
+            const zedf9p_rawx_meas_t *meas = &rawx.meas[i];
 
-    // Write header
-    UINT bytes_written;
-    FRESULT result = f_write(&dataFile, ubx_header, 6, &bytes_written);
-    if (result != FR_OK || bytes_written != 6) {
-        logging_stats.write_errors++;
-        return;
-    }
-
-    // Write payload
-    if (message->length > 0) {
-        result = f_write(&dataFile, message->payload, message->length, &bytes_written);
-        if (result != FR_OK || bytes_written != message->length) {
-            logging_stats.write_errors++;
-            return;
-        }
-    }
-
-    // Write checksum
-    result = f_write(&dataFile, checksum, 2, &bytes_written);
-    if (result != FR_OK || bytes_written != 2) {
-        logging_stats.write_errors++;
-        return;
-    }
-
-    // Update statistics
-    logging_stats.bytes_logged += 6 + message->length + 2; // Header + payload + checksum
-    logging_stats.messages_logged++;
-    // Note: You might want to add a pvt_count variable to logging_stats for tracking
-
-    if (message && message->valid && message->length >= sizeof(zedf9p_nav_pvt_t)) {
-        zedf9p_nav_pvt_t pvt;
-        memcpy(&pvt, message->payload, sizeof(zedf9p_nav_pvt_t));
-
-        update_gnss_time_from_pvt(&pvt);
-
-        // Debug: Print position info to verify data is correct
-        if (logging_stats.usb_ready) {
-            // Convert using integer arithmetic to avoid floating-point sprintf
-            const int32_t lat_deg = pvt.lat / 10000000;             // Integer degrees
-            const int32_t lat_frac = abs(pvt.lat % 10000000);       // Fractional part (7 decimal places)
-
-            const int32_t lon_deg = pvt.lon / 10000000;             // Integer degrees
-            const int32_t lon_frac = abs(pvt.lon % 10000000);       // Fractional part (7 decimal places)
-
-            const int32_t height_m = pvt.height / 1000;             // Integer meters
-            const int32_t height_mm = abs(pvt.height % 1000);       // Millimeter part
-
-            const int32_t hacc_m = (int32_t)pvt.h_acc / 1000;       // Integer meters
-            const int32_t hacc_mm = abs((int32_t)pvt.h_acc % 1000); // Millimeter part
+            // Determine GNSS system name
+            const char* gnss_name = "UNK";
+            switch (meas->gnss_id) {
+            case 0: gnss_name = "GPS"; break;
+            case 1: gnss_name = "SBA"; break;
+            case 2: gnss_name = "GAL"; break;
+            case 3: gnss_name = "BDS"; break;
+            case 5: gnss_name = "QZS"; break;
+            case 6: gnss_name = "GLO"; break;
+            }
 
             snprintf(debug_buffer, sizeof(debug_buffer),
-                    "PVT: Fix=%d NumSV=%d Lat=%ld.%07ld Lon=%ld.%07ld H=%ld.%03ldm HAcc=%ld.%03ldm\r\n",
-                    pvt.fix_type, pvt.num_sv,
-                    (long)lat_deg, (long)lat_frac,
-                    (long)lon_deg, (long)lon_frac,
-                    (long)height_m, (long)height_mm,
-                    (long)hacc_m, (long)hacc_mm);
+                    "  [%u] %s SV=%u sig=%u PR=%.3fm CP=%.3fcyc Dopp=%.2fHz CNO=%udBHz LT=%ums\r\n",
+                    i, gnss_name, meas->sv_id, meas->sig_id,
+                    meas->pr_mes, meas->cp_mes, meas->do_mes,
+                    meas->cno, meas->lock_time);
+            usb_debug_print(debug_buffer);
+        }
+
+        // If there are more measurements, indicate how many were skipped
+        if (rawx.num_meas > num_to_print) {
+            snprintf(debug_buffer, sizeof(debug_buffer),
+                    "  ... (%u more measurements)\r\n", rawx.num_meas - num_to_print);
             usb_debug_print(debug_buffer);
         }
     }
+}
 
-    // Reset write error count on successful write
-    if (logging_stats.write_errors > 0) {
-        logging_stats.write_errors = 0;
-    }
+void sfrbx_callback(const ubx_message_t *message, void *user_data) {
+    (void)user_data; // Unused parameter
+
+    write_ubx_message_to_file(message);
+    logging_stats.sfrbx_count++;
+
+    // // Optional: Print some debug info about SFRBX
+    // if (logging_stats.usb_ready && message->length >= sizeof(zedf9p_sfrbx_t)) {
+    //     zedf9p_sfrbx_t sfrbx;
+    //     memcpy(&sfrbx, message->payload, sizeof(zedf9p_sfrbx_t));
+    //
+    //     snprintf(debug_buffer, sizeof(debug_buffer),
+    //             "SFRBX: GNSS=%d SV=%d NumWords=%d Chn=%d\r\n",
+    //             sfrbx.gnss_id, sfrbx.sv_id, sfrbx.num_words, sfrbx.chn);
+    //     usb_debug_print(debug_buffer);
+    // }
 }
 
 void usb_debug_print(const char* message) {
@@ -672,10 +644,12 @@ void print_statistics(void) {
     }
 
     snprintf(debug_buffer, sizeof(debug_buffer),
-            "Stats: Up=%lus Rate=%luB/s Msgs=%lu RAWX=%lu HPPOS=%lu Bytes=%lu Errors=%lu Recoveries=%lu\r\n",
+            "Stats: Up=%lus Rate=%luB/s Msgs=%lu CLK=%lu HPECEF=%lu HPLLH=%lu UTC=%lu RAWX=%lu SFRBX=%lu Bytes=%lu Err=%lu\r\n",
             uptime_s, data_rate, logging_stats.messages_logged,
-            logging_stats.rawx_count, logging_stats.hpposllh_count,
-            logging_stats.bytes_logged, logging_stats.write_errors, logging_stats.recovery_attempts);
+            logging_stats.clock_count, logging_stats.hpposecef_count,
+            logging_stats.hpposllh_count, logging_stats.timeutc_count,
+            logging_stats.rawx_count, logging_stats.sfrbx_count,
+            logging_stats.bytes_logged, logging_stats.write_errors);
     usb_debug_print(debug_buffer);
 
     // Print GNSS time if available
@@ -688,17 +662,17 @@ void print_statistics(void) {
     }
 }
 
-void update_gnss_time_from_pvt(const zedf9p_nav_pvt_t *pvt) {
-    if (!pvt) return;
+void update_gnss_time_from_timeutc(const zedf9p_nav_timeutc_t *timeutc) {
+    if (!timeutc) return;
 
-    gnss_time.i_tow = pvt->i_tow;
-    gnss_time.year = pvt->year;
-    gnss_time.month = pvt->month;
-    gnss_time.day = pvt->day;
-    gnss_time.hour = pvt->hour;
-    gnss_time.min = pvt->min;
-    gnss_time.sec = pvt->sec;
-    gnss_time.valid = pvt->valid;
+    gnss_time.i_tow = timeutc->i_tow;
+    gnss_time.year = timeutc->year;
+    gnss_time.month = timeutc->month;
+    gnss_time.day = timeutc->day;
+    gnss_time.hour = timeutc->hour;
+    gnss_time.min = timeutc->min;
+    gnss_time.sec = timeutc->sec;
+    gnss_time.valid = timeutc->valid;
     gnss_time.time_available = 1;
 }
 /* USER CODE END 0 */
@@ -899,9 +873,12 @@ int main(void)
     }
 
     // Register message callbacks
-    zedf9p_register_rawx_callback(&gnss_module, rawx_callback, NULL);
+    zedf9p_register_clock_callback(&gnss_module, clock_callback, NULL);
+    zedf9p_register_hpposecef_callback(&gnss_module, hpposecef_callback, NULL);
     zedf9p_register_hpposllh_callback(&gnss_module, hpposllh_callback, NULL);
-    zedf9p_register_pvt_callback(&gnss_module, pvt_callback, NULL);
+    zedf9p_register_timeutc_callback(&gnss_module, timeutc_callback, NULL);
+    zedf9p_register_rawx_callback(&gnss_module, rawx_callback, NULL);
+    zedf9p_register_sfrbx_callback(&gnss_module, sfrbx_callback, NULL);
 
     // Initialize logging
     logging_stats.session_start_ms = HAL_GetTick();
@@ -926,7 +903,7 @@ int main(void)
         process_gnss_logging();
 
         // Print statistics every 10 seconds
-        if (HAL_GetTick() - logging_stats.last_stats_ms > 1000) {
+        if (HAL_GetTick() - logging_stats.last_stats_ms > 10000) {
             print_statistics();
             HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin); // Blink LED
             logging_stats.last_stats_ms = HAL_GetTick();
