@@ -61,6 +61,8 @@ void Error_Handler(void);
 #define L4_RESET_GPIO_Port GPIOD
 #define L4_BOOT_Pin GPIO_PIN_4
 #define L4_BOOT_GPIO_Port GPIOD
+#define H7_LEDBUILTIN_Pin GPIO_PIN_8
+#define H7_LEDBUILTIN_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
