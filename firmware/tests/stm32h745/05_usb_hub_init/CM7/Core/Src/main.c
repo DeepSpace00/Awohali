@@ -165,7 +165,8 @@ Error_Handler();
   while (1)
   {
     /* USER CODE END WHILE */
-
+    HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+    HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
