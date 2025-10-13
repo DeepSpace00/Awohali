@@ -131,7 +131,7 @@ SECTIONS
   _sidata = LOADADDR(.data);
 
   /* Initialized data sections goes into RAM, load LMA copy after code */
-  .data : 
+  .data :
   {
     . = ALIGN(4);
     _sdata = .;        /* create a global symbol at data start */
@@ -166,7 +166,7 @@ SECTIONS
   PROVIDE( __data_source_size = __data_source_end - __data_source );
 
 
-  
+
   /* Uninitialized data section */
   /* Uninitialized TLS data section */
   .tbss (NOLOAD) : ALIGN(4)
@@ -219,7 +219,7 @@ SECTIONS
     . = ALIGN(8);
   } >RAM
 
-  
+
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
@@ -231,5 +231,3 @@ SECTIONS
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 }
-
-

@@ -8,7 +8,7 @@ include(ExternalProject)
 # User is free to modify the file as much as necessary
 #
 
-set(CMAKE_TOOLCHAIN_FILE gcc-arm-none-eabi.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/gcc-arm-none-eabi.cmake)
 
 # In order to use CMake for cross-compiling
 set(CMAKE_CXX_COMPILER_FORCED "true")
