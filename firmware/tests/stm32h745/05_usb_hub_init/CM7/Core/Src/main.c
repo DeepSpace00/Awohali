@@ -18,12 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "fatfs.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "usbd_cdc_if.h"
+#include "usb2422.h"
+#include "usb2422_platform.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,6 +47,8 @@
 #endif
 #endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
 
+#define USB_DEBUG_BUFFER_SIZE 512
+#define USB2422_I2C &hi2c1
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -56,14 +59,18 @@
 /* Private variables ---------------------------------------------------------*/
 
 I2C_HandleTypeDef hi2c1;
-I2C_HandleTypeDef hi2c2;
-
-SD_HandleTypeDef hsd2;
-
-UART_HandleTypeDef huart4;
 
 /* USER CODE BEGIN PV */
+char debug_buffer[USB_DEBUG_BUFFER_SIZE];
 
+// USB instances
+usb2422_t usb_hub;
+logging_stats_t logging_stats = {0};
+
+usb2422_hub_settings_t hub_settings = {0};
+usb2422_power_settings_t power_settings = {0};
+usb2422_downstream_port_settings_t port_settings = {false};
+usb2422_cfg_regs_t config_registers = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -71,16 +78,24 @@ void SystemClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_I2C2_Init(void);
-static void MX_SDMMC2_SD_Init(void);
-static void MX_UART4_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void usb_debug_print(const char* message) {
+  if (logging_stats.usb_ready && message != NULL) {
+    const uint16_t len = strlen(message);
+    if (len > 0) {
+      // Use CDC_Transmit_FS function to send data via USB CDC
+      CDC_Transmit_FS((uint8_t*)message, len);
 
+      // Small delay to prevent overwhelming USB
+      HAL_Delay(1);
+    }
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -125,23 +140,23 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
 /* USER CODE BEGIN Boot_Mode_Sequence_2 */
-#if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
-/* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
-HSEM notification */
-/*HW semaphore Clock enable*/
-__HAL_RCC_HSEM_CLK_ENABLE();
-/*Take HSEM */
-HAL_HSEM_FastTake(HSEM_ID_0);
-/*Release HSEM in order to notify the CPU2(CM4)*/
-HAL_HSEM_Release(HSEM_ID_0,0);
-/* wait until CPU2 wakes up from stop mode */
-timeout = 0xFFFF;
-while((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) == RESET) && (timeout-- > 0));
-if ( timeout < 0 )
-{
-Error_Handler();
-}
-#endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
+  #if defined(DUAL_CORE_BOOT_SYNC_SEQUENCE)
+  /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
+  HSEM notification */
+  /*HW semaphore Clock enable*/
+  __HAL_RCC_HSEM_CLK_ENABLE();
+  /*Take HSEM */
+  HAL_HSEM_FastTake(HSEM_ID_0);
+  /*Release HSEM in order to notify the CPU2(CM4)*/
+  HAL_HSEM_Release(HSEM_ID_0,0);
+  /* wait until CPU2 wakes up from stop mode */
+  timeout = 0xFFFF;
+  while((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) == RESET) && (timeout-- > 0));
+  if ( timeout < 0 )
+  {
+    Error_Handler();
+  }
+  #endif /* DUAL_CORE_BOOT_SYNC_SEQUENCE */
 /* USER CODE END Boot_Mode_Sequence_2 */
 
   /* USER CODE BEGIN SysInit */
@@ -151,12 +166,63 @@ Error_Handler();
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_I2C2_Init();
-  MX_SDMMC2_SD_Init();
-  MX_UART4_Init();
-  MX_FATFS_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  HAL_GPIO_WritePin(L4_RESET_GPIO_Port, L4_RESET_Pin, GPIO_PIN_RESET); // Set pin low to make sure the reset line stays high
+  HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+  HAL_Delay(500);
+  HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+  HAL_Delay(5000); // Short delay to let USB settle
+
+  usb2422_platform_set_i2c_handle(USB2422_I2C);
+
+  const usb2422_interface_t io_usb = {
+    .i2c_write = platform_i2c_write_reg,
+    .i2c_read = platform_i2c_read_reg,
+    .delay_ms = platform_delay_ms,
+  };
+
+  usb2422_status_t status_usb = usb2422_init(&usb_hub, USB2422_SMBUS_ADDRESS, io_usb);
+  if (status_usb != USB2422_OK) {
+    while(1) {
+      HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+      HAL_Delay(100);
+    }
+  }
+
+  if (HAL_I2C_IsDeviceReady(&hi2c1, USB2422_SMBUS_ADDRESS, 3, 5) != HAL_OK) {
+    while(1) {
+      HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+      HAL_Delay(100);
+    }
+  }
+
+  status_usb = configure_usb2422_for_enumeration(&usb_hub);
+  if (status_usb != USB2422_OK) {
+    while(1) {
+      HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+      HAL_Delay(250);
+    }
+  }
+
+  status_usb = usb2422_usb_attach_and_protect(&usb_hub, &hub_settings);
+  if (status_usb != USB2422_OK) {
+    while(1) {
+      HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+      HAL_Delay(500);
+    }
+  }
+
+  logging_stats.usb_ready = 1;
+
+  HAL_Delay(5000); // Delay to make sure terminal is open
+
+  usb_debug_print("USB Hub Initialization\r\n");
+  usb_debug_print("======================\r\n");
+
+  HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+  HAL_Delay(100);
+  HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
 
   /* USER CODE END 2 */
 
@@ -165,9 +231,11 @@ Error_Handler();
   while (1)
   {
     /* USER CODE END WHILE */
-    HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
-    HAL_Delay(100);
+
     /* USER CODE BEGIN 3 */
+    usb_debug_print("Hello World!/r/n");
+    HAL_GPIO_TogglePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin);
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
@@ -281,133 +349,6 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief I2C2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_I2C2_Init(void)
-{
-
-  /* USER CODE BEGIN I2C2_Init 0 */
-
-  /* USER CODE END I2C2_Init 0 */
-
-  /* USER CODE BEGIN I2C2_Init 1 */
-
-  /* USER CODE END I2C2_Init 1 */
-  hi2c2.Instance = I2C2;
-  hi2c2.Init.Timing = 0x00707CBB;
-  hi2c2.Init.OwnAddress1 = 0;
-  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c2.Init.OwnAddress2 = 0;
-  hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Configure Analogue filter
-  */
-  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c2, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Configure Digital filter
-  */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C2_Init 2 */
-
-  /* USER CODE END I2C2_Init 2 */
-
-}
-
-/**
-  * @brief SDMMC2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SDMMC2_SD_Init(void)
-{
-
-  /* USER CODE BEGIN SDMMC2_Init 0 */
-
-  /* USER CODE END SDMMC2_Init 0 */
-
-  /* USER CODE BEGIN SDMMC2_Init 1 */
-
-  /* USER CODE END SDMMC2_Init 1 */
-  hsd2.Instance = SDMMC2;
-  hsd2.Init.ClockEdge = SDMMC_CLOCK_EDGE_RISING;
-  hsd2.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
-  hsd2.Init.BusWide = SDMMC_BUS_WIDE_4B;
-  hsd2.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd2.Init.ClockDiv = 0;
-  if (HAL_SD_Init(&hsd2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SDMMC2_Init 2 */
-
-  /* USER CODE END SDMMC2_Init 2 */
-
-}
-
-/**
-  * @brief UART4 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_UART4_Init(void)
-{
-
-  /* USER CODE BEGIN UART4_Init 0 */
-
-  /* USER CODE END UART4_Init 0 */
-
-  /* USER CODE BEGIN UART4_Init 1 */
-
-  /* USER CODE END UART4_Init 1 */
-  huart4.Instance = UART4;
-  huart4.Init.BaudRate = 115200;
-  huart4.Init.WordLength = UART_WORDLENGTH_8B;
-  huart4.Init.StopBits = UART_STOPBITS_1;
-  huart4.Init.Parity = UART_PARITY_NONE;
-  huart4.Init.Mode = UART_MODE_TX_RX;
-  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart4.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart4.Init.ClockPrescaler = UART_PRESCALER_DIV1;
-  huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart4) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_SetTxFifoThreshold(&huart4, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_SetRxFifoThreshold(&huart4, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_DisableFifoMode(&huart4) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN UART4_Init 2 */
-
-  /* USER CODE END UART4_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -420,31 +361,28 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, GNSS_ENABLE_Pin|GNSS_RESET_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, HUB_SUSPEND_Pin|H7_LEDBUILTIN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(H7_LEDBUILTIN_GPIO_Port, H7_LEDBUILTIN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(RESET_HUB_GPIO_Port, RESET_HUB_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : GNSS_ENABLE_Pin GNSS_RESET_Pin */
-  GPIO_InitStruct.Pin = GNSS_ENABLE_Pin|GNSS_RESET_Pin;
+  /*Configure GPIO pins : HUB_SUSPEND_Pin RESET_HUB_Pin H7_LEDBUILTIN_Pin */
+  GPIO_InitStruct.Pin = HUB_SUSPEND_Pin|RESET_HUB_Pin|H7_LEDBUILTIN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GNSS_TXRDY_Pin GNSS_INT_Pin GNSS_PPS_Pin */
-  GPIO_InitStruct.Pin = GNSS_TXRDY_Pin|GNSS_INT_Pin|GNSS_PPS_Pin;
+  /*Configure GPIO pin : HUB_H7_INT_Pin */
+  GPIO_InitStruct.Pin = HUB_H7_INT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_Init(HUB_H7_INT_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : L4_RESET_Pin */
   GPIO_InitStruct.Pin = L4_RESET_Pin;
@@ -457,13 +395,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(L4_BOOT_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : H7_LEDBUILTIN_Pin */
-  GPIO_InitStruct.Pin = H7_LEDBUILTIN_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(H7_LEDBUILTIN_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
