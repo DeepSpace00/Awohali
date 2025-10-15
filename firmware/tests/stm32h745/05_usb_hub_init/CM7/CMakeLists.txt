@@ -38,7 +38,12 @@ set(CMAKE_PROJECT_NAME 05_usb_hub_init_CM7)
 project(${CMAKE_PROJECT_NAME})
 
 # Create an executable object type
-add_executable(${CMAKE_PROJECT_NAME})
+add_executable(${CMAKE_PROJECT_NAME}
+        Core/Inc/usb2422.h
+        Core/Inc/usb2422_platform.h
+        Core/Src/usb2422.c
+        Core/Src/usb2422_platform_stm32cube.c
+        Core/Src/usb2422_configuration.c)
 
 # Include mx-generated
 include("mx-generated.cmake")
