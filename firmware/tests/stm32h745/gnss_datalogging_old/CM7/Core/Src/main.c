@@ -761,7 +761,7 @@ int main(void)
     usb2422_platform_set_i2c_handle(USB2422_I2C);
 
     const usb2422_interface_t io_usb = {
-        .i2c_write = platform_i2c_write,
+        .i2c_write = platform_i2c_write_reg,
         .i2c_read = platform_i2c_read_reg,
         .delay_ms = platform_delay_ms,
     };
