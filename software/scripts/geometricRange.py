@@ -420,8 +420,8 @@ def calculate_satellite_position_and_range(json_file: str,
 if __name__ == "__main__":
     # Example: Calculate position for GPS satellite G01
     json_file = "ephemeris_evk.json"
-    sat_id = "E19"
-    utc_time = datetime(2025, 9, 30, 18, 49, 37, tzinfo=timezone.utc)
+    sat_id = "G32"
+    utc_time = datetime(2025, 9, 30, 18, 49, 34, tzinfo=timezone.utc)
     receiver_ecef = (863794.228, -5503182.971, 3095968.875)  # Example receiver position
 
     try:
