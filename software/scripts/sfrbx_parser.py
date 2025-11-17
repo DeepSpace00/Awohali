@@ -7,7 +7,7 @@ according to IS-GPS-200N specifications.
 import struct
 import json
 from typing import Dict, List, Tuple, Optional, Any
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import IntEnum
 import logging
 
@@ -66,6 +66,7 @@ class GPSEphemeris:
     # Reference times
     toe: float = 0.0  # Ephemeris reference time (seconds)
     toc: float = 0.0  # Clock reference time (seconds)
+    tow: float = 0.0  # Time of Week count (seconds)
     
     # Clock correction coefficients
     af0: float = 0.0  # SV clock bias (seconds)
@@ -311,6 +312,10 @@ class GPSNavDataParser:
         # Calculate CRC on bits 1-277
         calculated_crc = CRC24Q.calculate(bytes(bit_stream), 277)
 
+        # Extract TOW Count (bits 21-37) - scaled by 6 seconds
+        tow_count = self.extract_bits(bit_stream, 21, 17)
+        tow_seconds = tow_count * 6.0
+
         # TEMPORARILY DISABLED FOR DEBUGGING
         # if message_crc != calculated_crc:
         #    logger.warning(f"CRC mismatch for svID {svId} msg_type {msg_type}: "
@@ -319,19 +324,19 @@ class GPSNavDataParser:
             
         # Parse based on message type
         if msg_type == MessageType.EPHEMERIS_1:
-            self.parse_message_type_10(bit_stream, svId)
+            self.parse_message_type_10(bit_stream, svId, tow_seconds)
         elif msg_type == MessageType.EPHEMERIS_2:
-            self.parse_message_type_11(bit_stream, svId)
+            self.parse_message_type_11(bit_stream, svId, tow_seconds)
         elif msg_type == MessageType.CLOCK_IONO_GROUP:
-            self.parse_message_type_30(bit_stream, svId)
+            self.parse_message_type_30(bit_stream, svId, tow_seconds)
         elif msg_type == MessageType.CLOCK_UTC:
-            self.parse_message_type_33(bit_stream, svId)
+            self.parse_message_type_33(bit_stream, svId, tow_seconds)
         elif msg_type in [MessageType.CLOCK_EOP, MessageType.CLOCK_DIFF]:
             # Parse clock data for these types too
             if msg_type == MessageType.CLOCK_EOP:
-                self.parse_message_type_32(bit_stream, svId)
+                self.parse_message_type_32(bit_stream, svId, tow_seconds)
             elif msg_type == MessageType.CLOCK_DIFF:
-                self.parse_message_type_34(bit_stream, svId)
+                self.parse_message_type_34(bit_stream, svId, tow_seconds)
         elif msg_type in [MessageType.CLOCK_DIFF_CORR, MessageType.EPH_DIFF_CORR]:
             # Differential corrections - not currently used but could be added
             pass
@@ -397,12 +402,12 @@ class GPSNavDataParser:
                 
             toe = eph.toe
             self.ephemerides[svId][toe] = eph
-            logger.info(f"Complete ephemeris for G{svId:02d} at toe={toe}")
+            logger.info(f"Complete ephemeris for G{svId:02d} at toe={toe}, TOW={eph.tow}")
             
             # Create new partial ephemeris for next set
             self.partial_ephemerides[svId] = GPSEphemeris(svID=svId)
             
-    def parse_message_type_10(self, data: bytearray, svId: int):
+    def parse_message_type_10(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 10 - Ephemeris 1"""
         eph = self.get_or_create_partial_ephemeris(svId)
         
@@ -427,6 +432,7 @@ class GPSNavDataParser:
         # Store in ephemeris
         eph.WN = WN
         eph.toe = toe
+        eph.tow = tow
         eph.a = a
         eph.e = e
         eph.M0 = M0_rad
@@ -435,7 +441,7 @@ class GPSNavDataParser:
         
         self.finalize_ephemeris(svId)
         
-    def parse_message_type_11(self, data: bytearray, svId: int):
+    def parse_message_type_11(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 11 - Ephemeris 2"""
         eph = self.get_or_create_partial_ephemeris(svId)
         
@@ -463,6 +469,7 @@ class GPSNavDataParser:
         
         # Store in ephemeris
         eph.toe = toe  # Should match type 10
+        eph.tow = tow
         eph.Omega0 = Omega0_rad
         eph.i0 = i0_rad
         eph.Omega_dot = Omega_dot_rad
@@ -477,7 +484,7 @@ class GPSNavDataParser:
         
         self.finalize_ephemeris(svId)
         
-    def parse_message_type_30(self, data: bytearray, svId: int):
+    def parse_message_type_30(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 30 - Clock, IONO & Group Delay"""
         eph = self.get_or_create_partial_ephemeris(svId)
         
@@ -489,6 +496,7 @@ class GPSNavDataParser:
         
         # Store in ephemeris
         eph.toc = toc
+        eph.tow = tow
         eph.af0 = af0
         eph.af1 = af1
         eph.af2 = af2
@@ -496,7 +504,7 @@ class GPSNavDataParser:
         
         self.finalize_ephemeris(svId)
         
-    def parse_message_type_32(self, data: bytearray, svId: int):
+    def parse_message_type_32(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 32 - Clock & EOP"""
         eph = self.get_or_create_partial_ephemeris(svId)
         
@@ -508,6 +516,7 @@ class GPSNavDataParser:
         
         # Store in ephemeris
         eph.toc = toc
+        eph.tow = tow
         eph.af0 = af0
         eph.af1 = af1
         eph.af2 = af2
@@ -515,7 +524,7 @@ class GPSNavDataParser:
         
         self.finalize_ephemeris(svId)
         
-    def parse_message_type_33(self, data: bytearray, svId: int):
+    def parse_message_type_33(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 33 - Clock & UTC"""
         eph = self.get_or_create_partial_ephemeris(svId)
         
@@ -538,6 +547,7 @@ class GPSNavDataParser:
         
         # Store clock parameters
         eph.toc = toc
+        eph.tow = tow
         eph.af0 = af0
         eph.af1 = af1
         eph.af2 = af2
@@ -554,7 +564,7 @@ class GPSNavDataParser:
         
         self.finalize_ephemeris(svId)
         
-    def parse_message_type_34(self, data: bytearray, svId: int):
+    def parse_message_type_34(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 34 - Clock & Differential Correction"""
         eph = self.get_or_create_partial_ephemeris(svId)
         
@@ -566,6 +576,7 @@ class GPSNavDataParser:
         
         # Store in ephemeris
         eph.toc = toc
+        eph.tow = tow
         eph.af0 = af0
         eph.af1 = af1
         eph.af2 = af2
@@ -628,6 +639,7 @@ class GPSNavDataParser:
             "svID": eph.svID,
             "toc": eph.toc,
             "toe": eph.toe,
+            "tow": eph.tow,
             "utc_time": eph.utc_time
         }
 
