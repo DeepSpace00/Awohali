@@ -28,7 +28,7 @@ class GNSSId(IntEnum):
     GLONASS = 6
 
 
-class MessageType(IntEnum):
+class GPSMessageType(IntEnum):
     """GPS Navigation Message Types (IS-GPS-200N)"""
     EPHEMERIS_1 = 10
     EPHEMERIS_2 = 11
@@ -39,17 +39,25 @@ class MessageType(IntEnum):
     CLOCK_UTC = 33
     CLOCK_DIFF = 34
 
-
+class GalileoMessageType(IntEnum):
+    """Galileo Navigation Message Types (OS-SIS-ICD)"""
+    EPHEMERIS_1 = 1
+    EPHEMERIS_2 = 2
+    EPHEMERIS_3_AND_SISA = 3
+    EPHEMERIS_4_CLOCK_CORRECTION_SVID = 4
+    IONO_BGD_SIGNAL_HEALTH = 5
+    GST_UTC_CONVERSION = 6
+    
 @dataclass
-class GPSEphemeris:
-    """GPS Ephemeris parameters"""
+class GNSSEphemeris:
+    """GNSS Ephemeris parameters"""
     # Keplerian parameters
-    a: float = 0.0  # Semi-major axis (meters)
     e: float = 0.0  # Eccentricity
     i0: float = 0.0  # Inclination angle at reference time (radians)
     Omega0: float = 0.0  # Longitude of ascending node (radians)
     omega: float = 0.0  # Argument of perigee (radians)
     M0: float = 0.0  # Mean anomaly at reference time (radians)
+    sqrtA: float = 0.0  # Square root of the Semi-major axis (meters)
     
     # Harmonic correction coefficients
     Cis: float = 0.0  # Sine harmonic correction to inclination (radians)
@@ -76,8 +84,7 @@ class GPSEphemeris:
     # Metadata
     WN: int = 0  # Week number
     svID: int = 0  # Satellite vehicle ID
-    utc_time: Optional[float] = None  # UTC time when data was collected
-    
+
     # Flags to track which messages have been received
     has_ephemeris_1: bool = False
     has_ephemeris_2: bool = False
@@ -273,9 +280,9 @@ class GPSNavDataParser:
     PI = 3.1415926535898
     
     def __init__(self):
-        self.ephemerides: Dict[int, Dict[float, GPSEphemeris]] = {}  # svID -> {toe -> ephemeris}
+        self.ephemerides: Dict[int, Dict[float, GNSSEphemeris]] = {}  # svID -> {toe -> ephemeris}
         self.utc_params: Optional[UTCParameters] = None
-        self.partial_ephemerides: Dict[int, GPSEphemeris] = {}  # svID -> partial ephemeris
+        self.partial_ephemerides: Dict[int, GNSSEphemeris] = {}  # svID -> partial ephemeris
         
     def parse_gps_words(self, words: List[int], svId: int) -> Optional[int]:
         """
@@ -323,21 +330,21 @@ class GPSNavDataParser:
         #    return None
             
         # Parse based on message type
-        if msg_type == MessageType.EPHEMERIS_1:
+        if msg_type == GPSMessageType.EPHEMERIS_1:
             self.parse_message_type_10(bit_stream, svId, tow_seconds)
-        elif msg_type == MessageType.EPHEMERIS_2:
+        elif msg_type == GPSMessageType.EPHEMERIS_2:
             self.parse_message_type_11(bit_stream, svId, tow_seconds)
-        elif msg_type == MessageType.CLOCK_IONO_GROUP:
+        elif msg_type == GPSMessageType.CLOCK_IONO_GROUP:
             self.parse_message_type_30(bit_stream, svId, tow_seconds)
-        elif msg_type == MessageType.CLOCK_UTC:
+        elif msg_type == GPSMessageType.CLOCK_UTC:
             self.parse_message_type_33(bit_stream, svId, tow_seconds)
-        elif msg_type in [MessageType.CLOCK_EOP, MessageType.CLOCK_DIFF]:
+        elif msg_type in [GPSMessageType.CLOCK_EOP, GPSMessageType.CLOCK_DIFF]:
             # Parse clock data for these types too
-            if msg_type == MessageType.CLOCK_EOP:
+            if msg_type == GPSMessageType.CLOCK_EOP:
                 self.parse_message_type_32(bit_stream, svId, tow_seconds)
-            elif msg_type == MessageType.CLOCK_DIFF:
+            elif msg_type == GPSMessageType.CLOCK_DIFF:
                 self.parse_message_type_34(bit_stream, svId, tow_seconds)
-        elif msg_type in [MessageType.CLOCK_DIFF_CORR, MessageType.EPH_DIFF_CORR]:
+        elif msg_type in [GPSMessageType.CLOCK_DIFF_CORR, GPSMessageType.EPH_DIFF_CORR]:
             # Differential corrections - not currently used but could be added
             pass
         else:
@@ -381,10 +388,10 @@ class GPSNavDataParser:
             
         return value
         
-    def get_or_create_partial_ephemeris(self, svId: int) -> GPSEphemeris:
+    def get_or_create_partial_ephemeris(self, svId: int) -> GNSSEphemeris:
         """Get or create partial ephemeris for a satellite"""
         if svId not in self.partial_ephemerides:
-            self.partial_ephemerides[svId] = GPSEphemeris(svID=svId)
+            self.partial_ephemerides[svId] = GNSSEphemeris(svID=svId)
         return self.partial_ephemerides[svId]
         
     def finalize_ephemeris(self, svId: int):
@@ -405,7 +412,7 @@ class GPSNavDataParser:
             logger.info(f"Complete ephemeris for G{svId:02d} at toe={toe}, TOW={eph.tow}")
             
             # Create new partial ephemeris for next set
-            self.partial_ephemerides[svId] = GPSEphemeris(svID=svId)
+            self.partial_ephemerides[svId] = GNSSEphemeris(svID=svId)
             
     def parse_message_type_10(self, data: bytearray, svId: int, tow: float):
         """Parse Message Type 10 - Ephemeris 1"""
@@ -424,6 +431,7 @@ class GPSNavDataParser:
         
         # Compute semi-major axis
         a = self.A_REF + Delta_A
+        sqrtA = math.sqrt(a)
         
         # Convert semi-circles to radians
         M0_rad = M0 * self.PI
@@ -433,7 +441,7 @@ class GPSNavDataParser:
         eph.WN = WN
         eph.toe = toe
         eph.tow = tow
-        eph.a = a
+        eph.sqrtA = sqrtA
         eph.e = e
         eph.M0 = M0_rad
         eph.omega = omega_rad
@@ -615,7 +623,7 @@ class GPSNavDataParser:
                     
         return result
         
-    def ephemeris_to_dict(self, eph: GPSEphemeris) -> Dict[str, Any]:
+    def ephemeris_to_dict(self, eph: GNSSEphemeris) -> Dict[str, Any]:
         """Convert ephemeris to dictionary with sorted keys"""
         return {
             "Cic": eph.Cic,
@@ -629,7 +637,7 @@ class GPSNavDataParser:
             "Omega0": eph.Omega0,
             "Omega_dot": eph.Omega_dot,
             "WN": eph.WN,
-            "a": eph.a,
+            "sqrtA": eph.sqrtA,
             "af0": eph.af0,
             "af1": eph.af1,
             "af2": eph.af2,
@@ -640,7 +648,6 @@ class GPSNavDataParser:
             "toc": eph.toc,
             "toe": eph.toe,
             "tow": eph.tow,
-            "utc_time": eph.utc_time
         }
 
 
