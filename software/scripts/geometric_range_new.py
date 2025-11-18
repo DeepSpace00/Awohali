@@ -8,6 +8,7 @@ import math
 from datetime import datetime, timezone
 from typing import Tuple, Dict, Any
 
+
 class GNSSConstants:
     """Physical and system constants for GNSS calculations"""
     # GPS Constants (IS-GPS-200)
@@ -26,6 +27,7 @@ class GNSSConstants:
     GPS_WEEK_SECONDS = 604800  # Seconds in a week
     GPS_EPOCH = datetime(1980, 1, 6, 0, 0, 0, tzinfo=timezone.utc)
     GAL_EPOCH = datetime(1999, 8, 22, 0, 0, 0, tzinfo=timezone.utc)  # GST epoch
+
 
 class SatelliteEphemeris:
     """Base class for satellite ephemeris data"""
@@ -63,8 +65,8 @@ class SatelliteEphemeris:
         self.af1 = eph_data.get('af1')
         self.af2 = eph_data.get('af2', 0.0)
 
-        # Week number
-        self.week = eph_data.get('WN')
+        # Week number (handle both 'week' and 'WN' keys)
+        self.week = eph_data.get('week', eph_data.get('WN'))
 
     def validate(self) -> bool:
         """Validate that all required parameters are present"""
@@ -75,6 +77,7 @@ class SatelliteEphemeris:
         ]
         return all(x is not None for x in required)
 
+
 class GPSSatellite(SatelliteEphemeris):
     """GPS satellite ephemeris and position calculation"""
 
@@ -84,6 +87,7 @@ class GPSSatellite(SatelliteEphemeris):
         self.omega_e = GNSSConstants.GPS_OMEGA_E
         self.F = GNSSConstants.GPS_F
 
+
 class GalileoSatellite(SatelliteEphemeris):
     """Galileo satellite ephemeris and position calculation"""
 
@@ -92,6 +96,7 @@ class GalileoSatellite(SatelliteEphemeris):
         self.mu = GNSSConstants.GAL_MU
         self.omega_e = GNSSConstants.GAL_OMEGA_E
         self.F = GNSSConstants.GAL_F
+
 
 class PositionCalculator:
     """Calculate satellite positions from ephemeris"""
@@ -227,6 +232,7 @@ class PositionCalculator:
 
         return dt_sv + dt_r
 
+
 class TimeConverter:
     """Convert between different time systems"""
 
@@ -276,8 +282,42 @@ class TimeConverter:
 
         return week, tow
 
+
 class RangeCalculator:
     """Calculate geometric range between receiver and satellite"""
+
+    @staticmethod
+    def rotate_satellite_position(sat_pos: Tuple[float, float, float],
+                                  omega_e: float,
+                                  tau: float) -> Tuple[float, float, float]:
+        """
+        Rotate satellite position to account for Earth rotation during signal transit
+
+        The satellite position is computed at transmission time in the ECEF frame
+        at that instant. During signal propagation, Earth rotates, so we need to
+        rotate the satellite position to the ECEF frame at reception time.
+
+        Args:
+            sat_pos: Satellite ECEF position at transmission time (x, y, z) in meters
+            omega_e: Earth rotation rate (rad/s)
+            tau: Signal travel time (seconds)
+
+        Returns:
+            Rotated satellite ECEF position at reception time (x, y, z) in meters
+        """
+        # Rotation angle during signal propagation (Earth rotates eastward)
+        theta = omega_e * tau
+
+        # Rotation matrix around Z-axis (right-hand rule, positive = counterclockwise)
+        cos_theta = math.cos(theta)
+        sin_theta = math.sin(theta)
+
+        # Apply rotation: R_z(theta) * [x; y; z]
+        x_rot = cos_theta * sat_pos[0] + sin_theta * sat_pos[1]
+        y_rot = -sin_theta * sat_pos[0] + cos_theta * sat_pos[1]
+        z_rot = sat_pos[2]  # Z component unchanged
+
+        return (x_rot, y_rot, z_rot)
 
     @staticmethod
     def calculate_geometric_range(sat_pos: Tuple[float, float, float],
@@ -325,6 +365,7 @@ class RangeCalculator:
             'corrected_range_m': geom_range - clock_corr * GNSSConstants.GPS_C
         }
 
+
 def load_ephemeris_data(json_file: str) -> Dict[str, Dict[str, Dict[str, float]]]:
     """
     Load ephemeris data from JSON file
@@ -338,10 +379,12 @@ def load_ephemeris_data(json_file: str) -> Dict[str, Dict[str, Dict[str, float]]
     with open(json_file, 'r') as f:
         return json.load(f)
 
+
 def calculate_satellite_position_and_range(json_file: str,
                                            sat_id: str,
                                            utc_time: datetime,
-                                           receiver_ecef: Tuple[float, float, float]) -> Dict[str, Any]:
+                                           receiver_ecef: Tuple[float, float, float],
+                                           receiver_clock_bias: float = None) -> Dict[str, Any]:
     """
     Main function to calculate satellite position and range
 
@@ -350,6 +393,8 @@ def calculate_satellite_position_and_range(json_file: str,
         sat_id: Satellite ID (e.g., 'G01' for GPS PRN 1, 'E01' for Galileo SVID 1)
         utc_time: UTC time for position calculation
         receiver_ecef: Receiver ECEF coordinates (x, y, z) in meters
+        receiver_clock_bias: Optional receiver clock bias in seconds from NAV-CLOCK message.
+                           If provided, the comparison will account for receiver clock bias.
 
     Returns:
         Dictionary containing satellite position, range, and related data
@@ -376,25 +421,30 @@ def calculate_satellite_position_and_range(json_file: str,
         raise ValueError(f"Incomplete ephemeris data for {sat_id}")
 
     # Calculate satellite position
-    # Account for signal travel time (iterative)
+    # Account for signal travel time (iterative) and Earth rotation
     c = GNSSConstants.GPS_C
     tau = 0.075  # Initial guess: ~75ms
     for _ in range(3):  # Few iterations sufficient
         t_tx = tow - tau
-        sat_pos = PositionCalculator.calculate_satellite_position(sat, t_tx)
+        # Calculate satellite position at transmission time
+        sat_pos_tx = PositionCalculator.calculate_satellite_position(sat, t_tx)
+        # Rotate satellite position to reception time to account for Earth rotation
+        sat_pos = RangeCalculator.rotate_satellite_position(sat_pos_tx, sat.omega_e, tau)
+        # Calculate geometric range with rotated position
         geom_range = RangeCalculator.calculate_geometric_range(sat_pos, receiver_ecef)
         tau = geom_range / c
 
     # Final calculation with corrected transmission time
     t_tx = tow - tau
-    sat_pos = PositionCalculator.calculate_satellite_position(sat, t_tx)
+    sat_pos_tx = PositionCalculator.calculate_satellite_position(sat, t_tx)
+    sat_pos = RangeCalculator.rotate_satellite_position(sat_pos_tx, sat.omega_e, tau)
 
     # Calculate range with corrections
     range_data = RangeCalculator.calculate_range_with_correction(
         sat_pos, receiver_ecef, sat, t_tx
     )
 
-    return {
+    result = {
         'satellite_id': sat_id,
         'constellation': constellation,
         'utc_time': utc_time.isoformat(),
@@ -416,32 +466,99 @@ def calculate_satellite_position_and_range(json_file: str,
         **range_data
     }
 
+    # If receiver clock bias is provided, add expected pseudorange
+    if receiver_clock_bias is not None:
+        # Expected pseudorange = corrected_range + c * receiver_clock_bias
+        expected_pseudorange = range_data['corrected_range_m'] + c * receiver_clock_bias
+        result['receiver_clock_bias_s'] = receiver_clock_bias
+        result['receiver_clock_bias_m'] = receiver_clock_bias * c
+        result['expected_pseudorange_m'] = expected_pseudorange
+
+    return result
+
+
 # Example usage
 if __name__ == "__main__":
-    # Example: Calculate position for GPS satellite G01
+    # Example: Calculate position for both GPS and Galileo satellites
     json_file = "ephemeris_sample.json"
-    sat_id = "E10"
     utc_time = datetime(2025, 9, 30, 18, 45, 34, tzinfo=timezone.utc)
     receiver_ecef = (863794.228, -5503182.971, 3095968.875)  # Example receiver position
 
-    try:
-        result = calculate_satellite_position_and_range(
-            json_file, sat_id, utc_time, receiver_ecef
-        )
+    # Example receiver clock bias from NAV-CLOCK message
+    # u-blox NAV-CLOCK provides clkBias in nanoseconds
+    # Convert to seconds: receiver_clock_bias_s = clkBias_ns / 1e9
+    # This is a hypothetical value for demonstration - use your actual NAV-CLOCK data
+    receiver_clock_bias_from_nav_clock = 582534e-9  # seconds (3.7 ms example) 582534
 
-        print(f"Results for {result['satellite_id']} ({result['constellation']}):")
-        print(f"UTC Time: {result['utc_time']}")
-        print(f"\nSatellite ECEF Position (m):")
-        print(f"  X: {result['satellite_ecef_m']['x']:,.2f}")
-        print(f"  Y: {result['satellite_ecef_m']['y']:,.2f}")
-        print(f"  Z: {result['satellite_ecef_m']['z']:,.2f}")
-        print(f"\nGeometric Range: {result['geometric_range_m']:,.2f} m")
-        print(f"Clock Correction: {result['clock_correction_s']:.9f} s ({result['clock_correction_m']:.2f} m)")
-        print(f"Corrected Range: {result['corrected_range_m']:,.2f} m")
+    # Test both satellites
+    satellites = [
+        ("G01", 25049745),  # GPS with measured pseudorange
+        ("E10", 27538215)  # Galileo with measured pseudorange
+    ]
 
-    except FileNotFoundError:
-        print(f"Error: Could not find ephemeris file '{json_file}'")
-    except KeyError as e:
-        print(f"Error: Missing satellite data - {e}")
-    except Exception as e:
-        print(f"Error: {e}")
+    print("\n" + "=" * 80)
+    print("GNSS Range Calculation - With and Without Receiver Clock Bias")
+    print("=" * 80)
+
+    print("\n" + "-" * 80)
+    print("PART 1: Without receiver clock bias (showing implied bias)")
+    print("-" * 80)
+
+    implied_biases = []
+    for sat_id, measured_pseudorange in satellites:
+        try:
+            result = calculate_satellite_position_and_range(
+                json_file, sat_id, utc_time, receiver_ecef
+            )
+
+            # Calculate implied receiver clock bias
+            range_diff = measured_pseudorange - result['corrected_range_m']
+            implied_rcv_clock_bias = range_diff / GNSSConstants.GPS_C
+            implied_biases.append(implied_rcv_clock_bias)
+
+            print(f"\n{result['satellite_id']} ({result['constellation']}):")
+            print(f"  Corrected Range:     {result['corrected_range_m']:>15,.2f} m")
+            print(f"  Measured Pseudorange:{measured_pseudorange:>15,.2f} m")
+            print(f"  Difference:          {range_diff:>15,.2f} m")
+            print(f"  → Implied receiver clock bias: {implied_rcv_clock_bias * 1e3:>8.4f} ms")
+
+        except Exception as e:
+            print(f"Error processing {sat_id}: {e}")
+
+    avg_bias = sum(implied_biases) / len(implied_biases) if implied_biases else 0
+    print(f"\n  Average implied bias: {avg_bias * 1e3:.4f} ms")
+
+    print("\n" + "-" * 80)
+    print("PART 2: With receiver clock bias from NAV-CLOCK")
+    print(f"Using receiver_clock_bias = {receiver_clock_bias_from_nav_clock * 1e3:.4f} ms")
+    print("-" * 80)
+
+    for sat_id, measured_pseudorange in satellites:
+        try:
+            result = calculate_satellite_position_and_range(
+                json_file, sat_id, utc_time, receiver_ecef,
+                receiver_clock_bias=receiver_clock_bias_from_nav_clock
+            )
+
+            residual = measured_pseudorange - result['expected_pseudorange_m']
+
+            print(f"\n{result['satellite_id']} ({result['constellation']}):")
+            print(f"  Geometric Range:        {result['geometric_range_m']:>15,.2f} m")
+            print(f"  Sat Clock Correction:   {result['clock_correction_m']:>15,.2f} m")
+            print(f"  Corrected Range:        {result['corrected_range_m']:>15,.2f} m")
+            print(f"  Receiver Clock Bias:    {result['receiver_clock_bias_m']:>15,.2f} m")
+            print(f"  Expected Pseudorange:   {result['expected_pseudorange_m']:>15,.2f} m")
+            print(f"  Measured Pseudorange:   {measured_pseudorange:>15,.2f} m")
+            print(f"  Residual:               {residual:>15,.2f} m")
+            print(f"  → Residual is ionosphere + troposphere + multipath + noise")
+
+        except Exception as e:
+            print(f"Error processing {sat_id}: {e}")
+
+    print("\n" + "=" * 80)
+    print("NOTES:")
+    print("  • NAV-CLOCK contains the receiver's estimated clock bias (clkBias field)")
+    print("  • Use: receiver_clock_bias_s = clkBias_ns / 1e9")
+    print("  • Expected residual: 5-30m (ionosphere/troposphere + 1-10m multipath/noise)")
+    print("  • If residuals are larger, check ephemeris quality and signal conditions")
+    print("=" * 80)
