@@ -58,7 +58,7 @@ class GNSSEphemeris:
     Omega0: float = 0.0  # Longitude of ascending node (radians)
     omega: float = 0.0  # Argument of perigee (radians)
     M0: float = 0.0  # Mean anomaly at reference time (radians)
-    sqrtA: float = 0.0  # Square root of the Semi-major axis (meters)
+    sqrt_A: float = 0.0  # Square root of the Semi-major axis (meters)
 
     # Harmonic correction coefficients
     Cis: float = 0.0  # Sine harmonic correction to inclination (radians)
@@ -433,7 +433,7 @@ class GPSNavDataParser:
 
         # Compute semi-major axis
         a = self.A_REF + Delta_A
-        sqrtA = math.sqrt(a)
+        sqrt_A = math.sqrt(a)
 
         # Convert semi-circles to radians
         M0_rad = M0 * self.PI
@@ -444,7 +444,7 @@ class GPSNavDataParser:
         eph.WN = WN
         eph.toe = toe
         eph.tow = tow
-        eph.sqrtA = sqrtA
+        eph.sqrt_A = sqrt_A
         eph.e = e
         eph.M0 = M0_rad
         eph.omega = omega_rad
@@ -648,7 +648,7 @@ class GPSNavDataParser:
             "e": eph.e,
             "i0": eph.i0,
             "omega": eph.omega,
-            "sqrtA": eph.sqrtA,
+            "sqrt_A": eph.sqrt_A,
             "svID": eph.svID,
             "toc": eph.toc,
             "toe": eph.toe,
@@ -666,7 +666,7 @@ class GalileoNavDataParser:
         'toe': 60,  # Time of ephemeris (seconds)
         'M0': 2 ** -31,  # Mean anomaly (semi-circles)
         'e': 2 ** -33,  # Eccentricity
-        'sqrtA': 2 ** -19,  # Square root of semi-major axis (m^1/2)
+        'sqrt_A': 2 ** -19,  # Square root of semi-major axis (m^1/2)
         'OMEGA0': 2 ** -31,  # Longitude of ascending node (semi-circles)
         'i0': 2 ** -31,  # Inclination angle (semi-circles)
         'omega': 2 ** -31,  # Argument of perigee (semi-circles)
@@ -846,9 +846,9 @@ class GalileoNavDataParser:
         e_raw = self.getbitu(inav, 62, 32)
         e = e_raw * self.SCALE_FACTORS['e']
 
-        # sqrtA (32 bits, position 94-125)
-        sqrtA_raw = self.getbitu(inav, 94, 32)
-        sqrtA = sqrtA_raw * self.SCALE_FACTORS['sqrtA']
+        # sqrt_A (32 bits, position 94-125)
+        sqrt_A_raw = self.getbitu(inav, 94, 32)
+        sqrt_A = sqrt_A_raw * self.SCALE_FACTORS['sqrt_A']
 
         # Store data
         if svId not in self.partial_data:
@@ -857,7 +857,7 @@ class GalileoNavDataParser:
             self.partial_data[svId][IODnav] = {}
 
         self.partial_data[svId][IODnav][1] = {
-            'toe': toe, 'M0': M0_rad, 'e': e, 'sqrtA': sqrtA
+            'toe': toe, 'M0': M0_rad, 'e': e, 'sqrt_A': sqrt_A
         }
 
         self.finalize_ephemeris(svId, IODnav)
@@ -1024,7 +1024,7 @@ class GalileoNavDataParser:
             eph.toe = data[1]['toe']
             eph.M0 = data[1]['M0']
             eph.e = data[1]['e']
-            eph.sqrtA = data[1]['sqrtA']
+            eph.sqrt_A = data[1]['sqrt_A']
 
             # Word type 2
             eph.Omega0 = data[2]['Omega0']
@@ -1113,7 +1113,7 @@ class GalileoNavDataParser:
             "e": eph.e,
             "i0": eph.i0,
             "omega": eph.omega,
-            "sqrtA": eph.sqrtA,
+            "sqrt_A": eph.sqrt_A,
             "svID": eph.svID,
             "toc": eph.toc,
             "toe": eph.toe,
