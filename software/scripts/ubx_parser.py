@@ -365,7 +365,9 @@ class ManualUBXParser:
         data['clkD'] = struct.unpack('<i', payload[8:12])[0]  # ns/s
         data['tAcc'] = struct.unpack('<I', payload[12:16])[0] # ns
         data['fAcc'] = struct.unpack('<I', payload[16:20])[0] # ps/s
-        
+
+        print(payload)
+
         if self.current_utc_time:
             data['timestamp_utc'] = self.current_utc_time.isoformat()
         else:
