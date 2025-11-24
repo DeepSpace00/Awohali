@@ -1,12 +1,12 @@
 from datetime import datetime, timezone
-import geometric_range as geo_range
+import geometric_range_full as geo_range
 
 f_Galileo_E1_Hz = 1575.420e6
 f_Galileo_E5a_Hz = 1176.450e6
 f_GPS_L1_Hz = 1575.420e6
 f_GPS_L5_Hz = 1176.450e6
 
-json_file = "ephemeris_ormondBeach.json"
+json_file = "ephemerides/ephemeris_ormondBeach.json"
 utc_time = datetime(2025, 9, 30, 18, 45, 30, tzinfo=timezone.utc)
 receiver_ecef = (860376.4150, -5499833.3840, 3102756.9330) # Ormond Beach Municipal Airport CORS Receiver
 receiver_clock_bias = 0 # seconds
@@ -26,6 +26,6 @@ print(f"  Sat Clock Correction:   {results['clock_correction_m']:>15,.2f} m")
 print(f"  Corrected Range:        {results['corrected_range_m']:>15,.2f} m")
 print(f"  Receiver Clock Bias:    {results['receiver_clock_bias_m']:>15,.2f} m")
 print(f"  Expected Pseudorange:   {results['expected_pseudorange_m']:>15,.2f} m")
-print(f"  Measured Pseudorange:   {measured_pseudorange_E1:>15,.2f} m")
+print(f"  Measured Pseudorange:   {combined_pseudorange:>15,.2f} m")
 print(f"  Residual:               {residual:>15,.2f} m")
 print(f"  → Residual is ionosphere + troposphere + multipath + noise")
