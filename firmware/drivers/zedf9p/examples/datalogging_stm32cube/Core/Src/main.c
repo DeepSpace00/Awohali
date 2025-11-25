@@ -20,6 +20,7 @@
 #include "main.h"
 #include "fatfs.h"
 #include "usb_device.h"
+#include <inttypes.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -183,7 +184,7 @@ uint8_t init_sd_card(void) {
         // Check if card is ready
         const HAL_SD_CardStateTypeDef cardState = HAL_SD_GetCardState(&hsd);
         snprintf(debug_buffer, sizeof(debug_buffer),
-                "SD card state: %lu\r\n", cardState);
+                "SD card state: %"PRIx32"\r\n", cardState);
         usb_debug_print(debug_buffer);
 
         if (cardState == HAL_SD_CARD_TRANSFER) {
@@ -246,7 +247,7 @@ uint8_t init_sd_card(void) {
         const uint32_t free_mb = free_clusters * fs->csize / 2048;
 
         snprintf(debug_buffer, sizeof(debug_buffer),
-                "SD Card: %lu MB total, %lu MB free\r\n", total_mb, free_mb);
+                "SD Card: %"PRIx32" MB total, %"PRIx32" MB free\r\n", total_mb, free_mb);
         usb_debug_print(debug_buffer);
 
         snprintf(debug_buffer, sizeof(debug_buffer),
@@ -280,7 +281,7 @@ uint8_t create_new_log_file(void) {
     FRESULT result;
     do {
         logging_stats.file_number++;
-        snprintf(filename, sizeof(filename), "%s%03lu%s",
+        snprintf(filename, sizeof(filename), "%s%03"PRIx32"%s",
                 LOG_FILENAME_PREFIX, logging_stats.file_number, LOG_FILENAME_EXTENSION);
 
         // Check if file exists
@@ -359,7 +360,7 @@ void configure_gnss_for_logging(void) {
     //zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
 
     // Configure GPS + Galileo for optimal data
-    const zedf9p_gnss_config_t gnss_config = {
+    /*const zedf9p_gnss_config_t gnss_config = {
         .beidou_enabled = false,
         .beidou_b1_enabled = false,
         .beidou_b2_enabled = false,
@@ -378,7 +379,7 @@ void configure_gnss_for_logging(void) {
         .qzss_l2c_enabled = false,
         .sbas_enabled = false,
         .sbas_l1ca_enabled = false
-    };
+    };*/
 
     //zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
 
@@ -388,8 +389,8 @@ void configure_gnss_for_logging(void) {
     // Enable the specific UBX messages we want to log (1Hz rate)
     // Now using CFG-VALSET internally via the updated zedf9p_set_message_rate function
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_CLOCK, 5);     // NAV-CLOCK
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSECEF, 5); // NAV-HPPOSECEF
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 5);  // NAV-HPPOSLLH
+    // zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSECEF, 5); // NAV-HPPOSECEF
+    // zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 5);  // NAV-HPPOSLLH
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_TIMEUTC, 5);   // NAV-TIMEUTC
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 5);      // RXM-RAWX
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_SFRBX, 5);     // RXM-SFRBX
@@ -535,7 +536,7 @@ void clock_callback(const ubx_message_t *message, void *user_data) {
         memcpy(&clock, message->payload, sizeof(zedf9p_nav_clock_t));
 
         snprintf(debug_buffer, sizeof(debug_buffer),
-                "CLOCK: iTOW=%lu ClkB=%ld ClkD=%ld TAcc=%lu\r\n",
+                "CLOCK: iTOW=%"PRIx32" ClkB=%"PRId32" ClkD=%"PRId32" TAcc=%"PRIx32"\r\n",
                 clock.i_tow, clock.clk_b, clock.clk_d, clock.t_acc);
         usb_debug_print(debug_buffer);
     }
@@ -553,7 +554,7 @@ void hpposecef_callback(const ubx_message_t *message, void *user_data) {
         memcpy(&hppos, message->payload, sizeof(zedf9p_nav_hpposecef_t));
 
         snprintf(debug_buffer, sizeof(debug_buffer),
-                "HPPOSECEF: iTOW=%lu X=%ld Y=%ld Z=%ld PAcc=%lu\r\n",
+                "HPPOSECEF: iTOW=%"PRIx32" X=%"PRId32" Y=%"PRId32" Z=%"PRId32" PAcc=%"PRIx32"\r\n",
                 hppos.i_tow, hppos.ecef_x, hppos.ecef_y, hppos.ecef_z, hppos.p_acc);
         usb_debug_print(debug_buffer);
     }
@@ -627,7 +628,7 @@ void print_statistics(void) {
     }
 
     snprintf(debug_buffer, sizeof(debug_buffer),
-            "Stats: Up=%lus Rate=%luB/s Msgs=%lu CLK=%lu HPECEF=%lu HPLLH=%lu UTC=%lu RAWX=%lu SFRBX=%lu Bytes=%lu Err=%lu\r\n",
+            "Stats: Up=%"PRIx32"s Rate=%"PRIx32"B/s Msgs=%"PRIx32" CLK=%"PRIx32" HPECEF=%"PRIx32" HPLLH=%"PRIx32" UTC=%"PRIx32" RAWX=%"PRIx32" SFRBX=%"PRIx32" Bytes=%"PRIx32" Err=%"PRIx32"\r\n",
             uptime_s, data_rate, logging_stats.messages_logged,
             logging_stats.clock_count, logging_stats.hpposecef_count,
             logging_stats.hpposllh_count, logging_stats.timeutc_count,
@@ -638,7 +639,7 @@ void print_statistics(void) {
     // Print GNSS time if available
     if (gnss_time.time_available) {
         snprintf(debug_buffer, sizeof(debug_buffer),
-                "GNSS Time: %04d-%02d-%02d %02d:%02d:%02d UTC (iTOW: %lu ms)\r\n",
+                "GNSS Time: %04d-%02d-%02d %02d:%02d:%02d UTC (iTOW: %"PRIx32" ms)\r\n",
                 gnss_time.year, gnss_time.month, gnss_time.day,
                 gnss_time.hour, gnss_time.min, gnss_time.sec, gnss_time.i_tow);
         usb_debug_print(debug_buffer);
@@ -702,8 +703,8 @@ int main(void)
     HAL_Delay(5000);
     logging_stats.usb_ready = 1;
 
-    usb_debug_print("ZEDF9P UBX Message Logger\r\n");
-    usb_debug_print("=========================\r\n");
+    usb_debug_print("ZEDF9P UBX Message Logger 2025-11-25\r\n");
+    usb_debug_print("====================================\r\n");
 
     // Initialize SD card with FatFS
     if (!init_sd_card()) {
@@ -752,8 +753,8 @@ int main(void)
 
     // Register message callbacks for the specific UBX messages
     zedf9p_register_clock_callback(&gnss_module, clock_callback, NULL);
-    zedf9p_register_hpposecef_callback(&gnss_module, hpposecef_callback, NULL);
-    zedf9p_register_hpposllh_callback(&gnss_module, hpposllh_callback, NULL);
+    // zedf9p_register_hpposecef_callback(&gnss_module, hpposecef_callback, NULL);
+    // zedf9p_register_hpposllh_callback(&gnss_module, hpposllh_callback, NULL);
     zedf9p_register_timeutc_callback(&gnss_module, timeutc_callback, NULL);
     zedf9p_register_rawx_callback(&gnss_module, rawx_callback, NULL);
     zedf9p_register_sfrbx_callback(&gnss_module, sfrbx_callback, NULL);
@@ -782,7 +783,7 @@ int main(void)
 
         // Print statistics every 10 seconds
         if (HAL_GetTick() - logging_stats.last_stats_ms > 10000) {
-            print_statistics();
+            // print_statistics();
             HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin); // Blink LED
             logging_stats.last_stats_ms = HAL_GetTick();
         }
