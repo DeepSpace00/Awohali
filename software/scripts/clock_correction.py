@@ -3,8 +3,8 @@ Calculate receiver-satellite clock offset errors
 """
 
 import math
-from geometric_range import PositionCalculator
-from ephemeris_classes import SatelliteEphemeris
+from software.scripts.geometric_range import PositionCalculator
+from software.scripts.ephemeris_classes import SatelliteEphemeris
 
 def calculate_satellite_clock_offset(sat: SatelliteEphemeris, t: float) -> float:
     """

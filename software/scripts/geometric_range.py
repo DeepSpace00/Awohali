@@ -6,7 +6,7 @@ to a ground point using WGS-84 parameters
 import math
 from datetime import datetime, timezone
 from typing import Tuple, Dict, Any
-from ephemeris_classes import SatelliteEphemeris, GNSSConstants, load_ephemeris
+from software.scripts.ephemeris_classes import SatelliteEphemeris, GNSSConstants, load_ephemeris
 
 class PositionCalculator:
     """Calculate satellite positions from ephemeris"""
@@ -262,7 +262,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         @return: Dictionary with satellite position, geometric range, and related data
     """
 
-    sat, constellation = load_ephemeris(json_file, sat_id)
+    sat = load_ephemeris(json_file, sat_id, gps_tow)
 
     if sat_id.startswith('G'):
         if gps_week is not None and gps_tow is not None:
@@ -271,7 +271,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         elif utc_time is not None:
             week, tow = TimeConverter.utc_to_week(utc_time)
         else:
-            raise valueError("Must provide either utc_time or (gps_week, gps_tow)")
+            raise ValueError("Must provide either utc_time or (gps_week, gps_tow)")
 
     elif sat_id.startswith('E'):
         if gps_week is not None and gps_tow is not None:
@@ -280,10 +280,10 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         elif utc_time is not None:
             week, tow = TimeConverter.utc_to_galileo_time(utc_time)
         else:
-            raise valueError("Must provide either utc_time or (gps_week, gps_tow)")
+            raise ValueError("Must provide either utc_time or (gps_week, gps_tow)")
 
     else:
-        raise valueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
+        raise ValueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
 
     # Calculate satellite position
     # Account for signal travel time (iterative) and Earth rotation)
@@ -314,7 +314,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
 
     results = {
         'satellite_id': sat_id,
-        'constellation': constellation,
+        'constellation': sat.constellation,
         'time_source': 'gps_week_tow' if (gps_week is not None and gps_tow is not None) else 'utc_converted',
         'system_time': {
             'week': week,

@@ -16,7 +16,7 @@ f_GPS_L5_Hz = 1176.450e6
 
 c = 299792458.0 # Speed of light (m/s)
 
-json_file = "ephemerides/ephemeris_sample_2025-11-25.json"
+json_file = "ephemerides/ephemeris_2025-11-25.json"
 utc_time = datetime(2025, 11, 25, 15, 29, 32, tzinfo=timezone.utc)
 receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
@@ -43,7 +43,7 @@ measured_pseudorange_E5a = 24638147.5472601 # meters
 dt = rcvTOW - (iTOW / 1000.0)
 dt_rcv = (receiver_clock_bias + receiver_clock_drift * dt) / 1e9
 
-sat, constellation = load_ephemeris(json_file, sat_id)
+sat = load_ephemeris(json_file, sat_id, gps_tow)
 
 range_results = geometric_range.calculate_satellite_position_and_range(json_file, sat_id, receiver_ecef,
                                                                        utc_time, gps_week, gps_tow)

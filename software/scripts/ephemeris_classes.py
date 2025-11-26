@@ -98,26 +98,65 @@ class GalileoSatellite(SatelliteEphemeris):
         self.F = GNSSConstants.GAL_F
 
 
-def load_ephemeris(json_file: str, sat_id: str):
+def create_satellite(sat_id: str, eph_data: Dict[str, float]):
+    """Create satellite object"""
+
+    if sat_id.startswith('G'):
+        return GPSSatellite(sat_id, eph_data)
+    elif sat_id.startswith('E'):
+        return GalileoSatellite(sat_id, eph_data)
+    else:
+        raise ValueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
+
+def load_ephemeris(json_file: str, sat_id: str, gps_tow: float):
     with open(json_file, 'r') as f:
-        eph_data = json.load(f)
+        data = json.load(f)
 
     # Determine constellation
     if sat_id.startswith('G'):
         constellation = 'GPS'
-        sat_data = eph_data['GPS'][sat_id]
-        sat = GPSSatellite(sat_id, sat_data)
-
     elif sat_id.startswith('E'):
         constellation = 'Galileo'
-        sat_data = eph_data['Galileo'][sat_id]
-        sat = GalileoSatellite(sat_id, sat_data)
-
     else:
-        raise valueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
+        raise ValueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
 
-    # Validate ephemeris
-    if not sat.validate():
-        raise ValueError(f"Incomplete ephemeris data for {sat_id}")
+    sat_ephemeris_dict = data[constellation][sat_id]
 
-    return sat, constellation
+    available_tows = []
+    for tow_key in sat_ephemeris_dict.keys():
+        tow_str = tow_key.split('_')[1]
+        tow_value = float(tow_str)
+
+        time_diff = gps_tow - tow_value
+
+        # Handle week wraparound
+        if time_diff < -302400:
+            time_diff += 604800
+        elif time_diff > 302400:
+            time_diff -= 604800
+
+        if abs(time_diff) <= 7200:
+            available_tows.append((tow_value, tow_key, time_diff))
+
+    if not available_tows:
+        raise ValueError(f"No valid ephemeris found for {sat_id} neat TOW {gps_tow}")
+
+    # Find the closest ephemeris to gps_tow
+    best_tow, best_key, best_diff = min(available_tows, key=lambda x: abs(x[2]))
+
+    eph_data = sat_ephemeris_dict[best_key]
+
+    # print(f"Selected ephemeris for {sat_id}: toe={best_tow}, age={smallest_positive_diff:.1f}s")
+
+    return create_satellite(sat_id, eph_data)
+
+def get_available_satellites(json_file: str):
+    with open(json_file, 'r') as f:
+        data = json.load(f)
+
+    results = {
+        'GPS': sorted(data.get('GPS', {}).keys()),
+        'Galileo': sorted(data.get('Galileo', {}).keys())
+    }
+
+    return results
