@@ -5,25 +5,24 @@ import sqlite3
 
 import software.scripts.geometric_range as geometric_range
 import software.scripts.clock_correction as clock_correction
-from software.scripts.ephemeris_classes import load_ephemeris, get_available_satellites
+from software.scripts.ephemeris_classes import load_ephemeris
 
 print_all_plots = True
 
 c = 299792458.0 # Speed of light (m/s)
 
-rawx_file = "../../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
-clock_file = "../../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
-ephemeris = "../ephemerides/ephemeris_2025-11-25.json"
-results_dir = "../../data/ubx_data/2025-11-25/results4"
+rawx_file = "../../data/ubx_data/2025-11-30/2025-11-30_154420_serial-COM4_RXM_RAWX.csv"
+clock_file = "../../data/ubx_data/2025-11-30/2025-11-30_154420_serial-COM4_NAV_CLOCK.csv"
+ephemeris = "../ephemerides/ephemeris_2025-11-30.json"
+results_dir = "../../data/ubx_data/2025-11-30/results"
 
-receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
-
-# sats = get_available_satellites(ephemeris)
+# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
+receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_3.db')
+conn = sqlite3.connect('../../data/ubx_data/2025-11-30/2025-11-30_154420_serial-COM4.db')
 
 freqId = ''
 
@@ -87,9 +86,10 @@ for _ in range(len(rawx)):
     try:
         sat = load_ephemeris(ephemeris, pvn, gps_tow=rcvTow)
     except KeyError:
+        print("Missing ephemeris...")
         continue
 
-    geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_week=gpsWeek, gps_tow=rcvTow)
+    geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_week=gpsWeek, gps_tow=rcvTow) # rcvTow includes receiver bias, so doesn't need to be accounted for below
 
     # Assign results to variable
     geo_range = geometric_range_results['geometric_range_m']
@@ -112,12 +112,12 @@ for _ in range(len(rawx)):
     dt_rel = clock_correction.calculate_relativistic_clock_correction(sat, t_tx)
 
     # Calculate Biases in meters
-    rcv_clkBias_m = dt_rcv * c
+    rcv_clkBias_m = dt_rcv * c # Already included in geometric range calculations
     sat_clkBias_m = dt_sv * c
     relativistic_bias_m = dt_rel * c
 
-    biases = rcv_clkBias_m + sat_clkBias_m + relativistic_bias_m #+ (2.69671938470657*rcvTow)
-    tropospheric_delay_m = pseudorange - geo_range - biases
+    biases = sat_clkBias_m + relativistic_bias_m
+    tropospheric_delay_m = pseudorange - geo_range + biases
 
     gnss_results[pvn][freqId].append({
         'svId': pvn,

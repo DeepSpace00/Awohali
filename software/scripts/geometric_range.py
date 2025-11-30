@@ -289,7 +289,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
     # Account for signal travel time (iterative) and Earth rotation)
 
     c = GNSSConstants.GPS_C
-    tau = 0.075 # Initial guess: ~75ms
+    tau = 0.075 # Initial guess: ~75ms | signal travel time
     for _ in range(3):
         t_tx = tow - tau
 
@@ -302,7 +302,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         # Calculate geometric range with rotated position
         geometric_range = GeometricRangeCalculator.calculate_geometric_range(sat_pos, rcv_pos)
 
-        tau = geometric_range / c
+        tau = geometric_range / c # signal travel time
 
     # Final calculation with corrected transmission time
     t_tx = tow - tau

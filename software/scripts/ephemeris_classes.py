@@ -138,17 +138,17 @@ def load_ephemeris(json_file: str, sat_id: str, gps_tow: float):
         if abs(time_diff) <= 7200:
             available_tows.append((tow_value, tow_key, time_diff))
 
-    if not available_tows:
-        raise ValueError(f"No valid ephemeris found for {sat_id} neat TOW {gps_tow}")
+    if available_tows:
+        # Find the closest ephemeris to gps_tow
+        best_tow, best_key, best_diff = min(available_tows, key=lambda x: abs(x[2]))
 
-    # Find the closest ephemeris to gps_tow
-    best_tow, best_key, best_diff = min(available_tows, key=lambda x: abs(x[2]))
+        eph_data = sat_ephemeris_dict[best_key]
 
-    eph_data = sat_ephemeris_dict[best_key]
+        # print(f"Selected ephemeris for {sat_id}: toe={best_tow}, age={smallest_positive_diff:.1f}s")
 
-    # print(f"Selected ephemeris for {sat_id}: toe={best_tow}, age={smallest_positive_diff:.1f}s")
-
-    return create_satellite(sat_id, eph_data)
+        return create_satellite(sat_id, eph_data)
+    else:
+        raise ValueError(f"No valid ephemeris found for {sat_id} near TOW {gps_tow}")
 
 def get_available_satellites(json_file: str):
     with open(json_file, 'r') as f:
