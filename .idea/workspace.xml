@@ -5,16 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c5ab31a-5014-4cd6-9b80-40a27903f9e1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/software/scripts/dataAnalysis/pseudorange_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Awohali.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Awohali.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/RINEXNavParser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/RINEXObsParser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/dataAnalysis/pseudorange_analysis_ormd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/datetime_conversion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/diagnose_angles.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/elevation_azimuth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/plot_satellite_angles.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/rinex_parser_old.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/software/scripts/todo_list.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/software/scripts/GNSS002.ubx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/software/scripts/clock_correction.py" beforeDir="false" afterPath="$PROJECT_DIR$/software/scripts/clock_correction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/software/scripts/data.rnx" beforeDir="false" afterPath="$PROJECT_DIR$/software/data/data.rnx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/software/scripts/ephemeris_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/software/scripts/ephemeris_classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/software/scripts/geometric_range.py" beforeDir="false" afterPath="$PROJECT_DIR$/software/scripts/geometric_range.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/software/scripts/tropospheric_delay.py" beforeDir="false" afterPath="$PROJECT_DIR$/software/scripts/tropospheric_delay.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/software/data/ORMD/ormd2730.25d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/software/data/ORMD/ormd2730.25o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/software/data/ORMD/ormd2730_2.25o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/software/scripts/dataAnalysis/pseudorange_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/software/scripts/dataAnalysis/pseudorange_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,22 +56,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.geometricRange.executor": "Run",
-    "Python.geometricRange_old.executor": "Run",
-    "Python.geometric_range_new.executor": "Run",
-    "Python.ormondBeach_geometric_range.executor": "Run",
-    "Python.pseudorange_analysis.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "development",
-    "last_opened_file_path": "/home/deepspace/Documents/Repositories/DeepSpace00/Awohali/software/scripts/ephemerides",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.RINEXParser.executor&quot;: &quot;Run&quot;,
+    &quot;Python.geometricRange.executor&quot;: &quot;Run&quot;,
+    &quot;Python.geometricRange_old.executor&quot;: &quot;Run&quot;,
+    &quot;Python.geometric_range_new.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ormondBeach_geometric_range.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pseudorange_analysis.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pseudorange_analysis_ormd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rinexObsToCSV.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rinex_parser.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/deepspace/Documents/Repositories/DeepSpace00/Awohali/software/scripts/ephemerides&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings sdk-home="$PROJECT_DIR$/.venv/bin/python">
@@ -194,5 +202,12 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="biases" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
