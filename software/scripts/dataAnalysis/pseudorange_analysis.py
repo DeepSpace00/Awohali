@@ -7,22 +7,22 @@ import software.scripts.geometric_range as geometric_range
 import software.scripts.clock_correction as clock_correction
 from software.scripts.ephemeris_classes import load_ephemeris
 
-print_all_plots = True
+print_all_plots = False
 
 c = 299792458.0 # Speed of light (m/s)
 
-rawx_file = "../../data/ubx_data/2025-11-30/2025-11-30_183845_serial-COM4_RXM_RAWX.csv"
-clock_file = "../../data/ubx_data/2025-11-30/2025-11-30_183845_serial-COM4_NAV_CLOCK.csv"
-ephemeris = "../ephemerides/ephemeris_2025-11-30_2.json"
-results_dir = "../../data/ubx_data/2025-11-30/results2"
+rawx_file = "../../data/ubx_data/2025-11-25/GNSS001_RXM_RAWX.csv"
+clock_file = "../../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
+ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
+results_dir = "../../data/ubx_data/2025-11-25/results6"
 
-# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
-receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
+receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
+# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../../data/ubx_data/2025-11-30/2025-11-30_183845_serial-COM4.db')
+conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_6.db')
 
 freqId = ''
 
@@ -32,7 +32,7 @@ for _ in range(len(rawx)):
     # if rawx.iloc[_]['prValid'] != True:
     #    continue
 
-    if rawx.iloc[_]['gnssId'] != 0 | rawx.iloc[_]['gnssId'] != 2:
+    if rawx.iloc[_]['gnssId'] != 0:
         continue
 
     # Assign data to variables
@@ -44,16 +44,24 @@ for _ in range(len(rawx)):
     pseudorange_m = rawx.iloc[_]['prMes']
 
     # Locate receiver bias and drift values
-    closest_iTow = clock.iloc[(clock['iTOW'] - rcvTow_s).abs().argsort()[:1]]
-    iTow = closest_iTow['iTOW'].values[0]
+    closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]
+    iTow_ns = closest_iTow['iTOW'].values[0]
     clkBias_ns = closest_iTow['clkB'].values[0]
     clkDrift_ns = closest_iTow['clkD'].values[0]
 
+
+
     # Calculate receiver clock correction
-    dt_s = rcvTow_s - (iTow / 1000.0)
+    dt_s = rcvTow_s - (iTow_ns / 1000.0)
     dt_rcv_s = (clkBias_ns + clkDrift_ns * dt_s) / 1e9
 
     gpsTow_s = rcvTow_s - dt_rcv_s
+
+    # print(rcvTow_s)
+    # print(iTow_ns)
+    # print(dt_s)
+    # print(dt_rcv_s)
+    # print(gpsTow_s)
 
     # Create new dictionary
     if gnssId == 0:
@@ -93,7 +101,7 @@ for _ in range(len(rawx)):
     else:
         continue # Skip if sat is not GPS or Galileo
 
-    print("{}:\t{} s".format(pvn, gpsTow_s))
+    print("{}:\t{:.3f} s".format(pvn, gpsTow_s))
 
     try:
         sat = load_ephemeris(ephemeris, pvn, gps_tow=gpsTow_s)
@@ -121,22 +129,24 @@ for _ in range(len(rawx)):
     sat_clkBias_m = dt_sv_s * c
     relativistic_bias_m = dt_rel_s * c
 
+    new_pseudorange = pseudorange_m - ((0.0043) * c)
     biases_m = rcv_clkBias_m + sat_clkBias_m + relativistic_bias_m
-    tropospheric_delay_m = pseudorange_m - geo_range_m + biases_m
+    tropospheric_delay_m = new_pseudorange - geo_range_m + biases_m
 
     gnss_results[pvn][freqId].append({
         'svId': pvn,
         'freqId': freqId,
         'gpsTOW': gpsTow_s,
         'rcvTOW': rcvTow_s,
+        't_tx': t_tx_s,
         'WN': gpsWeek,
         'geoRange': geo_range_m,
         'satClockBias': sat_clkBias_m,
         'rcvClockBias': rcv_clkBias_m,
         'relBias': relativistic_bias_m,
         'biases': biases_m,
-        'pseudorange': pseudorange_m,
-        'rangeDiff': pseudorange_m - geo_range_m,
+        'pseudorange': new_pseudorange,
+        'rangeDiff': new_pseudorange - geo_range_m,
         'troposphericDelay': tropospheric_delay_m
     })
 

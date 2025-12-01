@@ -68,6 +68,11 @@ class SatelliteEphemeris:
         # Week number (handle both 'week' and 'WN' keys)
         self.week = eph_data.get('week', eph_data.get('WN'))
 
+        # Default other parameters
+        self.mu = GNSSConstants.GPS_MU
+        self.omega_e = GNSSConstants.GPS_OMEGA_E
+        self.F = GNSSConstants.GPS_F
+
     def validate(self) -> bool:
         """Validate that all required parameters are present"""
         required = [

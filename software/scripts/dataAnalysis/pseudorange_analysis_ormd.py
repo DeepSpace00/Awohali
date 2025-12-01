@@ -13,7 +13,8 @@ from software.scripts.datetime_conversion import datetime_to_gps_tow
 
 from software.scripts.elevation_azimuth import calculate_elevation_azimuth
 
-print_all_plots = True
+print_all_plots = False
+print_sky_plot = False
 
 c = 299792458.0 # Speed of light (m/s)
 
@@ -44,7 +45,7 @@ for _ in range(len(rinex)):
         print("Missing ephemeris...")
         continue
 
-    geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_week=gpsWeek, gps_tow=rcvTow)
+    geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_tow=rcvTow, gps_week=gpsWeek)
 
     # Assign results to variable
     geo_range = geometric_range_results['geometric_range_m']
@@ -74,6 +75,7 @@ for _ in range(len(rinex)):
         'svId': pvn,
         'freqId': 'E1 C',
         'rcvTOW': rcvTow,
+        't_tx': t_tx,
         'WN': gpsWeek,
         'geoRange': geo_range,
         'satClockBias': sat_clkBias_m,
@@ -92,40 +94,42 @@ for pvn in gnss_results_lists:
     table_name = f'{pvn}'
     gnss_results[pvn].to_sql(table_name, conn, if_exists='replace', index=False)
 
-fig = plt.figure(figsize=(10,10))
-ax = fig.add_subplot(111, projection='polar')
-ax.set_theta_zero_location('N')  # 0° at top (North)
-ax.set_theta_direction(-1)  # Clockwise
-for pvn in gnss_results:
-    df = gnss_results[pvn]
-    azimuth = df['azimuth'].to_numpy()
-    elevation = df['elevation'].to_numpy()
-    theta = np.radians(azimuth)
-    # print(theta)
-    r = 90 - elevation
-    # print(r)
-    lines = ax.plot(theta, r, marker='.', markersize=2, linewidth=1, label=pvn, alpha=0.7)
-    color = lines[0].get_color()
-    ax.plot(theta[0], r[0], 'o', markersize=8, color=color, alpha=0.8)
-    ax.plot(theta[-1], r[-1], 's', markersize=6, color=color, alpha=0.8)
 
-ax.set_ylim(0, 90)
-ax.set_yticks([0, 15, 30, 45, 60, 75, 90])
-for elev in [30, 60]:
-    circle = Circle((0, 0), 90 - elev, transform=ax.transData._b,
-                    fill=False, edgecolor='gray', linewidth=1,
-                    linestyle='--', alpha=0.3)
-    ax.add_patch(circle)
+if print_sky_plot:
+    fig = plt.figure(figsize=(10, 10))
+    ax = fig.add_subplot(111, projection='polar')
+    ax.set_theta_zero_location('N')  # 0° at top (North)
+    ax.set_theta_direction(-1)  # Clockwise
+    for pvn in gnss_results:
+        df = gnss_results[pvn]
+        azimuth = df['azimuth'].to_numpy()
+        elevation = df['elevation'].to_numpy()
+        theta = np.radians(azimuth)
+        # print(theta)
+        r = 90 - elevation
+        # print(r)
+        lines = ax.plot(theta, r, marker='.', markersize=2, linewidth=1, label=pvn, alpha=0.7)
+        color = lines[0].get_color()
+        ax.plot(theta[0], r[0], 'o', markersize=8, color=color, alpha=0.8)
+        ax.plot(theta[-1], r[-1], 's', markersize=6, color=color, alpha=0.8)
 
-# Add cardinal direction labels
-ax.set_xticks(np.radians([0, 45, 90, 135, 180, 225, 270, 315]))
-ax.set_xticklabels(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'])
+    ax.set_ylim(0, 90)
+    ax.set_yticks([0, 15, 30, 45, 60, 75, 90])
+    for elev in [30, 60]:
+        circle = Circle((0, 0), 90 - elev, transform=ax.transData._b,
+                        fill=False, edgecolor='gray', linewidth=1,
+                        linestyle='--', alpha=0.3)
+        ax.add_patch(circle)
 
-ax.set_title('Satellite Sky Plot',
-             fontsize=14, fontweight='bold', pad=20)
-ax.legend(bbox_to_anchor=(1.15, 1.0), loc='upper left', fontsize=9)
+    # Add cardinal direction labels
+    ax.set_xticks(np.radians([0, 45, 90, 135, 180, 225, 270, 315]))
+    ax.set_xticklabels(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'])
 
-plt.tight_layout()
+    ax.set_title('Satellite Sky Plot',
+                 fontsize=14, fontweight='bold', pad=20)
+    ax.legend(bbox_to_anchor=(1.15, 1.0), loc='upper left', fontsize=9)
+
+    plt.tight_layout()
 
 if print_all_plots:
     for pvn in gnss_results:

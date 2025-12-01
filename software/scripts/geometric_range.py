@@ -269,7 +269,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
             week = gps_week
             tow = gps_tow
         elif utc_time is not None:
-            week, tow = TimeConverter.utc_to_week(utc_time)
+            week, tow = TimeConverter.utc_to_gps_time(utc_time)
         else:
             raise ValueError("Must provide either utc_time or (gps_week, gps_tow)")
 
@@ -286,7 +286,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         raise ValueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
 
     # Calculate satellite position
-    # Account for signal travel time (iterative) and Earth rotation)
+    # Account for signal travel time (iterative) and Earth rotation
 
     c = GNSSConstants.GPS_C
     tau = 0.075 # Initial guess: ~75ms | signal travel time
