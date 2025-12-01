@@ -135,6 +135,7 @@ def load_ephemeris(json_file: str, sat_id: str, gps_tow: float):
         elif time_diff > 302400:
             time_diff -= 604800
 
+        # If Ephemeris is not within 2 hours of current TOW
         if abs(time_diff) <= 7200:
             available_tows.append((tow_value, tow_key, time_diff))
 
