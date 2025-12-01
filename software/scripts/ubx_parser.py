@@ -47,7 +47,7 @@ class ManualUBXParser:
         self.current_utc_time = None
         
         # Exclusion functionality
-        self.excluded_columns = set({'version', 'reserved0', 'reserved1', 'reserved2'})  # Global exclusions
+        self.excluded_columns = {'version', 'reserved0', 'reserved1', 'reserved2'}  # Global exclusions
         self.message_type_exclusions = {
             'NAV-TIMEUTC': set(),
             'RXM-RAWX': set(),
@@ -78,37 +78,37 @@ class ManualUBXParser:
         """Define default column orders for each message type."""
         return {
             'NAV-TIMEUTC': [
-                'timestamp_utc', 'iTOW', 'tAcc', 'nano', 'year', 'month', 'day', 
-                'hour', 'min', 'sec', 'valid', 'validTOW', 'validWKN', 'validUTC', 
+                'timestamp_utc', 'iTOW', 'tAcc', 'nano', 'year', 'month', 'day',
+                'hour', 'min', 'sec', 'valid', 'validTOW', 'validWKN', 'validUTC',
                 'authStatus', 'utcStandard'
             ],
             'RXM-RAWX': [
-                'timestamp_utc', 'rcvTow', 'week', 'leapS', 'numMeas', 'recStat', 
-                'version', 'reserved1', 'prMes', 'cpMes', 'doMes', 'gnssId', 
-                'svId', 'sigId', 'freqId', 'locktime', 'cno', 'prStdev', 
-                'cpStdev', 'doStdev', 'trkStat', 'prValid', 'cpValid', 'halfCyc', 
+                'timestamp_utc', 'rcvTow', 'week', 'leapS', 'numMeas', 'recStat',
+                'version', 'reserved1', 'prMes', 'cpMes', 'doMes', 'gnssId',
+                'svId', 'sigId', 'freqId', 'locktime', 'cno', 'prStdev',
+                'cpStdev', 'doStdev', 'trkStat', 'prValid', 'cpValid', 'halfCyc',
                 'subHalfCyc', 'reserved2'
             ],
             'RXM-SFRBX': [
-                'timestamp_utc', 'gnssId', 'svId', 'reserved1', 'freqId', 
+                'timestamp_utc', 'gnssId', 'svId', 'reserved1', 'freqId',
                 'numWords', 'chn', 'version', 'reserved2', 'dwrd'
             ],
             'NAV-CLOCK': [
                 'timestamp_utc', 'iTOW', 'clkB', 'clkD', 'tAcc', 'fAcc'
             ],
             'NAV-HPPOSECEF': [
-                'timestamp_utc', 'version', 'reserved1', 'iTOW', 'ecefX', 'ecefY', 
+                'timestamp_utc', 'version', 'reserved1', 'iTOW', 'ecefX', 'ecefY',
                 'ecefZ', 'ecefXHp', 'ecefYHp', 'ecefZHp', 'reserved2', 'pAcc',
                 'invalidEcef', 'ecefX_full_m', 'ecefY_full_m', 'ecefZ_full_m'
             ],
             'NAV-HPPOSLLH': [
-                'timestamp_utc', 'version', 'reserved1', 'iTOW', 'lon', 'lat', 
-                'height', 'hMSL', 'lonHp', 'latHp', 'heightHp', 'hMSLHp', 
-                'hAcc', 'vAcc', 'invalidLlh', 'lon_full_deg', 'lat_full_deg', 
+                'timestamp_utc', 'version', 'reserved1', 'iTOW', 'lon', 'lat',
+                'height', 'hMSL', 'lonHp', 'latHp', 'heightHp', 'hMSLHp',
+                'hAcc', 'vAcc', 'invalidLlh', 'lon_full_deg', 'lat_full_deg',
                 'height_full_m', 'hMSL_full_m'
             ]
         }
-    
+
     def set_column_order(self, msg_type, column_order):
         """Set custom column order for a specific message type."""
         if msg_type in self.message_data:
@@ -225,18 +225,17 @@ class ManualUBXParser:
         if len(payload) < 20:
             return None
             
-        data = {}
-        data['iTOW'] = struct.unpack('<I', payload[0:4])[0]
-        data['tAcc'] = struct.unpack('<I', payload[4:8])[0]
-        data['nano'] = struct.unpack('<i', payload[8:12])[0]  # signed
-        data['year'] = struct.unpack('<H', payload[12:14])[0]
-        data['month'] = payload[14]
-        data['day'] = payload[15]
-        data['hour'] = payload[16]
-        data['min'] = payload[17]
-        data['sec'] = payload[18]
-        data['valid'] = payload[19]
-        
+        data = {
+            'iTOW': struct.unpack('<I', payload[0:4])[0],
+            'tAcc': struct.unpack('<I', payload[4:8])[0],
+            'nano': struct.unpack('<i', payload[8:12])[0],
+            'year': struct.unpack('<H', payload[12:14])[0],
+            'month': payload[14], 'day': payload[15],
+            'hour': payload[16],
+            'min': payload[17], 'sec': payload[18],
+            'valid': payload[19]
+        }
+
         # Parse validity flags from 'valid' byte (bit field)
         valid_byte = payload[19]
         data['validTOW'] = bool(valid_byte & 0x01)      # bit 0: validTOW
@@ -278,19 +277,20 @@ class ManualUBXParser:
         if len(payload) < 28:
             return None
             
-        data = {}
-        data['version'] = payload[0]
-        data['reserved1'] = struct.unpack('<I', payload[1:4] + b'\x00')[0]  # 3 bytes
-        data['iTOW'] = struct.unpack('<I', payload[4:8])[0]
-        data['ecefX'] = struct.unpack('<i', payload[8:12])[0]   # cm
-        data['ecefY'] = struct.unpack('<i', payload[12:16])[0]  # cm
-        data['ecefZ'] = struct.unpack('<i', payload[16:20])[0]  # cm
-        data['ecefXHp'] = struct.unpack('<b', payload[20:21])[0]  # 0.1mm
-        data['ecefYHp'] = struct.unpack('<b', payload[21:22])[0]  # 0.1mm
-        data['ecefZHp'] = struct.unpack('<b', payload[22:23])[0]  # 0.1mm
-        data['reserved2'] = payload[23]
-        data['pAcc'] = struct.unpack('<I', payload[24:28])[0]   # 0.1mm
-        
+        data = {
+            'version': payload[0],
+            'reserved1': struct.unpack('<I', payload[1:4] + b'\x00')[0],
+            'iTOW': struct.unpack('<I', payload[4:8])[0],
+            'ecefX': struct.unpack('<i', payload[8:12])[0],
+            'ecefY': struct.unpack('<i', payload[12:16])[0],
+            'ecefZ': struct.unpack('<i', payload[16:20])[0],
+            'ecefXHp': struct.unpack('<b', payload[20:21])[0],
+            'ecefYHp': struct.unpack('<b', payload[21:22])[0],
+            'ecefZHp': struct.unpack('<b', payload[22:23])[0],
+            'reserved2': payload[23],
+            'pAcc': struct.unpack('<I', payload[24:28])[0]
+        }
+
         # Parse validity flags (version-dependent)
         if data['version'] >= 1 and len(payload) >= 29:
             flags_byte = payload[28]
@@ -317,21 +317,22 @@ class ManualUBXParser:
         if len(payload) < 36:
             return None
             
-        data = {}
-        data['version'] = payload[0]
-        data['reserved1'] = struct.unpack('<I', payload[1:4] + b'\x00')[0]  # 3 bytes
-        data['iTOW'] = struct.unpack('<I', payload[4:8])[0]
-        data['lon'] = struct.unpack('<i', payload[8:12])[0]     # 1e-7 deg
-        data['lat'] = struct.unpack('<i', payload[12:16])[0]    # 1e-7 deg
-        data['height'] = struct.unpack('<i', payload[16:20])[0] # mm
-        data['hMSL'] = struct.unpack('<i', payload[20:24])[0]   # mm
-        data['lonHp'] = struct.unpack('<b', payload[24:25])[0]  # 1e-9 deg
-        data['latHp'] = struct.unpack('<b', payload[25:26])[0]  # 1e-9 deg
-        data['heightHp'] = struct.unpack('<b', payload[26:27])[0] # 0.1mm
-        data['hMSLHp'] = struct.unpack('<b', payload[27:28])[0]   # 0.1mm
-        data['hAcc'] = struct.unpack('<I', payload[28:32])[0]   # 0.1mm
-        data['vAcc'] = struct.unpack('<I', payload[32:36])[0]   # 0.1mm
-        
+        data = {
+            'version': payload[0],
+            'reserved1': struct.unpack('<I', payload[1:4] + b'\x00')[0],
+            'iTOW': struct.unpack('<I', payload[4:8])[0],
+            'lon': struct.unpack('<i', payload[8:12])[0],
+            'lat': struct.unpack('<i', payload[12:16])[0],
+            'height': struct.unpack('<i', payload[16:20])[0],
+            'hMSL': struct.unpack('<i', payload[20:24])[0],
+            'lonHp': struct.unpack('<b', payload[24:25])[0],
+            'latHp': struct.unpack('<b', payload[25:26])[0],
+            'heightHp': struct.unpack('<b', payload[26:27])[0],
+            'hMSLHp': struct.unpack('<b', payload[27:28])[0],
+            'hAcc': struct.unpack('<I', payload[28:32])[0],
+            'vAcc': struct.unpack('<I', payload[32:36])[0]
+        }
+
         # Parse validity flags (version-dependent)  
         if data['version'] >= 1 and len(payload) >= 37:
             flags_byte = payload[36]
@@ -359,12 +360,13 @@ class ManualUBXParser:
         if len(payload) < 20:
             return None
             
-        data = {}
-        data['iTOW'] = struct.unpack('<I', payload[0:4])[0]
-        data['clkB'] = struct.unpack('<i', payload[4:8])[0]   # ns
-        data['clkD'] = struct.unpack('<i', payload[8:12])[0]  # ns/s
-        data['tAcc'] = struct.unpack('<I', payload[12:16])[0] # ns
-        data['fAcc'] = struct.unpack('<I', payload[16:20])[0] # ps/s
+        data = {
+            'iTOW': struct.unpack('<I', payload[0:4])[0],
+            'clkB': struct.unpack('<i', payload[4:8])[0],
+            'clkD': struct.unpack('<i', payload[8:12])[0],
+            'tAcc': struct.unpack('<I', payload[12:16])[0],
+            'fAcc': struct.unpack('<I', payload[16:20])[0]
+        }
 
         print(payload)
 
