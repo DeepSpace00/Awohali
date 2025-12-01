@@ -11,10 +11,10 @@ print_all_plots = True
 
 c = 299792458.0 # Speed of light (m/s)
 
-rawx_file = "../../data/ubx_data/2025-11-30/2025-11-30_154420_serial-COM4_RXM_RAWX.csv"
-clock_file = "../../data/ubx_data/2025-11-30/2025-11-30_154420_serial-COM4_NAV_CLOCK.csv"
-ephemeris = "../ephemerides/ephemeris_2025-11-30.json"
-results_dir = "../../data/ubx_data/2025-11-30/results"
+rawx_file = "../../data/ubx_data/2025-11-30/2025-11-30_183845_serial-COM4_RXM_RAWX.csv"
+clock_file = "../../data/ubx_data/2025-11-30/2025-11-30_183845_serial-COM4_NAV_CLOCK.csv"
+ephemeris = "../ephemerides/ephemeris_2025-11-30_2.json"
+results_dir = "../../data/ubx_data/2025-11-30/results2"
 
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
@@ -22,7 +22,7 @@ receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../../data/ubx_data/2025-11-30/2025-11-30_154420_serial-COM4.db')
+conn = sqlite3.connect('../../data/ubx_data/2025-11-30/2025-11-30_183845_serial-COM4.db')
 
 freqId = ''
 
@@ -32,16 +32,28 @@ for _ in range(len(rawx)):
     # if rawx.iloc[_]['prValid'] != True:
     #    continue
 
-    if rawx.iloc[_]['gnssId'] != 0 | rawx.iloc[_]['gnssId'] != 1:
+    if rawx.iloc[_]['gnssId'] != 0 | rawx.iloc[_]['gnssId'] != 2:
         continue
 
     # Assign data to variables
     gnssId = rawx.iloc[_]['gnssId']
     svId = rawx.iloc[_]['svId']
     sigId = rawx.iloc[_]['sigId']
-    rcvTow = rawx.iloc[_]['rcvTow']
+    rcvTow_s = rawx.iloc[_]['rcvTow']
     gpsWeek = rawx.iloc[_]['week']
-    pseudorange = rawx.iloc[_]['prMes']
+    pseudorange_m = rawx.iloc[_]['prMes']
+
+    # Locate receiver bias and drift values
+    closest_iTow = clock.iloc[(clock['iTOW'] - rcvTow_s).abs().argsort()[:1]]
+    iTow = closest_iTow['iTOW'].values[0]
+    clkBias_ns = closest_iTow['clkB'].values[0]
+    clkDrift_ns = closest_iTow['clkD'].values[0]
+
+    # Calculate receiver clock correction
+    dt_s = rcvTow_s - (iTow / 1000.0)
+    dt_rcv_s = (clkBias_ns + clkDrift_ns * dt_s) / 1e9
+
+    gpsTow_s = rcvTow_s - dt_rcv_s
 
     # Create new dictionary
     if gnssId == 0:
@@ -81,56 +93,50 @@ for _ in range(len(rawx)):
     else:
         continue # Skip if sat is not GPS or Galileo
 
-    print("{}:\t{} s".format(pvn, rcvTow))
+    print("{}:\t{} s".format(pvn, gpsTow_s))
 
     try:
-        sat = load_ephemeris(ephemeris, pvn, gps_tow=rcvTow)
+        sat = load_ephemeris(ephemeris, pvn, gps_tow=gpsTow_s)
     except KeyError:
-        print("Missing ephemeris...")
+        # print("Missing ephemeris...")
+        continue
+    except ValueError:
+        print("No valid ephemeris...")
         continue
 
-    geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_week=gpsWeek, gps_tow=rcvTow) # rcvTow includes receiver bias, so doesn't need to be accounted for below
+    geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_week=gpsWeek, gps_tow=gpsTow_s) # rcvTow includes receiver bias, so doesn't need to be accounted for below
 
     # Assign results to variable
-    geo_range = geometric_range_results['geometric_range_m']
-    t_tx = geometric_range_results['transmission_time']
-
-    # Locate receiver bias and drift values
-    closest_iTow = clock.iloc[(clock['iTOW'] - rcvTow).abs().argsort()[:1]]
-    iTow = closest_iTow['iTOW'].values[0]
-    clkBias = closest_iTow['clkB'].values[0]
-    clkDrift = closest_iTow['clkD'].values[0]
-
-    # Calculate receiver clock correction
-    dt = rcvTow - (iTow / 1000.0)
-    dt_rcv = (clkBias + clkDrift * dt) / 1e9
+    geo_range_m = geometric_range_results['geometric_range_m']
+    t_tx_s = geometric_range_results['transmission_time']
 
     # Calculate satellite clock correction
-    dt_sv = clock_correction.calculate_satellite_clock_offset(sat, t_tx)
+    dt_sv_s = clock_correction.calculate_satellite_clock_offset(sat, t_tx_s)
 
     # Calculate relativistic clock correction
-    dt_rel = clock_correction.calculate_relativistic_clock_correction(sat, t_tx)
+    dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
 
     # Calculate Biases in meters
-    rcv_clkBias_m = dt_rcv * c # Already included in geometric range calculations
-    sat_clkBias_m = dt_sv * c
-    relativistic_bias_m = dt_rel * c
+    rcv_clkBias_m = dt_rcv_s * c # Already included in geometric range calculations
+    sat_clkBias_m = dt_sv_s * c
+    relativistic_bias_m = dt_rel_s * c
 
-    biases = sat_clkBias_m + relativistic_bias_m
-    tropospheric_delay_m = pseudorange - geo_range + biases
+    biases_m = rcv_clkBias_m + sat_clkBias_m + relativistic_bias_m
+    tropospheric_delay_m = pseudorange_m - geo_range_m + biases_m
 
     gnss_results[pvn][freqId].append({
         'svId': pvn,
         'freqId': freqId,
-        'rcvTOW': rcvTow,
+        'gpsTOW': gpsTow_s,
+        'rcvTOW': rcvTow_s,
         'WN': gpsWeek,
-        'geoRange': geo_range,
+        'geoRange': geo_range_m,
         'satClockBias': sat_clkBias_m,
         'rcvClockBias': rcv_clkBias_m,
         'relBias': relativistic_bias_m,
-        'biases': biases,
-        'pseudorange': pseudorange,
-        'rangeDiff': pseudorange - geo_range,
+        'biases': biases_m,
+        'pseudorange': pseudorange_m,
+        'rangeDiff': pseudorange_m - geo_range_m,
         'troposphericDelay': tropospheric_delay_m
     })
 
