@@ -7,14 +7,14 @@ import software.scripts.geometric_range as geometric_range
 import software.scripts.clock_correction as clock_correction
 from software.scripts.ephemeris_classes import load_ephemeris
 
-print_all_plots = False
+print_all_plots = True
 
 c = 299792458.0 # Speed of light (m/s)
 
-rawx_file = "../../data/ubx_data/2025-11-25/GNSS001_RXM_RAWX.csv"
-clock_file = "../../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
-ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = "../../data/ubx_data/2025-11-25/results6"
+rawx_file = "../../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
+clock_file = "../../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
+ephemeris = "../ephemerides/ephemeris_2025-11-25.json"
+results_dir = "../../data/ubx_data/2025-11-25/results7"
 
 receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
@@ -22,7 +22,7 @@ receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_6.db')
+conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_7.db')
 
 freqId = ''
 
@@ -45,20 +45,22 @@ for _ in range(len(rawx)):
 
     # Locate receiver bias and drift values
     closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]
-    iTow_ns = closest_iTow['iTOW'].values[0]
+    iTow_ms = closest_iTow['iTOW'].values[0]
     clkBias_ns = closest_iTow['clkB'].values[0]
     clkDrift_ns = closest_iTow['clkD'].values[0]
 
-
+    iTOW_s = iTow_ms / 1000.0
 
     # Calculate receiver clock correction
-    dt_s = rcvTow_s - (iTow_ns / 1000.0)
-    dt_rcv_s = (clkBias_ns + clkDrift_ns * dt_s) / 1e9
+    dt_iTow_s = rcvTow_s - (iTow_ms / 1000.0)
+    dt_bias_s = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
 
-    gpsTow_s = rcvTow_s - dt_rcv_s
+    gpsTow_s = rcvTow_s + (dt_iTow_s + dt_bias_s)
 
     # print(rcvTow_s)
-    # print(iTow_ns)
+    # print(iTow_ms)
+    # print(clkBias_ns)
+    # print(clkDrift_ns)
     # print(dt_s)
     # print(dt_rcv_s)
     # print(gpsTow_s)
@@ -125,19 +127,22 @@ for _ in range(len(rawx)):
     dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
 
     # Calculate Biases in meters
-    rcv_clkBias_m = dt_rcv_s * c # Already included in geometric range calculations
+    rcv_clkBias_m = (dt_iTow_s + dt_bias_s) * c
     sat_clkBias_m = dt_sv_s * c
     relativistic_bias_m = dt_rel_s * c
 
-    new_pseudorange = pseudorange_m - ((0.0043) * c)
-    biases_m = rcv_clkBias_m + sat_clkBias_m + relativistic_bias_m
-    tropospheric_delay_m = new_pseudorange - geo_range_m + biases_m
+    # Calculate total bias and total tropospheric delay
+    biases_m = rcv_clkBias_m - sat_clkBias_m - relativistic_bias_m
+    tropospheric_delay_m = pseudorange_m - geo_range_m - biases_m
 
     gnss_results[pvn][freqId].append({
         'svId': pvn,
         'freqId': freqId,
         'gpsTOW': gpsTow_s,
         'rcvTOW': rcvTow_s,
+        'iTOW': iTOW_s,
+        'clkBias': clkBias_ns,
+        'clkDrift': clkDrift_ns,
         't_tx': t_tx_s,
         'WN': gpsWeek,
         'geoRange': geo_range_m,
@@ -145,8 +150,8 @@ for _ in range(len(rawx)):
         'rcvClockBias': rcv_clkBias_m,
         'relBias': relativistic_bias_m,
         'biases': biases_m,
-        'pseudorange': new_pseudorange,
-        'rangeDiff': new_pseudorange - geo_range_m,
+        'pseudorange': pseudorange_m,
+        'rangeDiff': pseudorange_m - geo_range_m,
         'troposphericDelay': tropospheric_delay_m
     })
 
@@ -166,11 +171,11 @@ if print_all_plots:
         plt.figure(figsize=(10, 6))
         if pvn.startswith('G') and 'L1 C' in gnss_results[pvn]:
             df = gnss_results_dict[pvn]['L1 C']
-            plt.plot(df['rcvTOW'], df['troposphericDelay'], label=pvn + '_L1C')
+            plt.plot(df['gpsTOW'], df['troposphericDelay'], label=pvn + '_L1C')
             plt.title(f"Tropospheric Delay - {pvn + '_L1C'}")
         elif pvn.startswith('E') and 'E1 C' in gnss_results[pvn]:
             df = gnss_results_dict[pvn]['E1 C']
-            plt.plot(df['rcvTOW'], df['troposphericDelay'], label=pvn + '_E1C')
+            plt.plot(df['gpsTOW'], df['troposphericDelay'], label=pvn + '_E1C')
             plt.title(f"Tropospheric Delay - {pvn + '_E1C'}")
         else:
             continue
@@ -184,10 +189,10 @@ if print_all_plots:
 for pvn in gnss_results_dict:
     if pvn.startswith('G') and 'L1 C' in gnss_results[pvn]:
         df = gnss_results_dict[pvn]['L1 C']
-        plt.plot(df['rcvTOW'], df['troposphericDelay'], label=pvn+'_L1C')
+        plt.plot(df['gpsTOW'], df['troposphericDelay'], label=pvn+'_L1C')
     elif pvn.startswith('E') and 'E1 C' in gnss_results[pvn]:
         df = gnss_results_dict[pvn]['E1 C']
-        plt.plot(df['rcvTOW'], df['troposphericDelay'], label=pvn+'_E1C')
+        plt.plot(df['gpsTOW'], df['troposphericDelay'], label=pvn+'_E1C')
     else:
         continue
 
