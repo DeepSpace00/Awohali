@@ -11,10 +11,10 @@ print_all_plots = True
 
 c = 299792458.0 # Speed of light (m/s)
 
-rawx_file = "../../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
-clock_file = "../../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
-ephemeris = "../ephemerides/ephemeris_2025-11-25.json"
-results_dir = "../../data/ubx_data/2025-11-25/results7"
+rawx_file = "../../data/ubx_data/2025-11-25/GNSS001_RXM_RAWX.csv"
+clock_file = "../../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
+ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
+results_dir = "../../data/ubx_data/2025-11-25/results10"
 
 receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
@@ -22,7 +22,7 @@ receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_7.db')
+conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_10.db')
 
 freqId = ''
 
@@ -49,6 +49,11 @@ for _ in range(len(rawx)):
     clkBias_ns = closest_iTow['clkB'].values[0]
     clkDrift_ns = closest_iTow['clkD'].values[0]
 
+    # rcvTOW and iTOW become out of sync when clkBias_ns is greater than 0.5 ms (rcvTOW rounds up b/c 3 decimals)
+    # Fix by keeping rcvTOW the same until the clkBias_ns resets to zero
+    if clkBias_ns >= 500000:
+        rcvTow_s = rcvTow_s - 0.001
+
     iTOW_s = iTow_ms / 1000.0
 
     # Calculate receiver clock correction
@@ -56,14 +61,6 @@ for _ in range(len(rawx)):
     dt_bias_s = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
 
     gpsTow_s = rcvTow_s + (dt_iTow_s + dt_bias_s)
-
-    # print(rcvTow_s)
-    # print(iTow_ms)
-    # print(clkBias_ns)
-    # print(clkDrift_ns)
-    # print(dt_s)
-    # print(dt_rcv_s)
-    # print(gpsTow_s)
 
     # Create new dictionary
     if gnssId == 0:
