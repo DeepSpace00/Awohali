@@ -6,15 +6,16 @@ import sqlite3
 import software.scripts.geometric_range as geometric_range
 import software.scripts.clock_correction as clock_correction
 from software.scripts.ephemeris_classes import load_ephemeris
+from software.scripts.elevation_azimuth import calculate_elevation_azimuth
 
-print_all_plots = True
+print_all_plots = False
 
 c = 299792458.0 # Speed of light (m/s)
 
 rawx_file = "../../data/ubx_data/2025-11-25/GNSS001_RXM_RAWX.csv"
 clock_file = "../../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
 ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = "../../data/ubx_data/2025-11-25/results10"
+results_dir = "../../data/ubx_data/2025-11-25/GNSS001"
 
 receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
@@ -116,6 +117,11 @@ for _ in range(len(rawx)):
     # Assign results to variable
     geo_range_m = geometric_range_results['geometric_range_m']
     t_tx_s = geometric_range_results['transmission_time']
+    sat_x = geometric_range_results['satellite_ecef_m']['x']
+    sat_y = geometric_range_results['satellite_ecef_m']['y']
+    sat_z = geometric_range_results['satellite_ecef_m']['z']
+
+    sat_ecef = (sat_x, sat_y, sat_z)
 
     # Calculate satellite clock correction
     dt_sv_s = clock_correction.calculate_satellite_clock_offset(sat, t_tx_s)
@@ -132,6 +138,8 @@ for _ in range(len(rawx)):
     biases_m = rcv_clkBias_m - sat_clkBias_m - relativistic_bias_m
     tropospheric_delay_m = pseudorange_m - geo_range_m - biases_m
 
+    elevation, azimuth = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
+
     gnss_results[pvn][freqId].append({
         'svId': pvn,
         'freqId': freqId,
@@ -143,6 +151,8 @@ for _ in range(len(rawx)):
         't_tx': t_tx_s,
         'WN': gpsWeek,
         'geoRange': geo_range_m,
+        'elevation': elevation,
+        'azimuth': azimuth,
         'satClockBias': sat_clkBias_m,
         'rcvClockBias': rcv_clkBias_m,
         'relBias': relativistic_bias_m,

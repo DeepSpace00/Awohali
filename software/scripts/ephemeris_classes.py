@@ -15,6 +15,8 @@ class GNSSConstants:
     GPS_OMEGA_E = 7.2921151467e-5  # Earth's rotation rate (rad/s)
     GPS_C = 299792458.0  # Speed of light (m/s)
     GPS_F = -4.442807633e-10  # Relativistic correction term (s/m^(1/2))
+    GPS_A = 6378137.0 # Semi-major axis (Equatorial radius of the Earth) WGS 84
+    GPS_FF = 298.257223563 # Flattening factor of the Earth WGS 84
 
     # Galileo Constants (OS-SIS-ICD)
     GAL_MU = 3.986004418e14  # Earth's gravitational parameter (m^3/s^2)
