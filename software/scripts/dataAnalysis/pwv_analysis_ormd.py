@@ -3,6 +3,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import numpy as np
+import os
 import pandas as pd
 import sqlite3
 
@@ -15,14 +16,23 @@ from software.scripts.elevation_azimuth import calculate_elevation_azimuth
 from software.scripts.precipitable_water_vapor import calculate_precipitable_water_vapor
 
 
-print_all_plots = False
+print_all_plots = True
 print_sky_plot = False
 
 c = 299792458.0 # Speed of light (m/s)
 
+gps_frequency_plan = {
+    'L1': 1575.42,  # MHz
+    'L2': 1227.6,   # MHz
+    'L5': 1176.45   # MHz
+}
+
 rinex_file = "../../data/RINEX_data/ORMD/2025-11-25/ormd3290_GPS_excerpt.csv"
 ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
 results_dir = "../../data/RINEX_data/ORMD/2025-11-25/results_pwv"
+
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
 
 conn = sqlite3.connect('../../data/RINEX_data/ORMD/2025-11-25/pwv.db')
 
@@ -47,7 +57,29 @@ for _ in range(len(rinex)):
     # Assign data to variables
     pvn = rinex.iloc[_]['sat_id']
     rcvDatetime = rinex.iloc[_]['epoch']
-    pseudorange = rinex.iloc[_]['C1']
+    pseudorange_L1 = rinex.iloc[_]['C1']
+    pseudorange_L2 = rinex.iloc[_]['C2']
+    pseudorange_L5 = rinex.iloc[_]['C5']
+
+    if pseudorange_L1 is not None and pseudorange_L2 is not None:
+        pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L2 *
+                                  (gps_frequency_plan['L2'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
+                                                                            (gps_frequency_plan['L2'] * 1e6) ** 2)
+        freqId = 'L1_L2'
+
+    elif pseudorange_L1 is not None and pseudorange_L5 is not None:
+        pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L5 *
+                                  (gps_frequency_plan['L5'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
+                                                                            (gps_frequency_plan['L5'] * 1e6) ** 2)
+        freqId = 'L1_L5'
+
+    elif pseudorange_L1 is not None:
+        pseudorange_combined_m = pseudorange_L1
+        freqId = 'L1'
+
+    else:
+        print("Missing pseudorange...")
+        continue
 
     rcvTime_stripped = datetime.strptime(rcvDatetime, "%Y-%m-%d %H:%M:%S.%f")
     rcvTow, gpsWeek = datetime_to_gps_tow(rcvTime_stripped)
@@ -81,11 +113,17 @@ for _ in range(len(rinex)):
     relativistic_bias_m = dt_rel * c
 
     biases = sat_clkBias_m + relativistic_bias_m
-    tropospheric_delay_m = pseudorange - geo_range + biases
+    tropospheric_delay_m = pseudorange_combined_m - geo_range + biases
 
     elevation, azimuth = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
 
     pwv, ztd = calculate_precipitable_water_vapor(receiver_ecef, elevation, tropospheric_delay_m, surface_temperature, surface_pressure, coeffs)
+
+    pwv_mm = pwv * 1000
+    ztd_mm = ztd * 1000
+
+    iwv = pwv_mm
+
 
     gnss_results_lists[pvn].append({
         'svId': pvn,
@@ -97,13 +135,13 @@ for _ in range(len(rinex)):
         'satClockBias': sat_clkBias_m,
         'relBias': relativistic_bias_m,
         'biases': biases,
-        'pseudorange': pseudorange,
-        'rangeDiff': pseudorange - geo_range,
+        'pseudorange': pseudorange_combined_m,
+        'rangeDiff': pseudorange_combined_m - geo_range,
         'troposphericDelay': tropospheric_delay_m,
         'elevation': elevation,
         'azimuth': azimuth,
-        'pwv': pwv,
-        'ztd': ztd
+        'pwv': pwv_mm,
+        'ztd': ztd_mm
     })
 
 gnss_results = {}
@@ -153,24 +191,24 @@ if print_all_plots:
     for pvn in gnss_results:
         df = gnss_results[pvn]
         plt.figure(figsize=(10,6))
-        plt.plot(df['rcvTOW'], df['troposphericDelay'], label=pvn)
+        plt.plot(df['rcvTOW'], df['ztd'], label=pvn)
         plt.xlabel("rcvTOW (s)")
-        plt.ylabel("Tropospheric Delay (m)")
-        plt.title(f"Tropospheric Delay - {pvn}")
+        plt.ylabel("ZTD (mm)")
+        plt.title(f"Zenith Time Delay (ZTD) - {pvn}")
         plt.grid()
         plt.tight_layout()
 
-        plt.savefig(f"{results_dir}/{pvn}.png")
+        plt.savefig(f"{results_dir}/{pvn}_ztd.png")
 
 for pvn in gnss_results:
     df = gnss_results[pvn]
-    plt.plot(df['rcvTOW'], df['troposphericDelay'], label=pvn)
+    plt.plot(df['rcvTOW'], df['ztd'], label=pvn)
 
 plt.xlabel("rcvTOW (s)")
-plt.ylabel("Tropospheric Delay (m)")
-plt.title(f"Tropospheric Delay")
+plt.ylabel("ZTD (mm)")
+plt.title(f"Zenith Time Delay (ZTD)")
 plt.legend()
 plt.grid()
 plt.tight_layout()
-plt.savefig(f"{results_dir}/all_gps_satellites.png")
-# plt.show()
+plt.savefig(f"{results_dir}/ztd_all_gps_satellites.png")
+plt.show()

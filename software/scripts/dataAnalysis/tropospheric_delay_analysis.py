@@ -1,12 +1,12 @@
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import os
 import pandas as pd
 import sqlite3
-
-import software.scripts.geometric_range as geometric_range
 import software.scripts.clock_correction as clock_correction
-from software.scripts.ephemeris_classes import load_ephemeris
 from software.scripts.elevation_azimuth import calculate_elevation_azimuth
+from software.scripts.ephemeris_classes import load_ephemeris
+import software.scripts.geometric_range as geometric_range
 
 print_all_plots = False
 
@@ -17,6 +17,9 @@ clock_file = "../../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
 ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
 results_dir = "../../data/ubx_data/2025-11-25/GNSS001"
 
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
+
 receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
@@ -25,7 +28,11 @@ clock = pd.read_csv(clock_file)
 
 conn = sqlite3.connect('../../data/ubx_data/2025-11-25/GNSS001_10.db')
 
-freqId = ''
+gps_frequency_plan = {
+    'L1': 1575.42,  # MHz
+    'L2': 1227.6,   # MHz
+    'L5': 1176.45   # MHz
+}
 
 gnss_results = defaultdict(lambda: defaultdict(list))
 for _ in range(len(rawx)):
@@ -85,7 +92,7 @@ for _ in range(len(rawx)):
         elif sigId == 1:
             freqId = 'E1 B'
         elif sigId == 3:
-            freqId = 'E5 al'
+            freqId = 'E5 aI'
         elif sigId == 4:
             freqId = 'E5 aQ'
         elif sigId == 6:
