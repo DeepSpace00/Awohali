@@ -2,7 +2,7 @@
 /**
   ******************************************************************************
   * @file           : main.c
-  * @brief          : Main program body
+  * @brief          : Main program body - GNSS Logger with I2C and UART modes
   ******************************************************************************
   * @attention
   *
@@ -36,12 +36,6 @@ struct {
     uint32_t last_stats_ms;
     uint32_t bytes_logged;
     uint32_t messages_logged;
-    uint32_t clock_count;
-    uint32_t hpposecef_count;
-    uint32_t hpposllh_count;
-    uint32_t timeutc_count;
-    uint32_t rawx_count;
-    uint32_t sfrbx_count;
     uint32_t file_number;
     uint8_t logging_active;
     uint8_t sd_card_present;
@@ -51,28 +45,36 @@ struct {
     uint8_t file_open;
 } logging_stats = {0};
 
-// GNSS time tracking
+// Optional: GNSS time tracking (only used if you want to display time)
 struct {
-    uint32_t i_tow;        // GPS time of week (ms)
-    uint16_t year;         // Year (UTC)
-    uint8_t month;         // Month (UTC)
-    uint8_t day;           // Day (UTC)
-    uint8_t hour;          // Hour (UTC)
-    uint8_t min;           // Minute (UTC)
-    uint8_t sec;           // Second (UTC)
-    uint8_t valid;         // Time validity flags
+    uint32_t i_tow;
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t hour;
+    uint8_t min;
+    uint8_t sec;
+    uint8_t valid;
     uint8_t time_available;
 } gnss_time = {0};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+// ============================================================================
+// LOGGING MODE SELECTION - CHANGE THIS TO SWITCH BETWEEN I2C AND UART
+// ============================================================================
+#define USE_UART_LOGGING 0  // Set to 1 for UART DMA mode, 0 for I2C callback mode
+
 #define LOG_FILENAME_PREFIX "GNSS"
 #define LOG_FILENAME_EXTENSION ".ubx"
 #define MAX_LOG_FILE_SIZE_MB 100
 #define FLUSH_INTERVAL_MS 5000
-#define PROCESS_BUFFER_SIZE 1024
 #define USB_DEBUG_BUFFER_SIZE 512
+
+#if USE_UART_LOGGING
+#define UART_DMA_BUFFER_SIZE 2048
+#endif
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -87,14 +89,25 @@ SD_HandleTypeDef hsd;
 DMA_HandleTypeDef hdma_sdio_rx;
 DMA_HandleTypeDef hdma_sdio_tx;
 
+#if USE_UART_LOGGING
+UART_HandleTypeDef huart2;
+DMA_HandleTypeDef hdma_usart2_rx;
+#endif
+
 /* USER CODE BEGIN PV */
 FIL dataFile;
 zedf9p_t gnss_module;
 
 // Buffers
-uint8_t process_buffer[PROCESS_BUFFER_SIZE];
 char filename[32];
 char debug_buffer[USB_DEBUG_BUFFER_SIZE];
+
+#if USE_UART_LOGGING
+// Double buffer for continuous UART DMA reception
+uint8_t uart_buffer_0[UART_DMA_BUFFER_SIZE];
+uint8_t uart_buffer_1[UART_DMA_BUFFER_SIZE];
+volatile uint8_t active_buffer = 0;
+#endif
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -103,6 +116,9 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SDIO_SD_Init(void);
+#if USE_UART_LOGGING
+static void MX_USART2_UART_Init(void);
+#endif
 
 /* USER CODE BEGIN PFP */
 uint8_t init_sd_card(void);
@@ -113,18 +129,13 @@ void configure_gnss_for_logging(void);
 void process_gnss_logging(void);
 void print_statistics(void);
 void usb_debug_print(const char* message);
-void update_gnss_time_from_timeutc(const zedf9p_nav_timeutc_t *timeutc);
 
-// Generic UBX message writing function
+#if !USE_UART_LOGGING
+// I2C mode: Generic callback for all UBX messages
+void generic_ubx_callback(const ubx_message_t *message, const void *user_data);
 void write_ubx_message_to_file(const ubx_message_t *message);
-
-// Message callbacks
-void clock_callback(const ubx_message_t *message, void *user_data);
-void hpposecef_callback(const ubx_message_t *message, void *user_data);
-void hpposllh_callback(const ubx_message_t *message, void *user_data);
-void timeutc_callback(const ubx_message_t *message, void *user_data);
-void rawx_callback(const ubx_message_t *message, void *user_data);
-void sfrbx_callback(const ubx_message_t *message, void *user_data);
+void update_gnss_time_from_timeutc(const ubx_message_t *message);
+#endif
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -137,7 +148,7 @@ int platform_i2c_write_cube(const uint8_t dev_addr, const uint8_t *data, const u
 }
 
 int platform_i2c_read_cube(const uint8_t dev_addr, uint8_t *data, const uint16_t len) {
-    HAL_Delay(1); // Small delay before read
+    HAL_Delay(1);
     const HAL_StatusTypeDef status = HAL_I2C_Master_Receive(&hi2c1, dev_addr << 1,
         data, len, 1000);
     if (status == HAL_OK) {
@@ -155,7 +166,6 @@ uint32_t platform_get_millis_cube(void) {
 }
 
 void platform_debug_print_cube(const char *message) {
-    // Only print debug messages if USB is ready and logging is active
     if (logging_stats.usb_ready) {
         usb_debug_print(message);
     }
@@ -166,13 +176,12 @@ uint8_t init_sd_card(void) {
 
     // Multiple hardware initialization attempts
     for (int attempt = 0; attempt < 3; attempt++) {
-        HAL_Delay(100 * (attempt + 1)); // Increasing delay between attempts
+        HAL_Delay(100 * (attempt + 1));
 
         snprintf(debug_buffer, sizeof(debug_buffer),
                 "SD hardware init attempt %d...\r\n", attempt + 1);
         usb_debug_print(debug_buffer);
 
-        // Try to initialize SD hardware
         const HAL_StatusTypeDef hal_result = HAL_SD_Init(&hsd);
         if (hal_result != HAL_OK) {
             snprintf(debug_buffer, sizeof(debug_buffer),
@@ -181,7 +190,6 @@ uint8_t init_sd_card(void) {
             continue;
         }
 
-        // Check if card is ready
         const HAL_SD_CardStateTypeDef cardState = HAL_SD_GetCardState(&hsd);
         snprintf(debug_buffer, sizeof(debug_buffer),
                 "SD card state: %"PRIx32"\r\n", cardState);
@@ -198,10 +206,8 @@ uint8_t init_sd_card(void) {
         }
     }
 
-    // Wait before filesystem operations
     HAL_Delay(500);
 
-    // Try to mount the filesystem
     usb_debug_print("Attempting to mount filesystem...\r\n");
     FRESULT result = f_mount(&SDFatFS, SDPath, 1);
 
@@ -210,16 +216,14 @@ uint8_t init_sd_card(void) {
                 "Initial SD mount failed: %d\r\n", result);
         usb_debug_print(debug_buffer);
 
-        // Try formatting the card if mount fails
         usb_debug_print("Attempting to format SD card as FAT32...\r\n");
-        BYTE work[_MAX_SS]; // Work area for f_mkfs
+        BYTE work[_MAX_SS];
         result = f_mkfs(SDPath, FM_FAT32, 0, work, sizeof(work));
 
         if (result == FR_OK) {
             usb_debug_print("SD card formatted successfully\r\n");
             HAL_Delay(100);
 
-            // Try mounting again after format
             result = f_mount(&SDFatFS, SDPath, 1);
             if (result != FR_OK) {
                 snprintf(debug_buffer, sizeof(debug_buffer),
@@ -237,7 +241,7 @@ uint8_t init_sd_card(void) {
 
     usb_debug_print("Filesystem mounted successfully\r\n");
 
-    // Get detailed SD card and filesystem information
+    // Get SD card info
     DWORD free_clusters;
     FATFS* fs;
     result = f_getfree(SDPath, &free_clusters, &fs);
@@ -254,11 +258,6 @@ uint8_t init_sd_card(void) {
                 "Filesystem: FAT%d, Sector size: %d, Cluster size: %d\r\n",
                 fs->fs_type, _MAX_SS, fs->csize * _MAX_SS);
         usb_debug_print(debug_buffer);
-    } else {
-        snprintf(debug_buffer, sizeof(debug_buffer),
-                "Failed to get filesystem info: %d\r\n", result);
-        usb_debug_print(debug_buffer);
-        return 0;
     }
 
     logging_stats.sd_card_present = 1;
@@ -271,24 +270,19 @@ uint8_t create_new_log_file(void) {
         return 0;
     }
 
-    // Close existing file
     if (logging_stats.file_open) {
         f_close(&dataFile);
         logging_stats.file_open = 0;
     }
 
-    // Find next available filename
     FRESULT result;
     do {
         logging_stats.file_number++;
         snprintf(filename, sizeof(filename), "%s%03"PRIx32"%s",
                 LOG_FILENAME_PREFIX, logging_stats.file_number, LOG_FILENAME_EXTENSION);
-
-        // Check if file exists
         result = f_stat(filename, NULL);
-    } while (result == FR_OK); // Continue if file exists
+    } while (result == FR_OK);
 
-    // Create new file
     result = f_open(&dataFile, filename, FA_CREATE_NEW | FA_WRITE);
     if (result != FR_OK) {
         snprintf(debug_buffer, sizeof(debug_buffer),
@@ -299,7 +293,7 @@ uint8_t create_new_log_file(void) {
     }
 
     logging_stats.file_open = 1;
-    logging_stats.write_errors = 0; // Reset error count on new file
+    logging_stats.write_errors = 0;
 
     snprintf(debug_buffer, sizeof(debug_buffer),
             "Created log file: %s\r\n", filename);
@@ -310,14 +304,12 @@ uint8_t create_new_log_file(void) {
 
 uint8_t recover_sd_card(void) {
     usb_debug_print("Attempting SD card recovery...\r\n");
-
     logging_stats.recovery_attempts++;
 
-    // Try to unmount and remount the SD card
-    f_mount(NULL, SDPath, 0); // Unmount
-    HAL_Delay(500); // Wait a bit
+    f_mount(NULL, SDPath, 0);
+    HAL_Delay(500);
 
-    const FRESULT result = f_mount(&SDFatFS, SDPath, 1); // Remount
+    const FRESULT result = f_mount(&SDFatFS, SDPath, 1);
     if (result != FR_OK) {
         snprintf(debug_buffer, sizeof(debug_buffer),
                 "SD card remount failed: %d\r\n", result);
@@ -336,19 +328,16 @@ uint8_t reopen_log_file(void) {
         return 0;
     }
 
-    // Try to reopen the existing file in append mode
     const FRESULT result = f_open(&dataFile, filename, FA_OPEN_APPEND | FA_WRITE);
     if (result == FR_OK) {
         logging_stats.file_open = 1;
-        logging_stats.write_errors = 0; // Reset error count
+        logging_stats.write_errors = 0;
         usb_debug_print("Successfully reopened log file\r\n");
         return 1;
     } else {
         snprintf(debug_buffer, sizeof(debug_buffer),
                 "Failed to reopen file %s: %d\r\n", filename, result);
         usb_debug_print(debug_buffer);
-
-        // If we can't reopen, try creating a new file
         return create_new_log_file();
     }
 }
@@ -356,11 +345,11 @@ uint8_t reopen_log_file(void) {
 void configure_gnss_for_logging(void) {
     usb_debug_print("Configuring GNSS for UBX message logging...\r\n");
 
-    // Set measurement rate to 1Hz
-    //zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
+    // Set measurement rate if desired
+    // zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
 
     // Configure GPS + Galileo for optimal data
-    /*const zedf9p_gnss_config_t gnss_config = {
+    const zedf9p_gnss_config_t gnss_config = {
         .beidou_enabled = false,
         .beidou_b1_enabled = false,
         .beidou_b2_enabled = false,
@@ -379,24 +368,19 @@ void configure_gnss_for_logging(void) {
         .qzss_l2c_enabled = false,
         .sbas_enabled = false,
         .sbas_l1ca_enabled = false
-    };*/
+    };
 
-    //zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
+    // Configure GNSS signals if desired
+    zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
 
-    // Disable 7F check for RAWX compatibility
-    //zedf9p_disable_7f_check(&gnss_module, true);
+    // Configure messages - same function works for both I2C and UART
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_CLOCK, UBLOX_CFG_LAYER_RAM, 1);
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_TIMEUTC, UBLOX_CFG_LAYER_RAM, 1);
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, UBLOX_CFG_LAYER_RAM, 1);
+    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_SFRBX, UBLOX_CFG_LAYER_RAM, 1);
 
-    // Enable the specific UBX messages we want to log (1Hz rate)
-    // Now using CFG-VALSET internally via the updated zedf9p_set_message_rate function
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_CLOCK, 5);     // NAV-CLOCK
-    // zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSECEF, 5); // NAV-HPPOSECEF
-    // zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_HPPOSLLH, 5);  // NAV-HPPOSLLH
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_TIMEUTC, 5);   // NAV-TIMEUTC
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, 5);      // RXM-RAWX
-    zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_SFRBX, 5);     // RXM-SFRBX
-
-    HAL_Delay(2000); // Wait for configuration to take effect
-    usb_debug_print("GNSS configured for UBX message logging (using CFG-VALSET)\r\n");
+    HAL_Delay(2000);
+    usb_debug_print("GNSS configured for UBX message logging\r\n");
 }
 
 void process_gnss_logging(void) {
@@ -404,28 +388,29 @@ void process_gnss_logging(void) {
         return;
     }
 
-    // Process incoming GNSS data
+#if USE_UART_LOGGING
+    // UART DMA mode - data is written automatically in DMA callback
+    // Nothing to do here except handle errors
+#else
+    // I2C callback mode - process through library
     const zedf9p_status_t status = zedf9p_process_data(&gnss_module);
     if (status != ZEDF9P_OK && status != ZEDF9P_ERR_NO_DATA) {
         snprintf(debug_buffer, sizeof(debug_buffer),
                 "GNSS processing error: %s\r\n", zedf9p_status_error(status));
         usb_debug_print(debug_buffer);
     }
+#endif
 
     // Handle SD card errors and recovery
-    if (logging_stats.write_errors > 3) {  // Lower threshold for quicker recovery
+    if (logging_stats.write_errors > 3) {
         usb_debug_print("Multiple write errors detected, attempting recovery...\r\n");
 
-        // First try to reopen the file
         if (!reopen_log_file()) {
-            // If that fails, try SD card recovery
             if (recover_sd_card()) {
                 if (!reopen_log_file()) {
-                    // Last resort - create new file
                     create_new_log_file();
                 }
             } else {
-                // SD card recovery failed, pause logging temporarily
                 logging_stats.logging_active = 0;
                 usb_debug_print("SD card recovery failed, logging paused\r\n");
                 return;
@@ -433,11 +418,16 @@ void process_gnss_logging(void) {
         }
     }
 
-    // Try to restart logging if it was paused due to SD card issues
+    // Try to restart logging if paused
     if (!logging_stats.logging_active && logging_stats.recovery_attempts < 10) {
         if (recover_sd_card() && create_new_log_file()) {
             logging_stats.logging_active = 1;
             usb_debug_print("Logging resumed after recovery\r\n");
+#if USE_UART_LOGGING
+            // Restart UART DMA
+            active_buffer = 0;
+            HAL_UART_Receive_DMA(&huart2, uart_buffer_0, UART_DMA_BUFFER_SIZE);
+#endif
         }
     }
 
@@ -461,7 +451,8 @@ void process_gnss_logging(void) {
     }
 }
 
-// Generic function to write any UBX message to file
+#if !USE_UART_LOGGING
+// I2C mode: Write UBX message to SD card
 void write_ubx_message_to_file(const ubx_message_t *message) {
     if (!logging_stats.sd_card_present || !logging_stats.logging_active || !logging_stats.file_open) {
         return;
@@ -476,13 +467,13 @@ void write_ubx_message_to_file(const ubx_message_t *message) {
     ubx_header[4] = (uint8_t)(message->length & 0xFF);
     ubx_header[5] = (uint8_t)((message->length >> 8) & 0xFF);
 
-    // Calculate checksum for the complete message
+    // Calculate checksum
     uint8_t ck_a = 0, ck_b = 0;
-    for (int i = 2; i < 6; i++) { // Class, ID, Length
+    for (int i = 2; i < 6; i++) {
         ck_a += ubx_header[i];
         ck_b += ck_a;
     }
-    for (uint16_t i = 0; i < message->length; i++) { // Payload
+    for (uint16_t i = 0; i < message->length; i++) {
         ck_a += message->payload[i];
         ck_b += ck_a;
     }
@@ -514,106 +505,83 @@ void write_ubx_message_to_file(const ubx_message_t *message) {
     }
 
     // Update statistics
-    logging_stats.bytes_logged += 6 + message->length + 2; // Header + payload + checksum
+    logging_stats.bytes_logged += 6 + message->length + 2;
     logging_stats.messages_logged++;
 
-    // Reset write error count on successful write
     if (logging_stats.write_errors > 0) {
         logging_stats.write_errors = 0;
     }
 }
 
-// Message callback implementations
-void clock_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
+// Generic callback for ALL UBX messages
+void generic_ubx_callback(const ubx_message_t *message, const void *user_data) {
+    (void)user_data;
 
+    // Write to SD card
     write_ubx_message_to_file(message);
-    logging_stats.clock_count++;
 
-    // Optional: Print some debug info about the clock message
-    if (logging_stats.usb_ready && message->length >= sizeof(zedf9p_nav_clock_t)) {
-        zedf9p_nav_clock_t clock;
-        memcpy(&clock, message->payload, sizeof(zedf9p_nav_clock_t));
-
-        snprintf(debug_buffer, sizeof(debug_buffer),
-                "CLOCK: iTOW=%"PRIx32" ClkB=%"PRId32" ClkD=%"PRId32" TAcc=%"PRIx32"\r\n",
-                clock.i_tow, clock.clk_b, clock.clk_d, clock.t_acc);
-        usb_debug_print(debug_buffer);
+    // Optional: Update GNSS time if this is a TIMEUTC message
+    if (message->msg_class == UBX_CLASS_NAV && message->msg_id == UBX_NAV_TIMEUTC) {
+        update_gnss_time_from_timeutc(message);
     }
 }
 
-void hpposecef_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
+void update_gnss_time_from_timeutc(const ubx_message_t *message) {
+    if (!message || message->length < sizeof(zedf9p_nav_timeutc_t)) {
+        return;
+    }
 
-    write_ubx_message_to_file(message);
-    logging_stats.hpposecef_count++;
+    zedf9p_nav_timeutc_t timeutc;
+    memcpy(&timeutc, message->payload, sizeof(zedf9p_nav_timeutc_t));
 
-    // Optional: Print some debug info
-    if (logging_stats.usb_ready && message->length >= sizeof(zedf9p_nav_hpposecef_t)) {
-        zedf9p_nav_hpposecef_t hppos;
-        memcpy(&hppos, message->payload, sizeof(zedf9p_nav_hpposecef_t));
+    gnss_time.i_tow = timeutc.i_tow;
+    gnss_time.year = timeutc.year;
+    gnss_time.month = timeutc.month;
+    gnss_time.day = timeutc.day;
+    gnss_time.hour = timeutc.hour;
+    gnss_time.min = timeutc.min;
+    gnss_time.sec = timeutc.sec;
+    gnss_time.valid = timeutc.valid;
+    gnss_time.time_available = 1;
+}
+#endif
 
-        snprintf(debug_buffer, sizeof(debug_buffer),
-                "HPPOSECEF: iTOW=%"PRIx32" X=%"PRId32" Y=%"PRId32" Z=%"PRId32" PAcc=%"PRIx32"\r\n",
-                hppos.i_tow, hppos.ecef_x, hppos.ecef_y, hppos.ecef_z, hppos.p_acc);
-        usb_debug_print(debug_buffer);
+#if USE_UART_LOGGING
+// UART DMA Complete Callback
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART2 && logging_stats.logging_active && logging_stats.file_open) {
+        UINT bytes_written;
+
+        // Write the completed buffer to SD card
+        uint8_t *completed_buffer = (active_buffer == 0) ? uart_buffer_0 : uart_buffer_1;
+        FRESULT result = f_write(&dataFile, completed_buffer, UART_DMA_BUFFER_SIZE,
+                                &bytes_written);
+
+        if (result == FR_OK && bytes_written == UART_DMA_BUFFER_SIZE) {
+            logging_stats.bytes_logged += bytes_written;
+            logging_stats.messages_logged++; // Approximate - this is buffer count
+
+            // Reset write errors on success
+            if (logging_stats.write_errors > 0) {
+                logging_stats.write_errors = 0;
+            }
+        } else {
+            logging_stats.write_errors++;
+        }
+
+        // Switch to other buffer and restart DMA
+        active_buffer = !active_buffer;
+        uint8_t *next_buffer = (active_buffer == 0) ? uart_buffer_0 : uart_buffer_1;
+        HAL_UART_Receive_DMA(&huart2, next_buffer, UART_DMA_BUFFER_SIZE);
     }
 }
-
-void hpposllh_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
-
-    write_ubx_message_to_file(message);
-    logging_stats.hpposllh_count++;
-}
-
-void timeutc_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
-
-    write_ubx_message_to_file(message);
-    logging_stats.timeutc_count++;
-
-    // Update GNSS time from this message
-    if (message->length >= sizeof(zedf9p_nav_timeutc_t)) {
-        zedf9p_nav_timeutc_t timeutc;
-        memcpy(&timeutc, message->payload, sizeof(zedf9p_nav_timeutc_t));
-        update_gnss_time_from_timeutc(&timeutc);
-    }
-}
-
-void rawx_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
-
-    write_ubx_message_to_file(message);
-    logging_stats.rawx_count++;
-}
-
-void sfrbx_callback(const ubx_message_t *message, void *user_data) {
-    (void)user_data; // Unused parameter
-
-    write_ubx_message_to_file(message);
-    logging_stats.sfrbx_count++;
-
-    // Optional: Print some debug info about SFRBX
-    if (logging_stats.usb_ready && message->length >= sizeof(zedf9p_sfrbx_t)) {
-        zedf9p_sfrbx_t sfrbx;
-        memcpy(&sfrbx, message->payload, sizeof(zedf9p_sfrbx_t));
-
-        snprintf(debug_buffer, sizeof(debug_buffer),
-                "SFRBX: GNSS=%d SV=%d NumWords=%d Chn=%d\r\n",
-                sfrbx.gnss_id, sfrbx.sv_id, sfrbx.num_words, sfrbx.chn);
-        usb_debug_print(debug_buffer);
-    }
-}
+#endif
 
 void usb_debug_print(const char* message) {
     if (logging_stats.usb_ready && message != NULL) {
         const uint16_t len = strlen(message);
         if (len > 0) {
-            // Use CDC_Transmit_FS function to send data via USB CDC
             CDC_Transmit_FS((uint8_t*)message, len);
-
-            // Small delay to prevent overwhelming USB
             HAL_Delay(1);
         }
     }
@@ -628,15 +596,13 @@ void print_statistics(void) {
     }
 
     snprintf(debug_buffer, sizeof(debug_buffer),
-            "Stats: Up=%"PRIx32"s Rate=%"PRIx32"B/s Msgs=%"PRIx32" CLK=%"PRIx32" HPECEF=%"PRIx32" HPLLH=%"PRIx32" UTC=%"PRIx32" RAWX=%"PRIx32" SFRBX=%"PRIx32" Bytes=%"PRIx32" Err=%"PRIx32"\r\n",
+            "Stats: Up=%"PRIx32"s Rate=%"PRIx32"B/s Msgs=%"PRIx32" Bytes=%"PRIx32" Err=%"PRIx32"\r\n",
             uptime_s, data_rate, logging_stats.messages_logged,
-            logging_stats.clock_count, logging_stats.hpposecef_count,
-            logging_stats.hpposllh_count, logging_stats.timeutc_count,
-            logging_stats.rawx_count, logging_stats.sfrbx_count,
             logging_stats.bytes_logged, logging_stats.write_errors);
     usb_debug_print(debug_buffer);
 
-    // Print GNSS time if available
+#if !USE_UART_LOGGING
+    // Print GNSS time if available (I2C mode only)
     if (gnss_time.time_available) {
         snprintf(debug_buffer, sizeof(debug_buffer),
                 "GNSS Time: %04d-%02d-%02d %02d:%02d:%02d UTC (iTOW: %"PRIx32" ms)\r\n",
@@ -644,20 +610,7 @@ void print_statistics(void) {
                 gnss_time.hour, gnss_time.min, gnss_time.sec, gnss_time.i_tow);
         usb_debug_print(debug_buffer);
     }
-}
-
-void update_gnss_time_from_timeutc(const zedf9p_nav_timeutc_t *timeutc) {
-    if (!timeutc) return;
-
-    gnss_time.i_tow = timeutc->i_tow;
-    gnss_time.year = timeutc->year;
-    gnss_time.month = timeutc->month;
-    gnss_time.day = timeutc->day;
-    gnss_time.hour = timeutc->hour;
-    gnss_time.min = timeutc->min;
-    gnss_time.sec = timeutc->sec;
-    gnss_time.valid = timeutc->valid;
-    gnss_time.time_available = 1;
+#endif
 }
 
 /* USER CODE END 0 */
@@ -669,144 +622,179 @@ void update_gnss_time_from_timeutc(const zedf9p_nav_timeutc_t *timeutc) {
 int main(void)
 {
 
-    /* USER CODE BEGIN 1 */
+  /* USER CODE BEGIN 1 */
 
-    /* USER CODE END 1 */
+  /* USER CODE END 1 */
 
-    /* MCU Configuration--------------------------------------------------------*/
+  /* MCU Configuration--------------------------------------------------------*/
 
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
-    /* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-    /* USER CODE END Init */
+  /* USER CODE END Init */
 
-    /* Configure the system clock */
-    SystemClock_Config();
+  /* Configure the system clock */
+  SystemClock_Config();
 
-    /* USER CODE BEGIN SysInit */
+  /* USER CODE BEGIN SysInit */
 
-    /* USER CODE END SysInit */
+  /* USER CODE END SysInit */
 
-    /* Initialize all configured peripherals */
-    MX_GPIO_Init();
-    MX_DMA_Init();
-    MX_I2C1_Init();
-    MX_SDIO_SD_Init();
-    MX_FATFS_Init();
-    MX_USB_DEVICE_Init();
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_I2C1_Init();
+  MX_SDIO_SD_Init();
+  MX_FATFS_Init();
+  MX_USB_DEVICE_Init();
+#if USE_UART_LOGGING
+  MX_USART2_UART_Init();
+#endif
 
-    /* USER CODE BEGIN 2 */
-    // Turn on status LED
-    HAL_GPIO_WritePin(USR_LED_GPIO_Port, USR_LED_Pin, GPIO_PIN_SET); // LED on
-    HAL_Delay(5000);
-    logging_stats.usb_ready = 1;
+  /* USER CODE BEGIN 2 */
+  HAL_GPIO_WritePin(USR_LED_GPIO_Port, USR_LED_Pin, GPIO_PIN_SET);
+  HAL_Delay(5000);
+  logging_stats.usb_ready = 1;
 
-    usb_debug_print("ZEDF9P UBX Message Logger 2025-11-25\r\n");
-    usb_debug_print("====================================\r\n");
+#if USE_UART_LOGGING
+  usb_debug_print("ZEDF9P UBX Logger - UART DMA Mode\r\n");
+#else
+  usb_debug_print("ZEDF9P UBX Logger - I2C Callback Mode\r\n");
+#endif
+  usb_debug_print("=====================================\r\n");
 
-    // Initialize SD card with FatFS
-    if (!init_sd_card()) {
-        usb_debug_print("FATAL: SD card initialization failed!\r\n");
-        while(1) {
-            HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
-            HAL_Delay(500);
-        }
-    }
+  // Initialize SD card
+  if (!init_sd_card()) {
+      usb_debug_print("FATAL: SD card initialization failed!\r\n");
+      while(1) {
+          HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
+          HAL_Delay(500);
+      }
+  }
 
-    // Initialize GNSS module
-    const zedf9p_interface_t io = {
-        .i2c_write = platform_i2c_write_cube,
-        .i2c_read = platform_i2c_read_cube,
-        .uart_write = NULL,
-        .uart_read = NULL,
-        .delay_ms = platform_delay_ms_cube,
-        .get_millis = platform_get_millis_cube,
-        .debug_print = NULL
-    };
+#if !USE_UART_LOGGING
+  // I2C mode: Initialize GNSS module with I2C interface
+  const zedf9p_interface_t io = {
+      .i2c_write = platform_i2c_write_cube,
+      .i2c_read = platform_i2c_read_cube,
+      .uart_write = NULL,
+      .uart_read = NULL,
+      .delay_ms = platform_delay_ms_cube,
+      .get_millis = platform_get_millis_cube,
+      .debug_print = NULL
+  };
 
-    const zedf9p_status_t status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_I2C, 0x42, io);
-    if (status != ZEDF9P_OK) {
-        snprintf(debug_buffer, sizeof(debug_buffer),
-                "FATAL: GNSS init failed: %s\r\n", zedf9p_status_error(status));
-        usb_debug_print(debug_buffer);
-        while(1) {
-            HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
-            HAL_Delay(100);
-        }
-    }
+  const zedf9p_status_t status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_I2C, 0x42, io);
+  if (status != ZEDF9P_OK) {
+      snprintf(debug_buffer, sizeof(debug_buffer),
+              "FATAL: GNSS init failed: %s\r\n", zedf9p_status_error(status));
+      usb_debug_print(debug_buffer);
+      while(1) {
+          HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
+          HAL_Delay(100);
+      }
+  }
 
-    usb_debug_print("GNSS module initialized successfully\r\n");
+  usb_debug_print("GNSS module initialized successfully (I2C mode)\r\n");
+#else
+  // UART mode: Initialize GNSS module with UART interface for configuration only
+  // (We still need I2C to configure the module to output on UART)
+  const zedf9p_interface_t io = {
+      .i2c_write = platform_i2c_write_cube,
+      .i2c_read = platform_i2c_read_cube,
+      .uart_write = NULL,
+      .uart_read = NULL,
+      .delay_ms = platform_delay_ms_cube,
+      .get_millis = platform_get_millis_cube,
+      .debug_print = NULL
+  };
 
-    // Configure GNSS for logging
-    configure_gnss_for_logging();
+  // Initialize as UART interface so set_message_rate configures UART1 output
+  const zedf9p_status_t status = zedf9p_init(&gnss_module, ZEDF9P_INTERFACE_UART, 0x42, io);
+  if (status != ZEDF9P_OK) {
+      snprintf(debug_buffer, sizeof(debug_buffer),
+              "FATAL: GNSS init failed: %s\r\n", zedf9p_status_error(status));
+      usb_debug_print(debug_buffer);
+      while(1) {
+          HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
+          HAL_Delay(100);
+      }
+  }
 
-    // Create initial log file
-    if (!create_new_log_file()) {
-        usb_debug_print("FATAL: Failed to create log file!\r\n");
-        while(1) {
-            HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
-            HAL_Delay(100);
-        }
-    }
+  usb_debug_print("GNSS module initialized successfully (UART mode)\r\n");
+#endif
 
-    // Register message callbacks for the specific UBX messages
-    zedf9p_register_clock_callback(&gnss_module, clock_callback, NULL);
-    // zedf9p_register_hpposecef_callback(&gnss_module, hpposecef_callback, NULL);
-    // zedf9p_register_hpposllh_callback(&gnss_module, hpposllh_callback, NULL);
-    zedf9p_register_timeutc_callback(&gnss_module, timeutc_callback, NULL);
-    zedf9p_register_rawx_callback(&gnss_module, rawx_callback, NULL);
-    zedf9p_register_sfrbx_callback(&gnss_module, sfrbx_callback, NULL);
+  // Configure GNSS for logging
+  configure_gnss_for_logging();
 
-    // Initialize logging
-    logging_stats.session_start_ms = HAL_GetTick();
-    logging_stats.last_flush_ms = HAL_GetTick();
-    logging_stats.last_stats_ms = HAL_GetTick();
-    logging_stats.logging_active = 1;
-    logging_stats.file_open = 1;
+  // Create initial log file
+  if (!create_new_log_file()) {
+      usb_debug_print("FATAL: Failed to create log file!\r\n");
+      while(1) {
+          HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
+          HAL_Delay(100);
+      }
+  }
 
-    usb_debug_print("UBX Message Logging started!\r\n");
-    usb_debug_print("============================\r\n");
+#if !USE_UART_LOGGING
+  // I2C mode: Register generic callback for ALL messages
+  zedf9p_register_generic_callback(&gnss_module, generic_ubx_callback, NULL);
+  usb_debug_print("Registered generic callback for all UBX messages\r\n");
+#else
+  // UART mode: Start DMA reception
+  HAL_UART_Receive_DMA(&huart2, uart_buffer_0, UART_DMA_BUFFER_SIZE);
+  usb_debug_print("Started UART DMA reception\r\n");
+#endif
 
-    HAL_GPIO_WritePin(USR_LED_GPIO_Port, USR_LED_Pin, GPIO_PIN_RESET);
+  // Initialize logging
+  logging_stats.session_start_ms = HAL_GetTick();
+  logging_stats.last_flush_ms = HAL_GetTick();
+  logging_stats.last_stats_ms = HAL_GetTick();
+  logging_stats.logging_active = 1;
+  logging_stats.file_open = 1;
+
+  usb_debug_print("UBX Message Logging started!\r\n");
+  usb_debug_print("============================\r\n");
+
+  HAL_GPIO_WritePin(USR_LED_GPIO_Port, USR_LED_Pin, GPIO_PIN_RESET);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-    while (1)
-    {
-    /* USER CODE END WHILE */
-        // Process GNSS data
-        process_gnss_logging();
+  while (1)
+  {
+  /* USER CODE END WHILE */
+      // Process GNSS data
+      process_gnss_logging();
 
-        // Print statistics every 10 seconds
-        if (HAL_GetTick() - logging_stats.last_stats_ms > 10000) {
-            // print_statistics();
-            HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin); // Blink LED
-            logging_stats.last_stats_ms = HAL_GetTick();
-        }
+      // Print statistics every 10 seconds
+      if (HAL_GetTick() - logging_stats.last_stats_ms > 10000) {
+          print_statistics();
+          HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
+          logging_stats.last_stats_ms = HAL_GetTick();
+      }
 
-        // Periodic flush
-        if (HAL_GetTick() - logging_stats.last_flush_ms > FLUSH_INTERVAL_MS) {
-            if (logging_stats.sd_card_present && logging_stats.logging_active && logging_stats.file_open) {
-                const FRESULT flush_result = f_sync(&dataFile);
-                if (flush_result != FR_OK) {
-                    snprintf(debug_buffer, sizeof(debug_buffer),
-                            "File sync error: %d\r\n", flush_result);
-                    usb_debug_print(debug_buffer);
-                    logging_stats.write_errors++;
-                } else {
-                    logging_stats.last_flush_ms = HAL_GetTick();
-                }
-            }
-        }
+      // Periodic flush
+      if (HAL_GetTick() - logging_stats.last_flush_ms > FLUSH_INTERVAL_MS) {
+          if (logging_stats.sd_card_present && logging_stats.logging_active && logging_stats.file_open) {
+              const FRESULT flush_result = f_sync(&dataFile);
+              if (flush_result != FR_OK) {
+                  snprintf(debug_buffer, sizeof(debug_buffer),
+                          "File sync error: %d\r\n", flush_result);
+                  usb_debug_print(debug_buffer);
+                  logging_stats.write_errors++;
+              } else {
+                  logging_stats.last_flush_ms = HAL_GetTick();
+              }
+          }
+      }
 
-        // Small delay to prevent overwhelming the system
-        HAL_Delay(1);
-    /* USER CODE BEGIN 3 */
-    }
+      HAL_Delay(1);
+  /* USER CODE BEGIN 3 */
+  }
   /* USER CODE END 3 */
 }
 
@@ -891,6 +879,41 @@ static void MX_I2C1_Init(void)
 
 }
 
+#if USE_UART_LOGGING
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200; // Match ZED-F9P UART baud rate
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
+
+}
+#endif
+
 /**
   * @brief SDIO Initialization Function
   * @param None
@@ -914,14 +937,14 @@ static void MX_SDIO_SD_Init(void)
   hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
   hsd.Init.ClockDiv = 8;
   /* USER CODE BEGIN SDIO_Init 2 */
-    if (HAL_SD_Init(&hsd) != HAL_OK) {
-        Error_Handler();
-    }
+  if (HAL_SD_Init(&hsd) != HAL_OK) {
+      Error_Handler();
+  }
 
-    // Switch to 4-bit after successful init
-    if (HAL_SD_ConfigWideBusOperation(&hsd, SDIO_BUS_WIDE_4B) != HAL_OK) {
-        Error_Handler();
-    }
+  // Switch to 4-bit after successful init
+  if (HAL_SD_ConfigWideBusOperation(&hsd, SDIO_BUS_WIDE_4B) != HAL_OK) {
+      Error_Handler();
+  }
   /* USER CODE END SDIO_Init 2 */
 
 }
@@ -934,6 +957,9 @@ static void MX_DMA_Init(void)
 
   /* DMA controller clock enable */
   __HAL_RCC_DMA2_CLK_ENABLE();
+#if USE_UART_LOGGING
+  __HAL_RCC_DMA1_CLK_ENABLE();
+#endif
 
   /* DMA interrupt init */
   /* DMA2_Stream3_IRQn interrupt configuration */
@@ -942,6 +968,12 @@ static void MX_DMA_Init(void)
   /* DMA2_Stream6_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+
+#if USE_UART_LOGGING
+  /* DMA1_Stream5_IRQn interrupt configuration - USART2_RX */
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+#endif
 
 }
 
@@ -997,6 +1029,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
 #ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
