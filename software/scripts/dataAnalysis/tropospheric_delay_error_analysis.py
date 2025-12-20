@@ -153,10 +153,9 @@ data = ubx_data.join(calculations_df)
 fig, ax1 = plt.subplots()
 
 color = 'tab:blue'
-ax1.plot(data['rcvTOW'], data['delta_troposphericDelay_ns'], color=color)
+ax1.plot(data['rcvTOW'], data['troposphericDelay_ns'], color=color)
 
 ax2 = ax1.twinx()
 color = 'tab:green'
-ax2.plot(data['rcvTOW'], data[''
-                              ''], color=color)
+ax2.plot(data['rcvTOW'], data['delta_pseudorange_ns'], color=color)
 plt.show()
