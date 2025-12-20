@@ -2,7 +2,7 @@
  * @file zedf9p.c
  * @brief ZEDF9P GNSS Module Driver Implementation - Enhanced UBX Protocol Support
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-09-10
+ * @date 2025-12-19
  */
 
 #include "zedf9p.h"
@@ -206,7 +206,7 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, const uint8_t layer_mask
     return status;
 }
 
-zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint8_t rate) {
+zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_class, const uint8_t msg_id, const uint8_t layer_mask, const uint8_t rate) {
     if (dev == NULL || !dev->initialized) {
         return ZEDF9P_ERR_NULL;
     }
@@ -217,10 +217,10 @@ zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_c
     if (msg_class == UBX_CLASS_NAV) {
         switch (msg_id) {
             case UBX_NAV_CLOCK:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART1; // I2C : UART1
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART1;
                 break;
             case UBX_NAV_HPPOSECEF:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART1; // I2C : UART1
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART1;
                 break;
             case UBX_NAV_HPPOSLLH:
                 config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1;
@@ -228,14 +228,23 @@ zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_c
             case UBX_NAV_PVT:
                 config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_PVT_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_PVT_UART1;
                 break;
-            case UBX_NAV_RELPOSNED:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_UART1;
-                break;
             case UBX_NAV_SAT:
                 config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_SAT_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART1;
                 break;
+            case UBX_NAV_SIG:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_SIG_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_SIG_UART1;
+                break;
+            case UBX_NAV_STATUS:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_STATUS_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_STATUS_UART1;
+                break;
+            case UBX_NAV_TIMEGAL:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGAL_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGAL_UART1;
+                break;
+            case UBX_NAV_TIMEGPS:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGPS_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGPS_UART1;
+                break;
             case UBX_NAV_TIMEUTC:
-                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1; // I2C : UART1
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C : UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1;
                 break;
             default:
                 return ZEDF9P_ERR_INVALID_ARG; // Unsupported NAV message
@@ -256,8 +265,17 @@ zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_c
         }
     } else if (msg_class == UBX_CLASS_MON) {
         switch (msg_id) {
+            case UBX_MON_HW3:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_MON_HW3_I2C : UBLOX_CFG_MSGOUT_UBX_MON_HW3_UART1;
+                break;
             case UBX_MON_RF:
                 config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_MON_RF_I2C : UBLOX_CFG_MSGOUT_UBX_MON_RF_UART1;
+                break;
+            case UBX_MON_SPAN:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_MON_SPAN_I2C : UBLOX_CFG_MSGOUT_UBX_MON_SPAN_UART1;
+                break;
+            case UBX_MON_SYS:
+                config_key = (dev->interface_type == ZEDF9P_INTERFACE_I2C) ? UBLOX_CFG_MSGOUT_UBX_MON_SYS_I2C : UBLOX_CFG_MSGOUT_UBX_MON_SYS_UART1;
                 break;
             default:
                 return ZEDF9P_ERR_INVALID_ARG; // Unsupported MON message
@@ -271,8 +289,13 @@ zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, const uint8_t msg_c
         return ZEDF9P_ERR_INVALID_ARG;
     }
 
+    // Define layer mask
+    if (layer_mask != 0x01 && layer_mask != 0x02 && layer_mask != 0x04) {
+        return ZEDF9P_ERR_INVALID_ARG;
+    }
+
     // Use CFG-VALSET to configure the message rate
-    return zedf9p_config_set_val(dev, UBLOX_CFG_LAYER_RAM, config_key, rate, 1U);
+    return zedf9p_config_set_val(dev, layer_mask, config_key, rate, 1U);
 }
 
 zedf9p_status_t zedf9p_config_set_val(const zedf9p_t *dev, const uint8_t layer_mask, const uint32_t key_id, const uint64_t value, const uint8_t size) {
@@ -670,7 +693,7 @@ static zedf9p_status_t zedf9p_write_data(const zedf9p_t *dev, const uint8_t *dat
     return ZEDF9P_ERR_INVALID_ARG;
 }*/
 
-static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *data, uint16_t max_length, uint16_t *bytes_read) {
+static zedf9p_status_t zedf9p_read_available_data(const zedf9p_t *dev, uint8_t *data, const uint16_t max_length, uint16_t *bytes_read) {
     if (dev == NULL || data == NULL || bytes_read == NULL) {
         return ZEDF9P_ERR_NULL;
     }
@@ -1583,38 +1606,32 @@ zedf9p_status_t zedf9p_enable_rtcm_message(const zedf9p_t *dev, const uint8_t la
     zedf9p_status_t status = ZEDF9P_OK;
 
     // Map message type to configuration keys
-    uint32_t i2c_key = 0U, uart1_key = 0U, uart2_key = 0U;
+    uint32_t i2c_key = 0U, uart1_key = 0U;
 
     switch (message_type) {
         case 1005U:
             i2c_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1005_I2C;
             uart1_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1005_UART1;
-            uart2_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1005_UART2;
             break;
         case 1077U:
             i2c_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1077_I2C;
             uart1_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1077_UART1;
-            uart2_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1077_UART2;
             break;
         case 1087U:
             i2c_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1087_I2C;
             uart1_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1087_UART1;
-            uart2_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1087_UART2;
             break;
         case 1097U:
             i2c_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1097_I2C;
             uart1_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1097_UART1;
-            uart2_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1097_UART2;
             break;
         case 1127U:
             i2c_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1127_I2C;
             uart1_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1127_UART1;
-            uart2_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1127_UART2;
             break;
         case 1230U:
             i2c_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1230_I2C;
             uart1_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1230_UART1;
-            uart2_key = UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1230_UART2;
             break;
         default:
             return ZEDF9P_ERR_INVALID_ARG;
@@ -1628,11 +1645,6 @@ zedf9p_status_t zedf9p_enable_rtcm_message(const zedf9p_t *dev, const uint8_t la
 
     if ((interface_mask & 0x02U) != 0U) {  // UART1
         status = zedf9p_config_set_val(dev, layer_mask, uart1_key, rate, 1U);
-        if (status != ZEDF9P_OK) return status;
-    }
-
-    if ((interface_mask & 0x04U) != 0U) {  // UART2
-        status = zedf9p_config_set_val(dev, layer_mask, uart2_key, rate, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 
@@ -1700,18 +1712,12 @@ zedf9p_status_t zedf9p_config_spartn(const zedf9p_t *dev, const uint8_t layer_ma
 
         status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART1, 1U, 1U);
         if (status != ZEDF9P_OK) return status;
-
-        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART2, 1U, 1U);
-        if (status != ZEDF9P_OK) return status;
     } else {
         // Disable SPARTN message output
         status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_I2C, 0U, 1U);
         if (status != ZEDF9P_OK) return status;
 
         status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART1, 0U, 1U);
-        if (status != ZEDF9P_OK) return status;
-
-        status = zedf9p_config_set_val(dev, layer_mask, UBLOX_CFG_MSGOUT_SPARTN_UART2, 0U, 1U);
         if (status != ZEDF9P_OK) return status;
     }
 

@@ -2,7 +2,7 @@
  * @file zedf9p.h
  * @brief ZEDF9P GNSS Module Driver
  * @author Madison Gleydura (DeepSpace00)
- * @date 2025-09-10
+ * @date 2025-12-19
  *
  * This driver supports the ZEDF9P GNSS module from u-blox with full UBX protocol support
  * including RAWX data acquisition. System agnostic design for Arduino, STM32, Zephyr, etc.
@@ -120,14 +120,14 @@ extern "C" {
 // UBX Message IDs - MON Class
 #define UBX_MON_COMMS                       0x36
 #define UBX_MON_GNSS                        0x28
-#define UBX_MON_HW                          0x09
-#define UBX_MON_HW2                         0x0B
+#define UBX_MON_HW3                         0x37
 #define UBX_MON_IO                          0x02
 #define UBX_MON_MSGPP                       0x06
 #define UBX_MON_PATCH                       0x27
 #define UBX_MON_RF                          0x38
 #define UBX_MON_RXR                         0x21
 #define UBX_MON_SPAN                        0x31
+#define UBX_MON_SYS                         0x39
 #define UBX_MON_TXBUF                       0x08
 #define UBX_MON_VER                         0x04
 
@@ -145,82 +145,82 @@ extern "C" {
 #define UBLOX_CFG_UART1_ENABLED             0x10520005
 #define UBLOX_CFG_UART1_REMAP               0x10520006
 
-#define UBLOX_CFG_UART2_BAUDRATE            0x40530001
-#define UBLOX_CFG_UART2_STOPBITS            0x20530002
-#define UBLOX_CFG_UART2_DATABITS            0x20530003
-#define UBLOX_CFG_UART2_PARITY              0x20530004
-#define UBLOX_CFG_UART2_ENABLED             0x10530005
-#define UBLOX_CFG_UART2_REMAP               0x10530006
-
 // Message Output Configuration
 #define UBLOX_CFG_MSGOUT_UBX_NAV_PVT_I2C    0x20910006
 #define UBLOX_CFG_MSGOUT_UBX_NAV_PVT_UART1  0x20910007
-#define UBLOX_CFG_MSGOUT_UBX_NAV_PVT_UART2  0x20910008
 
 #define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_I2C   0x20910033
 #define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART1 0x20910034
-#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSLLH_UART2 0x20910035
 
 #define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_I2C  0x2091002E
 #define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART1 0x2091002F
-#define UBLOX_CFG_MSGOUT_UBX_NAV_HPPOSECEF_UART2 0x20910030
 
 #define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_I2C   0x209102A4
 #define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART1 0x209102A5
-#define UBLOX_CFG_MSGOUT_UBX_RXM_RAWX_UART2 0x209102A6
 
 #define UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_I2C  0x20910204
 #define UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_UART1 0x20910205
-#define UBLOX_CFG_MSGOUT_UBX_RXM_MEASX_UART2 0x20910206
 
 #define UBLOX_CFG_MSGOUT_UBX_RXM_SFRBX_I2C  0x20910231
 #define UBLOX_CFG_MSGOUT_UBX_RXM_SFRBX_UART1 0x20910232
-#define UBLOX_CFG_MSGOUT_UBX_RXM_SFRBX_UART2 0x20910233
 
 #define UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_I2C   0x2091008D
 #define UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_UART1 0x2091008E
-#define UBLOX_CFG_MSGOUT_UBX_NAV_RELPOSNED_UART2 0x2091008F
 
 #define UBLOX_CFG_MSGOUT_UBX_NAV_SAT_I2C    0x20910015
 #define UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART1  0x20910016
-#define UBLOX_CFG_MSGOUT_UBX_NAV_SAT_UART2  0x20910017
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_SIG_I2C    0x20910345
+#define UBLOX_CFG_MSGOUT_UBX_NAV_SIG_UART1  0x20910346
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_STATUS_I2C     0x2091001A
+#define UBLOX_CFG_MSGOUT_UBX_NAV_STATUS_UART1   0x2091001B
 
 #define UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_I2C      0x20910065
 #define UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART1    0x20910066
-#define UBLOX_CFG_MSGOUT_UBX_NAV_CLOCK_UART2    0x20910067
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGAL_I2C    0x20910056
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGAL_UART1  0x20910057
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGPS_I2C    0x20910047
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEGPS_UART1  0x20910048
 
 #define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C    0x2091005B
 #define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1  0x2091005C
-#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART2  0x2091005D
+
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_I2C    0x2091005B
+#define UBLOX_CFG_MSGOUT_UBX_NAV_TIMEUTC_UART1  0x2091005C
+
+#define UBLOX_CFG_MSGOUT_UBX_MON_HW3_I2C    0x20910354
+#define UBLOX_CFG_MSGOUT_UBX_MON_HW3_UART1  0x20910355
 
 #define UBLOX_CFG_MSGOUT_UBX_MON_RF_I2C     0x20910359
 #define UBLOX_CFG_MSGOUT_UBX_MON_RF_UART1   0x2091035A
-#define UBLOX_CFG_MSGOUT_UBX_MON_RF_UART2   0x2091035B
+
+#define UBLOX_CFG_MSGOUT_UBX_MON_SPAN_I2C   0x2091038B
+#define UBLOX_CFG_MSGOUT_UBX_MON_SPAN_UART1 0x2091038C
+
+#define UBLOX_CFG_MSGOUT_UBX_MON_SYS_I2C    0x2091069D
+#define UBLOX_CFG_MSGOUT_UBX_MON_SYS_UART1  0x2091069E
 
 // RTCM Message Output Configuration
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1005_I2C   0x209102BD
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1005_UART1 0x209102BE
-#define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1005_UART2 0x209102BF
 
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1077_I2C   0x209102CC
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1077_UART1 0x209102CD
-#define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1077_UART2 0x209102CE
 
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1087_I2C   0x209102D1
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1087_UART1 0x209102D2
-#define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1087_UART2 0x209102D3
 
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1097_I2C   0x20910318
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1097_UART1 0x20910319
-#define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1097_UART2 0x2091031A
 
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1127_I2C   0x209102D6
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1127_UART1 0x209102D7
-#define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1127_UART2 0x209102D8
 
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1230_I2C   0x20910303
 #define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1230_UART1 0x20910304
-#define UBLOX_CFG_MSGOUT_RTCM_3X_TYPE1230_UART2 0x20910305
 
 // Navigation and Positioning Configuration
 #define UBLOX_CFG_RATE_MEAS                 0x30210001
@@ -339,7 +339,6 @@ extern "C" {
 #define UBLOX_CFG_SPARTN_USE_SOURCE         0x10590001
 #define UBLOX_CFG_MSGOUT_SPARTN_I2C         0x20910366
 #define UBLOX_CFG_MSGOUT_SPARTN_UART1       0x20910367
-#define UBLOX_CFG_MSGOUT_SPARTN_UART2       0x20910368
 
 // Add layer definitions to zedf9p.h
 #define UBLOX_CFG_LAYER_RAM     0x01
@@ -802,7 +801,7 @@ typedef enum {
 /**
  * @brief Message callback function pointer type.
  */
-typedef void (*zedf9p_message_callback_t)(const ubx_message_t *message, void *user_data);
+typedef void (*zedf9p_message_callback_t)(const ubx_message_t *message, const void *user_data);
 
 /**
  * @brief ZEDF9P driver instance.
@@ -925,10 +924,11 @@ zedf9p_status_t zedf9p_set_dynamic_model(zedf9p_t *dev, uint8_t layer_mask, uint
  * @param dev Pointer to initialized driver struct
  * @param msg_class UBX message class
  * @param msg_id UBX message ID
+ * @param layer_mask Configuration layer (RAM, BBR, or FLASH)
  * @param rate Output rate (0 = disabled, >0 = every N navigation solutions)
  * @return zedf9p_status_t Error code
  */
-zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id, uint8_t rate);
+zedf9p_status_t zedf9p_set_message_rate(const zedf9p_t *dev, uint8_t msg_class, uint8_t msg_id, uint8_t layer_mask, uint8_t rate);
 
 /**
  * @brief Configure a setting using CFG-VALSET.
