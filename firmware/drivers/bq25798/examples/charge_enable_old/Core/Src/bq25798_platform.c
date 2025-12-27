@@ -5,7 +5,7 @@
  *      Author: deepspace
  */
 
-#include "stm32l4xx_hal.h"
+#include "main.h"
 #include "bq25798_platform.h"
 
 extern I2C_HandleTypeDef hi2c1;

@@ -3,7 +3,7 @@
 static uint8_t bq25798_i2c_addr = 0x00;
 
 // Helper Functions
-static BQ25798_Status read_register(uint8_t reg, uint16_t *value)
+/*static BQ25798_Status read_register(uint8_t reg, uint16_t *value)
 {
     uint8_t data[2];
     if (bq25798_i2c_read(bq25798_i2c_addr, reg, data, 2) != BQ25798_OK)
@@ -18,6 +18,7 @@ static BQ25798_Status write_register(uint8_t reg, uint16_t value)
     uint8_t data[2] = {value & 0xFF, (value >> 8) & 0xFF};
     return bq25798_i2c_write(bq25798_i2c_addr, reg, data, 2);
 }
+*/
 
 // Initialization
 BQ25798_Status bq25798_init(uint8_t i2c_addr)
@@ -27,13 +28,16 @@ BQ25798_Status bq25798_init(uint8_t i2c_addr)
     uint8_t id = 0;
     if (bq25798_i2c_read(bq25798_i2c_addr, BQ25798_REG_PART_INFO, &id, 1) != BQ25798_OK)
         return BQ25798_ERROR;
+
+    return BQ25798_OK;
 }
 
 // Configuration
+/*
 BQ25798_Status bq25798_set_min_system_voltage(uint8_t millivolts)
 {
     uint8_t value = (millivolts - 2500) / 250;
-    return bq25798_i2c_write(bq25798_i2c_addr, BQ25798_REG_MIN_SYS_VOLT, (uint8_t)value, 1);
+    return bq25798_i2c_write(bq25798_i2c_addr, BQ25798_REG_MIN_SYS_VOLT, value, 1);
 }
 
 BQ25798_Status bq25798_set_charge_voltage_limit(uint16_t millivolts)
@@ -245,3 +249,4 @@ BQ25798_Status bq25798_read_tdie_adc(int16_t *celsius)
 
     return BQ25798_OK;
 }
+*/

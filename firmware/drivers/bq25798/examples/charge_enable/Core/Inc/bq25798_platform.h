@@ -2,6 +2,7 @@
 #define BQ25798_PLATFORM_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef enum {
     BQ25798_OK = 0,

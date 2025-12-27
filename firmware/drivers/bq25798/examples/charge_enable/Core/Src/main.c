@@ -17,10 +17,10 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "bq25798.h"
-#include "bq25798_platform.h"
-
+//#include "main.h"
+//#include "bq25798.h"
+#include "../Inc/main.h"
+#include "../Inc/bq25798.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -93,27 +93,30 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
-  //if (bq25798_init(0x6B) != BQ25798_OK) {
-  //  while(1){
-  //    HAL_Delay(100);
-  // }
-  //}
+  BQ25798_Status status = BQ25798_init(0x6B);
 
-  HAL_GPIO_WritePin(CE_GPIO_Port, CE_Pin, GPIO_PIN_SET);
+   if (status != BQ25798_OK) {
+ 	  while(1){
+ 		  HAL_Delay(100);
+ 	  }
+   }
 
-  //const uint8_t data = 0xA2;
+   HAL_GPIO_WritePin(CE_GPIO_Port, CE_Pin, GPIO_PIN_SET);
 
-  //bq25798_i2c_write(0x6B, 0x0F, &data, 1);
+   uint8_t data = 0xFF;
+
+   bq25798_i2c_write(0x6B, 0x0F, data, 8);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  //while (1)
-  //{
+  while (1)
+  {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  //}
+  }
   /* USER CODE END 3 */
 }
 
@@ -259,9 +262,9 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-  //while (1)
-  //{
-  //}
+  while (1)
+  {
+  }
   /* USER CODE END Error_Handler_Debug */
 }
 
