@@ -10,6 +10,7 @@
 
 #ifndef ZEDF9P_H
 #define ZEDF9P_H
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -776,8 +777,8 @@ typedef struct {
  * @brief Platform interface abstraction for ZEDF9P driver.
  */
 typedef struct {
-    int (*i2c_write)(uint8_t dev_addr, const uint8_t *data, uint16_t len);
-    int (*i2c_read)(uint8_t dev_addr, uint8_t *data, uint16_t len);
+    int (*i2c_write)(uint8_t dev_addr, const uint8_t *data, size_t len);
+    int (*i2c_read)(uint8_t dev_addr, uint8_t *data, size_t len);
     int (*uart_write)(const uint8_t *data, uint16_t len);
     int (*uart_read)(uint8_t *data, uint16_t len);
     void (*delay_ms)(uint32_t ms);

@@ -51,7 +51,7 @@ bool zedf9p_platform_i2c_deinit(void);
  * @param len Number of bytes to write
  * @return true if successful, false otherwise
  */
-bool zedf9p_platform_i2c_write(uint8_t i2c_addr, const uint8_t *data, size_t len);
+int zedf9p_platform_i2c_write(uint8_t i2c_addr, const uint8_t *data, size_t len);
 
 /**
  * @brief Platform-specific I2C read function
@@ -60,7 +60,7 @@ bool zedf9p_platform_i2c_write(uint8_t i2c_addr, const uint8_t *data, size_t len
  * @param len Number of bytes to read
  * @return true if successful, false otherwise
  */
-bool zedf9p_platform_i2c_read(uint8_t i2c_addr, uint8_t *data, size_t len);
+int zedf9p_platform_i2c_read(uint8_t i2c_addr, uint8_t *data, size_t len);
 
 /**
  * @brief Platform-specific UART initialization

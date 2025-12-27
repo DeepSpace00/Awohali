@@ -1,8 +1,14 @@
-//
-// Created by deepspace on 2025-12-22.
-//
+#ifndef HW_CONFIG_H
+#define HW_CONFIG_H
 
-#ifndef GNSS_DATALOGGING_HW_CONFIG_H
-#define GNSS_DATALOGGING_HW_CONFIG_H
+#include "sd_card.h"
+#include "../boards/adafruit_metro_rp2350.h"
 
-#endif //GNSS_DATALOGGING_HW_CONFIG_H
+// SD card hardware configuration
+size_t sd_get_num(void);
+sd_card_t *sd_get_by_num(size_t num);
+
+// Debug function to check card detection
+void sd_debug_card_detect(void);
+
+#endif // HW_CONFIG_H
