@@ -348,7 +348,7 @@ void configure_gnss_for_logging(void) {
     // Set measurement rate if desired
     // zedf9p_set_measurement_rate(&gnss_module, UBLOX_CFG_LAYER_RAM, 1000, 1);
 
-    // Configure GPS + Galileo for optimal data
+    // Configure GNSS constellations and signals
     const zedf9p_gnss_config_t gnss_config = {
         .beidou_enabled = false,
         .beidou_b1_enabled = false,
@@ -373,7 +373,7 @@ void configure_gnss_for_logging(void) {
     // Configure GNSS signals if desired
     zedf9p_config_gnss_signals(&gnss_module, UBLOX_CFG_LAYER_RAM, &gnss_config);
 
-    // Configure messages - same function works for both I2C and UART
+    // Configure messages
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_CLOCK, UBLOX_CFG_LAYER_RAM, 1);
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_NAV, UBX_NAV_TIMEUTC, UBLOX_CFG_LAYER_RAM, 1);
     zedf9p_set_message_rate(&gnss_module, UBX_CLASS_RXM, UBX_RXM_RAWX, UBLOX_CFG_LAYER_RAM, 1);
@@ -435,9 +435,7 @@ void process_gnss_logging(void) {
     if (logging_stats.sd_card_present && logging_stats.file_open &&
         f_size(&dataFile) > (MAX_LOG_FILE_SIZE_MB * 1024UL * 1024UL)) {
 
-        snprintf(debug_buffer, sizeof(debug_buffer),
-                "File size limit reached, creating new file...\r\n");
-        usb_debug_print(debug_buffer);
+        usb_debug_print("File size limit reached, creating new file...\r\n");
 
         if (logging_stats.file_open) {
             f_close(&dataFile);
@@ -577,7 +575,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 #endif
 
-void usb_debug_print(const char* message) {
+void usb_debug_print(const char *message) {
     if (logging_stats.usb_ready && message != NULL) {
         const uint16_t len = strlen(message);
         if (len > 0) {
