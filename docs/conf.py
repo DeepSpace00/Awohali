@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Awohali'
-copyright = '2024, Madison Gleydura'
+copyright = '2025, Madison Gleydura'
 author = 'Madison Gleydura'
 release = '0.0.1'
 
