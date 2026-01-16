@@ -12,10 +12,10 @@ print_all_plots = False
 
 c = 299792458.0  # Speed of light (m/s)
 
-rawx_file = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
-clock_file = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
-ephemeris = "../ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_pseudorange_combined"
+rawx_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_RXM_RAWX.csv"
+clock_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_NAV_CLOCK.csv"
+ephemeris = "../data/ephemerides/ephemeris_2026-01-15.json"
+results_dir = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_pseudorange_combined"
 
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
@@ -28,8 +28,8 @@ clock = pd.read_csv(clock_file)
 
 rawx_length = len(rawx)
 
-conn = sqlite3.connect('../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_pseudorange_combined.db')
-
+conn = sqlite3.connect('../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4'
+                       '_pseudorange_combined.db')
 signal_plan = {
     0: {
         0:  {'service': 'L1_C/A',   'freq': 1575.42},   # L1 Civilian signal [Mhz]
@@ -125,7 +125,7 @@ while True:
 
             else:
                 pseudorange_combined_m = satellite_data.iloc[0]['prMes']
-                carrierPhase_combined = satellite_data[:]['cpMes']
+                carrierPhase_combined = satellite_data.iloc[0]['cpMes']
 
             # Locate receiver bias and drift values
             closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]

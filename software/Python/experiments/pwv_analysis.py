@@ -12,13 +12,14 @@ print_all_plots = False
 
 c = 299792458.0  # Speed of light (m/s)
 
-rawx_file = "../data/ubx_data/2025-11-25/GNSS001_RXM_RAWX.csv"
-clock_file = "../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
-ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = "../data/ubx_data/2025-11-25/pwv"
+rawx_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_RXM_RAWX.csv"
+clock_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_NAV_CLOCK.csv"
+ephemeris = "../data/ephemerides/ephemeris_2026-01-15.json"
+results_dir = ("../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial"
+               "-COM4_pwv")
 
-receiver_ecef = (867068.487, -5504812.066, 3092176.505)  # Campus quad
-# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
+# receiver_ecef = (867068.487, -5504812.066, 3092176.505)  # Campus quad
+receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
 surface_temperature = 25.0 # [Celsius]
 surface_pressure = 84659.7166666675 # [Pa]
@@ -35,7 +36,7 @@ coeffs = (ah, aw, bh, bw, ch, cw)
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../data/ubx_data/2025-11-25/pwv.db')
+conn = sqlite3.connect('../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_pwv.db')
 
 freqId = ''
 
@@ -228,4 +229,4 @@ plt.legend()
 plt.grid()
 plt.tight_layout()
 plt.savefig(f"{results_dir}/all_satellites.png")
-# plt.show()
+plt.show()

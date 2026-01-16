@@ -12,22 +12,22 @@ print_all_plots = False
 
 c = 299792458.0 # Speed of light (m/s)
 
-rawx_file = "../data/ubx_data/2025-11-25/GNSS001_RXM_RAWX.csv"
-clock_file = "../data/ubx_data/2025-11-25/GNSS001_NAV_CLOCK.csv"
-ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = "../data/ubx_data/2025-11-25/GNSS001"
+rawx_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_54945_serial-COM4_RXM_RAWX.csv"
+clock_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_54945_serial-COM4_NAV_CLOCK.csv"
+ephemeris = "../data/ephemerides/ephemeris_2026-01-15.json"
+results_dir = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_54945_serial-COM4_pseudorange_combined"
 
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
 
-receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
-# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
+# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Campus quad
+receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../data/ubx_data/2025-11-25/GNSS001_10.db')
-
+conn = sqlite3.connect('../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_54945_serial'
+                       '-COM4_pseudorange_combined.db')
 gps_frequency_plan = {
     'L1': 1575.42,  # MHz
     'L2': 1227.6,   # MHz
