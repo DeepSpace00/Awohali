@@ -14,11 +14,11 @@ The structure of the nominal I/NAV even and odd page parts on E5b-I and E1-B are
 ## I/NAV Nominal Page with Bits Allocation
 
 | Even/ odd=1 | Page Type | Data j (2/2) | OSNMA | SAR | Spare | CRC_j | SSP | Tail |
-| ----------- | --------- | ------------ | ----- | --- | ----- | ----- | --- | ---- |
+|-------------|-----------|--------------|-------|-----|-------|-------|-----|------|
 | 1           | 1         | 16           | 40    | 22  | 2     | 24    | 8   | 6    |
 
 | Even/ odd=0 | Page Type | Data k (1/2) | Tail |
-| ----------- | --------- | ------------ | ---- |
+|-------------|-----------|--------------|------|
 | 1           | 1         | 112          | 6    |
 
 The parameters for the nominal page have the following meaning and related values:
@@ -59,7 +59,7 @@ After FEC encoding, the last 16 symbols of E1 I/NAV pages provide three pre-defi
 
 
 |                                                                                                                              | SSP1             | SSP2             | SSP3             |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---------------- | ---------------- |
+|------------------------------------------------------------------------------------------------------------------------------|------------------|------------------|------------------|
 | Plain SSP configurations                                                                                                     | 00000100         | 00101011         | 00101111         |
 | Encoded SSP configurations (last 16 symbols of the I/NAV E1 pages, after FEC encoding of the 8 plain SSP bits + 6 tail bits) | 1110100100100101 | 0110110001001110 | 1101000000111110 |
 
@@ -76,11 +76,11 @@ In both cases above, the contents transmitted instead of the SSP configurations 
 The structure of the alert I/NAV even and odd page parts on E5b-I and E1-B are defined in Table 37. An alert page is composed by the two-page parts (even and odd) transmitted at the same epoch over E5b-I and E1-B (“horizontal page”).
 
 | Even/ odd=1 | Page Type | Reserved 1 (2/2) | CRC | SSP | Tail |
-| ----------- | --------- | ---------------- | --- | --- | ---- |
+|-------------|-----------|------------------|-----|-----|------|
 | 1           | 1         | 80               | 24  | 8   | 6    |
 
 | Even/ odd=0 | Page Type | Reserved 1 (1/2) | Tail |
-| ----------- | --------- | ---------------- | ---- |
+|-------------|-----------|------------------|------|
 | 1           | 1         | 112              | 6    |
 
 The parameters for the alert page have the following meaning and related values:
@@ -101,7 +101,7 @@ In the nominal mode, the page sequence for I/NAV E5b-I and I/NAV E1-B components
 
 
 | T0 (GST0 sync.) (s) | E5b-I Sub frame ID | E5b-I Page | E5b-I Content                      | E1-B Content                                 | E1-B Page | E1-B Sub frame ID |
-| ------------------- | ------------------ | ---------- | ---------------------------------- | -------------------------------------------- | --------- | ----------------- |
+|---------------------|--------------------|------------|------------------------------------|----------------------------------------------|-----------|-------------------|
 | 0                   | N                  | Even       | Word 1 (1/2)                       | Word 16 (2/2), OSNMA, SAR, CRC, SSP3         | Odd       | N-1               |
 | 1                   | N                  | Odd        | Word 1 (2/2), Res, CRC, Res        | Word 2 (1/2)                                 | Even      | N                 |
 | 2                   | N                  | Even       | Word 3 (1/2)                       | Word 2 (2/2), OSNMA, SAR, CRC, SSP1          | Odd       | N                 |
@@ -150,75 +150,75 @@ The content of the I/NAV word types is stated in the following tables (see Chapt
 
 ### Word Type 1: Ephemeris (1/4)
 
-| Parameter      | Type=1 | IOD_nav | toe | M0  | e   | sqrtA | Reserved |
-| -------------- | ------ | ------- | --- | --- | --- | ----- | -------- |
-| Number of bits | 6      | 10      | 14  | 32  | 32  | 32    | 2        |
+| Parameter      | Type=1 | IOD_nav | toe | M0 | e  | sqrtA | Reserved |
+|----------------|--------|---------|-----|----|----|-------|----------|
+| Number of bits | 6      | 10      | 14  | 32 | 32 | 32    | 2        |
 
 ### Word Type 2: Ephemeris (2/4)
 
-| Parameter      | Type=2 | IOD_nav | Omega0 | i0  | omega | i_dot | Reserved |
-| -------------- | ------ | ------- | ------ | --- | ----- | ----- | -------- |
-| Number of bits | 6      | 10      | 32     | 32  | 32    | 14    | 2        |
+| Parameter      | Type=2 | IOD_nav | Omega0 | i0 | omega | i_dot | Reserved |
+|----------------|--------|---------|--------|----|-------|-------|----------|
+| Number of bits | 6      | 10      | 32     | 32 | 32    | 14    | 2        |
 
 ### Word Type 3: Ephemeris (3/4) and SISA
 
 | Parameter      | Type=3 | IOD_nav | Omega_dot | Delta_n | Cuc | Cus | Crc | Crs | SISA(E1,E5b) |
-| -------------- | ------ | ------- | --------- | ------- | --- | --- | --- | --- | ------------ |
+|----------------|--------|---------|-----------|---------|-----|-----|-----|-----|--------------|
 | Number of bits | 6      | 10      | 24        | 16      | 16  | 16  | 16  | 16  | 8            |
 
 ### Word Type 4: SVID, Ephemeris (4/4), and Clock Correction Parameters
 
 | Parameter      | Type=4 | IOD_nav | SVID | Cic | Cis | toc | alpha0 | alpha1 | alpha2 | Spare |
-| -------------- | ------ | ------- | ---- | --- | --- | --- | ------ | ------ | ------ | ----- |
+|----------------|--------|---------|------|-----|-----|-----|--------|--------|--------|-------|
 | Number of bits | 6      | 10      | 6    | 16  | 16  | 14  | 31     | 21     | 6      | 2     |
 
 ### Word Type 5: Ionospheric Correction, BGD, Signal Health, and Data Validity Status and GST
 
-| Parameter      | Type=5 | ai0 | ai1 | ai2 | Region 1 | Region 2 | Region 3 | Region 4 | Region 5 | BGD(E1,E5a) | BGD(E1,E5b) | E5b_HS | E1B_HS | E5b_DVS | E5B_DVS | WN  | TOW | Spare |
-| -------------- | ------ | --- | --- | --- | -------- | -------- | -------- | -------- | -------- | ----------- | ----------- | ------ | ------ | ------- | ------- | --- | --- | ----- |
-| Number of bits | 6      | 11  | 11  | 14  | 1        | 1        | 1        | 1        | 1        | 10          | 10          | 2      | 2      | 1       | 1       | 12  | 20  | 23    |
+| Parameter      | Type=5 | ai0 | ai1 | ai2 | Region 1 | Region 2 | Region 3 | Region 4 | Region 5 | BGD(E1,E5a) | BGD(E1,E5b) | E5b_HS | E1B_HS | E5b_DVS | E5B_DVS | WN | TOW | Spare |
+|----------------|--------|-----|-----|-----|----------|----------|----------|----------|----------|-------------|-------------|--------|--------|---------|---------|----|-----|-------|
+| Number of bits | 6      | 11  | 11  | 14  | 1        | 1        | 1        | 1        | 1        | 10          | 10          | 2      | 2      | 1       | 1       | 12 | 20  | 23    |
 
 ### Word Type 6: GST-UTC Conversion Parameters
 
-| Parameter      | Type=6 | A0  | A1  | Delta_t_LS | t_ot | WN_0t | W_N_LSF | DN  | Delta_t_LSF | TOW | Spare |
-| -------------- | ------ | --- | --- | ---------- | ---- | ----- | ------- | --- | ----------- | --- | ----- |
-| Number of bits | 6      | 32  | 24  | 8          | 8    | 8     | 8       | 3   | 8           | 20  | 3     |
+| Parameter      | Type=6 | A0 | A1 | Delta_t_LS | t_ot | WN_0t | W_N_LSF | DN | Delta_t_LSF | TOW | Spare |
+|----------------|--------|----|----|------------|------|-------|---------|----|-------------|-----|-------|
+| Number of bits | 6      | 32 | 24 | 8          | 8    | 8     | 8       | 3  | 8           | 20  | 3     |
 
 ### Word Type 7: Almanac for SVID1 (1/2), Almanac Reference Time and Almanac Reference Week Number
 
-| Parameter      | Type=7 | IOD_a | WN_a | t0_a | SVID1 | Delta_sqrtA | e   | omega | delta_i | Omega0 | Omega_dot | M0  | Reserved |
-| -------------- | ------ | ----- | ---- | ---- | ----- | ----------- | --- | ----- | ------- | ------ | --------- | --- | -------- |
-| Number of bits | 6      | 4     | 2    | 10   | 6     | 13          | 11  | 16    | 11      | 16     | 11        | 16  | 6        |
+| Parameter      | Type=7 | IOD_a | WN_a | t0_a | SVID1 | Delta_sqrtA | e  | omega | delta_i | Omega0 | Omega_dot | M0 | Reserved |
+|----------------|--------|-------|------|------|-------|-------------|----|-------|---------|--------|-----------|----|----------|
+| Number of bits | 6      | 4     | 2    | 10   | 6     | 13          | 11 | 16    | 11      | 16     | 11        | 16 | 6        |
 
 ### Word Type 8: Almanac for SVID1 (2/2) and SVID2 (1/2)
 
-| Parameter      | Type=8 | IOD_a | alpha0 | alpha1 | E5b_HS | E1B_HS | SVID2 | Delta_sqrtA | e   | omega | delta_i | Omega0 | Omega_dot | Spare |
-| -------------- | ------ | ----- | ------ | ------ | ------ | ------ | ----- | ----------- | --- | ----- | ------- | ------ | --------- | ----- |
-| Number of bits | 6      | 4     | 16     | 13     | 2      | 2      | 6     | 13          | 11  | 16    | 11      | 16     | 11        | 1     |
+| Parameter      | Type=8 | IOD_a | alpha0 | alpha1 | E5b_HS | E1B_HS | SVID2 | Delta_sqrtA | e  | omega | delta_i | Omega0 | Omega_dot | Spare |
+|----------------|--------|-------|--------|--------|--------|--------|-------|-------------|----|-------|---------|--------|-----------|-------|
+| Number of bits | 6      | 4     | 16     | 13     | 2      | 2      | 6     | 13          | 11 | 16    | 11      | 16     | 11        | 1     |
 
 ### Word Type 9: Almanac for SVID2 (2/2) and SVID3 (1/2)
 
-| Parameter      | Type=9 | IOD_a | WN_a | t0_a | M0  | alpha0 | alpha1 | E5b_HS | E1B_HS | SVID3 | Delta_sqrtA | e   | omega | delta_i |
-| -------------- | ------ | ----- | ---- | ---- | --- | ------ | ------ | ------ | ------ | ----- | ----------- | --- | ----- | ------- |
-| Number of bits | 6      | 4     | 2    | 10   | 16  | 16     | 13     | 2      | 2      | 6     | 13          | 11  | 16    | 11      |
+| Parameter      | Type=9 | IOD_a | WN_a | t0_a | M0 | alpha0 | alpha1 | E5b_HS | E1B_HS | SVID3 | Delta_sqrtA | e  | omega | delta_i |
+|----------------|--------|-------|------|------|----|--------|--------|--------|--------|-------|-------------|----|-------|---------|
+| Number of bits | 6      | 4     | 2    | 10   | 16 | 16     | 13     | 2      | 2      | 6     | 13          | 11 | 16    | 11      |
 
 ### Word Type 10: Almanac for SVID3 (2/2) and GST-GPS Conversion Parameters
 
-| Parameter      | Type=10 | IOD_a | Omega0 | Omega_dot | M0  | alpha0 | alpha1 | E5b_HS | E1B_HS | A0_G | A1_G | t0_G | WN0_G |
-| -------------- | ------- | ----- | ------ | --------- | --- | ------ | ------ | ------ | ------ | ---- | ---- | ---- | ----- |
-| Number of bits | 6       | 4     | 16     | 11        | 16  | 16     | 13     | 2      | 2      | 16   | 12   | 8    | 6     |
+| Parameter      | Type=10 | IOD_a | Omega0 | Omega_dot | M0 | alpha0 | alpha1 | E5b_HS | E1B_HS | A0_G | A1_G | t0_G | WN0_G |
+|----------------|---------|-------|--------|-----------|----|--------|--------|--------|--------|------|------|------|-------|
+| Number of bits | 6       | 4     | 16     | 11        | 16 | 16     | 13     | 2      | 2      | 16   | 12   | 8    | 6     |
 
 ### Word Type 16: Reduced Clock and Ephemeris Data (CED) Parameters
 
 | Parameter      | Type=16 | Delta_A_red | e_x_red | e_y_red | Delta_i0_red | Omega0_red | lambda0_red | alpha0_red | alpha1_red |
-| -------------- | ------- | ----------- | ------- | ------- | ------------ | ---------- | ----------- | ---------- | ---------- |
+|----------------|---------|-------------|---------|---------|--------------|------------|-------------|------------|------------|
 | Number of bits | 6       | 5           | 13      | 13      | 17           | 23         | 23          | 22         | 6          |
 
 # Ephemeris Parameters
 
 
 | Parameter | Definition                                                                   | Bits | Scale factor | Unit             |
-| --------- | ---------------------------------------------------------------------------- | ---- | ------------ | ---------------- |
+|-----------|------------------------------------------------------------------------------|------|--------------|------------------|
 | M0        | Mean anomaly at reference time                                               | 32*  | 2e-31        | semi-circles**   |
 | Delta_n   | Mean motion difference from computed value                                   | 16*  | 2e-43        | semi-circles/s** |
 | e         | Eccentricity                                                                 | 32   | 2e-33        | N/A              |
