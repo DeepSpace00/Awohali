@@ -66,7 +66,11 @@ for _ in range(len(rawx)):
     # rcvTOW and iTOW become out of sync when clkBias_ns is greater than 0.5 ms (rcvTOW rounds up b/c 3 decimals)
     # Fix by keeping rcvTOW the same until the clkBias_ns resets to zero
     if clkBias_ns >= 500000:
+        rcvTow_s = rcvTow_s + 0.001
+    elif clkBias_ns <= -500000:
         rcvTow_s = rcvTow_s - 0.001
+    else:
+        rcvTow_s = rcvTow_s
 
     iTOW_s = iTow_ms / 1000.0
 
@@ -74,9 +78,9 @@ for _ in range(len(rawx)):
     dt_iTow_s = rcvTow_s - (iTow_ms / 1000.0)
     dt_bias_s = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
 
-    gpsTow_s = rcvTow_s + (dt_iTow_s + dt_bias_s)
+    gpsTow_s = rcvTow_s - (dt_iTow_s + dt_bias_s)
 
-    # Create new dictionary
+    # Create a new dictionary
     if gnssId == 0:
         pvn = 'G' + str('{:02d}'.format(svId))
         if sigId == 0:
@@ -145,7 +149,7 @@ for _ in range(len(rawx)):
     dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
 
     # Calculate Biases in meters
-    rcv_clkBias_m = (dt_iTow_s + dt_bias_s) * c
+    rcv_clkBias_m = dt_bias_s * c
     sat_clkBias_m = dt_sv_s * c
     relativistic_bias_m = dt_rel_s * c
 
