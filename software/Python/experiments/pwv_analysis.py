@@ -2,6 +2,8 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import pandas as pd
 import sqlite3
+import sys
+import time
 
 from calculations import clock_correction, geometric_range
 from ephemerisdes.ephemeris import load_ephemeris
@@ -41,21 +43,52 @@ conn = sqlite3.connect('../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/
 freqId = ''
 
 gnss_results = defaultdict(lambda: defaultdict(list))
-for _ in range(len(rawx)):
+
+total_measurements = len(rawx)
+start_time = time.time()
+
+for idx in range(total_measurements):
     # Skip line if Pseudorange validity flag is not True
     # if rawx.iloc[_]['prValid'] != True:
     #    continue
 
-    if rawx.iloc[_]['gnssId'] != 0:
+    progress = (idx + 1) / total_measurements
+    elapsed_time = time.time() - start_time
+
+    if idx > 0:
+        avg_time_per_item = elapsed_time / (idx + 1)
+        remaining_items = total_measurements - (idx + 1)
+        eta_seconds = avg_time_per_item * remaining_items
+
+        # Format ETA
+        if eta_seconds < 60:
+            eta_str = f"{eta_seconds:.0f}s"
+        elif eta_seconds < 3600:
+            eta_str = f"{eta_seconds / 60:.1f}m"
+        else:
+            eta_str = f"{eta_seconds / 3600:.1f}h"
+    else:
+        eta_str = "calculating..."
+
+    # Print progress bar
+    bar_length = 40
+    filled_length = int(bar_length * progress)
+    bar = '█' * filled_length + '-' * (bar_length - filled_length)
+
+    sys.stdout.write(f'\rProcessing GNSS Data: |{bar}| {progress * 100:.1f}% ({idx + 1}/{total_measurements}) ETA:'
+                     f' {eta_str}')
+    sys.stdout.flush()
+
+    if rawx.iloc[idx]['gnssId'] != 0:
         continue
 
     # Assign data to variables
-    gnssId = rawx.iloc[_]['gnssId']
-    svId = rawx.iloc[_]['svId']
-    sigId = rawx.iloc[_]['sigId']
-    rcvTow_s = rawx.iloc[_]['rcvTow']
-    gpsWeek = rawx.iloc[_]['week']
-    pseudorange_m = rawx.iloc[_]['prMes']
+    gnssId = rawx.iloc[idx]['gnssId']
+    svId = rawx.iloc[idx]['svId']
+    sigId = rawx.iloc[idx]['sigId']
+    rcvTow_s = rawx.iloc[idx]['rcvTow']
+    gpsWeek = rawx.iloc[idx]['week']
+    pseudorange_m = rawx.iloc[idx]['prMes']
 
     # Locate receiver bias and drift values
     closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]
@@ -118,7 +151,7 @@ for _ in range(len(rawx)):
     else:
         continue  # Skip if sat is not GPS or Galileo
 
-    print("{}:\t{:.3f} s".format(pvn, gpsTow_s))
+    # print("{}:\t{:.3f} s".format(pvn, gpsTow_s))
 
     try:
         sat = load_ephemeris(ephemeris, pvn, gps_tow=gpsTow_s)
@@ -126,7 +159,7 @@ for _ in range(len(rawx)):
         # print("Missing ephemeris...")
         continue
     except ValueError:
-        print("No valid ephemeris...")
+        # print("No valid ephemeris...")
         continue
 
     geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef,
@@ -184,6 +217,10 @@ for _ in range(len(rawx)):
         'pwv': pwv,
         'ztd': ztd
     })
+
+sys.stdout.write('\n')
+total_time = time.time() - start_time
+print(f"Completed in {total_time:.1f} seconds")
 
 gnss_results_dict = {}
 for pvn in gnss_results:
