@@ -4,9 +4,9 @@ import sqlite3
 
 c = 299792458.0 # Speed of light (m/s)
 
-svId = "G29_L1 C"
+svId = "G28_L1 C"
 
-ubx_database = "../data/ubx_data/2025-11-25/GNSS001.db"
+ubx_database = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_pwv.db"
 
 ubx_con = sqlite3.connect(ubx_database)
 ubx_data = pd.read_sql(f"select * from '{svId}'", con=ubx_con)

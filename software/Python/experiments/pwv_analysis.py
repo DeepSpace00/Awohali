@@ -86,7 +86,7 @@ for idx in range(total_measurements):
     gnssId = rawx.iloc[idx]['gnssId']
     svId = rawx.iloc[idx]['svId']
     sigId = rawx.iloc[idx]['sigId']
-    rcvTow_s = rawx.iloc[idx]['rcvTow']
+    rcvTow_s = rawx.iloc[idx]['rcvTow'] + 0.001
     gpsWeek = rawx.iloc[idx]['week']
     pseudorange_m = rawx.iloc[idx]['prMes']
 
@@ -99,16 +99,16 @@ for idx in range(total_measurements):
     # rcvTOW and iTOW become out of sync when clkBias_ns is greater than 0.5 ms (rcvTOW rounds up b/c 3 decimals)
     # Fix by keeping rcvTOW the same until the clkBias_ns resets to zero
     if clkBias_ns >= 500000:
-        rcvTow_s = rcvTow_s + 0.001
-    elif clkBias_ns <= -500000:
         rcvTow_s = rcvTow_s - 0.001
+    elif clkBias_ns <= -500000:
+        rcvTow_s = rcvTow_s + 0.001
     else:
         rcvTow_s = rcvTow_s
 
     iTOW_s = iTow_ms / 1000.0
 
     # Calculate receiver clock correction
-    dt_iTow_s = rcvTow_s - (iTow_ms / 1000.0)
+    dt_iTow_s = rcvTow_s - (iTow_ms / 1000.0) - 1
     dt_bias_s = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
 
     gpsTow_s = rcvTow_s - (dt_iTow_s + dt_bias_s)
@@ -182,12 +182,12 @@ for idx in range(total_measurements):
     dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
 
     # Calculate Biases in meters
-    rcv_clkBias_m = dt_bias_s * c
+    rcv_clkBias_m = (dt_iTow_s + dt_bias_s) * c
     sat_clkBias_m = dt_sv_s * c
     relativistic_bias_m = dt_rel_s * c
 
     # Calculate total bias and total tropospheric delay
-    biases_m = rcv_clkBias_m - sat_clkBias_m - relativistic_bias_m
+    biases_m = rcv_clkBias_m + sat_clkBias_m + relativistic_bias_m
     tropospheric_delay_m = pseudorange_m - geo_range_m - biases_m
 
     elevation, azimuth = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
