@@ -1,0 +1,148 @@
+/*
+ * Copyright (c) 2020 Alexander Kozhinov <ak.alexander.kozhinov@gmail.com>
+ * Copyright (c) 2024 Tomas Jurena <jurena@utb.cz>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <st/h7/stm32h745Xi_m7.dtsi>
+#include "awohali_h745.dtsi"
+
+/ {
+	model = "Awohali H745 board";
+	compatible = "st,stm32h745xx";
+
+	/* HW resources belonging to CM7 */
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+		zephyr,shell-uart = &cdc_acm_uart0;
+		zephyr,dtcm = &dtcm;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+	};
+
+	aliases {
+		spi-flash0 = &w25q128jv;
+	};
+};
+
+&usbotg_fs {
+	pinctrl-0 = <&usb_otg_fs_dm_pa11 &usb_otg_fs_dp_pa12>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};
+
+&clk_lsi {
+	status = "okay";
+};
+
+&clk_hsi48 {
+	status = "okay";
+};
+
+&clk_hse {
+	clock-frequency = <DT_FREQ_M(25)>; /* X1: 25MHz */
+	status = "okay";
+};
+
+&pll {
+	div-m = <5>;
+	mul-n = <48>;
+	div-p = <2>;
+	div-q = <5>;
+	div-r = <2>;
+	clocks = <&clk_hse>;
+	status = "okay";
+};
+
+&rcc {
+	clocks = <&pll>;
+	clock-frequency = <DT_FREQ_M(64)>;
+};
+
+&uart4 {
+	pinctrl-0 = <&uart4_tx_pc10 &uart4_rx_pc11>;
+	pinctrl-names = "default";
+	current-speed = <57600>;
+	status = "okay";
+};
+
+&mac {
+	status = "okay";
+	/* MII */
+	pinctrl-0 = <&eth_ref_clk_pa1
+		     &eth_crs_dv_pa7
+			 &eth_txd0_pb12
+			 &eth_txd1_pb13
+			 &eth_rxd0_pc4
+			 &eth_rxd1_pc5
+		     &eth_tx_en_pg11>;
+	pinctrl-names = "default";
+	phy-connection-type = "rmii";
+	phy-handle = <&eth_phy>;
+};
+
+&mdio {
+	status = "okay";
+	pinctrl-0 = <&eth_mdio_pa2 &eth_mdc_pc1>;
+	pinctrl-names = "default";
+
+	eth_phy: ethernet-phy@1 {
+		compatible = "ethernet-phy";
+		reg = <0x01>;
+	};
+};
+
+&quadspi {
+	pinctrl-0 = <&quadspi_bk1_io0_pf8
+		     &quadspi_bk1_io3_pf6
+		     &quadspi_bk1_io2_pe2
+		     &quadspi_bk1_io1_pf9
+		     &quadspi_clk_pf10
+		     &quadspi_bk1_ncs_pg6>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	w25q128jv: qspi-nor-flash@0 {
+		compatible = "st,stm32-qspi-nor";
+		reg = <0>;
+		size = <DT_SIZE_M(128)>; /* 128 Mbits */
+		qspi-max-frequency = <72000000>;
+		cs-high-time = <4>; /* >= 50 ns */
+		spi-bus-width = <4>;
+		status = "okay";
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			storage_partition: partition@0 {
+				reg = <0x0 DT_SIZE_M(16)>;
+			};
+		};
+	};
+};
+
+&rng {
+	status = "okay";
+};
+
+&sdmmc2 {
+	pinctrl-0 = <&sdmmc2_cmd_pa0
+			&sdmmc2_d0_pb14
+		 	&sdmmc2_d1_pb15
+		 	&sdmmc2_d2_pb3
+		 	&sdmmc2_d3_pb4
+		 	&sdmmc2_ck_pd6>;
+	pinctrl-names = "default";
+	resets = <&rctl STM32_RESET(AHB2, 9)>;
+	bus-width = <4>;
+	disk-name = "SD";
+	status = "okay";
+};

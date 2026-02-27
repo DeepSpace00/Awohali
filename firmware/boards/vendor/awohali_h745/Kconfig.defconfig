@@ -1,0 +1,11 @@
+# Awohali_H745 board configuration
+
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_AWOHALI_H745
+
+# Mailbox is required for inter-core communication on both cores
+config MBOX
+    default y
+
+endif # BOARD_AWOHALI_H745

@@ -1,0 +1,20 @@
+identifier: awohali_h745/stm32h745xx/m4
+name: Awohali H745 (M4)
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+ram: 228
+flash: 1024
+supported:
+  - uart
+  - gpio
+  - i2c
+  - spi
+  - can
+testing:
+  ignore_tags:
+    - mpu
+    - nfc
+vendor: vendor
