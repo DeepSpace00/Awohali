@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: Apache-2.0
+
+description: Microchip USB2422 USB 2.0 Hi-Speed 2-Port Hub Controller
+
+compatible: "microchip,usb2422"
+
+include: i2c-device.yaml   # pulls in reg, status, and base I2C properties
+
+properties:
+  reg:
+    required: true
+
+  reset-gpios:
+    type: phandle-array
+    description: |
+      GPIO connected to the RESET_N pin of the USB2422.
+      Active low.
+
+  vbus-supply:
+    type: phandle
+    description: |
+      Regulator supplying VBUS to the downstream ports.
+
+  max-current-ma:
+    type: int
+    default: 500
+    description: |
+      Maximum current in mA provided per downstream port.
+      Per USB2422 datasheet, valid values are 100 or 500.
+
+  self-powered:
+    type: boolean
+    description: |
+      Set if the hub is self-powered. If absent, bus-powered
+      is assumed.

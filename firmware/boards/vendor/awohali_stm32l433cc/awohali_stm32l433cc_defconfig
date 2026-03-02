@@ -2,6 +2,9 @@
 # Copyright (c) 2020 Alexander Kozhinov <ak.alexander.kozhinov@gmail.com>
 # Copyright (c) 2024 Tomas Jurena <jurena@utb.cz>
 
+# Enable MPU
+CONFIG_ARM_MPU=y
+
 # Enable GPIO
 CONFIG_GPIO=y
 
@@ -20,5 +23,11 @@ CONFIG_SPI=y
 # Enable clock control
 CONFIG_CLOCK_CONTROL=y
 
-# Config Mailbox
-CONFIG_MBOX=y
+# Console
+CONFIG_CONSOLE=y
+CONFIG_UART_CONSOLE=y
+
+# Enable USB
+CONFIG_USB_DEVICE_STACK=y
+CONFIG_USB_DEVICE_INITIALIZE_AT_BOOT=y
+CONFIG_CDC_ACM_DTE_RATE_CALLBACK_SUPPORT=y

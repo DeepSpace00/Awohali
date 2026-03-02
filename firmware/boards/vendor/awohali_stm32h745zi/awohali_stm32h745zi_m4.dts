@@ -1,0 +1,165 @@
+/*
+ * Copyright (c) 2026 Madison Gleydura <deepspace00@pm.me>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <st/h7/stm32h745Xi_m4.dtsi>
+#include "awohali_stm32h745zi.dtsi"
+
+/ {
+	model = "Awohali STM32H745ZI board";
+	compatible = "st,stm32h745xx";
+
+	/* HW resources belonging to CM4 */
+	chosen {
+		zephyr,sram = &sram1;
+		zephyr,flash = &flash1;
+	};
+
+	aliases {
+		led0 = &red_led;
+		can0 = &fdcan1;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		status = "okay";
+		led0: led_0 {
+			gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
+			label = "LED_BUILTIN";
+		};
+	};
+
+	spi-bus-arbitration {
+		compatible = "vnd,gpio-device";
+		grant-gpios = <&gpioc 2 GPIO_ACTIVE_HIGH>;
+		request-gpios = <&gpioc 3 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	l4-controller {
+		compatible = "vnd,gpio-device";
+		reset-gpios = <&gpiod 3 GPIO_ACTIVE_HIGH>;
+		boot-gpios = <&gpiod 4 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	eeprom-wc {
+		compatible = "vnd,gpio-device";
+		wc-gpios = <&gpioc 15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		status = "okay";
+	};
+
+	reset-eth {
+		compatible = "vnd,gpio-device";
+		reset-gpios = <&gpioa 3 GPIO_ACTIVE_LOW>;
+	};
+
+	can-stb {
+		compatible = "vnd,gpio-device";
+		gpios = <&gpiod 2 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	gnss-load-switch {
+		compatible = "regulator-fixed";
+		enable-gpios = <&gpioe 10 GPIO_ACTIVE_HIGH>;
+		regulator-name = "gnss-pwr";
+		status = "okay";
+	};
+
+	lte-load-switch {
+		compatible = "regulator-fixed";
+		enable-gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
+		regulator-name = "lte-pwr";
+		status = "okay";
+	};
+};
+
+&fdcan1 {
+	pinctrl-0 = <&fdcan1_tx_pd1 &fdcan1_rx_pd0>;
+	pinctrl-names = "default";
+	clocks = <&rcc STM32_CLOCK(APB1_2, 8)>,
+		<&rcc STM32_SRC_HSE FDCAN_SEL(1)>;
+	bus-speed = <500000>;
+	sample-point = <875>;
+	status = "okay";
+
+	can-transceiver {
+		max-bitrate = <5000000>;
+	};
+};
+
+&i2c1 {
+	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
+	pinctrl-names = "default";
+	clock-frequency = <100000>;
+	status = "okay";
+
+	eeprom@50 {
+		compatible = "st,m24xxx", "atmel,at24";
+		reg = <0x50>;
+		size = <DT_SIZE_K(64)>;
+		pagesize = <128>;
+		address-width = <16>;
+		timeout = <5>;
+		status = "okay";
+	};
+
+	usb_hub: usb2422@2c {
+		compatible = "microchip,usb2422";
+		reg = <0x2C>;
+		reset-gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
+
+		max-current-ma = <500>;
+		self-powered;
+		status = "okay";
+	};
+
+	lps28dfw@5c {
+		compatible = "st,lps28dfw-i2c";
+		reg = <0x5C>;
+		status = "okay";
+	}
+
+	sht4x@44 {
+		compatible = "sensirion,sht4x";
+		reg = <0x44>;
+		status = "okay";
+	}
+
+
+};
+
+&i2c2 {
+	pinctrl-0 = <&i2c2_scl_pb10 &i2c2_sda_pb11>;
+	pinctrl-names = "default";
+	clock-frequency = <100000>;
+	status = "okay";
+};
+
+&i2c3 {
+	pinctrl-0 = <&i2c3_scl_pa8 &i2c3_sda_pc9>;
+	pinctrl-names = "default";
+	clock-frequency = <100000>;
+	status = "okay";
+};
+
+&spi1 {
+	pinctrl-0 = <&spi1_nss_pa4 &spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pd7>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+
+&usart3 {
+	pinctrl-0 = <&usart3_tx_pd8 &usart3_rx_pd9>;
+	pinctrl-names = "default";
+	current-speed = <115200>;
+	status = "okay";
+};
+
+&rcc {
+	clock-frequency = <DT_FREQ_M(64)>;
+};

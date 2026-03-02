@@ -1,0 +1,70 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Madison Gleydura <deepspace00@pm.me>
+
+description: TI BQ25798 Buck-Boost Battery Charger
+
+compatible: "ti,bq25798"
+
+include: [battery.yaml, i2c-device.yaml]
+
+properties:
+  reg:
+    required: true
+    description: I2C address, default 0x6B
+
+  re-charge-threshold:
+    type: string
+    enum:
+      - "15_PERCENT"
+      - "62.5_PERCENT"
+      - "66.7_PERCENT"
+      - "71.4_PERCENT"
+    description: Battery voltage threshold for percentage to fast charge transistion
+
+  cell-count:
+    type: int
+    required: true
+    enum:
+      - 1
+      - 2
+      - 3
+      - 4
+    description: Battery series cell count
+
+  constant-charge-current-max-microamp:
+    type: int
+    required: true
+    description: Maximum charge current in microamps
+
+  constant-charge-voltage-max-microvolt:
+    type: int
+    required: true
+    description: Maximum charge voltage in microvolts
+
+  input-voltage-max-microvolt:
+    type: int
+    description: Maximum input voltage limit (VINDPM) in microvolts
+
+  input-current-max-microamp:
+    type: int
+    description: Maximum input current limit in microamps
+
+  precharge-current-microamp:
+    type: int
+    description: Current for pre-charge phase in microamps
+
+  charge-term-microamp:
+    type: int
+    description: Current for charge termination phase in microamps
+
+  int-gpios:
+    type: phandle-array
+    description: Interrupt GPIO from the BQ25798 INT pin
+
+  ce-gpios:
+    type: phandle-array
+    description: Charge enable GPIO pin
+
+  qon-gpios:
+    type: phandle-array
+    description: Ship FET enable or system power reset control GPIO pin

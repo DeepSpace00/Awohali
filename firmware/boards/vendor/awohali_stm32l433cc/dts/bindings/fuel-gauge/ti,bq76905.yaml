@@ -1,0 +1,52 @@
+description: TI BQ76905 5-Series Battery Monitor and Protector
+
+compatible: "ti,bq76905"
+
+include:
+  - i2c-device.yaml
+  - zephyr,fuel-gauge.yaml   # if it exists, inherit standard properties
+
+properties:
+  reg:
+    required: true
+
+  alert-gpios:
+    type: phandle-array
+    description: Alert/interrupt output from BQ76905
+
+  cell-count:
+    type: int
+    required: true
+    description: Number of cells in series (1-5 for BQ76905)
+
+  enable-alarm:
+    type: bool
+    description: Enable status alarm
+
+  enable-charge-fet:
+    type: bool
+    description: Enable/disable charge FET
+
+  enable-discharge-fet:
+    type: bool
+    description: Enable/disable discharge FET
+
+  overvoltage-threshold-microvolt:
+    type: int
+    description: Per-cell overvoltage protection threshold in microvolts
+
+  undervoltage-threshold-microvolt:
+    type: int
+    description: Per-cell undervoltage protection threshold in microvolts
+
+  overcurrent-threshold-microamp:
+    type: int
+    description: Discharge overcurrent protection threshold in microamps
+
+  short-circuit-threshold-microamp:
+    type: int
+    description: Short circuit protection threshold in microamps
+
+  balancing-enable:
+    type: boolean
+    description: Enable passive cell balancing

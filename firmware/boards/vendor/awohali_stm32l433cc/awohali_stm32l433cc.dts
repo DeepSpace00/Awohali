@@ -1,0 +1,155 @@
+/*
+ * Copyright (c) 2026 Madison Gleydura <deepspace00@pm.me>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <st/l4/stm32l433Xc.dtsi>
+// #include "awohali_stm32l433cc.dtsi"
+
+/ {
+	model = "Awohali STM32L433CC board";
+	compatible = "st,stm32l433xx";
+
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+		zephyr,shell-uart = &cdc_acm_uart0;
+		zephyr,dtcm = &dtcm;
+		zephyr,sram = &sram1;
+		zephyr,flash = &flash1;
+	};
+
+	aliases {
+		led0 = &red_led;
+		can0 = &fdcan1;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		status = "okay";
+		led0: led_0 {
+			gpios = <&gpioh 1 GPIO_ACTIVE_HIGH>;
+			label = "LED_BUILTIN";
+		};
+	};
+
+	spi-bus-arbitration {
+		compatible = "vnd,gpio-device";
+		grant-gpios = <&gpioc 2 GPIO_ACTIVE_HIGH>;
+		request-gpios = <&gpioc 3 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	h7-controller {
+		compatible = "vnd,gpio-device";
+		reset-gpios = <&gpiob 4 GPIO_ACTIVE_HIGH>;
+		boot-gpios = <&gpioa 5 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	eeprom-wc {
+		compatible = "vnd,gpio-device";
+		wc-gpios = <&gpioa 3 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		status = "okay";
+	};
+
+	can-stb {
+		compatible = "vnd,gpio-device";
+		gpios = <&gpioa 0 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	reg-1v8 {
+		compatible = "regulator-gpio";
+		regulator-name = "+1V8 SMPS";
+		enable-gpios = <&gpiob 2 GPIO_ACTIVE_HIGH>;
+		gpios = <&gpiob 1 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	reg-2v8 {
+		compatible = "regulator-gpio";
+		regulator-name = "+2V8 LDO";
+		enable-gpios = <&gpiob 3 GPIO_ACTIVE_HIGH>;
+		gpios = <&gpioa 15 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	reg-3v3 {
+		compatible = "vnd,gpio-device";
+		gpios = <&gpiob 10 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	}
+};
+
+&fdcan1 {
+	pinctrl-0 = <&fdcan1_tx_pb9 &fdcan1_rx_pb8>;
+	pinctrl-names = "default";
+	clocks = <&rcc STM32_CLOCK(APB1_2, 8)>,
+		<&rcc STM32_SRC_HSE FDCAN_SEL(1)>;
+	bus-speed = <500000>;
+	sample-point = <875>;
+	status = "okay";
+
+	can-transceiver {
+		max-bitrate = <5000000>;
+	};
+};
+
+&i2c1 {
+	pinctrl-0 = <&i2c1_scl_pa9 &i2c1_sda_pa10>;
+	pinctrl-names = "default";
+	clock-frequency = <100000>;
+	status = "okay";
+
+	eeprom@50 {
+		compatible = "st,m24xxx", "atmel,at24";
+		reg = <0x50>;
+		size = <DT_SIZE_K(64)>;
+		pagesize = <128>;
+		address-width = <16>;
+		timeout = <5>;
+		status = "okay";
+	};
+
+	bq25798@6b {
+		compatible = "ti,bq25798";
+		reg = <0x6B>;
+		cell-count = <2>;
+		constant-charge-current-max-microamp = <1000000>;
+		constant-charge-voltage-max-microvolt = <7300000>;
+		int-gpios = <&gpioa 2 GPIO_ACTIVE_LOW>;
+		ce-gpios = <&gpiob 15 GPIO_ACTIVE_LOW>;
+		qon-gpios = <&gpiob 14 GPIO_ACTIVE_LOW>;
+		status = "okay";
+	};
+
+	bq76905@10 {
+		compatible = "ti,bq76905";
+		reg = <0x10>;
+		cell-count = <2>;
+		alert_gpios = <&gpiob 11 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+};
+
+&spi1 {
+	pinctrl-0 = <&spi1_nss_pa4 &spi1_sck_pa1 &spi1_miso_pa6 &spi1_mosi_pa7>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+
+&usbotg_fs {
+	pinctrl-0 = <&usbotg_fs_dm_pa11 &usbotg_fs_dp_pa12>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-usart";
+	};
+};
+
+&rcc {
+	clock-frequency = <DT_FREQ_M(64)>;
+};
