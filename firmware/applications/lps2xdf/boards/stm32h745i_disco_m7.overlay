@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: Apache-2.0
+
+&i2c4 {
+	status = "okay";
+	lps28dfw@5c {
+		compatible = "st,lps28dfw";
+		reg = <0x5c>;
+		label = "LPS28DFW";
+		status = "okay";
+	};
+};
