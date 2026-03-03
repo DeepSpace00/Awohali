@@ -9,9 +9,9 @@ set(BOARD "awohali_h745/stm32h745xx/m7")
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
-project(awohali-test LANGUAGES C)
+project(app LANGUAGES C)
 
-target_sources(awohali-test PRIVATE src/main.c)
+target_sources(app PRIVATE src/main.c)
 
 add_subdirectory(drivers)
 
