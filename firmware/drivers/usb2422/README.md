@@ -1,1 +1,0 @@
-# USB2422 I2C Driver
