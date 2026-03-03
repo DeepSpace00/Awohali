@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2020 Alexander Kozhinov <ak.alexander.kozhinov@gmail.com>
- * Copyright (c) 2024 Tomas Jurena <jurena@utb.cz>
+ * Copyright (c) 2026 Madison Gleydura <deepspace00@pm.me>
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -12,7 +11,7 @@
 	leds: leds {
 		compatible = "gpio-leds";
 
-		red_led: led_1 {
+		red_led: led_0 {
 			gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
 			label = "User LED";
 		};
@@ -26,6 +25,7 @@
 	d2ppre1 = <2>;
 	d2ppre2 = <1>;
 	d3ppre = <1>;
+	status = "okay";
 };
 
 &mailbox {

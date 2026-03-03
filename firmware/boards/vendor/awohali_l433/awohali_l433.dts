@@ -6,10 +6,10 @@
 
 /dts-v1/;
 #include <st/l4/stm32l433Xc.dtsi>
-// #include "awohali_stm32l433cc.dtsi"
+// #include "awohali_l433.dtsi"
 
 / {
-	model = "Awohali STM32L433CC board";
+	model = "Awohali_L433 Board";
 	compatible = "st,stm32l433xx";
 
 	chosen {
@@ -23,6 +23,8 @@
 	aliases {
 		led0 = &red_led;
 		can0 = &fdcan1;
+		fuel-gauge0 = &bq76905;
+		eeprom0 = &eeprom_0
 	};
 
 	leds {
@@ -103,7 +105,7 @@
 	clock-frequency = <100000>;
 	status = "okay";
 
-	eeprom@50 {
+	eeprom0 : eeprom_0@50 {
 		compatible = "st,m24xxx", "atmel,at24";
 		reg = <0x50>;
 		size = <DT_SIZE_K(64)>;

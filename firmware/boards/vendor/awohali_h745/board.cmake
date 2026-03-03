@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright (c) 2020 Alexander Kozhinov <ak.alexander.kozhinov@gmail.com>
-# Copyright (c) 2024 Tomas Jurena <jurena@utb.cz>
+# Copyright (c) 2026 Madison Gleydura <deepspace00@pm.me>
 
 board_runner_args(stm32cubeprogrammer "--port=swd" "--reset-mode=hw")
 
