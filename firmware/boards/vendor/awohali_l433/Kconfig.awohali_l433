@@ -2,5 +2,6 @@
 
 # SPDX-License-Identifier: Apache-2.0
 
-config BOARD_AWOHALI_STM32L433CC
-	select SOC_STM32L433XX if BOARD_AWOHALI_L433
+config BOARD_AWOHALI_L433
+    bool
+    select SOC_STM32L433XX
