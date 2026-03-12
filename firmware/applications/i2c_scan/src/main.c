@@ -9,7 +9,7 @@
 int main(void)
 {
 #ifdef CONFIG_SAMPLE_DO_OUTPUT
-	printk("Hello World from minimal!\n");
+	printk("Hello World!\n");
 #endif
 
 	return 0;
