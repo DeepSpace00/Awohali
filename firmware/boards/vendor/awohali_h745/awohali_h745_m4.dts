@@ -19,8 +19,9 @@
 	};
 
 	aliases {
-		led0 = &red_led;
+		led0 = &led0;
 		can0 = &fdcan1;
+		eeprom0 = &eeprom_0;
 	};
 
 	leds {
@@ -30,37 +31,6 @@
 			gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
 			label = "LED_BUILTIN";
 		};
-	};
-
-	spi-bus-arbitration {
-		compatible = "vnd,gpio-device";
-		grant-gpios = <&gpioc 2 GPIO_ACTIVE_HIGH>;
-		request-gpios = <&gpioc 3 GPIO_ACTIVE_HIGH>;
-		status = "okay";
-	};
-
-	l4-controller {
-		compatible = "vnd,gpio-device";
-		reset-gpios = <&gpiod 3 GPIO_ACTIVE_HIGH>;
-		boot-gpios = <&gpiod 4 GPIO_ACTIVE_HIGH>;
-		status = "okay";
-	};
-
-	eeprom-wc {
-		compatible = "vnd,gpio-device";
-		wc-gpios = <&gpioc 15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
-		status = "okay";
-	};
-
-	reset-eth {
-		compatible = "vnd,gpio-device";
-		reset-gpios = <&gpioa 3 GPIO_ACTIVE_LOW>;
-	};
-
-	can-stb {
-		compatible = "vnd,gpio-device";
-		gpios = <&gpiod 2 GPIO_ACTIVE_HIGH>;
-		status = "okay";
 	};
 
 	gnss-load-switch {
@@ -83,8 +53,6 @@
 	pinctrl-names = "default";
 	clocks = <&rcc STM32_CLOCK(APB1_2, 8)>,
 		<&rcc STM32_SRC_HSE FDCAN_SEL(1)>;
-	bus-speed = <500000>;
-	sample-point = <875>;
 	status = "okay";
 
 	can-transceiver {
@@ -98,7 +66,7 @@
 	clock-frequency = <100000>;
 	status = "okay";
 
-	eeprom@50 {
+	eeprom0: eeprom@50 {
 		compatible = "st,m24xxx", "atmel,at24";
 		reg = <0x50>;
 		size = <DT_SIZE_K(64)>;
@@ -161,4 +129,61 @@
 
 &rcc {
 	clock-frequency = <DT_FREQ_M(64)>;
+};
+
+&gpioc {
+	gpio-hog-grant {
+		gpio-hog;
+		gpios = <2 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "spi-bus-grant";
+	};
+
+	gpio-hog-request {
+		gpio-hog;
+		gpios = <3 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "spi-bus-request";
+	};
+};
+
+&gpiod {
+	gpio-hog-l4-reset {
+		gpio-hog;
+		gpios = <3 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "l4-reset";
+	};
+
+	gpio-hog-l4-boot {
+		gpio-hog;
+		gpios = <4 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "l4-boot";
+	};
+
+	gpio-hog-can-stb {
+		gpio-hog;
+		gpios = <2 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "can-stb";
+	};
+};
+
+&gpioa {
+	gpio-hog-eth-reset {
+		gpio-hog;
+		gpios = <3 GPIO_ACTIVE_LOW>;
+		output-high;
+		line-name = "eth-reset";
+	};
+};
+
+&gpioc {
+	gpio-hog-eeprom-wc {
+		gpio-hog;
+		gpios = <15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		output-high;
+		line-name = "eeprom-wc";
+	};
 };
