@@ -4,7 +4,7 @@ compatible: "ti,bq76905"
 
 include:
   - i2c-device.yaml
-  - zephyr,fuel-gauge.yaml   # if it exists, inherit standard properties
+  - fuel-gauge.yaml   # if it exists, inherit standard properties
 
 properties:
   reg:
@@ -20,15 +20,15 @@ properties:
     description: Number of cells in series (1-5 for BQ76905)
 
   enable-alarm:
-    type: bool
+    type: boolean
     description: Enable status alarm
 
   enable-charge-fet:
-    type: bool
+    type: boolean
     description: Enable/disable charge FET
 
   enable-discharge-fet:
-    type: bool
+    type: boolean
     description: Enable/disable discharge FET
 
   overvoltage-threshold-microvolt:
