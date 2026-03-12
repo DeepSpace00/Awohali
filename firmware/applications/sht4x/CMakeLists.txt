@@ -3,7 +3,8 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
-set(BOARD "stm32h745i_disco/stm32h745xx/m7")
+# set(BOARD "stm32h745i_disco/stm32h745xx/m7")
+set(BOARD "awohali_h745/stm32h745xx/m4")
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(sht4x)
