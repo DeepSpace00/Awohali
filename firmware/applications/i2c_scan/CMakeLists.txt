@@ -7,8 +7,12 @@ cmake_minimum_required(VERSION 3.20.0)
 
 set(BOARD "stm32h745i_disco/stm32h745xx/m7")
 
+# set(BOARD "awohali_h745/stm32h745xx/m7")
+set(BOARD "awohali_h745/stm32h745xx/m4")
+# set(BOARD "awohali_l433/stm32l433xx")
+
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project(sht4x)
+project(i2c_scan)
 
 FILE(GLOB app_sources src/*.c)
 target_sources(app PRIVATE ${app_sources})
