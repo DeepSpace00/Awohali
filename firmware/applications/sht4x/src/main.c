@@ -11,10 +11,6 @@
 
 #include <zephyr/drivers/sensor/sht4x.h>
 
-#if !DT_HAS_COMPAT_STATUS_OKAY(sensirion_sht4x)
-#error "No sensirion,sht4x compatible node found in the device tree"
-#endif
-
 int main(void)
 {
 	const struct device *const sht = DEVICE_DT_GET_ANY(sensirion_sht4x);
@@ -55,7 +51,7 @@ int main(void)
 		 * The temperature data will not be updated here for obvious reasons.
 		 **/
 		if (hum.val1 > CONFIG_APP_HEATER_HUMIDITY_THRESH &&
-		    temp.val1 < SHT4X_HEATER_MAX_TEMP) {
+			temp.val1 < SHT4X_HEATER_MAX_TEMP) {
 			printf("Activating heater.\n");
 
 			if (sht4x_fetch_with_heater(sht)) {
@@ -64,11 +60,11 @@ int main(void)
 			}
 
 			sensor_channel_get(sht, SENSOR_CHAN_HUMIDITY, &hum);
-		}
+			}
 #endif
 
 		printf("SHT4X: %.2f Temp. [C] ; %0.2f RH [%%]\n", sensor_value_to_double(&temp),
-		       sensor_value_to_double(&hum));
+			   sensor_value_to_double(&hum));
 
 #if CONFIG_APP_USE_HEATER && !CONFIG_APP_HEATER_PULSE_DURATION
 		k_sleep(K_MSEC(20000));
