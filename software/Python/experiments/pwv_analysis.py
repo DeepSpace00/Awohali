@@ -16,7 +16,7 @@ c = 299792458.0  # Speed of light (m/s)
 
 rawx_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_RXM_RAWX.csv"
 clock_file = "../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_NAV_CLOCK.csv"
-ephemeris = "../data/ephemerides/ephemeris_2026-01-15.json"
+ephemeris = "../data/ephemerides/ephemeris_new.json"
 results_dir = ("../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial"
                "-COM4_pwv")
 
@@ -38,7 +38,7 @@ coeffs = (ah, aw, bh, bw, ch, cw)
 rawx = pd.read_csv(rawx_file)
 clock = pd.read_csv(clock_file)
 
-conn = sqlite3.connect('../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_pwv.db')
+conn = sqlite3.connect('../data/ubx_data/2026-01-15/2026-1-15_61651_serial-COM4/2026-1-15_61651_serial-COM4_pwv_new.db')
 
 freqId = ''
 
