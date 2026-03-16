@@ -8,9 +8,9 @@ from typing import Tuple
 class EarthParameters:
     """Physical values and constants for PWV calculations"""
     # Atmospheric refraction constants
-    K1 = 77.604 # [K/mbar]
-    K2 = 64.79  # [K/mbar]
-    K3 = 377600 # [K^2/mbar]
+    K1 = 77.689 # [K/mbar]
+    K2 = 71.2952  # [K/mbar]
+    K3 = 375463 # [K^2/mbar]
 
     # Gas constants
     Rd = 287.0  # [J/(K*kg)]
@@ -21,7 +21,7 @@ class EarthParameters:
     Mw = 15.9994    # [g/mol]
 
     # Density of liquid water
-    RHOw = 977  # [kg/m^3]
+    RHOw = 997  # [kg/m^3]
 
     # WGS84 parameters
     A = 6378137.0  # semi-major axis (m)
