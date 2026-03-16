@@ -26,7 +26,7 @@ gps_frequency_plan = {
     'L5': 1176.45   # MHz
 }
 
-rinex_file = "../data/RINEX_data/ORMD/2025-11-25/ormd3290_GPS_excerpt.csv"
+rinex_file = "../data/RINEX_data/ORMD/2025-11-25/ormd3290_Galileo_excerpt.csv"
 ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
 # ephemeris = "../data/ephemerides/ephemeris_2025-11-25.json"
 results_dir = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv"
@@ -89,20 +89,21 @@ for _ in range(len(rinex)):
                      f' {eta_str}')
     sys.stdout.flush()
 
+
     # Assign data to variables
     pvn = rinex.iloc[_]['sat_id']
     rcvDatetime = rinex.iloc[_]['epoch']
     pseudorange_L1 = rinex.iloc[_]['C1']
-    pseudorange_L2 = rinex.iloc[_]['C2']
+    # pseudorange_L2 = rinex.iloc[_]['C2']
     pseudorange_L5 = rinex.iloc[_]['C5']
 
-    if pseudorange_L1 is not None and pseudorange_L2 is not None:
-        pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L2 *
-                                  (gps_frequency_plan['L2'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
-                                                                            (gps_frequency_plan['L2'] * 1e6) ** 2)
-        freqId = 'L1_L2'
+    # if pseudorange_L1 is not None and pseudorange_L2 is not None:
+    #     pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L2 *
+    #                               (gps_frequency_plan['L2'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
+    #                                                                         (gps_frequency_plan['L2'] * 1e6) ** 2)
+    #     freqId = 'L1_L2'
 
-    elif pseudorange_L1 is not None and pseudorange_L5 is not None:
+    if pseudorange_L1 is not None and pseudorange_L5 is not None:
         pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L5 *
                                   (gps_frequency_plan['L5'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
                                                                             (gps_frequency_plan['L5'] * 1e6) ** 2)
