@@ -4,13 +4,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ubx_database = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv.db"
-rinex_database = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv.db"
+rinex_database = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv_test.db"
 
 # ubx_database = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_old_eph.db"
 # rinex_database = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_old_eph.db"
 
-svIds = ['E05', 'E06', 'E09', 'E10', 'E11', 'E16', 'E19', 'E23', 'E25', 'E31', 'E34', 'E36', 'G01', 'G03',
-         'G04', 'G08', 'G09', 'G10', 'G25', 'G26', 'G27', 'G28', 'G32']
+svIds = ['E05', 'E06', 'E09', 'E10', 'E11', 'E16', 'E23', 'E25', 'E31', 'E36', 'G01', 'G03',
+         'G04', 'G08', 'G09', 'G10', 'G16', 'G25', 'G26', 'G27', 'G28', 'G32']
 
 for svId in svIds:
 
@@ -84,7 +84,7 @@ for svId in svIds:
 
     plt.grid()
 
-    plt.savefig(f"../data/figures/troposphericProducts/{svId}.png")
+    plt.savefig(f"../data/figures/troposphericProducts_test/{svId}.png")
 
     # plt.savefig(f"../data/figures/troposphericProducts_old_eph/{svId}.png")
     plt.close()

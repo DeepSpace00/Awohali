@@ -18,9 +18,9 @@ c = 299792458.0  # Speed of light (m/s)
 
 rawx_file = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
 clock_file = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
-# ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
-ephemeris = "../data/ephemerides/ephemeris_2025-11-25.json"
-results_dir = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_old_eph"
+ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
+# ephemeris = "../data/ephemerides/ephemeris_2025-11-25.json"
+results_dir = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing"
 
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
@@ -45,7 +45,7 @@ clock = pd.read_csv(clock_file)
 
 rawx_length = len(rawx)
 
-conn = sqlite3.connect('../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_old_eph.db')
+conn = sqlite3.connect('../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing.db')
 signal_plan = {
     0: {
         0:  {'service': 'L1_C/A',   'freq': 1575.42},   # L1 Civilian signal [Mhz]
@@ -144,39 +144,32 @@ while True:
 
             services = '&'.join(services_list)
 
-
             if len(sigIDs) > 1:
-                signalA_data = satellite_data.iloc[0][:]
-                signalB_data = satellite_data.iloc[1][:]
+                # Build list of (freq, pseudorange, carrierPhase) for all signals
+                freq_sig_pairs = []
+                for sig in sigIDs:
+                    freq = float(signal_plan[constellation][sig]['freq'])
+                    row = satellite_data[satellite_data['sigId'] == sig].iloc[0]
+                    freq_sig_pairs.append((freq, float(row['prMes']), float(row['cpMes'])))
 
-                freqA = float(signal_plan[constellation][sigIDs[0]]['freq'])
-                freqB = float(signal_plan[constellation][sigIDs[1]]['freq'])
+                # Sort by frequency
+                freq_sig_pairs.sort(key=lambda x: x[0])
 
-                if freqA > freqB:
-                    freq_1 = freqA
-                    freq_2 = freqB
-                    pseudorange_1 = float(signalA_data['prMes'])
-                    pseudorange_2 = float(signalB_data['prMes'])
-                    carrierPhase_1 = float(signalA_data['cpMes'])
-                    carrierPhase_2 = float(signalB_data['cpMes'])
+                freq_low, pr_low, cp_low = freq_sig_pairs[0]
+                freq_high, pr_high, cp_high = freq_sig_pairs[-1]
 
+                if freq_low == freq_high:
+                    # All signals on same frequency, fall back to single freq
+                    pseudorange_combined_m = pr_high
+                    carrierPhase_combined = cp_high
                 else:
-                    freq_1 = freqB
-                    freq_2 = freqA
-                    pseudorange_1 = float(signalB_data['prMes'])
-                    pseudorange_2 = float(signalA_data['prMes'])
-                    carrierPhase_1 = float(signalB_data['cpMes'])
-                    carrierPhase_2 = float(signalA_data['cpMes'])
-
-                pseudorange_combined_m = ((pseudorange_1 * (freq_1 * 1e6) ** 2 - pseudorange_2 * (freq_2 * 1e6) ** 2) /
-                                          ((freq_1 * 1e6) ** 2 - (freq_2 * 1e6) ** 2))
-
-                carrierPhase_combined = ((carrierPhase_1 * (freq_1 * 1e6) ** 2 - carrierPhase_2 * (freq_2 * 1e6) ** 2) /
-                                          ((freq_1 * 1e6) ** 2 - (freq_2 * 1e6) ** 2))
-
+                    f1 = freq_high * 1e6
+                    f2 = freq_low * 1e6
+                    pseudorange_combined_m = (pr_high * f1 ** 2 - pr_low * f2 ** 2) / (f1 ** 2 - f2 ** 2)
+                    carrierPhase_combined = (cp_high * f1 ** 2 - cp_low * f2 ** 2) / (f1 ** 2 - f2 ** 2)
             else:
-                pseudorange_combined_m = satellite_data.iloc[0]['prMes']
-                carrierPhase_combined = satellite_data.iloc[0]['cpMes']
+                pseudorange_combined_m = float(satellite_data.iloc[0]['prMes'])
+                carrierPhase_combined = float(satellite_data.iloc[0]['cpMes'])
 
             # Locate receiver bias and drift values
             closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]

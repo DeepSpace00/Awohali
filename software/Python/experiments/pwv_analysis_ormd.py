@@ -16,8 +16,10 @@ from calculations.elevation_azimuth import calculate_elevation_azimuth
 from tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
 from calculations.plot_satellite_angles import plot_elevation_azimuth_combined
 
+from software.Python.src.calculations.datetime_conversion import datetime_to_gps_tow_precise
+
 print_all_plots = False
-print_sky_plot = True
+print_sky_plot = False
 
 c = 299792458.0 # Speed of light (m/s)
 
@@ -30,12 +32,12 @@ gps_frequency_plan = {
 rinex_file = "../data/RINEX_data/ORMD/2025-11-25/ormd3290_GPS_excerpt.csv"
 ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
 # ephemeris = "../data/ephemerides/ephemeris_2025-11-25.json"
-results_dir = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv"
+results_dir = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv_test"
 
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
 
-conn = sqlite3.connect('../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv.db')
+conn = sqlite3.connect('../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv_test.db')
 
 receiver_ecef = (860376.4154, -5499833.4036, 3102756.9385) # CORS ORMD
 
@@ -97,24 +99,25 @@ for _ in range(len(rinex)):
     pseudorange_L2 = rinex.iloc[_]['C2']
     pseudorange_L5 = rinex.iloc[_]['C5']
 
-    if pseudorange_L1 is not None and pseudorange_L2 is not None:
+    if pd.notna(pseudorange_L1) and pd.notna(pseudorange_L2):
         pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L2 *
                                   (gps_frequency_plan['L2'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
                                                                             (gps_frequency_plan['L2'] * 1e6) ** 2)
         freqId = 'L1_L2'
 
-    elif pseudorange_L1 is not None and pseudorange_L5 is not None:
+    elif pd.notna(pseudorange_L1) and pd.notna(pseudorange_L5):
         pseudorange_combined_m = (pseudorange_L1 * (gps_frequency_plan['L1'] * 1e6) ** 2 - pseudorange_L5 *
                                   (gps_frequency_plan['L5'] * 1e6) ** 2) / ((gps_frequency_plan['L1'] * 1e6) ** 2 -
                                                                             (gps_frequency_plan['L5'] * 1e6) ** 2)
         freqId = 'L1_L5'
 
-    elif pseudorange_L1 is not None:
+    elif pd.notna(pseudorange_L1):
         pseudorange_combined_m = pseudorange_L1
         freqId = 'L1'
 
     else:
-        print("Missing pseudorange...")
+        # print("Missing pseudorange...")
+        i += 1
         continue
 
     rcvTime_stripped = datetime.strptime(rcvDatetime, "%Y-%m-%d %H:%M:%S.%f")
@@ -124,7 +127,8 @@ for _ in range(len(rinex)):
     try:
         sat = load_ephemeris(ephemeris, pvn, gps_tow=rcvTow)
     except KeyError:
-        print("Missing ephemeris...")
+        # print("Missing ephemeris...")
+        i += 1
         continue
 
     geometric_range_results = geometric_range.calculate_satellite_position_and_range(ephemeris, pvn, receiver_ecef, gps_tow=rcvTow, gps_week=gpsWeek)
@@ -153,13 +157,17 @@ for _ in range(len(rinex)):
 
     elevation, azimuth = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
 
+    # Skip data below 10 deg elevation
+    if elevation < 10.0:
+        i += 1
+        continue
+
     pwv, ztd = calculate_precipitable_water_vapor(receiver_ecef, elevation, tropospheric_delay_m, surface_temperature, surface_pressure, coeffs)
 
     pwv_mm = pwv * 1000
     ztd_mm = ztd * 1000
 
     iwv = pwv_mm
-
 
     gnss_results_lists[pvn].append({
         'svId': pvn,
