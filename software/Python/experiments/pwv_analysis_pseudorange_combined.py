@@ -7,7 +7,7 @@ import sys
 import time
 
 from calculations import clock_correction, geometric_range
-from ephemerisdes.ephemeris import load_ephemeris
+from ephemerides.ephemeris import load_ephemeris
 from calculations.elevation_azimuth import calculate_elevation_azimuth
 
 from software.Python.src.tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
@@ -18,9 +18,9 @@ c = 299792458.0  # Speed of light (m/s)
 
 rawx_file = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
 clock_file = "../data/ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
-ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
-# ephemeris = "../data/ephemerides/ephemeris_2025-11-25.json"
-results_dir = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv"
+# ephemeris = "../data/ephemerides/ephemeris_2025-11-25_RINEX.json"
+ephemeris = "../data/ephemerides/ephemeris_2025-11-25.json"
+results_dir = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_old_eph"
 
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
@@ -45,7 +45,7 @@ clock = pd.read_csv(clock_file)
 
 rawx_length = len(rawx)
 
-conn = sqlite3.connect('../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv.db')
+conn = sqlite3.connect('../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_old_eph.db')
 signal_plan = {
     0: {
         0:  {'service': 'L1_C/A',   'freq': 1575.42},   # L1 Civilian signal [Mhz]

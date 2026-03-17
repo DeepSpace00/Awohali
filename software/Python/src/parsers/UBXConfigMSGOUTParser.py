@@ -15,7 +15,7 @@ from typing import Dict, List, Any, Optional
 import re
 
 # Import comprehensive key mappings
-from UBXConfigKeyMapping import KEY_MAPPING
+from .UBXConfigKeyMapping import KEY_MAPPING
 
 
 class UBXMsgoutParser:

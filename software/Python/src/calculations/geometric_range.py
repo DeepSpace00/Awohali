@@ -6,7 +6,7 @@ to a ground point using WGS-84 parameters
 import math
 from datetime import datetime, timezone
 from typing import Tuple, Dict, Any
-from ephemerisdes.ephemeris import SatelliteEphemeris, GNSSConstants, load_ephemeris
+from ephemerides.ephemeris import SatelliteEphemeris, GNSSConstants, load_ephemeris
 
 class PositionCalculator:
     """Calculate satellite positions from ephemeris"""

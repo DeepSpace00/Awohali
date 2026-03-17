@@ -4,7 +4,7 @@ Calculate tropospheric delay from pseudorange, geometric range, and clock correc
 
 from datetime import datetime, timezone
 from calculations import clock_correction, geometric_range
-from ephemerisdes.ephemeris import load_ephemeris
+from ephemerides.ephemeris import load_ephemeris
 
 
 f_Galileo_E1_Hz = 1575.420e6

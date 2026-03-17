@@ -168,12 +168,14 @@ def plot_skyplot(df, azim_col='azimuth', elev_col='elevation',
                 r = 90 - elevations_filtered
 
                 # Plot track
-                ax.plot(theta, r, marker='.', markersize=2,
-                        linewidth=1, label=sat_id, alpha=0.7)
+                lines = ax.plot(theta, r, marker='.', markersize=2,
+                                linewidth=1, label=sat_id, alpha=0.7)
+
+                color = lines[0].get_color()
 
                 # Mark start and end points
-                ax.plot(theta[0], r[0], 'o', markersize=8, alpha=0.8)  # Start
-                ax.plot(theta[-1], r[-1], 's', markersize=6, alpha=0.8)  # End
+                ax.plot(theta[0], r[0], 'o', markersize=8, color=color, alpha=0.8, label='_nolegend_')  # Start
+                ax.plot(theta[-1], r[-1], 's', markersize=6, color=color, alpha=0.8, label='_nolegend_')  # End
 
     # Set radial limits (0° elevation at edge, 90° at center)
     ax.set_ylim(0, 90)

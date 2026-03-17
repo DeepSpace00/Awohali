@@ -16,9 +16,11 @@ class EarthParameters:
     Rd = 287.0  # [J/(K*kg)]
     Rw = 461.0  # [J/(K*kg)]
 
-    # Molar mass of water vapor
+    # Molar mass of dry air
     Md = 28.9644    # [g/mol]
-    Mw = 15.9994    # [g/mol]
+
+    # Molar mass of water vapor
+    Mw = 18.01528    # [g/mol]
 
     # Density of liquid water
     RHOw = 997  # [kg/m^3]

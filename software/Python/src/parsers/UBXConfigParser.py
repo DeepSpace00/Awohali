@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 
 # Import comprehensive key mappings
-from UBXConfigKeyMapping import KEY_MAPPING
+from .UBXConfigKeyMapping import KEY_MAPPING
 
 
 class UBXConfigParser:

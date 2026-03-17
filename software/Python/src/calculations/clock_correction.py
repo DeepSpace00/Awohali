@@ -4,7 +4,7 @@ Calculate receiver-satellite clock offset errors
 
 import math
 from calculations.geometric_range import PositionCalculator
-from ephemerisdes.ephemeris import SatelliteEphemeris
+from ephemerides.ephemeris import SatelliteEphemeris
 
 
 def calculate_accumulated_clock_bias(clock_df):
@@ -73,7 +73,7 @@ def calculate_relativistic_clock_correction(sat: SatelliteEphemeris, t: float) -
     """
 
     # Time from clock reference epoch
-    dt = t - sat.toc
+    dt = t - sat.toe
 
     # Handle week crossovers
     if dt > 302400:

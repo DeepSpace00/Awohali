@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 from typing import Tuple
 from calculations.geometric_range import TimeConverter
-from ephemerisdes.ephemeris import GNSSConstants
+from ephemerides.ephemeris import GNSSConstants
 
 def vmf3o_b_c(rcv_pos: Tuple[float, float, float], utc_time: datetime = None, gps_week: int = None, gps_tow: float = None) -> Tuple[float, float, float, float]:
     """

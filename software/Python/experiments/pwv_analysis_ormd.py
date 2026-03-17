@@ -10,13 +10,14 @@ import sys
 import time
 
 from calculations import clock_correction, geometric_range
-from ephemerisdes.ephemeris import load_ephemeris
+from ephemerides.ephemeris import load_ephemeris
 from calculations.datetime_conversion import datetime_to_gps_tow
 from calculations.elevation_azimuth import calculate_elevation_azimuth
 from tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
+from calculations.plot_satellite_angles import plot_elevation_azimuth_combined
 
-print_all_plots = True
-print_sky_plot = False
+print_all_plots = False
+print_sky_plot = True
 
 c = 299792458.0 # Speed of light (m/s)
 
@@ -197,6 +198,8 @@ if print_sky_plot:
     ax.set_theta_direction(-1)  # Clockwise
     for pvn in gnss_results:
         df = gnss_results[pvn]
+        if df.empty:
+            continue
         azimuth = df['azimuth'].to_numpy()
         elevation = df['elevation'].to_numpy()
         theta = np.radians(azimuth)
@@ -204,9 +207,11 @@ if print_sky_plot:
         r = 90 - elevation
         # print(r)
         lines = ax.plot(theta, r, marker='.', markersize=2, linewidth=1, label=pvn, alpha=0.7)
+        for line in lines[1:]:  # suppress legend for any extra segments
+            line.set_label('_nolegend_')
         color = lines[0].get_color()
-        ax.plot(theta[0], r[0], 'o', markersize=8, color=color, alpha=0.8)
-        ax.plot(theta[-1], r[-1], 's', markersize=6, color=color, alpha=0.8)
+        ax.plot(theta[0], r[0], 'o', markersize=8, color=color, alpha=0.8, label='_nolegend_')
+        ax.plot(theta[-1], r[-1], 's', markersize=6, color=color, alpha=0.8, label='_nolegend_')
 
     ax.set_ylim(0, 90)
     ax.set_yticks([0, 15, 30, 45, 60, 75, 90])
@@ -222,9 +227,13 @@ if print_sky_plot:
 
     ax.set_title('Satellite Sky Plot',
                  fontsize=14, fontweight='bold', pad=20)
+    for handle, label in zip(*ax.get_legend_handles_labels()):
+        print(label)
     ax.legend(bbox_to_anchor=(1.15, 1.0), loc='upper left', fontsize=9)
 
     plt.tight_layout()
+
+    plt.savefig(f"{results_dir}/el_az_gps_satellites.png")
 
 if print_all_plots:
     for pvn in gnss_results:
@@ -239,15 +248,16 @@ if print_all_plots:
 
         plt.savefig(f"{results_dir}/{pvn}_pwv.png")
 
-for pvn in gnss_results:
-    df = gnss_results[pvn]
-    plt.plot(df['rcvTOW'], df['pwv'], label=pvn)
+    for pvn in gnss_results:
+        df = gnss_results[pvn]
+        plt.plot(df['rcvTOW'], df['pwv'], label=pvn)
 
-plt.xlabel("rcvTOW (s)")
-plt.ylabel("ZTD (mm)")
-plt.title(f"Precipitable Water Vapor (PWV)")
-plt.legend()
-plt.grid()
-plt.tight_layout()
-plt.savefig(f"{results_dir}/pwv_all_gps_satellites.png")
+    plt.xlabel("rcvTOW (s)")
+    plt.ylabel("ZTD (mm)")
+    plt.title(f"Precipitable Water Vapor (PWV)")
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    plt.savefig(f"{results_dir}/pwv_all_gps_satellites.png")
+
 plt.show()
