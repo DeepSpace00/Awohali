@@ -115,9 +115,18 @@ def create_satellite(sat_id: str, eph_data: Dict[str, float]):
     else:
         raise ValueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
 
-def load_ephemeris(json_file: str, sat_id: str, gps_tow: float):
+def load_ephemeris_data(json_file) -> Dict:
+    """Load the full ephemeris JSON file into memory."""
     with open(json_file, 'r') as f:
-        data = json.load(f)
+        return json.load(f)
+
+
+def load_ephemeris(json_file_or_data, sat_id: str, gps_tow: float):
+    if isinstance(json_file_or_data, dict):
+        data = json_file_or_data
+    else:
+        with open(json_file_or_data, 'r') as f:
+            data = json.load(f)
 
     # Determine constellation
     if sat_id.startswith('G'):

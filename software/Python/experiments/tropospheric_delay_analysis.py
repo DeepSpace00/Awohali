@@ -6,7 +6,7 @@ import sqlite3
 
 from calculations import clock_correction, geometric_range
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from ephemerisdes.ephemeris import load_ephemeris
+from ephemerides.ephemeris import load_ephemeris
 
 print_all_plots = False
 

@@ -3,8 +3,17 @@ Calculate receiver-satellite clock offset errors
 """
 
 import math
-from calculations.geometric_range import PositionCalculator
 from ephemerides.ephemeris import SatelliteEphemeris
+
+
+def _calculate_eccentric_anomaly(M: float, e: float, tol: float = 1e-12, max_iter: int = 15) -> float:
+    E = M
+    for _ in range(max_iter):
+        E_new = M + e * math.sin(E)
+        if abs(E_new - E) < tol:
+            return E_new
+        E = E_new
+    return E
 
 
 def calculate_accumulated_clock_bias(clock_df):
@@ -28,18 +37,27 @@ def calculate_accumulated_clock_bias(clock_df):
 
 def calculate_satellite_clock_offset(sat: SatelliteEphemeris, t: float) -> float:
     """
-    Calculate satellite clock correction
+    Calculate satellite clock offset from the navigation message polynomial.
+
+    This returns ONLY the polynomial clock model (af0 + af1*dt + af2*dt²),
+    which is the satellite clock offset relative to system time (GPST or GST).
+    It does NOT include the relativistic correction — that is computed separately
+    via calculate_relativistic_clock_correction() and applied independently.
+
+    This function is called iteratively inside geometric_range to refine the
+    transmission time: t_tx = t_rcv - tau - dt_sv. It must remain free of
+    any dependency on satellite position to avoid circular calls.
 
     Args:
         @type sat: SatelliteEphemeris
         @param sat: Satellite ephemeris object
 
         @type t: float
-        @param t: Time in system time (seconds)
+        @param t: Transmission time in system time (seconds) — use t_tx, not t_rcv
 
     Returns:
         @rtype: float
-        @return: Satellite clock offset in seconds
+        @return: Satellite clock offset in seconds (positive = clock ahead of system time)
     """
 
     # Time from clock reference epoch
@@ -84,7 +102,7 @@ def calculate_relativistic_clock_correction(sat: SatelliteEphemeris, t: float) -
     # Relativistic correction
     a = sat.sqrt_a ** 2
     M = sat.M0 + math.sqrt(sat.mu / (a ** 3)) * dt
-    E = PositionCalculator.calculate_eccentric_anomaly(M, sat.e)
+    E = _calculate_eccentric_anomaly(M, sat.e)
     dt_rel = sat.F * sat.sqrt_a * sat.e * math.sin(E)
 
     return dt_rel

@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from calculations import geometric_range_full as geo_range
+from calculations import geometric_range as geo_range
 
 f_Galileo_E1_Hz = 1575.420e6
 f_Galileo_E5a_Hz = 1176.450e6

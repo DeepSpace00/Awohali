@@ -6,7 +6,8 @@ to a ground point using WGS-84 parameters
 import math
 from datetime import datetime, timezone
 from typing import Tuple, Dict, Any
-from ephemerides.ephemeris import SatelliteEphemeris, GNSSConstants, load_ephemeris
+from ephemerides.ephemeris import SatelliteEphemeris, GNSSConstants, load_ephemeris, load_ephemeris_data
+from calculations import clock_correction
 
 class PositionCalculator:
     """Calculate satellite positions from ephemeris"""
@@ -237,15 +238,15 @@ class GeometricRangeCalculator:
 
         return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
 
-def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos: Tuple[float, float, float],
+def calculate_satellite_position_and_range(json_file_or_data, sat_id: str, rcv_pos: Tuple[float, float, float],
                                            utc_time: datetime = None, gps_week: int = None,
                                            gps_tow: float = None) -> Dict[str, Any]:
     """
     Function to calculate satellite position and geometric range
 
     Args:
-        @type json_file: str
-        @param json_file: Path to JSON file containing ephemeris data
+        @type json_file_or_data: str or dict
+        @param json_file_or_data: Path to JSON file containing ephemeris data, or pre-loaded ephemeris dict
         @type sat_id: str
         @param sat_id: Satellite ID (e.g., 'G01' for GPS PRN 1, 'E01' for Galileo SVID 1)
         @type rcv_pos: Tuple[float, float, float]
@@ -262,7 +263,7 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         @return: Dictionary with satellite position, geometric range, and related data
     """
 
-    sat = load_ephemeris(json_file, sat_id, gps_tow)
+    sat = load_ephemeris(json_file_or_data, sat_id, gps_tow)
 
     if sat_id.startswith('G'):
         if gps_week is not None and gps_tow is not None:
@@ -286,30 +287,52 @@ def calculate_satellite_position_and_range(json_file: str, sat_id: str, rcv_pos:
         raise ValueError(f"Invalid satellite ID: {sat_id}. Must start with 'G' or 'E'")
 
     # Calculate satellite position
-    # Account for signal travel time (iterative) and Earth rotation
+    # Account for signal travel time (iterative) and Earth rotation.
+    #
+    # The pseudorange observation encodes the satellite clock offset:
+    #   P = rho + c*(dt_r - dt_sv - dt_rel) + T
+    #
+    # The geometric range rho must be evaluated at the TRUE transmission time:
+    #   t_tx = t_rcv - tau - dt_sv
+    #
+    # Omitting dt_sv causes rho to be computed at the wrong satellite position,
+    # introducing an error of dt_sv * v_sat (~dt_sv * c along the pseudorange).
+    # This is small for GPS (~1 m) but significant for Galileo satellites with
+    # large clock offsets. We therefore iterate on dt_sv simultaneously.
 
     c = GNSSConstants.GPS_C
-    tau = 0.075 # Initial guess: ~75ms | signal travel time
-    for _ in range(3):
-        t_tx = tow - tau
+    tau   = 0.075   # Initial guess: ~75 ms signal travel time
+    dt_sv = 0.0     # Initial guess for satellite clock offset (seconds)
 
-        # Calculate satellite position at transmission time
+    for _ in range(10):
+        # True transmission time: remove travel time AND satellite clock offset
+        t_tx = tow - tau - dt_sv
+
+        # Satellite position at transmission time
         sat_pos_tx = PositionCalculator.calculate_satellite_position(sat, t_tx)
 
-        # Rotate satellite position to reception time to account for Earth rotation
+        # Rotate to reception-time ECEF frame (Sagnac / Earth rotation correction)
         sat_pos = GeometricRangeCalculator.rotate_satellite_position(sat_pos_tx, sat.omega_e, tau)
 
-        # Calculate geometric range with rotated position
+        # Geometric range with rotated position
         geometric_range = GeometricRangeCalculator.calculate_geometric_range(sat_pos, rcv_pos)
 
-        tau = geometric_range / c # signal travel time
+        tau_new   = geometric_range / c
+        dt_sv_new = clock_correction.calculate_satellite_clock_offset(sat, t_tx)
 
-    # Final calculation with corrected transmission time
-    t_tx = tow - tau
+        # Converge when both travel time and clock offset are stable
+        if abs(tau_new - tau) < 1e-13 and abs(dt_sv_new - dt_sv) < 1e-13:
+            tau   = tau_new
+            dt_sv = dt_sv_new
+            break
+
+        tau   = tau_new
+        dt_sv = dt_sv_new
+
+    # Final values with converged transmission time
+    t_tx = tow - tau - dt_sv
     sat_pos_tx = PositionCalculator.calculate_satellite_position(sat, t_tx)
-    sat_pos = GeometricRangeCalculator.rotate_satellite_position(sat_pos_tx, sat.omega_e, tau)
-
-    # Calculate range with corrections
+    sat_pos    = GeometricRangeCalculator.rotate_satellite_position(sat_pos_tx, sat.omega_e, tau)
     geometric_range = GeometricRangeCalculator.calculate_geometric_range(sat_pos, rcv_pos)
 
     results = {

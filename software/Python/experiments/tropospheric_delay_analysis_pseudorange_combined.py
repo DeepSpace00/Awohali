@@ -5,7 +5,7 @@ import pandas as pd
 import sqlite3
 
 from calculations import clock_correction, geometric_range
-from ephemerisdes.ephemeris import load_ephemeris
+from ephemerides.ephemeris import load_ephemeris
 from calculations.elevation_azimuth import calculate_elevation_azimuth
 
 print_all_plots = False

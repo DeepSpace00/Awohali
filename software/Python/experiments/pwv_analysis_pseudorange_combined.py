@@ -232,8 +232,8 @@ while True:
 
             # Calculate total bias and total tropospheric delay
             residuals_m = pseudorange_combined_m - geo_range_m
-            biases_s = rcv_clkBias_s - dt_sv_s - dt_rel_s
-            tropospheric_delay_m = residuals_m - biases_s * c
+            biases_m = (rcv_clkBias_s - dt_sv_s - dt_rel_s) * c
+            tropospheric_delay_m = residuals_m - biases_m
 
             elevation_deg, azimuth_deg = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
 
@@ -259,10 +259,10 @@ while True:
                 'rcvClockBias': rcv_clkBias_s,
                 'satClockBias': dt_sv_s,
                 'relTimeBias': dt_rel_s,
-                'biases': biases_s,
+                'residuals': residuals_m,
+                'biases': biases_m,
                 'pseudorange': pseudorange_combined_m,
                 'carrierPhase': carrierPhase_combined,
-                'residuals': residuals_m,
                 'troposphericDelay': tropospheric_delay_m,
                 'pwv': pwv_mm,
                 'ztd': ztd_mm

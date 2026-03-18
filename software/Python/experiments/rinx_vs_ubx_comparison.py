@@ -2,32 +2,17 @@ import math
 import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-ubx_database = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv.db"
-rinex_database = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv_test.db"
+_DATA = Path(__file__).parent.parent / "data"
 
-# ubx_database = "../data/ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_old_eph.db"
-# rinex_database = "../data/RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_old_eph.db"
+ubx_database = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast.db"
+rinex_database = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new.db"
 
-svIds = ['E05', 'E06', 'E09', 'E10', 'E11', 'E16', 'E23', 'E25', 'E31', 'E36', 'G01', 'G03',
-         'G04', 'G08', 'G09', 'G10', 'G16', 'G25', 'G26', 'G27', 'G28', 'G32']
+tables = ['E05', 'E06', 'E09', 'E11', 'E16', 'E23', 'E25', 'E31', 'E36', 'G03',
+         'G04', 'G10', 'G16', 'G25', 'G26', 'G27', 'G28', 'G32']
 
-for svId in svIds:
-
-    ubx_con = sqlite3.connect(ubx_database)
-    ubx_data = pd.read_sql(f"select * from '{svId}'", con=ubx_con)
-    ubx_con.close()
-
-    rinex_con = sqlite3.connect(rinex_database)
-    rinex_data = pd.read_sql(f"select * from '{svId}'", con=rinex_con)
-    rinex_con.close()
-
-    if ubx_data.shape[0] == 0 or rinex_data.shape[0] == 0:
-        continue
-
-    ubx_data = ubx_data[ubx_data['elevation'] >= 20]
-    rinex_data = rinex_data[rinex_data['elevation'] >= 20]
-
+def plot_data(rinex_data, ubx_data):
     fig, ax = plt.subplots(
         nrows=3,
         ncols=1,
@@ -35,12 +20,6 @@ for svId in svIds:
         figsize=(20, 20),
         layout="constrained"
     )
-
-    x_min = max(ubx_data['rcvTOW'].min(), rinex_data['rcvTOW'].min())
-    x_max = min(ubx_data['rcvTOW'].max(), rinex_data['rcvTOW'].max())
-
-    if math.isnan(x_min) or math.isnan(x_max):
-        continue
 
     ax[0].plot(rinex_data['rcvTOW'], rinex_data['troposphericDelay'], label='RINEX tropoDelay', color='green')
     ax0r = ax[0].twinx()
@@ -53,6 +32,8 @@ for svId in svIds:
     ax[0].legend(lines, labels, loc="upper right")
 
     ax[0].set_xlim(x_min, x_max)
+    ax[0].set_ylim(rinex_data['troposphericDelay'].min(), rinex_data['troposphericDelay'].max())
+    ax0r.set_ylim(ubx_data['troposphericDelay'].min(), ubx_data['troposphericDelay'].max())
 
     plt.grid()
 
@@ -66,6 +47,9 @@ for svId in svIds:
     labels = [l.get_label() for l in lines]
     ax[1].legend(lines, labels, loc="upper right")
 
+    ax[1].set_ylim(rinex_data['ztd'].min(), rinex_data['ztd'].max())
+    ax1r.set_ylim(ubx_data['ztd'].min(), ubx_data['ztd'].max())
+
     plt.grid()
 
     ax[2].plot(rinex_data['rcvTOW'], rinex_data['pwv'], label='RINEX PWV', color='green')
@@ -78,13 +62,40 @@ for svId in svIds:
     labels = [l.get_label() for l in lines]
     ax[2].legend(lines, labels, loc="upper right")
 
+    ax[2].set_ylim(rinex_data['pwv'].min(), rinex_data['pwv'].max())
+    ax2r.set_ylim(ubx_data['pwv'].min(), ubx_data['pwv'].max())
+
     ax[2].set_xlabel("Receiver TOW (s)")
 
-    fig.suptitle(f"Tropospheric Products - {svId}")
+    fig.suptitle(f"Tropospheric Products - {table}")
 
     plt.grid()
 
-    plt.savefig(f"../data/figures/troposphericProducts_test/{svId}.png")
+    plt.savefig(f"{_DATA}/figures/troposphericProducts_test/{table}.png")
 
-    # plt.savefig(f"../data/figures/troposphericProducts_old_eph/{svId}.png")
-    plt.close()
+
+for table in tables:
+    ubx_con = sqlite3.connect(ubx_database)
+    ubx_data = pd.read_sql(f"select * from '{table}'", con=ubx_con)
+    ubx_con.close()
+
+    rinex_con = sqlite3.connect(rinex_database)
+    rinex_data = pd.read_sql(f"select * from '{table}'", con=rinex_con)
+    rinex_con.close()
+
+    if ubx_data.shape[0] == 0 or rinex_data.shape[0] == 0:
+        continue
+
+    ubx_data = ubx_data[ubx_data['elevation'] >= 20]
+    rinex_data = rinex_data[rinex_data['elevation'] >= 20]
+
+
+    x_min = max(ubx_data['rcvTOW'].min(), rinex_data['rcvTOW'].min())
+    x_max = min(ubx_data['rcvTOW'].max(), rinex_data['rcvTOW'].max())
+
+    if math.isnan(x_min) or math.isnan(x_max):
+        continue
+
+    plot_data(rinex_data,ubx_data)
+
+plt.show()

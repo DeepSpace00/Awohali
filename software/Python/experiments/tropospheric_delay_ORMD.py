@@ -7,7 +7,7 @@ Does not account for ionosphere or multipath biases
 from datetime import datetime, timezone
 
 from calculations import clock_correction, geometric_range
-from ephemerisdes.ephemeris import load_ephemeris
+from ephemerides.ephemeris import load_ephemeris
 
 f_Galileo_E1_Hz = 1575.420e6
 f_Galileo_E5a_Hz = 1176.450e6
