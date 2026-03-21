@@ -23,6 +23,7 @@ clock_file  = _DATA / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOC
 ephemeris   = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
 results_dir = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast"
 
+
 results_dir.mkdir(parents=True, exist_ok=True)
 
 conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast.db")
@@ -159,7 +160,7 @@ def estimate_clock_ztd_isb(sats, ah, bh, ch, elev_cutoff_deg, has_galileo):
     from per-satellite raw residuals using weighted least squares.
 
     Observation model for each satellite i:
-        raw_residual_i = c*dt_r + mf_h(el_i) * ZTD  [+ ISB if Galileo]
+        raw_residual_i = c*dt_r + mf_h(el_i) * ZTD [+ ISB if Galileo]
 
     Returns dict or None if insufficient observations.
     """
@@ -425,6 +426,7 @@ while True:
                 'pvn':            pvn,
                 'rcvTOW':         rcvTow_s,
                 'gpsTOW':         gpsTow_s,
+                'iTOW':           iTow_ms / 1000.0,
                 'rcvTOW_sat':     rcvTow_sat_s,
                 'clkBias_ns':     clkBias_ns,
                 'clkDrift_ns':    clkDrift_ns,
@@ -509,6 +511,7 @@ for rcvTow, sats in sorted(epoch_buffer.items()):
 
         gnss_results_lists[s['pvn']].append({
             'svId':              s['pvn'],
+            'iTOW':              s['iTOW'],
             'gpsTOW':            s['gpsTOW'],
             'rcvTOW':            s['rcvTOW'],
             'rcvTOW_sat':        s['rcvTOW_sat'],

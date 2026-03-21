@@ -26,13 +26,17 @@ gps_frequency_plan = {
 # ─────────────────────────────────────────────
 _DATA = Path(__file__).parent.parent / "data"
 
-rinex_file   = _DATA / "RINEX_data/ORMD/2025-11-25/ormd3290_excerpt.csv"
-ephemeris    = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir  = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new"
+# rinex_file   = _DATA / "RINEX_data/ORMD/2025-11-25/ormd3290_excerpt.csv"
+# ephemeris    = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
+# results_dir  = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new"
+
+rinex_file   = _DATA / "RINEX_data/ORMD/2025-09-30/ormd2730_GPS_Galileo.csv"
+ephemeris    = _DATA / "ephemerides/ephemeris_2025-09-30.json"
+results_dir  = _DATA / "RINEX_data/ORMD/2025-09-30/ormd2730_GPS_Galileo"
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new.db")
+conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-09-30/ormd2730.db")
 
 # ─────────────────────────────────────────────
 # Station / met parameters
@@ -313,7 +317,7 @@ for idx in range(total_rows):
     try:
         gr = geometric_range.calculate_satellite_position_and_range(
             ephemeris_data, pvn, receiver_ecef,
-            gps_tow=rcvTow, gps_week=gpsWeek
+            gps_week=gpsWeek, gps_tow=rcvTow
         )
     except Exception:
         continue
