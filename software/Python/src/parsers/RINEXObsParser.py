@@ -288,8 +288,8 @@ class RinexObservationParser:
                         continue
 
                     epoch_time = datetime(year, month, day, hour, minute, int(second))
-                    microsecond = int((second - int(second)) * 1000000)
-                    epoch_time = epoch_time.replace(microsecond=microsecond)
+                    # microsecond = int((second - int(second)) * 1000000)
+                    # epoch_time = epoch_time.replace(microsecond=microsecond)
 
                     # Parse observations for each satellite
                     for _ in range(num_sats):
@@ -347,8 +347,19 @@ class RinexObservationParser:
                     # Skip corrupted epochs
                     continue
 
+    # Constellations that are combined into a single output file
+    COMBINED_CONSTELLATIONS = {'G', 'E'}
+    COMBINED_LABEL = 'GPS_Galileo'
+
     def to_csv(self, output_basename=None):
-        """Export parsed data to CSV format, separated by constellation"""
+        """Export parsed data to CSV format.
+
+        GPS (G) and Galileo (E) observations are written to a single combined
+        file (or a single stdout block).  All other constellations are written
+        to their own separate files, matching the original behaviour.
+        """
+        import os
+
         if not self.epoch_data:
             print("No observation data to export", file=sys.stderr)
             return
@@ -358,46 +369,57 @@ class RinexObservationParser:
         for record in self.epoch_data:
             constellation_data[record['constellation']].append(record)
 
-        # Process each constellation separately
-        for constellation, records in sorted(constellation_data.items()):
-            # Collect all unique observation types for this constellation
+        # Separate combined constellations from standalone ones
+        combined_records = []
+        for const in self.COMBINED_CONSTELLATIONS:
+            if const in constellation_data:
+                combined_records.extend(constellation_data[const])
+
+        standalone_constellations = {
+            k: v for k, v in constellation_data.items()
+            if k not in self.COMBINED_CONSTELLATIONS
+        }
+
+        # Build a list of (label, records) groups to write
+        # Combined group first, then the rest in sorted order
+        groups = []
+        if combined_records:
+            groups.append((self.COMBINED_LABEL, combined_records))
+        for const in sorted(standalone_constellations):
+            const_name = self.constellation_map.get(const, const)
+            groups.append((const_name, standalone_constellations[const]))
+
+        for label, records in groups:
+            # Collect all unique observation types across these records
             obs_types = set()
             for record in records:
                 for key in record.keys():
-                    if key not in ['epoch', 'constellation', 'prn', 'sat_id']:
+                    if key not in ('epoch', 'constellation', 'prn', 'sat_id'):
                         obs_types.add(key)
 
-            # Sort observation types
-            obs_types = sorted(list(obs_types))
-
-            # Create CSV header
+            obs_types = sorted(obs_types)
             header_fields = ['epoch', 'constellation', 'prn', 'sat_id'] + obs_types
 
-            # Determine output file
+            # Determine output destination
             if output_basename:
-                # Strip extension if present
-                import os
                 base_name = os.path.splitext(output_basename)[0]
-                constellation_name = self.constellation_map.get(constellation, constellation)
-                output_file = f"{base_name}_{constellation_name}.csv"
+                output_file = f"{base_name}_{label}.csv"
                 f = open(output_file, 'w')
-                print(f"Writing {constellation_name} data to {output_file}", file=sys.stderr)
+                print(f"Writing {label} data to {output_file}", file=sys.stderr)
             else:
-                # Output to stdout with constellation header
                 f = sys.stdout
-                print(f"\n=== {self.constellation_map.get(constellation, constellation)} ({constellation}) ===",
-                      file=sys.stderr)
+                print(f"\n=== {label} ===", file=sys.stderr)
 
             try:
                 # Write header
                 f.write(','.join(header_fields) + '\n')
 
-                # Write data
-                for record in records:
+                # Write data rows sorted by epoch then sat_id for a tidy combined file
+                for record in sorted(records, key=lambda r: (r['epoch'], r['sat_id'])):
                     values = []
                     for field in header_fields:
                         if field == 'epoch':
-                            values.append(record['epoch'].strftime('%Y-%m-%d %H:%M:%S.%f'))
+                            values.append(record['epoch'].strftime('%Y-%m-%d %H:%M:%S'))
                         elif field in record:
                             val = record[field]
                             if val is None:
@@ -450,15 +472,15 @@ def main():
     if len(sys.argv) < 2:
         print("Usage: python rinex_parser.py <rinex_file> [output_basename]", file=sys.stderr)
         print("\nThe output_basename should not include extension.", file=sys.stderr)
-        print("Separate CSV files will be created for each constellation:", file=sys.stderr)
-        print("  <basename>_GPS.csv, <basename>_Galileo.csv, <basename>_GLONASS.csv, etc.\n", file=sys.stderr)
+        print("GPS and Galileo observations are combined into a single CSV.", file=sys.stderr)
+        print("All other constellations receive their own CSV file.\n", file=sys.stderr)
         print("Examples:")
         print("  python rinex_parser.py observation.rnx output")
-        print("    Creates: output_GPS.csv, output_Galileo.csv, output_GLONASS.csv")
+        print("    Creates: output_GPS_Galileo.csv, output_GLONASS.csv, ...")
         print("\n  python rinex_parser.py observation.rnx obs_data.csv")
-        print("    Creates: obs_data_GPS.csv, obs_data_Galileo.csv, obs_data_GLONASS.csv")
+        print("    Creates: obs_data_GPS_Galileo.csv, obs_data_GLONASS.csv, ...")
         print("\n  python rinex_parser.py observation.rnx")
-        print("    Output to stdout (all constellations)")
+        print("    Output to stdout (all constellations, GPS+Galileo combined)")
         sys.exit(1)
 
     rinex_file = sys.argv[1]
@@ -485,7 +507,7 @@ def main():
     parser.to_csv(output_basename)
 
     if output_basename:
-        print(f"\nSuccessfully exported constellation data", file=sys.stderr)
+        print(f"\nSuccessfully exported observation data (GPS+Galileo combined)", file=sys.stderr)
 
 
 if __name__ == "__main__":

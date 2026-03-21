@@ -235,7 +235,10 @@ class RinexNavParser:
                     'svID': prn,
                     'toc': toc,
                     'toe': toe,
-                    'tow': transmission_time
+                    'tow': transmission_time,
+                    'SV_accuracy': SV_accuracy,
+                    'SV_health': SV_health,
+                    'TGD': TGD
                 }
 
                 # Store ephemeris
@@ -392,7 +395,10 @@ class RinexNavParser:
                 'svID': prn,
                 'toc': toe,  # Simplified: using toe as toc
                 'toe': toe,
-                'tow': transmission_time
+                'tow': transmission_time,
+                'SV_accuracy': SV_accuracy,
+                'SV_health': SV_health,
+                'TGD': TGD
             }
         except (ValueError, IndexError):
             return None
@@ -463,7 +469,11 @@ class RinexNavParser:
                 'svID': prn,
                 'toc': toe,  # Simplified: using toe as toc
                 'toe': toe,
-                'tow': transmission_time
+                'tow': transmission_time,
+                'SV_health': SV_health,
+                'SISA': SISA,
+                'BGD_E5a_E1': BGD_E5a_E1,
+                'BGD_E5b_E1': BGD_E5b_E1
             }
         except (ValueError, IndexError):
             return None
