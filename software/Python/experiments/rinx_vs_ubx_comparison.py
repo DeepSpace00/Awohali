@@ -6,11 +6,14 @@ from pathlib import Path
 
 _DATA = Path(__file__).parent.parent / "data"
 
-ubx_database = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast.db"
-rinex_database = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new.db"
+ubx_database = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gpsTOW_fixed.db"
+rinex_database = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new_filter.db"
 
-tables = ['E05', 'E06', 'E09', 'E11', 'E16', 'E23', 'E25', 'E31', 'E36', 'G03',
-         'G04', 'G10', 'G16', 'G25', 'G26', 'G27', 'G28', 'G32']
+OUTPUT_PATH = _DATA / "figures/troposphericProducts_test_4"
+OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
+
+tables = ['E05', 'E06', 'E09', 'E16', 'E23', 'E25', 'E31', 'E36', 'G03',
+         'G04', 'G10', 'G16', 'G26', 'G27', 'G28', 'G32']
 
 def plot_data(rinex_data, ubx_data):
     fig, ax = plt.subplots(
@@ -71,7 +74,7 @@ def plot_data(rinex_data, ubx_data):
 
     plt.grid()
 
-    plt.savefig(f"{_DATA}/figures/troposphericProducts_test/{table}.png")
+    plt.savefig(f"{OUTPUT_PATH}/{table}.png")
 
 
 for table in tables:
@@ -95,6 +98,9 @@ for table in tables:
 
     if math.isnan(x_min) or math.isnan(x_max):
         continue
+
+    ubx_data = ubx_data[(ubx_data['rcvTOW'] >= x_min) & (ubx_data['rcvTOW'] <= x_max)]
+    rinex_data = rinex_data[(rinex_data['rcvTOW'] >= x_min) & (rinex_data['rcvTOW'] <= x_max)]
 
     plot_data(rinex_data,ubx_data)
 

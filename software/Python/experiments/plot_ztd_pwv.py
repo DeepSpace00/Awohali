@@ -6,8 +6,8 @@ from pathlib import Path
 
 _DATA = Path(__file__).parent.parent / "data"
 
-ubx_database = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast.db"
-rinex_database = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new.db"
+ubx_database = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gpsTOW_fixed.db"
+rinex_database = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new_filter.db"
 
 ubx_con = sqlite3.connect(ubx_database)
 ubx_data = pd.read_sql(f"select * from epoch_summary", con=ubx_con)
@@ -19,6 +19,9 @@ rinex_con.close()
 
 x_min = max(ubx_data['rcvTOW'].min(), rinex_data['rcvTOW'].min())
 x_max = min(ubx_data['rcvTOW'].max(), rinex_data['rcvTOW'].max())
+
+ubx_data = ubx_data[(ubx_data['rcvTOW'] >= x_min) & (ubx_data['rcvTOW'] <= x_max)]
+rinex_data = rinex_data[(rinex_data['rcvTOW'] >= x_min) & (rinex_data['rcvTOW'] <= x_max)]
 
 fig, ax = plt.subplots(
     nrows=2,
@@ -57,12 +60,12 @@ ax[1].legend(lines, labels, loc="upper right")
 ax[1].set_ylim(rinex_data['PWV_mm'].min(), rinex_data['PWV_mm'].max())
 ax1r.set_ylim(ubx_data['PWV_mm'].min(), ubx_data['PWV_mm'].max())
 
-plt.savefig(f"{_DATA}/figures/troposphericProducts_test/epoch_summary.png")
+plt.grid()
 
 ax[1].set_xlabel("Receiver TOW (s)")
 
 fig.suptitle("Tropospheric Products - epoch_summary")
 
-plt.grid()
+plt.savefig(f"{_DATA}/figures/troposphericProducts_test_3/epoch_summary.png")
 
 plt.show()
