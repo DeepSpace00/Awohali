@@ -91,12 +91,12 @@ def calculate_conversion_coefficient(t:float) -> float:
 
     k2_prime = k2 - k1 * Rd/Rw
 
-    # Calculate weighted mean temperature of the atmospheric air column (rough calc)
+    # Calculate weighted mean temperature of tha atmospheric air column (rough calc)
     t_m = 70.2 + 0.72 * (t + 273.15)
 
-    Pi = 1e6 / ((k3/t_m + k2_prime - k1 * Mw/Md) * Rw * rho_w)
+    conversion_coeff = 1e6 / ((k3/t_m + k2_prime - k1 * Mw/Md) * Rw * rho_w)
 
-    return Pi
+    return conversion_coeff
 
 def calculate_mapping_function(elevation: float, a: float, b: float, c: float) -> float:
     """
@@ -108,22 +108,6 @@ def calculate_mapping_function(elevation: float, a: float, b: float, c: float) -
     mf = (1 + a/(1 + b/(1 + c))) / (math.sin(el_rad) + a/(math.sin(el_rad) + b/(math.sin(el_rad) + c)))
 
     return mf
-
-def zwd_to_pwv(zwd_m, tm_k) -> float:
-    k1 = EarthParameters.K1
-    k2 = EarthParameters.K2
-    k3 = EarthParameters.K3
-    Rd = EarthParameters.Rd
-    Rw = EarthParameters.Rw
-    Md = EarthParameters.Md
-    Mw = EarthParameters.Mw
-    rho_w = EarthParameters.RHOw
-
-    k2_prime = k2 - k1 * Rd / Rw
-
-    Pi = 1e8 / ((k3 / tm_k + k2_prime - k1 * Mw / Md) * Rw * rho_w)
-
-    return (zwd_m / Pi) * 1000.0 # -> mm
 
 def calculate_precipitable_water_vapor(rcv_pos: Tuple[float, float, float], elevation: float, troposphericDelay: float, t: float, p: float, mapping_coeffs: Tuple[float, float, float, float, float, float]) -> Tuple[float, float]:
     """
@@ -175,4 +159,3 @@ def calculate_precipitable_water_vapor(rcv_pos: Tuple[float, float, float], elev
     ztd = zhd + pwv/conversion_coeff
 
     return pwv, ztd
-

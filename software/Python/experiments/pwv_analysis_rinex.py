@@ -11,7 +11,7 @@ from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris, load_ephemeris_data
 from calculations.datetime_conversion import datetime_to_gps_tow
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
+from meteorology.old_trop_products import calculate_precipitable_water_vapor
 
 c = 299792458.0  # Speed of light (m/s)
 
@@ -30,13 +30,15 @@ _DATA = Path(__file__).parent.parent / "data"
 # ephemeris    = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
 # results_dir  = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new"
 
-rinex_file   = _DATA / "RINEX_data/ORMD/2025-09-30/ormd2730_GPS_Galileo.csv"
-ephemeris    = _DATA / "ephemerides/ephemeris_2025-09-30.json"
-results_dir  = _DATA / "RINEX_data/ORMD/2025-09-30/ormd2730_GPS_Galileo"
+rinex_file   = _DATA / "RINEX_data/ORMD/2026-02-28/ormd0590_GPS_Galileo_excerpt.csv"
+ephemeris    = _DATA / "ephemerides/ephemeris_2026-02-28_RINEX.json"
+results_dir  = _DATA / "RINEX_data/ORMD/2026-02-28/ormd0590_GPS_Galileo_excerpt"
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-09-30/ormd2730.db")
+# conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-09-30/ormd2730.db")
+
+conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2026-02-28/ormd0590_GPS_Galileo_excerpt.db")
 
 # ─────────────────────────────────────────────
 # Station / met parameters
@@ -48,9 +50,9 @@ surface_pressure    = 846.597166666675       # hPa
 # ─────────────────────────────────────────────
 # VMF3 mapping coefficients
 # ─────────────────────────────────────────────
-ah, aw = 1.2451128509e-03, 6.0843905260e-04
-bh, bw = 2.7074805444e-03, 1.4082272735e-03
-ch, cw = 5.6279169098e-02, 4.0289703115e-02
+ah, aw = 1.2566852371e-03, 6.7752025554e-04
+bh, bw = 2.7038091444e-03, 1.4050786566e-03
+ch, cw = 5.6422851553e-02, 4.0585677414e-02
 coeffs = (ah, aw, bh, bw, ch, cw)
 
 ELEV_CUTOFF_DEG = 20.0   # degrees — applied AFTER receiver clock estimation

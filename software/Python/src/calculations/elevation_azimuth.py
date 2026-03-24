@@ -3,77 +3,8 @@ Elevation and Azimuth Calculations
 """
 
 import numpy as np
-
-# WGS-84 ellipsoid parameters
-WGS84_A = 6378137.0  # Semi-major axis [meters]
-WGS84_E2 = 6.69437999014e-3  # First eccentricity squared
-
-
-def ecef_to_geodetic(x, y, z):
-    """
-    Convert ECEF coordinates to geodetic coordinates (latitude, longitude, height).
-
-    Uses iterative algorithm for latitude calculation with WGS-84 ellipsoid.
-
-    Parameters:
-        x (float): ECEF X coordinate [meters]
-        y (float): ECEF Y coordinate [meters]
-        z (float): ECEF Z coordinate [meters]
-
-    Returns:
-        tuple: (latitude [radians], longitude [radians], height [meters])
-    """
-    # Longitude is straightforward
-    lon = np.arctan2(y, x)
-
-    # Calculate initial latitude estimate
-    p = np.sqrt(x ** 2 + y ** 2)
-    lat = np.arctan2(z, p * (1 - WGS84_E2))
-
-    # Iterate to refine latitude (typically converges in 3-5 iterations)
-    for _ in range(5):
-        N = WGS84_A / np.sqrt(1 - WGS84_E2 * np.sin(lat) ** 2)
-        h = p / np.cos(lat) - N
-        lat = np.arctan2(z, p * (1 - WGS84_E2 * N / (N + h)))
-
-    # Calculate final height
-    N = WGS84_A / np.sqrt(1 - WGS84_E2 * np.sin(lat) ** 2)
-    h = p / np.cos(lat) - N
-
-    return lat, lon, h
-
-
-def ecef_to_enu(dx, dy, dz, lat, lon):
-    """
-    Transform a vector from ECEF to East-North-Up (ENU) topocentric coordinates.
-
-    The ENU coordinate system is centered at the observer location with:
-    - E axis pointing East
-    - N axis pointing North
-    - U axis pointing Up (perpendicular to ellipsoid)
-
-    Parameters:
-        dx (float): ECEF X component of vector [meters]
-        dy (float): ECEF Y component of vector [meters]
-        dz (float): ECEF Z component of vector [meters]
-        lat (float): Observer geodetic latitude [radians]
-        lon (float): Observer geodetic longitude [radians]
-
-    Returns:
-        tuple: (east [meters], north [meters], up [meters])
-    """
-    sin_lat = np.sin(lat)
-    cos_lat = np.cos(lat)
-    sin_lon = np.sin(lon)
-    cos_lon = np.cos(lon)
-
-    # Apply rotation matrix from ECEF to ENU
-    e = -sin_lon * dx + cos_lon * dy
-    n = -sin_lat * cos_lon * dx - sin_lat * sin_lon * dy + cos_lat * dz
-    u = cos_lat * cos_lon * dx + cos_lat * sin_lon * dy + sin_lat * dz
-
-    return e, n, u
-
+from typing import Tuple
+from .coordinates import ecef_to_geodetic, ecef_to_enu
 
 def enu_to_elevation_azimuth(e, n, u):
     """
@@ -107,7 +38,7 @@ def enu_to_elevation_azimuth(e, n, u):
     return elevation_deg, azimuth_deg
 
 
-def calculate_elevation_azimuth(sat_ecef, rx_ecef):
+def calculate_elevation_azimuth(sat_ecef: Tuple[float, float, float], rx_ecef: Tuple[float, float, float]):
     """
     Calculate satellite elevation and azimuth angles as seen from a receiver.
 
@@ -138,10 +69,10 @@ def calculate_elevation_azimuth(sat_ecef, rx_ecef):
     dz = sat_ecef[2] - rx_ecef[2]
 
     # Step 2: Convert receiver ECEF position to geodetic
-    lat, lon, _ = ecef_to_geodetic(rx_ecef[0], rx_ecef[1], rx_ecef[2])
+    lat, lon, _ = ecef_to_geodetic(rx_ecef)
 
     # Step 3: Transform ECEF vector to ENU coordinates
-    e, n, u = ecef_to_enu(dx, dy, dz, lat, lon)
+    e, n, u = ecef_to_enu(dx, dy, dz, np.radians(lat), np.radians(lon))
 
     # Step 4: Calculate elevation and azimuth angles
     elevation, azimuth = enu_to_elevation_azimuth(e, n, u)
@@ -189,7 +120,7 @@ if __name__ == "__main__":
     print(f"Slant Range: {slant_range / 1000:.2f} km")
 
     # Convert receiver to geodetic for reference
-    lat, lon, h = ecef_to_geodetic(rx_ecef[0], rx_ecef[1], rx_ecef[2])
+    lat, lon, h = ecef_to_geodetic(rx_ecef)
     print(f"\nReceiver Geodetic:")
     print(f"  Latitude: {np.degrees(lat):.6f}°")
     print(f"  Longitude: {np.degrees(lon):.6f}°")

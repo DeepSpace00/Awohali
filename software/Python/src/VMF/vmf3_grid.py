@@ -1233,14 +1233,14 @@ def main():
 
     # --- using GPS week / TOW ---
     mfh, mfw, zhd, zwd, ah, aw, bh, bw, ch, cw, _ = vmf3_grid(
-        vmf3_filepath      = "../../data/trop_products/GRID/1x1/VMF3/VMF3_OP/2026/VMF3_20260115.H12",
+        vmf3_filepath      = "../../data/trop_products/GRID/1x1/VMF3/VMF3_OP/2026/VMF3_20260301.H18",
         orography_filepath = "../../data/station_coord_files/orography_ell_1x1.txt",
         vmf3_grid_cache    = None,
         rcv_pos            = receiver_ecef,
         zd                 = math.radians(45.0),
         grid_res           = 1,
-        gps_week           = 2394,
-        gps_tow            = 225000.0,
+        gps_week           = 2408,
+        gps_tow            = 64800.0,
     )
     print("=" * 60)
     print("VMF3 Grid Mapping Function Results (GPS week/TOW)")

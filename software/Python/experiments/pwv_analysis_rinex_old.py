@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import datetime
 import numpy as np
 from pathlib import Path
 import pandas as pd
@@ -8,70 +9,48 @@ import time
 
 from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris, load_ephemeris_data
+from calculations.datetime_conversion import datetime_to_gps_tow
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from meteorology.tropospheric_products import calculate_precipitable_water_vapor
+from meteorology.old_trop_products import calculate_precipitable_water_vapor
 
 c = 299792458.0  # Speed of light (m/s)
+
+gps_frequency_plan = {
+    'L1': 1575.42,   # MHz
+    'L2': 1227.6,    # MHz
+    'L5': 1176.45    # MHz
+}
 
 # ─────────────────────────────────────────────
 # File / database paths
 # ─────────────────────────────────────────────
 _DATA = Path(__file__).parent.parent / "data"
 
-rawx_file   = _DATA / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
-clock_file  = _DATA / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
-ephemeris   = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast"
-
+rinex_file   = _DATA / "RINEX_data/ORMD/2026-02-28/ormd0590_GPS_Galileo_excerpt.csv"
+ephemeris    = _DATA / "ephemerides/ephemeris_2026-02-28_RINEX.json"
+results_dir  = _DATA / "RINEX_data/ORMD/2026-02-28/ormd0590_GPS_Galileo_excerpt"
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast.db")
-
+conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2026-02-28/ormd0590_GPS_Galileo_excerpt.db")
 # ─────────────────────────────────────────────
 # Station / met parameters
 # ─────────────────────────────────────────────
-receiver_ecef = (867068.487, -5504812.066, 3092176.505)  # Campus quad
-# receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
-
-surface_temperature = 25.0           # °C
-surface_pressure    = 846.597166666675  # hPa
+receiver_ecef       = (860376.4154, -5499833.4036, 3102756.9385)  # CORS ORMD
+surface_temperature = 25.0                   # °C
+surface_pressure    = 1016.0       # hPa
 
 # ─────────────────────────────────────────────
 # VMF3 mapping coefficients
 # ─────────────────────────────────────────────
-ah, aw = 1.2451128509e-03, 6.0843905260e-04
-bh, bw = 2.7074805444e-03, 1.4082272735e-03
-ch, cw = 5.6279169098e-02, 4.0289703115e-02
+ah, aw = 1.2566852371e-03, 6.7752025554e-04
+bh, bw = 2.7038091444e-03, 1.4050786566e-03
+ch, cw = 5.6422851553e-02, 4.0585677414e-02
 coeffs = (ah, aw, bh, bw, ch, cw)
 
-ELEV_CUTOFF_DEG = 20.0  # degrees — applied AFTER geometry computation
+ELEV_CUTOFF_DEG = 20.0   # degrees — applied AFTER receiver clock estimation
 
 ephemeris_data = load_ephemeris_data(ephemeris)
-
-# ─────────────────────────────────────────────
-# UBX signal plan (gnssId → sigId → service/freq)
-# ─────────────────────────────────────────────
-signal_plan = {
-    0: {
-        0:  {'service': 'L1_C/A',   'freq': 1575.42},   # L1 Civilian signal [MHz]
-        3:  {'service': 'L2_CL',    'freq': 1227.60},   # L2 Pilot signal
-        4:  {'service': 'L2_CM',    'freq': 1227.60},   # L2 Data signal
-        6:  {'service': 'L5_I',     'freq': 1176.45},   # L5 Data signal
-        7:  {'service': 'L5_Q',     'freq': 1176.45}    # L5 Pilot signal
-    },
-    2: {
-        0:  {'service': 'E1_C',     'freq': 1575.42},   # E1 Pilot signal [MHz]
-        1:  {'service': 'E1_B',     'freq': 1575.42},   # E1 Data signal
-        3:  {'service': 'E5_aI',    'freq': 1176.45},   # E5a Data signal
-        4:  {'service': 'E5_aQ',    'freq': 1176.45},   # E5a Pilot signal
-        5:  {'service': 'E5_bI',    'freq': 1207.14},   # E5b Data signal
-        6:  {'service': 'E5_bQ',    'freq': 1207.14},   # E5b Pilot signal
-        8:  {'service': 'E6_B',     'freq': 1278.75},   # E6 Data signal
-        9:  {'service': 'E6_C',     'freq': 1278.75},   # E6 Pilot signal
-        10: {'service': 'E6_A',     'freq': 1278.75}    # E6 PRS signal
-    }
-}
 
 
 # ══════════════════════════════════════════════
@@ -85,61 +64,28 @@ def make_if_pseudorange(pr1, pr2, f1_mhz, f2_mhz):
     return (pr1 * f1 ** 2 - pr2 * f2 ** 2) / (f1 ** 2 - f2 ** 2)
 
 
-def make_if_carrier(cp1, cp2, f1_mhz, f2_mhz):
-    """Ionosphere-free carrier phase combination (cycles)."""
-    f1 = f1_mhz * 1e6
-    f2 = f2_mhz * 1e6
-    return (cp1 * f1 ** 2 - cp2 * f2 ** 2) / (f1 ** 2 - f2 ** 2)
-
-
-def parse_ubx_signals(satellite_data, constellation, signal_plan):
+def parse_pseudorange(row):
     """
-    Parse UBX RAWX signals for one satellite at one epoch.
-    Returns (pseudorange_m, carrierPhase, freq_label) or (None, None, None).
-    Preference: highest+lowest freq IF combination > single-frequency fallback.
+    Return (pseudorange_m, freq_label) for one RINEX row.
+    Preference order: L1+L2 > L1+L5 > L1 only.
+    Returns (None, None) if no usable pseudorange.
     """
-    sigIDs = satellite_data['sigId'].unique()
+    L1 = row['C1'] if pd.notna(row['C1']) else None
+    L2 = row['C2'] if pd.notna(row['C2']) else None
+    L5 = row['C5'] if pd.notna(row['C5']) else None
 
-    if len(sigIDs) > 1:
-        freq_sig_pairs = []
-        for sig in sigIDs:
-            freq = float(signal_plan[constellation][sig]['freq'])
-            row = satellite_data[satellite_data['sigId'] == sig].iloc[0]
-            freq_sig_pairs.append((freq, float(row['prMes']), float(row['cpMes'])))
+    if L1 is not None and L2 is not None:
+        return make_if_pseudorange(L1, L2,
+                                   gps_frequency_plan['L1'],
+                                   gps_frequency_plan['L2']), 'L1_L2'
+    if L1 is not None and L5 is not None:
+        return make_if_pseudorange(L1, L5,
+                                   gps_frequency_plan['L1'],
+                                   gps_frequency_plan['L5']), 'L1_L5'
+    if L1 is not None:
+        return float(L1), 'L1'
 
-        freq_sig_pairs.sort(key=lambda x: x[0])
-
-        freq_low, pr_low, cp_low = freq_sig_pairs[0]
-        freq_high, pr_high, cp_high = freq_sig_pairs[-1]
-
-        if freq_low == freq_high:
-            pseudorange_m = pr_high
-            carrier_phase = cp_high
-            freq_label = signal_plan[constellation][sigIDs[0]]['service']
-        else:
-            pseudorange_m = make_if_pseudorange(pr_high, pr_low, freq_high, freq_low)
-            carrier_phase = make_if_carrier(cp_high, cp_low, freq_high, freq_low)
-            svc_high = signal_plan[constellation][sigIDs[-1]]['service'].split('_')[0]
-            svc_low = signal_plan[constellation][sigIDs[0]]['service'].split('_')[0]
-            freq_label = f"{svc_high}_{svc_low}"
-    else:
-        pseudorange_m = float(satellite_data.iloc[0]['prMes'])
-        carrier_phase = float(satellite_data.iloc[0]['cpMes'])
-        freq_label = signal_plan[constellation][sigIDs[0]]['service']
-
-    return pseudorange_m, carrier_phase, freq_label
-
-
-def correct_rcvtow(rcvTow_s, clkBias_ns):
-    """
-    rcvTOW and iTOW become out of sync when clkBias_ns exceeds ±0.5 ms
-    (rcvTOW rounds because it only has 3 decimal places).
-    """
-    if clkBias_ns >= 500000:
-        return rcvTow_s - 0.001
-    elif clkBias_ns <= -500000:
-        return rcvTow_s + 0.001
-    return rcvTow_s
+    return None, None
 
 
 # ══════════════════════════════════════════════
@@ -160,7 +106,7 @@ def estimate_clock_ztd_isb(sats, ah, bh, ch, elev_cutoff_deg, has_galileo):
     from per-satellite raw residuals using weighted least squares.
 
     Observation model for each satellite i:
-        raw_residual_i = c*dt_r + mf_h(el_i) * ZTD [+ ISB if Galileo]
+        raw_residual_i = c*dt_r + mf_h(el_i) * ZTD  [+ ISB if Galileo]
 
     Returns dict or None if insufficient observations.
     """
@@ -313,14 +259,12 @@ def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
 
 
 # ══════════════════════════════════════════════
-# Load data
+# Load data & station parameters
 # ══════════════════════════════════════════════
-rawx  = pd.read_csv(rawx_file)
-clock = pd.read_csv(clock_file)
-rawx_length = len(rawx)
-total_measurements = len(rawx)
 
-# Compute station geodetic coordinates and a priori ZHD once
+rinex = pd.read_csv(rinex_file)
+total_rows = len(rinex)
+
 station_lat, station_lon, station_hgt = ecef_to_geodetic(*receiver_ecef)
 station_hgt_km = station_hgt / 1000.0
 zhd_prior = saastamoinen_zhd(surface_pressure, station_lat, station_hgt_km)
@@ -331,125 +275,79 @@ print(f"A priori ZHD (Saastamoinen): {zhd_prior:.4f} m")
 print(f"Mean atmospheric temperature Tm: {tm:.1f} K")
 
 # ══════════════════════════════════════════════
-# Pass 1 — compute geometry and raw residuals
+# Pass 1 — compute geometry for every satellite
 # ══════════════════════════════════════════════
 
-print("\nPass 1: computing satellite geometry and raw residuals...")
 start_time = time.time()
+print("\nPass 1: computing satellite geometry and raw residuals...")
 
 epoch_buffer = defaultdict(list)
-i = 0
 
-while True:
-    progress = (i + 1) / total_measurements
+for idx in range(total_rows):
+    progress = (idx + 1) / total_rows
     elapsed = time.time() - start_time
-    if i > 0:
-        eta_s = (elapsed / (i + 1)) * (total_measurements - i - 1)
-        eta_str = (f"{eta_s:.0f}s" if eta_s < 60 else
-                   f"{eta_s / 60:.1f}m" if eta_s < 3600 else
-                   f"{eta_s / 3600:.1f}h")
-    else:
-        eta_str = "calculating..."
+    eta_s = (elapsed / (idx + 1)) * (total_rows - idx - 1)
+    eta_str = (f"{eta_s:.0f}s" if eta_s < 60 else
+               f"{eta_s / 60:.1f}m" if eta_s < 3600 else
+               f"{eta_s / 3600:.1f}h")
     bar = '█' * int(40 * progress) + '-' * (40 - int(40 * progress))
-    sys.stdout.write(f'\r  |{bar}| {progress * 100:.1f}% ({i + 1}/{total_measurements}) ETA: {eta_str}')
+    sys.stdout.write(f'\r  |{bar}| {progress * 100:.1f}% ETA: {eta_str}')
     sys.stdout.flush()
 
-    numMeas = rawx.iloc[i]['numMeas']
-    epoch_data = rawx.loc[i:(i + numMeas - 1), [
-        'rcvTow', 'week', 'prMes', 'cpMes', 'doMes', 'gnssId', 'svId',
-        'sigId', 'locktime', 'cno', 'prStdev', 'cpStdev',
-        'prValid', 'cpValid', 'halfCyc', 'subHalfCyc']]
+    row = rinex.iloc[idx]
 
-    rcvTow_s = epoch_data['rcvTow'].values[0]
-    gpsWeek  = epoch_data['week'].values[0]
+    pseudorange_m, freq_label = parse_pseudorange(row)
+    if pseudorange_m is None:
+        continue
 
-    closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]
-    iTow_ms      = closest_iTow['iTOW'].values[0]
-    clkBias_ns   = closest_iTow['clkB'].values[0]
-    clkDrift_ns  = closest_iTow['clkD'].values[0]
+    print(pseudorange_m)
 
-    rcvTow_sat_s = correct_rcvtow(rcvTow_s, clkBias_ns)
-    dt_iTow_s    = rcvTow_sat_s - (iTow_ms / 1000.0)
-    dt_bias_s    = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
-    rcv_clkBias_nav_s = dt_iTow_s + dt_bias_s
-    gpsTow_s     = rcvTow_sat_s - rcv_clkBias_nav_s
+    pvn = row['sat_id']
+    rcvTime = datetime.strptime(row['epoch'], "%Y-%m-%d %H:%M:%S")
+    rcvTow, gpsWeek = datetime_to_gps_tow(rcvTime)
 
-    gnssIDs = epoch_data['gnssId'].unique()
+    try:
+        sat = load_ephemeris(ephemeris_data, pvn, gps_tow=rcvTow)
+    except (KeyError, ValueError):
+        continue
 
-    for constellation in gnssIDs:
-        epoch_constellation_data = epoch_data[epoch_data['gnssId'] == constellation]
-        svIDs = epoch_constellation_data['svId'].unique()
+    try:
+        gr = geometric_range.calculate_satellite_position_and_range(
+            ephemeris_data, pvn, receiver_ecef,
+            gps_tow=rcvTow, gps_week=gpsWeek
+        )
+    except Exception:
+        continue
 
-        for satellite in svIDs:
-            if constellation == 0:
-                pvn = f'G{satellite:02d}'
-            elif constellation == 2:
-                pvn = f'E{satellite:02d}'
-            else:
-                continue
+    geo_range_m = gr['geometric_range_m']
+    t_tx = gr['transmission_time']
+    sat_ecef = (gr['satellite_ecef_m']['x'],
+                gr['satellite_ecef_m']['y'],
+                gr['satellite_ecef_m']['z'])
 
-            satellite_data = epoch_constellation_data[epoch_constellation_data['svId'] == satellite]
+    dt_sv = clock_correction.calculate_satellite_clock_offset(sat, t_tx)
+    dt_rel = clock_correction.calculate_relativistic_clock_correction(sat, t_tx)
 
-            pseudorange_m, carrier_phase, freq_label = parse_ubx_signals(
-                satellite_data, constellation, signal_plan)
-            if pseudorange_m is None:
-                continue
+    raw_residual = pseudorange_m - geo_range_m + (dt_sv + dt_rel) * c
 
-            try:
-                sat = load_ephemeris(ephemeris_data, pvn, gps_tow=gpsTow_s)
-            except KeyError:
-                continue
-            except ValueError:
-                continue
+    elevation, azimuth = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
 
-            try:
-                gr = geometric_range.calculate_satellite_position_and_range(
-                    ephemeris_data, pvn, receiver_ecef,
-                    gps_week=gpsWeek, gps_tow=gpsTow_s)
-            except Exception:
-                continue
-
-            geo_range_m = gr['geometric_range_m']
-            t_tx_s      = gr['transmission_time']
-            sat_ecef    = (gr['satellite_ecef_m']['x'],
-                           gr['satellite_ecef_m']['y'],
-                           gr['satellite_ecef_m']['z'])
-
-            dt_sv_s  = clock_correction.calculate_satellite_clock_offset(sat, t_tx_s)
-            dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
-
-            raw_residual = pseudorange_m - geo_range_m + (dt_sv_s + dt_rel_s) * c
-
-            elevation_deg, azimuth_deg = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
-
-            epoch_buffer[rcvTow_s].append({
-                'pvn':            pvn,
-                'rcvTOW':         rcvTow_s,
-                'gpsTOW':         gpsTow_s,
-                'iTOW':           iTow_ms / 1000.0,
-                'rcvTOW_sat':     rcvTow_sat_s,
-                'clkBias_ns':     clkBias_ns,
-                'clkDrift_ns':    clkDrift_ns,
-                'gpsWeek':        gpsWeek,
-                't_tx':           t_tx_s,
-                'geoRange':       geo_range_m,
-                'elevation':      elevation_deg,
-                'azimuth':        azimuth_deg,
-                'satClockBias':   dt_sv_s * c,
-                'relBias':        dt_rel_s * c,
-                'pseudorange':    pseudorange_m,
-                'carrierPhase':   carrier_phase,
-                'freqLabel':      freq_label,
-                'raw_residual':   raw_residual,
-            })
-
-    i += numMeas
-    if i >= rawx_length:
-        break
+    epoch_buffer[rcvTow].append({
+        'pvn': pvn,
+        'rcvTOW': rcvTow,
+        'gpsWeek': gpsWeek,
+        't_tx': t_tx,
+        'geoRange': geo_range_m,
+        'elevation': elevation,
+        'azimuth': azimuth,
+        'satClockBias': dt_sv * c,
+        'relBias': dt_rel * c,
+        'pseudorange': pseudorange_m,
+        'freqLabel': freq_label,
+        'raw_residual': raw_residual,
+    })
 
 sys.stdout.write('\n')
-pass1_time = time.time() - start_time
-print(f"Pass 1 completed in {pass1_time:.1f} seconds")
 
 # ══════════════════════════════════════════════
 # Pass 2 — per-epoch joint estimation of
@@ -461,7 +359,7 @@ print("Pass 2: joint least-squares estimation of clock + ZTD [+ ISB]...")
 gnss_results_lists = defaultdict(list)
 epoch_summary_list = []  # ← collects one row per epoch for the summary table
 epochs_total = len(epoch_buffer)
-epochs_done  = 0
+epochs_done = 0
 skipped_epochs = 0
 
 for rcvTow, sats in sorted(epoch_buffer.items()):
@@ -510,29 +408,23 @@ for rcvTow, sats in sorted(epoch_buffer.items()):
         epoch_svids.append(s['pvn'])
 
         gnss_results_lists[s['pvn']].append({
-            'svId':              s['pvn'],
-            'iTOW':              s['iTOW'],
-            'gpsTOW':            s['gpsTOW'],
-            'rcvTOW':            s['rcvTOW'],
-            'rcvTOW_sat':        s['rcvTOW_sat'],
-            'clkBias_ns':        s['clkBias_ns'],
-            'clkDrift_ns':       s['clkDrift_ns'],
-            't_tx':              s['t_tx'],
-            'WN':                s['gpsWeek'],
-            'geoRange':          s['geoRange'],
-            'elevation':         s['elevation'],
-            'azimuth':           s['azimuth'],
-            'satClockBias':      s['satClockBias'],
-            'relBias':           s['relBias'],
-            'rcvClockBias_m':    rcv_clock_m,
-            'ztd_est_m':         ztd_m,
-            'ISB_m':             isb_m,
-            'pseudorange':       s['pseudorange'],
-            'carrierPhase':      s['carrierPhase'],
-            'freqLabel':         s['freqLabel'],
+            'svId': s['pvn'],
+            'rcvTOW': s['rcvTOW'],
+            't_tx': s['t_tx'],
+            'WN': s['gpsWeek'],
+            'geoRange': s['geoRange'],
+            'elevation': s['elevation'],
+            'azimuth': s['azimuth'],
+            'satClockBias': s['satClockBias'],
+            'relBias': s['relBias'],
+            'rcvClockBias_m': rcv_clock_m,
+            'ztd_est_m': ztd_m,
+            'ISB_m': isb_m,
+            'pseudorange': s['pseudorange'],
+            'freqLabel': s['freqLabel'],
             'troposphericDelay': tropospheric_delay_m,
-            'pwv':               pwv * 1000.0,
-            'ztd':               ztd * 1000.0,
+            'pwv': pwv * 1000.0,
+            'ztd': ztd * 1000.0,
         })
 
     # ── Epoch-level ZWD / PWV estimate ────────────────────────

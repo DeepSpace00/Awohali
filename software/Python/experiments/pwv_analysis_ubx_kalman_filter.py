@@ -6,12 +6,16 @@ import sqlite3
 import sys
 import time
 
+from calculations.coordinates import ecef_to_geodetic
 from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris, load_ephemeris_data
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor, zwd_to_pwv
+from meteorology.tropospheric_products import (bevis_tm, calculate_pwv, saastamoinen_zhd,
+                                               calculate_mapping_function, zwd_to_pwv)
 
 c = 299792458.0  # Speed of light (m/s)
+
+bdg_corr = False
 
 # ─────────────────────────────────────────────
 # File / database paths
@@ -26,7 +30,7 @@ results_dir = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gps
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gpsTOW_fixed_4.db")
+conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gpsTOW_fixed_9.db")
 
 # ─────────────────────────────────────────────
 # Station / met parameters
@@ -34,8 +38,8 @@ conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_f
 receiver_ecef = (867068.487, -5504812.066, 3092176.505)  # Campus quad
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
-surface_temperature = 25.0           # °C
-surface_pressure    = 846.597166666675  # hPa
+surface_temperature_C   = 25.0              # °C
+surface_pressure_hPa    = 1021.3348218666767  # hPa
 
 # ─────────────────────────────────────────────
 # VMF3 mapping coefficients
@@ -43,7 +47,7 @@ surface_pressure    = 846.597166666675  # hPa
 ah, aw = 1.2451128509e-03, 6.0843905260e-04
 bh, bw = 2.7074805444e-03, 1.4082272735e-03
 ch, cw = 5.6279169098e-02, 4.0289703115e-02
-coeffs = (ah, aw, bh, bw, ch, cw)
+mapping_coeffs = (ah, aw, bh, bw, ch, cw)
 
 ELEV_CUTOFF_DEG = 20.0  # degrees — applied AFTER geometry computation
 
@@ -159,18 +163,6 @@ def correct_rcvtow(rcvTow_s, clkBias_ns):
 
 
 # ══════════════════════════════════════════════
-# Helpers — mapping functions
-# ══════════════════════════════════════════════
-
-def marini(elevation_deg, a, b, c_coeff):
-    """Marini continued-fraction mapping function."""
-    sin_el = np.sin(np.radians(elevation_deg))
-    num = 1.0 + a / (1.0 + b / (1.0 + c_coeff))
-    den = sin_el + a / (sin_el + b / (sin_el + c_coeff))
-    return num / den
-
-
-# ══════════════════════════════════════════════
 # Kalman filter for clock + ZTD + ISB
 # ══════════════════════════════════════════════
 
@@ -230,18 +222,21 @@ class KalmanFilterCZI:
 
         for i, s in enumerate(above):
             y[i] = s['raw_residual']
-            mf_h = marini(s['elevation'], ah, bh, ch)
+            mf_h = calculate_mapping_function(s['elevation'], ah, bh, ch)
 
             H[i, 0] = 1.0
             H[i, 1] = mf_h
             if s['pvn'].startswith('E'):
                 H[i, 2] = 1.0
 
-            if 'prStdev' in s and s['prStdev'] > 0:
-                R[i, i] = s['prStdev'] ** 2
+            # if 'prStdev' in s and s['prStdev'] > 0:
+            #     R[i, i] = s['prStdev'] ** 2
             # else:
                 # sin_el = np.sin(np.radians(s['elevation']))
                 # R[i, i] = R_BASE_M2 / (sin_el ** 2)
+
+            sin_el = np.sin(np.radians(s['elevation']))
+            R[i, i] = R_BASE_M2 / (sin_el ** 2)
 
         # Innovation
         z = y - H @ self.x
@@ -289,7 +284,7 @@ def wls_initial_solution(sats, elev_cutoff_deg):
 
     for i, s in enumerate(above):
         y[i] = s['raw_residual']
-        mf_h = marini(s['elevation'], ah, bh, ch)
+        mf_h = calculate_mapping_function(s['elevation'], ah, bh, ch)
         A[i, 0] = 1.0
         A[i, 1] = mf_h
         if s['pvn'].startswith('E'):
@@ -314,47 +309,6 @@ def wls_initial_solution(sats, elev_cutoff_deg):
 # ══════════════════════════════════════════════
 # Helpers — geodetic & meteorological
 # ══════════════════════════════════════════════
-
-def ecef_to_geodetic(x, y, z):
-    """Bowring iterative ECEF → geodetic (WGS-84). Returns (lat_deg, lon_deg, height_m)."""
-    a  = 6378137.0
-    f  = 1.0 / 298.257223563
-    b  = a * (1.0 - f)
-    e2 = 2*f - f**2
-
-    p   = np.sqrt(x**2 + y**2)
-    lon = np.arctan2(y, x)
-
-    lat = np.arctan2(z, p * (1.0 - e2))
-    for _ in range(10):
-        sin_lat = np.sin(lat)
-        N       = a / np.sqrt(1.0 - e2 * sin_lat**2)
-        lat_new = np.arctan2(z + e2 * N * sin_lat, p)
-        if abs(lat_new - lat) < 1e-12:
-            break
-        lat = lat_new
-
-    sin_lat = np.sin(lat)
-    N = a / np.sqrt(1.0 - e2 * sin_lat**2)
-    h = p / np.cos(lat) - N if abs(lat) < np.radians(45) else \
-        z / np.sin(lat) - N * (1.0 - e2)
-
-    return np.degrees(lat), np.degrees(lon), h
-
-
-def saastamoinen_zhd(pressure_hpa, lat_deg, height_km):
-    """Saastamoinen (1972) / Davis et al. (1985) ZHD in metres."""
-    return (0.0022768 * pressure_hpa) / (
-        1.0 - 0.00266 * np.cos(2.0 * np.radians(lat_deg))
-            - 0.00028 * height_km
-    )
-
-
-def bevis_tm(surface_temp_k):
-    """Bevis (1992) mean atmospheric temperature from surface temp."""
-    return 70.2 + 0.72 * surface_temp_k
-
-
 def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
     """
     Estimate ZWD for one epoch from per-satellite slant tropospheric delays
@@ -375,8 +329,8 @@ def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
     w    = np.sin(np.radians(elev)) ** 2
     W    = np.diag(w)
 
-    mf_h = marini(elev, ah, bh, ch)
-    mf_w = marini(elev, aw, bw, cw)
+    mf_h = calculate_mapping_function(elev, ah, bh, ch)
+    mf_w = calculate_mapping_function(elev, aw, bw, cw)
 
     z_reduced = std - mf_h * zhd_m
 
@@ -416,14 +370,14 @@ utctime = pd.read_csv(utctime_file)
 rawx_length = len(rawx)
 total_measurements = len(rawx)
 
-station_lat, station_lon, station_hgt = ecef_to_geodetic(*receiver_ecef)
-station_hgt_km = station_hgt / 1000.0
-zhd_prior = saastamoinen_zhd(surface_pressure, station_lat, station_hgt_km)
-tm = bevis_tm(surface_temperature + 273.15)
+station_lat, station_lon, station_hgt = ecef_to_geodetic(receiver_ecef)
+zhd_prior = saastamoinen_zhd(station_lat, station_hgt, surface_pressure_hPa)
+tm = bevis_tm(surface_temperature_C + 273.15)
 
 print(f"Station geodetic: lat={station_lat:.6f}°  lon={station_lon:.6f}°  h={station_hgt:.3f} m")
 print(f"A priori ZHD (Saastamoinen): {zhd_prior:.4f} m")
 print(f"Mean atmospheric temperature Tm: {tm:.1f} K")
+print(f"Station atmospheric pressure: {surface_pressure_hPa:.2f} hPa")
 print(f"\nKalman filter process noise:")
 print(f"  Clock: {Q_CLOCK_M2_PER_S:.0e} m²/s (unconstrained)")
 print(f"  ZTD:   {Q_ZTD_M2_PER_S:.1e} m²/s ({np.sqrt(Q_ZTD_M2_PER_S)*1e3:.2f} mm/√s)")
@@ -466,21 +420,21 @@ while True:
     rcvTow_ms = round(rcvTow_s) * 1e3
     utc_row = utctime[utctime['iTOW'] == rcvTow_ms]
 
-    if len(utc_row) > 0:
-        iTow_ms = utc_row['iTOW'].values[0]
-        nano = utc_row['nano'].values[0]
-        gpsTow_s = iTow_ms * 1e-3 + nano * 1e-9
+    # if len(utc_row) > 0:
+    #     iTow_ms = utc_row['iTOW'].values[0]
+    #     nano = utc_row['nano'].values[0]
+    #     gpsTow_s = iTow_ms * 1e-3 + nano * 1e-9
 
-    else:
-        closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]
-        iTow_ms      = closest_iTow['iTOW'].values[0]
-        clkBias_ns   = closest_iTow['clkB'].values[0]
-        clkDrift_ns  = closest_iTow['clkD'].values[0]
-        rcvTow_sat_s = correct_rcvtow(rcvTow_s, clkBias_ns)
-        dt_iTow_s    = rcvTow_sat_s - (iTow_ms / 1000.0)
-        dt_bias_s    = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
-        rcv_clkBias_nav_s = dt_iTow_s + dt_bias_s
-        gpsTow_s     = rcvTow_sat_s - rcv_clkBias_nav_s
+    # else:
+    closest_iTow = clock.iloc[(clock['iTOW'] / 1000.0 - rcvTow_s).abs().argsort()[:1]]
+    iTow_ms      = closest_iTow['iTOW'].values[0]
+    clkBias_ns   = closest_iTow['clkB'].values[0]
+    clkDrift_ns  = closest_iTow['clkD'].values[0]
+    rcvTow_sat_s = correct_rcvtow(rcvTow_s, clkBias_ns)
+    dt_iTow_s    = rcvTow_sat_s - (iTow_ms / 1000.0)
+    dt_bias_s    = (clkBias_ns + clkDrift_ns * dt_iTow_s) / 1e9
+    rcv_clkBias_nav_s = dt_iTow_s + dt_bias_s
+    gpsTow_s     = rcvTow_sat_s - rcv_clkBias_nav_s
 
     gnssIDs = epoch_data['gnssId'].unique()
 
@@ -511,25 +465,24 @@ while True:
                 continue
 
             # ── broadcast group delay correction ─────────
-
-            if pvn.startswith('G'):
-                tgd = sat.eph_data.get('TGD', 0.0)
-                if 'L5' in freq_label:
-                    gamma = (1575.42 ** 2 - 1227.60 ** 2) / (1575.42 ** 2 - 1176.45 ** 2)
-                    tgd_correction_s = -tgd * gamma
-                    #pseudorange_m -= c * tgd * gamma
-                # L1/L2 IF: no correction needed
-                else:
-                    tgd_correction_s = 0
-            elif pvn.startswith('E'):
-                if 'E5_a' in freq_label or 'L5' in freq_label:
-                    bgd = sat.eph_data.get('BGD_E1E5a', 0.0)
-                    tgd_correction_s = -bgd
-                    #pseudorange_m -= c * bgd
-                elif 'E5_b' in freq_label:
-                    bgd = sat.eph_data.get('BGD_E1E5b', 0.0)
-                    tgd_correction_s = -bgd
-                    #pseudorange_m -= c * bgd
+            if bdg_corr:
+                if pvn.startswith('G'):
+                    tgd = sat.eph_data.get('TGD', 0.0)
+                    if 'L5' in freq_label:
+                        gamma = (1575.42 ** 2 - 1227.60 ** 2) / (1575.42 ** 2 - 1176.45 ** 2)
+                        tgd_correction_s = -tgd * gamma
+                    # L1/L2 IF: no correction needed
+                    else:
+                        tgd_correction_s = 0
+                elif pvn.startswith('E'):
+                    if 'E5_a' in freq_label or 'L5' in freq_label:
+                        bgd = sat.eph_data.get('BGD_E1E5a', 0.0)
+                        tgd_correction_s = -bgd
+                    elif 'E5_b' in freq_label:
+                        bgd = sat.eph_data.get('BGD_E1E5b', 0.0)
+                        tgd_correction_s = -bgd
+                    else:
+                        tgd_correction_s = 0
                 else:
                     tgd_correction_s = 0
             else:
@@ -551,7 +504,7 @@ while True:
             dt_sv_s  = clock_correction.calculate_satellite_clock_offset(sat, t_tx_s)
             dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
 
-            raw_residual = pseudorange_m - geo_range_m + (dt_sv_s + dt_rel_s + tgd_correction_s) * c
+            raw_residual = pseudorange_m - geo_range_m + (dt_sv_s + dt_rel_s) * c
 
             elevation_deg, azimuth_deg = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
 
@@ -639,13 +592,14 @@ for rcvTow, sats in sorted(epoch_buffer.items()):
 
         tropospheric_delay_m = s['raw_residual'] - clock_to_remove
 
-        pwv, ztd = calculate_precipitable_water_vapor(
-            receiver_ecef,
+        pwv, ztd = calculate_pwv(
+            station_lat,
+            station_hgt,
             s['elevation'],
             tropospheric_delay_m,
-            surface_temperature,
-            surface_pressure,
-            coeffs
+            surface_temperature_C,
+            surface_pressure_hPa,
+            mapping_coeffs
         )
 
         epoch_slant_delays.append(tropospheric_delay_m)

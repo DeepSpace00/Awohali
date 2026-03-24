@@ -9,7 +9,7 @@ import time
 from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris, load_ephemeris_data
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from meteorology.tropospheric_products import calculate_precipitable_water_vapor
+from meteorology.old_trop_products import calculate_precipitable_water_vapor
 
 c = 299792458.0  # Speed of light (m/s)
 
@@ -21,12 +21,11 @@ _DATA = Path(__file__).parent.parent / "data"
 rawx_file   = _DATA / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
 clock_file  = _DATA / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
 ephemeris   = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast"
-
+results_dir = _DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gpsTOW_fixed"
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testing_fast.db")
+conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_filter_gpsTOW_fixed_13.db")
 
 # ─────────────────────────────────────────────
 # Station / met parameters
@@ -34,8 +33,8 @@ conn = sqlite3.connect(_DATA / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_t
 receiver_ecef = (867068.487, -5504812.066, 3092176.505)  # Campus quad
 # receiver_ecef = (867068.487, -5504812.066, 3092176.505) # Apartment
 
-surface_temperature = 25.0           # °C
-surface_pressure    = 846.597166666675  # hPa
+surface_temperature   = 25.0              # °C
+surface_pressure    = 1021.3348218666767  # hPa
 
 # ─────────────────────────────────────────────
 # VMF3 mapping coefficients
@@ -72,6 +71,22 @@ signal_plan = {
         10: {'service': 'E6_A',     'freq': 1278.75}    # E6 PRS signal
     }
 }
+
+# ─────────────────────────────────────────────
+# Kalman filter tuning parameters
+# ─────────────────────────────────────────────
+# Process noise standard deviations (per second of elapsed time):
+#   - Clock:  effectively unconstrained (receiver clock can jump freely)
+#   - ZTD:    ~0.5 mm/√s — ZTD changes physically at ~0.1-1 mm/min
+#   - ISB:    ~0.01 mm/√s — hardware bias is very stable over a session
+#
+# Measurement noise: base sigma² scaled by 1/sin²(el) so low-elevation
+# satellites get higher noise.  R_BASE_M2 is the variance at zenith.
+
+Q_CLOCK_M2_PER_S = 1e12        # (m²/s) — essentially white noise each epoch
+Q_ZTD_M2_PER_S   = 2.5e-7      # (m²/s) — (0.5 mm)² / s = 2.5e-7
+Q_ISB_M2_PER_S   = 1e-10       # (m²/s) — (0.01 mm)² / s = 1e-10
+R_BASE_M2         = 1.0         # (m²)   — measurement noise variance at zenith
 
 
 # ══════════════════════════════════════════════
@@ -143,7 +158,7 @@ def correct_rcvtow(rcvTow_s, clkBias_ns):
 
 
 # ══════════════════════════════════════════════
-# Helpers — mapping functions & estimation
+# Helpers — mapping functions
 # ══════════════════════════════════════════════
 
 def marini(elevation_deg, a, b, c_coeff):
@@ -154,52 +169,142 @@ def marini(elevation_deg, a, b, c_coeff):
     return num / den
 
 
-def estimate_clock_ztd_isb(sats, ah, bh, ch, elev_cutoff_deg, has_galileo):
+# ══════════════════════════════════════════════
+# Kalman filter for clock + ZTD + ISB
+# ══════════════════════════════════════════════
+
+class KalmanFilterCZI:
     """
-    Jointly estimate receiver clock (c*dt_r), ZTD, and optionally ISB
-    from per-satellite raw residuals using weighted least squares.
+    Kalman filter for receiver clock, ZTD, and ISB.
 
-    Observation model for each satellite i:
-        raw_residual_i = c*dt_r + mf_h(el_i) * ZTD [+ ISB if Galileo]
+    State:  x = [clock_m, ztd_m, isb_m]   (3 × 1)
 
-    Returns dict or None if insufficient observations.
+    State transition is identity; process noise Q scales with dt.
+    Clock gets enormous Q (re-estimated each epoch). ZTD gets small Q
+    (constrained to evolve slowly). ISB gets tiny Q (nearly constant).
+
+    Measurement model per satellite:
+        y_i = [1, mf_h(el_i), δ_Galileo_i] · x + v_i
+
+    Measurement noise R_ii = R_BASE / sin²(el_i).
+    """
+
+    def __init__(self):
+        self.x = None
+        self.P = None
+        self.t_prev = None
+        self.initialized = False
+
+    def initialize(self, x0, P0, t0):
+        """Set the initial state from a WLS solution."""
+        self.x = np.array(x0, dtype=float)
+        self.P = np.array(P0, dtype=float)
+        self.t_prev = t0
+        self.initialized = True
+
+    def predict(self, t_now):
+        """Time update: add process noise proportional to elapsed time."""
+        dt = abs(t_now - self.t_prev) if self.t_prev is not None else 1.0
+        dt = max(dt, 0.01)
+
+        Q = np.diag([
+            Q_CLOCK_M2_PER_S * dt,
+            Q_ZTD_M2_PER_S   * dt,
+            Q_ISB_M2_PER_S   * dt,
+        ])
+
+        self.P = self.P + Q
+        self.t_prev = t_now
+
+    def update(self, sats, elev_cutoff_deg):
+        """Measurement update. Returns state dict or None."""
+        above = [s for s in sats if s['elevation'] >= elev_cutoff_deg]
+        n_obs = len(above)
+        if n_obs < 2:
+            return None
+
+        y = np.zeros(n_obs)
+        H = np.zeros((n_obs, 3))
+        R = np.zeros((n_obs, n_obs))
+
+        for i, s in enumerate(above):
+            y[i] = s['raw_residual']
+            mf_h = marini(s['elevation'], ah, bh, ch)
+
+            H[i, 0] = 1.0
+            H[i, 1] = mf_h
+            if s['pvn'].startswith('E'):
+                H[i, 2] = 1.0
+
+            sin_el = np.sin(np.radians(s['elevation']))
+            R[i, i] = R_BASE_M2 / (sin_el ** 2)
+
+        # Innovation
+        z = y - H @ self.x
+
+        # Innovation covariance
+        S = H @ self.P @ H.T + R
+
+        # Kalman gain
+        try:
+            K = self.P @ H.T @ np.linalg.inv(S)
+        except np.linalg.LinAlgError:
+            return None
+
+        # State update
+        self.x = self.x + K @ z
+
+        # Covariance update (Joseph form for numerical stability)
+        I_KH = np.eye(3) - K @ H
+        self.P = I_KH @ self.P @ I_KH.T + K @ R @ K.T
+
+        # Ensure symmetry
+        self.P = 0.5 * (self.P + self.P.T)
+
+        return {
+            'rcv_clock_m': self.x[0],
+            'ztd_m':       self.x[1],
+            'isb_m':       self.x[2],
+            'n_obs':       n_obs,
+        }
+
+
+def wls_initial_solution(sats, elev_cutoff_deg):
+    """
+    Compute a WLS solution for Kalman filter initialization.
+    Returns (x0, P0) or (None, None) if insufficient satellites.
     """
     above = [s for s in sats if s['elevation'] >= elev_cutoff_deg]
     n_obs = len(above)
-
-    n_params = 3 if has_galileo else 2
-    if n_obs < n_params + 1:
-        return None
+    if n_obs < 4:
+        return None, None
 
     y = np.zeros(n_obs)
-    A = np.zeros((n_obs, n_params))
+    A = np.zeros((n_obs, 3))
     W = np.zeros(n_obs)
 
     for i, s in enumerate(above):
         y[i] = s['raw_residual']
         mf_h = marini(s['elevation'], ah, bh, ch)
-
-        A[i, 0] = 1.0      # receiver clock
-        A[i, 1] = mf_h     # ZTD
-
-        if has_galileo and s['pvn'].startswith('E'):
-            A[i, 2] = 1.0  # ISB
-
+        A[i, 0] = 1.0
+        A[i, 1] = mf_h
+        if s['pvn'].startswith('E'):
+            A[i, 2] = 1.0
         W[i] = np.sin(np.radians(s['elevation'])) ** 2
 
     Wd = np.diag(W)
     try:
-        x = np.linalg.solve(A.T @ Wd @ A, A.T @ Wd @ y)
-    except np.linalg.LinAlgError:
-        return None
+        ATWA = A.T @ Wd @ A
+        ATWy = A.T @ Wd @ y
+        x0   = np.linalg.solve(ATWA, ATWy)
 
-    return {
-        'rcv_clock_m': x[0],
-        'ztd_m':       x[1],
-        'isb_m':       x[2] if has_galileo else 0.0,
-        'n_obs':       n_obs,
-        'n_params':    n_params,
-    }
+        v = y - A @ x0
+        sigma2 = np.sum(W * v**2) / max(n_obs - 3, 1)
+        P0 = sigma2 * np.linalg.inv(ATWA)
+    except np.linalg.LinAlgError:
+        return None, None
+
+    return x0, P0
 
 
 # ══════════════════════════════════════════════
@@ -265,8 +370,7 @@ def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
 
     ZHD is fixed from Saastamoinen; only ZWD is estimated.
 
-    Returns dict with 'ZHD_m', 'ZWD_m', 'ZTD_m', 'ZTD_sigma_m', 'n_sats'
-    or None if insufficient observations.
+    Returns dict or None if insufficient observations.
     """
     n = len(slant_delays)
     if n < 2:
@@ -280,10 +384,8 @@ def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
     mf_h = marini(elev, ah, bh, ch)
     mf_w = marini(elev, aw, bw, cw)
 
-    # Remove the known hydrostatic contribution
     z_reduced = std - mf_h * zhd_m
 
-    # Single-parameter WLS for ZWD
     H    = mf_w.reshape(-1, 1)
     HtWH = float((H.T @ W @ H)[0, 0])
     HtWz = float((H.T @ W @ z_reduced)[0])
@@ -293,7 +395,6 @@ def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
 
     zwd = HtWz / HtWH
 
-    # Formal uncertainty
     resid     = std - (mf_h * zhd_m + mf_w * zwd)
     sigma2    = np.sum(w * resid**2) / max(n - 1, 1)
     H_full    = np.column_stack([mf_h, mf_w])
@@ -320,7 +421,6 @@ clock = pd.read_csv(clock_file)
 rawx_length = len(rawx)
 total_measurements = len(rawx)
 
-# Compute station geodetic coordinates and a priori ZHD once
 station_lat, station_lon, station_hgt = ecef_to_geodetic(*receiver_ecef)
 station_hgt_km = station_hgt / 1000.0
 zhd_prior = saastamoinen_zhd(surface_pressure, station_lat, station_hgt_km)
@@ -329,6 +429,11 @@ tm = bevis_tm(surface_temperature + 273.15)
 print(f"Station geodetic: lat={station_lat:.6f}°  lon={station_lon:.6f}°  h={station_hgt:.3f} m")
 print(f"A priori ZHD (Saastamoinen): {zhd_prior:.4f} m")
 print(f"Mean atmospheric temperature Tm: {tm:.1f} K")
+print(f"\nKalman filter process noise:")
+print(f"  Clock: {Q_CLOCK_M2_PER_S:.0e} m²/s (unconstrained)")
+print(f"  ZTD:   {Q_ZTD_M2_PER_S:.1e} m²/s ({np.sqrt(Q_ZTD_M2_PER_S)*1e3:.2f} mm/√s)")
+print(f"  ISB:   {Q_ISB_M2_PER_S:.1e} m²/s ({np.sqrt(Q_ISB_M2_PER_S)*1e3:.4f} mm/√s)")
+print(f"  Measurement noise at zenith: {np.sqrt(R_BASE_M2):.2f} m")
 
 # ══════════════════════════════════════════════
 # Pass 1 — compute geometry and raw residuals
@@ -452,14 +557,14 @@ pass1_time = time.time() - start_time
 print(f"Pass 1 completed in {pass1_time:.1f} seconds")
 
 # ══════════════════════════════════════════════
-# Pass 2 — per-epoch joint estimation of
-#           receiver clock, ZTD, and ISB
+# Pass 2 — Kalman-filtered clock + ZTD + ISB
 # ══════════════════════════════════════════════
 
-print("Pass 2: joint least-squares estimation of clock + ZTD [+ ISB]...")
+print("Pass 2: Kalman-filtered estimation of clock + ZTD + ISB...")
 
+kf = KalmanFilterCZI()
 gnss_results_lists = defaultdict(list)
-epoch_summary_list = []  # ← collects one row per epoch for the summary table
+epoch_summary_list = []
 epochs_total = len(epoch_buffer)
 epochs_done  = 0
 skipped_epochs = 0
@@ -470,10 +575,19 @@ for rcvTow, sats in sorted(epoch_buffer.items()):
                      f'({len(sats)} satellites)')
     sys.stdout.flush()
 
-    has_galileo = any(s['pvn'].startswith('E') and s['elevation'] >= ELEV_CUTOFF_DEG
-                      for s in sats)
+    # ── Initialize filter from first valid WLS solution ──────
+    if not kf.initialized:
+        x0, P0 = wls_initial_solution(sats, ELEV_CUTOFF_DEG)
+        if x0 is None:
+            skipped_epochs += 1
+            continue
+        kf.initialize(x0, P0, rcvTow)
 
-    solution = estimate_clock_ztd_isb(sats, ah, bh, ch, ELEV_CUTOFF_DEG, has_galileo)
+    # ── Kalman predict ───────────────────────────────────────
+    kf.predict(rcvTow)
+
+    # ── Kalman update ────────────────────────────────────────
+    solution = kf.update(sats, ELEV_CUTOFF_DEG)
 
     if solution is None:
         skipped_epochs += 1
@@ -541,16 +655,16 @@ for rcvTow, sats in sorted(epoch_buffer.items()):
     if zwd_result is not None:
         pwv_mm = zwd_to_pwv(zwd_result['ZWD_m'], tm)
         epoch_summary_list.append({
-            'rcvTOW':       rcvTow,
-            'ZHD_m':        zwd_result['ZHD_m'],
-            'ZWD_m':        zwd_result['ZWD_m'],
-            'ZTD_m':        zwd_result['ZTD_m'],
-            'ZTD_sigma_m':  zwd_result['ZTD_sigma_m'],
-            'PWV_mm':       pwv_mm,
+            'rcvTOW':         rcvTow,
+            'ZHD_m':          zwd_result['ZHD_m'],
+            'ZWD_m':          zwd_result['ZWD_m'],
+            'ZTD_m':          zwd_result['ZTD_m'],
+            'ZTD_sigma_m':    zwd_result['ZTD_sigma_m'],
+            'PWV_mm':         pwv_mm,
             'rcvClockBias_m': rcv_clock_m,
-            'ISB_m':        isb_m,
-            'n_sats':       zwd_result['n_sats'],
-            'sats_used':    ','.join(epoch_svids),
+            'ISB_m':          isb_m,
+            'n_sats':         zwd_result['n_sats'],
+            'sats_used':      ','.join(epoch_svids),
         })
 
 sys.stdout.write('\n')
@@ -563,7 +677,6 @@ if skipped_epochs:
 total_time = time.time() - start_time
 print(f"\nCompleted in {total_time:.1f} seconds")
 
-# Per-satellite tables
 gnss_results = {}
 for pvn in gnss_results_lists:
     gnss_results[pvn] = pd.DataFrame(gnss_results_lists[pvn])
@@ -571,12 +684,10 @@ for pvn in gnss_results_lists:
 
 print(f"Saved {len(gnss_results)} satellite tables to database.")
 
-# Epoch summary table
 epoch_summary = pd.DataFrame(epoch_summary_list)
 epoch_summary.to_sql('epoch_summary', conn, if_exists='replace', index=False)
 print(f"Saved epoch_summary table ({len(epoch_summary)} epochs) to database.")
 
-# Print summary statistics
 all_tropo = pd.concat(
     [df[['rcvTOW', 'elevation', 'troposphericDelay']]
      for df in gnss_results.values()],

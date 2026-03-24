@@ -10,7 +10,7 @@ from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris
 from calculations.datetime_conversion import datetime_to_gps_tow
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
+from meteorology.tropospheric_products import calculate_precipitable_water_vapor
 
 c = 299792458.0 # Speed of light (m/s)
 

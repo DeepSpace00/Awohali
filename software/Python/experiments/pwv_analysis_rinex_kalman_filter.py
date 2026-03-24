@@ -11,7 +11,7 @@ from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris, load_ephemeris_data
 from calculations.datetime_conversion import datetime_to_gps_tow
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
+from meteorology.old_trop_products import calculate_precipitable_water_vapor
 
 c = 299792458.0  # Speed of light (m/s)
 
@@ -26,33 +26,33 @@ gps_frequency_plan = {
 # ─────────────────────────────────────────────
 _DATA = Path(__file__).parent.parent / "data"
 
-rinex_file   = _DATA / "RINEX_data/ORMD/2025-11-25/ormd3290_excerpt.csv"
-ephemeris    = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
-results_dir  = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new_filter"
+# rinex_file   = _DATA / "RINEX_data/ORMD/2025-11-25/ormd3290_excerpt.csv"
+# ephemeris    = _DATA / "ephemerides/ephemeris_2025-11-25_RINEX.json"
+# results_dir  = _DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new_filter"
 
-# rinex_file   = _DATA / "RINEX_data/ORMD/2025-09-30/ormd2730_GPS_Galileo.csv"
-# ephemeris    = _DATA / "ephemerides/ephemeris_2025-09-30.json"
-# results_dir  = _DATA / "RINEX_data/ORMD/2025-09-30/ormd2730_GPS_Galileo"
+rinex_file   = _DATA / "RINEX_data/ORMD/concat_data_2.csv"
+ephemeris    = _DATA / "ephemerides/ephemeris_2026-02-27_to_03-01_RINEX.json"
+results_dir  = _DATA / "RINEX_data/ORMD/"
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new_filter.db")
+# conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-11-25/RINEX_pwv_test_new_filter_01.db")
 
-# conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/2025-09-30/ormd2730.db")
+conn = sqlite3.connect(_DATA / "RINEX_data/ORMD/concat_data_2.db")
 
 # ─────────────────────────────────────────────
 # Station / met parameters
 # ─────────────────────────────────────────────
-receiver_ecef       = (860376.4154, -5499833.4036, 3102756.9385)  # CORS ORMD
+receiver_ecef       = (860376.4150, -5499833.3840, 3102756.9330)  # CORS ORMD
 surface_temperature = 25.0                   # °C
-surface_pressure    = 846.597166666675       # hPa
+surface_pressure    = 1016.00       # hPa
 
 # ─────────────────────────────────────────────
 # VMF3 mapping coefficients
 # ─────────────────────────────────────────────
-ah, aw = 1.2451128509e-03, 6.0843905260e-04
-bh, bw = 2.7074805444e-03, 1.4082272735e-03
-ch, cw = 5.6279169098e-02, 4.0289703115e-02
+ah, aw = 1.2522948000e-03, 5.2593431452e-04
+bh, bw = 2.7040699128e-03, 1.4051802998e-03
+ch, cw = 5.6429395937e-02, 4.0598017768e-02
 coeffs = (ah, aw, bh, bw, ch, cw)
 
 ELEV_CUTOFF_DEG = 20.0   # degrees — applied AFTER receiver clock estimation
@@ -72,7 +72,7 @@ ephemeris_data = load_ephemeris_data(ephemeris)
 
 Q_CLOCK_M2_PER_S = 1e12        # (m²/s) — essentially white noise each epoch
 Q_ZTD_M2_PER_S   = 2.5e-7      # (m²/s) — (0.5 mm)² / s = 2.5e-7
-Q_ISB_M2_PER_S   = 1e-10       # (m²/s) — (0.01 mm)² / s = 1e-10
+Q_ISB_M2_PER_S   = 1e-9       # (m²/s) — (0.01 mm)² / s = 1e-10
 R_BASE_M2         = 1.0         # (m²)   — measurement noise variance at zenith
 
 

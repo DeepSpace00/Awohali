@@ -10,7 +10,7 @@ from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris
 from calculations.elevation_azimuth import calculate_elevation_azimuth
 
-from software.Python.src.tropospheric_products.precipitable_water_vapor import calculate_precipitable_water_vapor
+from software.Python.src.meteorology.tropospheric_products import calculate_precipitable_water_vapor
 
 print_all_plots = False
 
