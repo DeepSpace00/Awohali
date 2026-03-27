@@ -4,7 +4,7 @@
 /build
 /tools
 /zephyr
-/modules
+modules/*
 
 # CMake build artifacts
 cmake-build-*/
@@ -89,3 +89,7 @@ temp/
 .cproject
 .project
 .settings
+
+# Don't ignore drivers subdir
+!modules/drivers
+!modules/drivers/**
