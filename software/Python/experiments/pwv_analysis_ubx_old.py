@@ -9,15 +9,15 @@ import time
 from calculations import clock_correction, geometric_range
 from ephemerides.ephemeris import load_ephemeris, load_ephemeris_data
 from calculations.elevation_azimuth import calculate_elevation_azimuth
-from meteorology.old_trop_products import calculate_precipitable_water_vapor
 
 c = 299792458.0  # Speed of light (m/s)
 
 # ─────────────────────────────────────────────
 # File / database paths
 # ─────────────────────────────────────────────
-_DATA = Path(__file__).parent.parent / "data"
 _DATA_data = Path("/mnt/NAS/Documents/Awohali/data")
+
+_DATA = Path(__file__).parent.parent / "data"
 
 rawx_file   = _DATA_data / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_RXM_RAWX.csv"
 clock_file  = _DATA_data / "ubx_data/2025-11-25/2025-11-25_93138_serial-COM3_NAV_CLOCK.csv"
@@ -27,7 +27,7 @@ results_dir = _DATA_data / "ubx_data/2025-11-25/2025-11-25_serial-COM3_pwv_testi
 
 results_dir.mkdir(parents=True, exist_ok=True)
 
-conn = sqlite3.connect(_DATA / "2025-11-25_serial-COM3_pwv_testing_fast.db")
+conn = sqlite3.connect(_DATA / "test_raw.db")
 
 # ─────────────────────────────────────────────
 # Station / met parameters
@@ -101,6 +101,11 @@ def parse_ubx_signals(satellite_data, constellation, signal_plan):
     """
     sigIDs = satellite_data['sigId'].unique()
 
+    pr_low = 0
+    pr_high = 0
+    cp_low = 0
+    cp_high = 0
+
     if len(sigIDs) > 1:
         freq_sig_pairs = []
         for sig in sigIDs:
@@ -128,7 +133,7 @@ def parse_ubx_signals(satellite_data, constellation, signal_plan):
         carrier_phase = float(satellite_data.iloc[0]['cpMes'])
         freq_label = signal_plan[constellation][sigIDs[0]]['service']
 
-    return pseudorange_m, carrier_phase, freq_label
+    return pseudorange_m, carrier_phase, freq_label, pr_low, pr_high, cp_low, cp_high
 
 
 def correct_rcvtow(rcvTow_s, clkBias_ns):
@@ -153,54 +158,6 @@ def marini(elevation_deg, a, b, c_coeff):
     num = 1.0 + a / (1.0 + b / (1.0 + c_coeff))
     den = sin_el + a / (sin_el + b / (sin_el + c_coeff))
     return num / den
-
-
-def estimate_clock_ztd_isb(sats, ah, bh, ch, elev_cutoff_deg, has_galileo):
-    """
-    Jointly estimate receiver clock (c*dt_r), ZTD, and optionally ISB
-    from per-satellite raw residuals using weighted least squares.
-
-    Observation model for each satellite i:
-        raw_residual_i = c*dt_r + mf_h(el_i) * ZTD [+ ISB if Galileo]
-
-    Returns dict or None if insufficient observations.
-    """
-    above = [s for s in sats if s['elevation'] >= elev_cutoff_deg]
-    n_obs = len(above)
-
-    n_params = 3 if has_galileo else 2
-    if n_obs < n_params + 1:
-        return None
-
-    y = np.zeros(n_obs)
-    A = np.zeros((n_obs, n_params))
-    W = np.zeros(n_obs)
-
-    for i, s in enumerate(above):
-        y[i] = s['raw_residual']
-        mf_h = marini(s['elevation'], ah, bh, ch)
-
-        A[i, 0] = 1.0      # receiver clock
-        A[i, 1] = mf_h     # ZTD
-
-        if has_galileo and s['pvn'].startswith('E'):
-            A[i, 2] = 1.0  # ISB
-
-        W[i] = np.sin(np.radians(s['elevation'])) ** 2
-
-    Wd = np.diag(W)
-    try:
-        x = np.linalg.solve(A.T @ Wd @ A, A.T @ Wd @ y)
-    except np.linalg.LinAlgError:
-        return None
-
-    return {
-        'rcv_clock_m': x[0],
-        'ztd_m':       x[1],
-        'isb_m':       x[2] if has_galileo else 0.0,
-        'n_obs':       n_obs,
-        'n_params':    n_params,
-    }
 
 
 # ══════════════════════════════════════════════
@@ -247,72 +204,6 @@ def bevis_tm(surface_temp_k):
     return 70.2 + 0.72 * surface_temp_k
 
 
-def zwd_to_pwv(zwd_m, tm_k):
-    """Convert ZWD (metres) to PWV (mm)."""
-    k2p = 22.1        # K/hPa
-    k3  = 3.739e5     # K²/hPa
-    rho = 1000.0      # kg/m³
-    rv  = 461.51      # J/(kg·K)
-    Pi  = 1e-6 * rho * rv * (k2p * 100.0 / tm_k + k3 * 100.0 / tm_k**2)
-    return (zwd_m / Pi) * 1000.0   # → mm
-
-
-def estimate_zwd_epoch(slant_delays, elevations, zhd_m):
-    """
-    Estimate ZWD for one epoch from per-satellite slant tropospheric delays
-    using WLS with Saastamoinen ZHD as a priori constraint.
-
-    Model:  T_slant_i = mf_h(el_i) * ZHD + mf_w(el_i) * ZWD
-
-    ZHD is fixed from Saastamoinen; only ZWD is estimated.
-
-    Returns dict with 'ZHD_m', 'ZWD_m', 'ZTD_m', 'ZTD_sigma_m', 'n_sats'
-    or None if insufficient observations.
-    """
-    n = len(slant_delays)
-    if n < 2:
-        return None
-
-    elev = np.asarray(elevations)
-    std  = np.asarray(slant_delays)
-    w    = np.sin(np.radians(elev)) ** 2
-    W    = np.diag(w)
-
-    mf_h = marini(elev, ah, bh, ch)
-    mf_w = marini(elev, aw, bw, cw)
-
-    # Remove the known hydrostatic contribution
-    z_reduced = std - mf_h * zhd_m
-
-    # Single-parameter WLS for ZWD
-    H    = mf_w.reshape(-1, 1)
-    HtWH = float((H.T @ W @ H)[0, 0])
-    HtWz = float((H.T @ W @ z_reduced)[0])
-
-    if abs(HtWH) < 1e-20:
-        return None
-
-    zwd = HtWz / HtWH
-
-    # Formal uncertainty
-    resid     = std - (mf_h * zhd_m + mf_w * zwd)
-    sigma2    = np.sum(w * resid**2) / max(n - 1, 1)
-    H_full    = np.column_stack([mf_h, mf_w])
-    try:
-        cov_x     = sigma2 * np.linalg.inv(H_full.T @ W @ H_full)
-        ztd_sigma = float(np.sqrt(np.array([1., 1.]) @ cov_x @ np.array([1., 1.])))
-    except np.linalg.LinAlgError:
-        ztd_sigma = np.nan
-
-    return {
-        'ZHD_m':       zhd_m,
-        'ZWD_m':       zwd,
-        'ZTD_m':       zhd_m + zwd,
-        'ZTD_sigma_m': ztd_sigma,
-        'n_sats':      n,
-    }
-
-
 # ══════════════════════════════════════════════
 # Load data
 # ══════════════════════════════════════════════
@@ -331,14 +222,10 @@ print(f"Station geodetic: lat={station_lat:.6f}°  lon={station_lon:.6f}°  h={s
 print(f"A priori ZHD (Saastamoinen): {zhd_prior:.4f} m")
 print(f"Mean atmospheric temperature Tm: {tm:.1f} K")
 
-# ══════════════════════════════════════════════
-# Pass 1 — compute geometry and raw residuals
-# ══════════════════════════════════════════════
-
-print("\nPass 1: computing satellite geometry and raw residuals...")
 start_time = time.time()
 
 epoch_buffer = defaultdict(list)
+
 i = 0
 
 while True:
@@ -352,7 +239,7 @@ while True:
     else:
         eta_str = "calculating..."
     bar = '█' * int(40 * progress) + '-' * (40 - int(40 * progress))
-    sys.stdout.write(f'\r  |{bar}| {progress * 100:.1f}% ({i + 1}/{total_measurements}) ETA: {eta_str}')
+    sys.stdout.write(f'\r|{bar}| {progress * 100:.1f}% ({i + 1}/{total_measurements}) ETA: {eta_str}')
     sys.stdout.flush()
 
     numMeas = rawx.iloc[i]['numMeas']
@@ -375,12 +262,14 @@ while True:
     rcv_clkBias_nav_s = dt_iTow_s + dt_bias_s
     gpsTow_s     = rcvTow_sat_s - rcv_clkBias_nav_s
 
-    gnssIDs = epoch_data['gnssId'].unique()
+    rcv_clock_m = rcv_clkBias_nav_s * c
 
+    gnssIDs = epoch_data['gnssId'].unique()
     for constellation in gnssIDs:
+
         epoch_constellation_data = epoch_data[epoch_data['gnssId'] == constellation]
         svIDs = epoch_constellation_data['svId'].unique()
-
+        sat_buffer = []
         for satellite in svIDs:
             if constellation == 0:
                 pvn = f'G{satellite:02d}'
@@ -391,7 +280,7 @@ while True:
 
             satellite_data = epoch_constellation_data[epoch_constellation_data['svId'] == satellite]
 
-            pseudorange_m, carrier_phase, freq_label = parse_ubx_signals(
+            pseudorange_m, carrier_phase, freq_label, pr_low, pr_high, cp_low, cp_high = parse_ubx_signals(
                 satellite_data, constellation, signal_plan)
             if pseudorange_m is None:
                 continue
@@ -419,11 +308,11 @@ while True:
             dt_sv_s  = clock_correction.calculate_satellite_clock_offset(sat, t_tx_s)
             dt_rel_s = clock_correction.calculate_relativistic_clock_correction(sat, t_tx_s)
 
-            raw_residual = pseudorange_m - geo_range_m + (dt_sv_s + dt_rel_s) * c
+            raw_residual = pseudorange_m - geo_range_m + (dt_sv_s + dt_rel_s) * c - rcv_clock_m
 
             elevation_deg, azimuth_deg = calculate_elevation_azimuth(sat_ecef, receiver_ecef)
 
-            epoch_buffer[rcvTow_s].append({
+            sat_buffer.append({
                 'pvn':            pvn,
                 'rcvTOW':         rcvTow_s,
                 'gpsTOW':         gpsTow_s,
@@ -438,126 +327,25 @@ while True:
                 'azimuth':        azimuth_deg,
                 'satClockBias':   dt_sv_s * c,
                 'relBias':        dt_rel_s * c,
-                'pseudorange':    pseudorange_m,
-                'carrierPhase':   carrier_phase,
+                'pseudorange_combined':    pseudorange_m,
+                'pseudorange_L1': pr_low,
+                'pseudorange_L5': pr_high,
+                'carrierPhase_combined':   carrier_phase,
+                'carrierPhase_L1': cp_low,
+                'carrierPhase_L5': cp_high,
                 'freqLabel':      freq_label,
                 'raw_residual':   raw_residual,
+                'rcv_clock_m':      rcv_clock_m
             })
+
+        for entry in sat_buffer:
+            epoch_buffer[entry['pvn']].append(entry)
 
     i += numMeas
     if i >= rawx_length:
         break
 
 sys.stdout.write('\n')
-pass1_time = time.time() - start_time
-print(f"Pass 1 completed in {pass1_time:.1f} seconds")
-
-# ══════════════════════════════════════════════
-# Pass 2 — per-epoch joint estimation of
-#           receiver clock, ZTD, and ISB
-# ══════════════════════════════════════════════
-
-print("Pass 2: joint least-squares estimation of clock + ZTD [+ ISB]...")
-
-gnss_results_lists = defaultdict(list)
-epoch_summary_list = []  # ← collects one row per epoch for the summary table
-epochs_total = len(epoch_buffer)
-epochs_done  = 0
-skipped_epochs = 0
-
-for rcvTow, sats in sorted(epoch_buffer.items()):
-    epochs_done += 1
-    sys.stdout.write(f'\r  Epoch {epochs_done}/{epochs_total}  '
-                     f'({len(sats)} satellites)')
-    sys.stdout.flush()
-
-    has_galileo = any(s['pvn'].startswith('E') and s['elevation'] >= ELEV_CUTOFF_DEG
-                      for s in sats)
-
-    solution = estimate_clock_ztd_isb(sats, ah, bh, ch, ELEV_CUTOFF_DEG, has_galileo)
-
-    if solution is None:
-        skipped_epochs += 1
-        continue
-
-    rcv_clock_m = solution['rcv_clock_m']
-    ztd_m       = solution['ztd_m']
-    isb_m       = solution['isb_m']
-
-    # ── Per-satellite slant tropospheric delay ────────────────
-    above = [s for s in sats if s['elevation'] >= ELEV_CUTOFF_DEG]
-    epoch_slant_delays = []
-    epoch_elevations   = []
-    epoch_svids        = []
-
-    for s in above:
-        clock_to_remove = rcv_clock_m
-        if s['pvn'].startswith('E'):
-            clock_to_remove += isb_m
-
-        tropospheric_delay_m = s['raw_residual'] - clock_to_remove
-
-        pwv, ztd = calculate_precipitable_water_vapor(
-            receiver_ecef,
-            s['elevation'],
-            tropospheric_delay_m,
-            surface_temperature,
-            surface_pressure,
-            coeffs
-        )
-
-        epoch_slant_delays.append(tropospheric_delay_m)
-        epoch_elevations.append(s['elevation'])
-        epoch_svids.append(s['pvn'])
-
-        gnss_results_lists[s['pvn']].append({
-            'svId':              s['pvn'],
-            'iTOW':              s['iTOW'],
-            'gpsTOW':            s['gpsTOW'],
-            'rcvTOW':            s['rcvTOW'],
-            'rcvTOW_sat':        s['rcvTOW_sat'],
-            'clkBias_ns':        s['clkBias_ns'],
-            'clkDrift_ns':       s['clkDrift_ns'],
-            't_tx':              s['t_tx'],
-            'WN':                s['gpsWeek'],
-            'geoRange':          s['geoRange'],
-            'elevation':         s['elevation'],
-            'azimuth':           s['azimuth'],
-            'satClockBias':      s['satClockBias'],
-            'relBias':           s['relBias'],
-            'rcvClockBias_m':    rcv_clock_m,
-            'ztd_est_m':         ztd_m,
-            'ISB_m':             isb_m,
-            'pseudorange':       s['pseudorange'],
-            'carrierPhase':      s['carrierPhase'],
-            'freqLabel':         s['freqLabel'],
-            'troposphericDelay': tropospheric_delay_m,
-            'pwv':               pwv * 1000.0,
-            'ztd':               ztd * 1000.0,
-            'raw_residual':      s['raw_residual']
-        })
-
-    # ── Epoch-level ZWD / PWV estimate ────────────────────────
-    zwd_result = estimate_zwd_epoch(epoch_slant_delays, epoch_elevations, zhd_prior)
-
-    if zwd_result is not None:
-        pwv_mm = zwd_to_pwv(zwd_result['ZWD_m'], tm)
-        epoch_summary_list.append({
-            'rcvTOW':       rcvTow,
-            'ZHD_m':        zwd_result['ZHD_m'],
-            'ZWD_m':        zwd_result['ZWD_m'],
-            'ZTD_m':        zwd_result['ZTD_m'],
-            'ZTD_sigma_m':  zwd_result['ZTD_sigma_m'],
-            'PWV_mm':       pwv_mm,
-            'rcvClockBias_m': rcv_clock_m,
-            'ISB_m':        isb_m,
-            'n_sats':       zwd_result['n_sats'],
-            'sats_used':    ','.join(epoch_svids),
-        })
-
-sys.stdout.write('\n')
-if skipped_epochs:
-    print(f"  Skipped {skipped_epochs} epochs with insufficient satellites above {ELEV_CUTOFF_DEG}°")
 
 # ══════════════════════════════════════════════
 # Save to SQLite and print summary
@@ -567,40 +355,8 @@ print(f"\nCompleted in {total_time:.1f} seconds")
 
 # Per-satellite tables
 gnss_results = {}
-for pvn in gnss_results_lists:
-    gnss_results[pvn] = pd.DataFrame(gnss_results_lists[pvn])
+for pvn in epoch_buffer:
+    gnss_results[pvn] = pd.DataFrame(epoch_buffer[pvn])
     gnss_results[pvn].to_sql(pvn, conn, if_exists='replace', index=False)
 
 print(f"Saved {len(gnss_results)} satellite tables to database.")
-
-# Epoch summary table
-epoch_summary = pd.DataFrame(epoch_summary_list)
-epoch_summary.to_sql('epoch_summary', conn, if_exists='replace', index=False)
-print(f"Saved epoch_summary table ({len(epoch_summary)} epochs) to database.")
-
-# Print summary statistics
-all_tropo = pd.concat(
-    [df[['rcvTOW', 'elevation', 'troposphericDelay']]
-     for df in gnss_results.values()],
-    ignore_index=True
-)
-print(f"\nTropospheric delay summary (all satellites ≥{ELEV_CUTOFF_DEG}°):")
-print(f"  mean  = {all_tropo['troposphericDelay'].mean():.3f} m")
-print(f"  std   = {all_tropo['troposphericDelay'].std():.3f} m")
-print(f"  min   = {all_tropo['troposphericDelay'].min():.3f} m")
-print(f"  max   = {all_tropo['troposphericDelay'].max():.3f} m")
-print(f"  (expected: ~2–12 m slant delay for 10–90° elevation)")
-
-if len(epoch_summary) > 0:
-    valid = epoch_summary.dropna(subset=['ZTD_m'])
-    print(f"\nEpoch summary (Saastamoinen-constrained ZWD):")
-    print(f"  Valid epochs: {len(valid)} / {len(epoch_summary)}")
-    print(f"  ZHD (fixed):  {zhd_prior*1000:.1f} mm")
-    print(f"  ZWD mean:     {valid['ZWD_m'].mean()*1000:.1f} mm")
-    print(f"  ZWD std:      {valid['ZWD_m'].std()*1000:.1f} mm")
-    print(f"  ZTD mean:     {valid['ZTD_m'].mean()*1000:.1f} mm")
-    print(f"  ZTD range:    {valid['ZTD_m'].min()*1000:.1f} – {valid['ZTD_m'].max()*1000:.1f} mm")
-    if valid['PWV_mm'].notna().any():
-        print(f"  PWV mean:     {valid['PWV_mm'].mean():.2f} mm")
-        print(f"  PWV std:      {valid['PWV_mm'].std():.2f} mm")
-        print(f"  PWV range:    {valid['PWV_mm'].min():.2f} – {valid['PWV_mm'].max():.2f} mm")
