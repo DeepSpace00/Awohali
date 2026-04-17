@@ -1,6 +1,6 @@
 # ᎠᏬᎭᎵ (Awohali)
 
-Pronounced (A-wo-ha-li)
+Pronounced (A-wo-ha-lee)
 
 An open source hardware GNSS receiver station for measuring tropospheric precipitable water vapor.
 
