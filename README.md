@@ -2,6 +2,8 @@
 
 Pronounced (Ah-wo-ha-lee)
 
+This project is archived. Current development has migrated to [Codeberg](https://codeberg.org/Fiducial-Systems/Awohali)
+
 An open source hardware GNSS receiver station for measuring tropospheric precipitable water vapor.
 
 A master's thesis project within Embry-Riddle Aeronautical University's Physical Science Department.
